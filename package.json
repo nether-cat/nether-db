@@ -1,0 +1,31 @@
+{
+  "name": "lscs-database",
+  "version": "1.0.0",
+  "description": "A database service for lake sediment core samples",
+  "contributors": [
+    {
+      "name": "Mario Dorn",
+      "email": "mario.dorn@forgefire.net"
+    },
+    {
+      "name": "Alexander Brauser",
+      "email": "alex.brauser@fu-berlin.de"
+    }
+  ],
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.10.3",
+    "sequelize-cli": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.39",
+    "@types/sequelize": "^4.0.75"
+  }
+}
