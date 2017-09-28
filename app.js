@@ -1,8 +1,14 @@
+'use strict';
+
 const Koa = require('koa');
 const app = new Koa();
 const db = require('./models');
+const repl = require('repl');
 
-db.sequelize.sync({force: true});
+db.sequelize.sync({force: true})
+  .then(() => {
+    repl.start('REPL> ').context.database = db;
+  });
 
 // x-response-time
 

@@ -1,13 +1,14 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Climate', {
-    koeppen_geiger_class: {type: DataTypes.STRING(3), primaryKey: true},
+  const Climate = sequelize.define('climate', {
+    class_id: {type: DataTypes.STRING(3), primaryKey: true, comment: 'Class based on the Köppen climate scheme'},
     description: DataTypes.TEXT,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    underscored: true,
   });
+  Climate.associate = function(models) {
+    Climate.hasMany(models['lake']);
+  };
+  return Climate;
 };

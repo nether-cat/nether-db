@@ -1,6 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Lake', {
+  const Lake = sequelize.define('lake', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
     name: DataTypes.STRING,
     latitude: DataTypes.DECIMAL(8, 6),
@@ -9,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     max_depth: DataTypes.DECIMAL,
     surface_area: DataTypes.DECIMAL,
     conductivity_category: DataTypes.STRING,
-    climate_class: DataTypes.STRING(3),
-    country_code: DataTypes.STRING(2),
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    underscored: true,
   });
+  Lake.associate = function(models) {
+    Lake.belongsTo(models['climate']);
+    Lake.belongsTo(models['country']);
+    Lake.hasMany(models['core']);
+  };
+  return Lake;
 };

@@ -1,14 +1,15 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Country', {
-    code: {type: DataTypes.STRING(2), primaryKey: true},
+  const Country = sequelize.define('country', {
+    code: {type: DataTypes.STRING(2), primaryKey: true, comment: 'Country code based on ISO 3166-1 alpha-2'},
     name: DataTypes.STRING,
     continent: DataTypes.STRING, // TODO: Swap out to separate table
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    underscored: true,
   });
+  Country.associate = function(models) {
+    Country.hasMany(models['lake']);
+  };
+  return Country;
 };

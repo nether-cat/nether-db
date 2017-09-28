@@ -193,8 +193,8 @@ ALTER TABLE public.depth_age_model
 -------------------------------------------------------------------
 CREATE TABLE public.method
 (
-  label text, 
-  category text, 
+  label text,
+  category text,
   description text,
   CONSTRAINT pk_method PRIMARY KEY (label)
 )
@@ -229,14 +229,14 @@ CREATE SEQUENCE record_id_seq;
 
 CREATE TABLE public.record
 (
-    id integer NOT NULL DEFAULT nextval('record_id_seq'::regclass), 
-    core_id integer,  
-    date timestamp without time zone NOT NULL DEFAULT now(), 
-    data_type integer, 
-    data_description text, 
+    id integer NOT NULL DEFAULT nextval('record_id_seq'::regclass),
+    core_id integer,
+    date timestamp without time zone NOT NULL DEFAULT now(),
+    data_type integer,
+    data_description text,
     publication_id integer,
-    publish_data boolean, 
-    method_label text, 
+    publish_data boolean,
+    method_label text,
     measuring_error numeric,
     CONSTRAINT pk_record PRIMARY KEY (id),
     CONSTRAINT fk_core_id FOREIGN KEY (core_id)
@@ -245,7 +245,7 @@ CREATE TABLE public.record
     CONSTRAINT fk_method_label FOREIGN KEY (method_label)
         REFERENCES public.method (label) MATCH FULL
         ON UPDATE NO ACTION ON DELETE NO ACTION
-)    
+)
 WITH (
   OIDS=FALSE
 );
@@ -262,7 +262,7 @@ CREATE TABLE public.produces
         ON UPDATE CASCADE ON DELETE NO ACTION,
     CONSTRAINT fk_associate_username FOREIGN KEY (associate_username)
         REFERENCES public.associate (username) MATCH FULL
-        ON UPDATE NO ACTION ON DELETE NO ACTION   
+        ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
@@ -270,21 +270,21 @@ WITH (
 ALTER TABLE public.produces
   OWNER TO abrauser;
 
--------------------------------------------------------------------  
-CREATE TABLE organics 
+-------------------------------------------------------------------
+CREATE TABLE organics
 (
-  record_id integer NOT NULL, 
-  depth numeric NOT NULL, 
-  nitrogen_tn numeric, 
-  total_carbon_tc numeric, 
-  total_organic_carbon_toc numeric, 
-  total_inorganic_carbon_tic numeric, 
-  toc_tn_atomic_ratio numeric, 
-  d13c_o_oo_vs numeric, 
+  record_id integer NOT NULL,
+  depth numeric NOT NULL,
+  nitrogen_tn numeric,
+  total_carbon_tc numeric,
+  total_organic_carbon_toc numeric,
+  total_inorganic_carbon_tic numeric,
+  toc_tn_atomic_ratio numeric,
+  d13c_o_oo_vs numeric,
   CONSTRAINT pk_organics PRIMARY KEY (record_id, depth),
   CONSTRAINT fk_record_id FOREIGN KEY (record_id)
       REFERENCES public.record (id) MATCH FULL
-      ON UPDATE NO ACTION ON DELETE CASCADE  
+      ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -293,8 +293,8 @@ ALTER TABLE public.organics
   OWNER TO abrauser;
 
 
--------------------------------------------------------------------  
---#--#--#--#--#--#--#- UNDER CONSTRUCTION --#--#--#--#--#--#--#--#--# 
+-------------------------------------------------------------------
+--#--#--#--#--#--#--#- UNDER CONSTRUCTION --#--#--#--#--#--#--#--#--#
 --#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#
 
 --CREATE TABLE pollen {[ ……….]}
@@ -305,10 +305,10 @@ ALTER TABLE public.organics
 
 --CREATE TABLE diatoms
 --(
-  --record_id, 
-  --depth, 
+  --record_id,
+  --depth,
   --diatom_type_1,
-  --…, 
+  --…,
   --diatom_type_n
 --)
 
@@ -319,29 +319,29 @@ ALTER TABLE public.organics
 --CREATE TABLE diatom_type
 --(
   --name,
-  -- alternative_name1, 
+  -- alternative_name1,
   --diatom_type_1,
-  --…, 
+  --…,
   --diatom_type_n
 --)
 
 --#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#
 --#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#--#
--------------------------------------------------------------------  
+-------------------------------------------------------------------
 CREATE TABLE diatom_statistics
 (
-  record_id integer NOT NULL, 
-  depth numeric, 
-  diatom_valve_concentration numeric, 
-  diatom_acc_rate numeric, 
-  diatom_chrysophyte_cysts_ratio numeric, 
-  f_index numeric, 
-  hills_n2_diversity_index numeric, 
-  sedimentation_rate numeric, 
+  record_id integer NOT NULL,
+  depth numeric,
+  diatom_valve_concentration numeric,
+  diatom_acc_rate numeric,
+  diatom_chrysophyte_cysts_ratio numeric,
+  f_index numeric,
+  hills_n2_diversity_index numeric,
+  sedimentation_rate numeric,
   CONSTRAINT pk_diatom_statistics PRIMARY KEY (record_id, depth),
   CONSTRAINT fk_record_id FOREIGN KEY (record_id)
       REFERENCES public.record (id) MATCH FULL
-      ON UPDATE NO ACTION ON DELETE CASCADE   
+      ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -349,7 +349,7 @@ WITH (
 ALTER TABLE public.diatom_statistics
   OWNER TO abrauser;
 
--------------------------------------------------------------------  
+-------------------------------------------------------------------
 CREATE TABLE public.varves
 (
   record_id integer NOT NULL,
@@ -374,21 +374,21 @@ WITH (
 ALTER TABLE public.varves
   OWNER TO abrauser;
 
--------------------------------------------------------------------  
-CREATE TABLE alkanes 
+-------------------------------------------------------------------
+CREATE TABLE alkanes
 (
-  record_id integer NOT NULL, 
-  depth numeric NOT NULL, 
-  sample_id smallint NOT NULL, 
-  c23 numeric, 
-  c25 numeric, 
-  c237 numeric, 
-  c29 numeric, 
+  record_id integer NOT NULL,
+  depth numeric NOT NULL,
+  sample_id smallint NOT NULL,
+  c23 numeric,
+  c25 numeric,
+  c237 numeric,
+  c29 numeric,
   c31 numeric,
   CONSTRAINT pk_alkanes PRIMARY KEY (record_id, depth),
    CONSTRAINT fk_record_id FOREIGN KEY (record_id)
       REFERENCES public.record (id) MATCH FULL
-     ON UPDATE NO ACTION ON DELETE CASCADE   
+     ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -398,19 +398,19 @@ ALTER TABLE public.alkanes
 
 ------------------------------------------------------------------
 CREATE TABLE tephra_layer
-( 
-record_id integer NOT NULL, 
-depth_mean numeric NOT NULL, 
-depth_top numeric, 
-depth_bottom numeric, 
-label varchar(20), 
-thickness numeric, 
-global_label varchar (20), 
-comment text, 
+(
+record_id integer NOT NULL,
+depth_mean numeric NOT NULL,
+depth_top numeric,
+depth_bottom numeric,
+label varchar(20),
+thickness numeric,
+global_label varchar (20),
+comment text,
 CONSTRAINT pk_tephra_layer PRIMARY KEY (record_id, depth_mean),
   CONSTRAINT fk_record_id FOREIGN KEY (record_id)
     REFERENCES public.record (id) MATCH FULL
-    ON UPDATE NO ACTION ON DELETE CASCADE   
+    ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -419,20 +419,20 @@ ALTER TABLE public.tephra_layer
   OWNER TO abrauser;
 
 ------------------------------------------------------------------
-CREATE TABLE isotopes 
+CREATE TABLE isotopes
 (
-  record_id integer NOT NULL, 
-  depth numeric NOT NULL, 
-  c23_dd numeric, 
-  c23dd_std_dev numeric,  
-  c29_dd numeric, 
-  c29dd_std_dev numeric, 
+  record_id integer NOT NULL,
+  depth numeric NOT NULL,
+  c23_dd numeric,
+  c23dd_std_dev numeric,
+  c29_dd numeric,
+  c29dd_std_dev numeric,
   c31_dd numeric,
   c31dd_std_dev numeric,
   CONSTRAINT pk_isotopes PRIMARY KEY (record_id, depth),
     CONSTRAINT fk_record_id FOREIGN KEY (record_id)
      REFERENCES public.record (id) MATCH FULL
-     ON UPDATE NO ACTION ON DELETE CASCADE   
+     ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -441,27 +441,27 @@ ALTER TABLE public.isotopes
   OWNER TO abrauser;
 
 ------------------------------------------------------------------
-CREATE TABLE xrf 
+CREATE TABLE xrf
 (
-  record_id integer NOT NULL, 
-  depth numeric NOT NULL, 
-  cu_area numeric, 
-  zn_area numeric, 
-  ga_area numeric, 
-  br_area numeric, 
-  rb_area numeric, 
-  sr_area numeric, 
-  y_area numeric, 
-  zr_area numeric, 
-  pb_area numeric, 
-  bi_area numeric, 
-  zr_rb numeric, 
-  zr_sr numeric, 
-  sr_rb numeric, 
+  record_id integer NOT NULL,
+  depth numeric NOT NULL,
+  cu_area numeric,
+  zn_area numeric,
+  ga_area numeric,
+  br_area numeric,
+  rb_area numeric,
+  sr_area numeric,
+  y_area numeric,
+  zr_area numeric,
+  pb_area numeric,
+  bi_area numeric,
+  zr_rb numeric,
+  zr_sr numeric,
+  sr_rb numeric,
   CONSTRAINT pk_xrf PRIMARY KEY (record_id, depth),
     CONSTRAINT fk_record_id FOREIGN KEY (record_id)
      REFERENCES public.record (id) MATCH FULL
-     ON UPDATE NO ACTION ON DELETE CASCADE     
+     ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -470,22 +470,22 @@ ALTER TABLE public.xrf
   OWNER TO abrauser;
 
 ------------------------------------------------------------------
-CREATE TABLE xrd 
+CREATE TABLE xrd
 (
   record_id integer NOT NULL,
-  depth numeric, 
-  total_intensity numeric, 
-  pyrite_ti numeric, 
-  quarz_ti numeric, 
-  plagioclase_ti numeric, 
-  k_feldspar_ti numeric, 
-  mica_ti numeric, 
-  kaolinite_plus_chlorite_ti numeric, 
+  depth numeric,
+  total_intensity numeric,
+  pyrite_ti numeric,
+  quarz_ti numeric,
+  plagioclase_ti numeric,
+  k_feldspar_ti numeric,
+  mica_ti numeric,
+  kaolinite_plus_chlorite_ti numeric,
   hornblende_ti numeric,
   CONSTRAINT pk_xrd PRIMARY KEY (record_id, depth),
     CONSTRAINT fk_record_id FOREIGN KEY (record_id)
      REFERENCES public.record (id) MATCH FULL
-     ON UPDATE NO ACTION ON DELETE CASCADE 
+     ON UPDATE NO ACTION ON DELETE CASCADE
 )
 WITH (
   OIDS=FALSE
@@ -496,11 +496,11 @@ ALTER TABLE public.xrd
 ------------------------------------------------------------------
 CREATE TABLE tephra_layer_global
 (
-  tephra_label varchar(20), 
-  alternative_spelling1 varchar(20), 
-  alternative_spelling2 varchar(20), 
-  mean_age numeric, 
-  min_age numeric, 
+  tephra_label varchar(20),
+  alternative_spelling1 varchar(20),
+  alternative_spelling2 varchar(20),
+  mean_age numeric,
+  min_age numeric,
   max_age numeric,
   CONSTRAINT pk_tephra_layer_global PRIMARY KEY (tephra_label)
 )

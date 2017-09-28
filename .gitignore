@@ -1,3 +1,4 @@
 /.idea/
-/cordat-service.iml
+/config/config.json
+/lscs-database.iml
 /node_modules/

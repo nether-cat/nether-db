@@ -1,8 +1,8 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Core', {
+  const Core = sequelize.define('core', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-    lake_id: DataTypes.INTEGER,
     label: DataTypes.STRING,
     latitude: DataTypes.DECIMAL(8, 6),
     longitude: DataTypes.DECIMAL(9, 6),
@@ -13,10 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     core_length: DataTypes.DECIMAL, // TODO: Compute this value
     drill_date: DataTypes.DATEONLY,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    underscored: true,
   });
+  Core.associate = function(models) {
+    Core.belongsTo(models['lake']);
+    Core.hasMany(models['record']);
+  };
+  return Core;
 };
