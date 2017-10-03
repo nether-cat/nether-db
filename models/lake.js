@@ -2,7 +2,6 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Lake = sequelize.define('lake', {
-    id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
     name: DataTypes.STRING,
     latitude: DataTypes.DECIMAL(8, 6),
     longitude: DataTypes.DECIMAL(9, 6),
@@ -14,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   Lake.associate = function(models) {
-    Lake.belongsTo(models['climate']);
+    Lake.belongsTo(models['user'], {foreignKey: 'created_by'});
     Lake.belongsTo(models['country']);
     Lake.hasMany(models['core']);
   };

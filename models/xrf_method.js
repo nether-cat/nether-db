@@ -2,14 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrfMethod = sequelize.define('xrf_method', {
-    record_id: DataTypes.INTEGER,
     method_label: DataTypes.STRING,
-    description: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
   }, {
     underscored: true,
   });
   XrfMethod.associate = function(models) {
-    // associations can be defined here
+    XrfMethod.hasMany(models['xrf_record']);
   };
   return XrfMethod;
 };

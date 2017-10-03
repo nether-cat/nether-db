@@ -2,10 +2,8 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Record = sequelize.define('record', {
-    id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-    type_id: DataTypes.INTEGER,
-    method_id: DataTypes.INTEGER,
-    publication_id: DataTypes.INTEGER,
+    label: DataTypes.STRING,
+    record_type: DataTypes.STRING,
     analysis_date: DataTypes.DATEONLY,
     data_description: DataTypes.TEXT,
     meta_information: DataTypes.TEXT,
@@ -14,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   Record.associate = function(models) {
+    Record.belongsTo(models['user'], {foreignKey: 'created_by'});
     Record.belongsTo(models['core']);
+    Record.belongsTo(models['publication']);
   };
   return Record;
 };

@@ -2,14 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
   const IsotopesMethod = sequelize.define('isotopes_method', {
-    record_id: DataTypes.INTEGER,
     method_label: DataTypes.STRING,
-    description: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
   }, {
     underscored: true,
   });
   IsotopesMethod.associate = function(models) {
-    // associations can be defined here
+    IsotopesMethod.hasMany(models['isotopes_record']);
   };
   return IsotopesMethod;
 };

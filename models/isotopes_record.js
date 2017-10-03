@@ -2,9 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const IsotopesRecord = sequelize.define('isotopes_record', {
-    record_id: DataTypes.INTEGER,
-    method_iso_id: DataTypes.INTEGER,
-    composit_depth: DataTypes.DECIMAL,
+    composite_depth: DataTypes.DECIMAL,
     c23_dd: DataTypes.DECIMAL,
     c23dd_std_dev: DataTypes.DECIMAL,
     c29_dd: DataTypes.DECIMAL,
@@ -15,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   IsotopesRecord.associate = function(models) {
-    // associations can be defined here
+    IsotopesRecord.belongsTo(models['isotopes_method']);
+    IsotopesRecord.belongsTo(models['record']);
   };
   return IsotopesRecord;
 };

@@ -2,10 +2,8 @@
 
 module.exports = (sequelize, DataTypes) => {
   const VarvesRecord = sequelize.define('varves_record', {
-    record_id: DataTypes.INTEGER,
-    method_var: DataTypes.INTEGER,
+    composite_depth: DataTypes.DECIMAL(4,4),
     varve_no: DataTypes.INTEGER,
-    composit_depth: DataTypes.DECIMAL(4,4),
     varve_age_bp: DataTypes.DECIMAL,
     varve_thick_total: DataTypes.DECIMAL,
     dark_layer_thick: DataTypes.DECIMAL,
@@ -19,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   VarvesRecord.associate = function(models) {
-    // associations can be defined here
+    VarvesRecord.belongsTo(models['varves_method']);
+    VarvesRecord.belongsTo(models['record']);
   };
   return VarvesRecord;
 };

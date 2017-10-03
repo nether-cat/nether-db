@@ -2,9 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrdRecord = sequelize.define('xrd_record', {
-    record_id: DataTypes.INTEGER,
-    method_xrd_id: DataTypes.INTEGER,
-    composit_depth: DataTypes.DECIMAL,
+    composite_depth: DataTypes.DECIMAL,
     total_intensity: DataTypes.DECIMAL,
     pyrite_ti: DataTypes.DECIMAL,
     quarz_ti: DataTypes.DECIMAL,
@@ -17,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   XrdRecord.associate = function(models) {
-    // associations can be defined here
+    XrdRecord.belongsTo(models['xrd_method']);
+    XrdRecord.belongsTo(models['record']);
   };
   return XrdRecord;
 };

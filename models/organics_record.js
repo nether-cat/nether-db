@@ -1,8 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const OrganicsRecord = sequelize.define('organics_record', {
-    record_id: DataTypes.INTEGER,
-    method_org_id: DataTypes.INTEGER,
     composite_depth: DataTypes.DECIMAL,
     nitrogen_tn: DataTypes.DECIMAL,
     total_carbon_tc: DataTypes.DECIMAL,
@@ -14,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   OrganicsRecord.associate = function(models) {
-    // associations can be defined here
+    OrganicsRecord.belongsTo(models['organics_method']);
+    OrganicsRecord.belongsTo(models['record']);
   };
   return OrganicsRecord;
 };

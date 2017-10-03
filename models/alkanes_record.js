@@ -2,10 +2,8 @@
 
 module.exports = (sequelize, DataTypes) => {
   const AlkanesRecord = sequelize.define('alkanes_record', {
-    record_id: DataTypes.INTEGER,
-    method_alk_id: DataTypes.INTEGER,
+    composite_depth: DataTypes.DECIMAL,
     sample_id: DataTypes.STRING,
-    composit_depth: DataTypes.DECIMAL,
     c23: DataTypes.DECIMAL,
     c25: DataTypes.DECIMAL,
     c237: DataTypes.DECIMAL,
@@ -15,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   AlkanesRecord.associate = function(models) {
-    // associations can be defined here
+    AlkanesRecord.belongsTo(models['alkanes_method']);
+    AlkanesRecord.belongsTo(models['record']);
   };
   return AlkanesRecord;
 };

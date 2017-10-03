@@ -2,14 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
   const PollenMethod = sequelize.define('pollen_method', {
-    record_id: DataTypes.INTEGER,
     method_label: DataTypes.STRING,
-    description: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
   }, {
     underscored: true,
   });
   PollenMethod.associate = function(models) {
-    // associations can be defined here
+    PollenMethod.hasMany(models['pollen_record']);
   };
   return PollenMethod;
 };

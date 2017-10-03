@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models['lake'], {foreignKey: 'created_by'});
+    User.hasMany(models['core'], {foreignKey: 'created_by'});
+    User.hasMany(models['record'], {foreignKey: 'created_by'});
+    User.hasMany(models['publication'], {foreignKey: 'created_by'});
   };
   return User;
 };

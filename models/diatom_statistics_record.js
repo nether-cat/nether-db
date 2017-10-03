@@ -2,7 +2,6 @@
 
 module.exports = (sequelize, DataTypes) => {
   const DiatomStatisticsRecord = sequelize.define('diatom_statistics_record', {
-    record_id: DataTypes.INTEGER,
     composite_depth: DataTypes.DECIMAL,
     diatom_valve_concentration: DataTypes.DECIMAL,
     diatom_acc_rate: DataTypes.DECIMAL,
@@ -14,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   DiatomStatisticsRecord.associate = function(models) {
-    // associations can be defined here
+    DiatomStatisticsRecord.belongsTo(models['diatom_statistics_method']);
+    DiatomStatisticsRecord.belongsTo(models['record']);
   };
   return DiatomStatisticsRecord;
 };

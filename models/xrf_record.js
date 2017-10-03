@@ -2,9 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrfRecord = sequelize.define('xrf_record', {
-    record_id: DataTypes.INTEGER,
-    method_xrf_id: DataTypes.INTEGER,
-    composit_depth: DataTypes.DECIMAL,
+    composite_depth: DataTypes.DECIMAL,
     cu_area: DataTypes.DECIMAL,
     zn_area: DataTypes.DECIMAL,
     ga_area: DataTypes.DECIMAL,
@@ -22,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   });
   XrfRecord.associate = function(models) {
-    // associations can be defined here
+    XrfRecord.belongsTo(models['xrf_method']);
+    XrfRecord.belongsTo(models['record']);
   };
   return XrfRecord;
 };

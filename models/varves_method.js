@@ -2,14 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
   const VarvesMethod = sequelize.define('varves_method', {
-    record_id: DataTypes.INTEGER,
     method_label: DataTypes.STRING,
-    description: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
   }, {
     underscored: true,
   });
   VarvesMethod.associate = function(models) {
-    // associations can be defined here
+    VarvesMethod.hasMany(models['varves_record']);
   };
   return VarvesMethod;
 };
