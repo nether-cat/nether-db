@@ -2,6 +2,7 @@
   "name": "lscs-database",
   "version": "1.0.0",
   "description": "A database service for lake sediment core samples",
+  "repository": "https://github.com/nether-cat/lscs-database",
   "contributors": [
     {
       "name": "Mario Dorn",
@@ -20,13 +21,17 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.3.0",
+    "koa-logger": "^3.1.0",
+    "koa-route": "^3.2.0",
+    "koa-static": "^4.0.1",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.11.1",
-    "sequelize-cli": "^3.0.0"
+    "sequelize": "^4.13.3"
   },
   "devDependencies": {
     "@types/koa": "^2.0.39",
-    "@types/sequelize": "^4.0.75"
+    "@types/koa-route": "^3.2.1",
+    "@types/sequelize": "^4.0.75",
+    "sequelize-cli": "^3.0.0"
   }
 }

@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+<script type="text/javascript">
+  let vue = new Vue({
+    el: '#app',
+    data: {
+      todos: [
+        { text: 'Build the server API' },
+        { text: 'Learn Vue and build the UI' },
+        { text: 'Make this app awesome' }
+      ]
+    }
+  });
+</script>
+</body>
+
+</html>
