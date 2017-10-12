@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const XLSX = require('xlsx');
+const db = require('../models');
+
+let models = Object.values(db.sequelize.models)
+  .filter(model => model.name.indexOf('_record') !== -1);
+
+let args = process.argv.slice(2);
+let workbook = XLSX.readFile(args[0]);
+let json = XLSX.utils.sheet_to_json(workbook.Sheets.Metadata, {header: "A"});
+let header = json.find(obj => { return obj.__rowNum__ === 77 });
+
+console.log('Done!');

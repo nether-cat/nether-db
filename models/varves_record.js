@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const VarvesRecord = sequelize.define('varves_record', {
-    composite_depth: DataTypes.DECIMAL(4,4),
+    composite_depth: DataTypes.DECIMAL,
     varve_no: DataTypes.INTEGER,
     varve_age_bp: DataTypes.DECIMAL,
     varve_thick_total: DataTypes.DECIMAL,
