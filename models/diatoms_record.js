@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   DiatomsRecord.associate = function(models) {
     DiatomsRecord.belongsTo(models['diatoms_method']);
     DiatomsRecord.belongsTo(models['diatoms_type']);
-    DiatomsRecord.belongsTo(models['record']);
+    DiatomsRecord.belongsTo(models['dataset']);
   };
   return DiatomsRecord;
 };

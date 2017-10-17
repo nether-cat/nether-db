@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models['lake'], {foreignKey: 'created_by'});
     User.hasMany(models['core'], {foreignKey: 'created_by'});
-    User.hasMany(models['record'], {foreignKey: 'created_by'});
+    User.hasMany(models['dataset'], {foreignKey: 'created_by'});
     User.hasMany(models['publication'], {foreignKey: 'created_by'});
   };
   return User;

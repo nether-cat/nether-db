@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   XrdRecord.associate = function(models) {
     XrdRecord.belongsTo(models['xrd_method']);
-    XrdRecord.belongsTo(models['record']);
+    XrdRecord.belongsTo(models['dataset']);
   };
   return XrdRecord;
 };

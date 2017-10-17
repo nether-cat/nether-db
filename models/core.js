@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Core.associate = function(models) {
     Core.belongsTo(models['user'], {foreignKey: 'created_by'});
     Core.belongsTo(models['lake']);
-    Core.hasMany(models['record']);
+    Core.hasMany(models['dataset']);
   };
   return Core;
 };

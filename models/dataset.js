@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Record = sequelize.define('record', {
+  const Dataset = sequelize.define('dataset', {
     label: DataTypes.STRING,
     record_type: DataTypes.STRING,
     analysis_date: DataTypes.DATEONLY,
@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     underscored: true,
   });
-  Record.associate = function(models) {
-    Record.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Record.belongsTo(models['core']);
-    Record.belongsTo(models['publication']);
+  Dataset.associate = function(models) {
+    Dataset.belongsTo(models['user'], {foreignKey: 'created_by'});
+    Dataset.belongsTo(models['core']);
+    Dataset.belongsTo(models['publication']);
   };
-  return Record;
+  return Dataset;
 };

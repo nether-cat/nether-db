@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   OrganicsRecord.associate = function(models) {
     OrganicsRecord.belongsTo(models['organics_method']);
-    OrganicsRecord.belongsTo(models['record']);
+    OrganicsRecord.belongsTo(models['dataset']);
   };
   return OrganicsRecord;
 };
