@@ -8,7 +8,19 @@ let models = Object.values(db.sequelize.models)
 
 let args = process.argv.slice(2);
 let workbook = XLSX.readFile(args[0]);
-let json = XLSX.utils.sheet_to_json(workbook.Sheets.Metadata, {header: "A"});
-let header = json.find(obj => { return obj.__rowNum__ === 77 });
+let sheet, sheetTitle;
+let sheetNotFound = function () {
+  throw new Error('Sheet with records not found!');
+};
+try {
+  sheet = workbook.Sheets['Varves'];
+  sheetTitle = sheet['B2'].v.trim().toLowerCase();
+} catch (e) {
+  sheetNotFound();
+} finally {
+  if ('varve template' !== sheetTitle) sheetNotFound();
+}
+let json = XLSX.utils.sheet_to_json(sheet, {header: 'A'});
+let columnHeader = json.find(row => row.__rowNum__ === 7);
 
 console.log('Done!');
