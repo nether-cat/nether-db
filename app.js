@@ -14,7 +14,7 @@ const timer = function () {
     const ms = Date.now() - start;
     ctx.set('X-Response-Time', `${ms}ms`);
   };
-}
+};
 
 db.sequelize
   .sync({force: true})

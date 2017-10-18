@@ -11,11 +11,11 @@ const app = require('../app');
  */
 
 const port = normalizePort(process.env.PORT || '3000');
-app.listen(port, function(){
-  console.log('Server running on https://localhost:3000')
+app.listen(port, function () {
+  console.log('Server running on https://localhost:3000');
 });
 
-function normalizePort(val) {
+function normalizePort (val) {
   let port = parseInt(val, 10);
 
   if (isNaN(port)) {
