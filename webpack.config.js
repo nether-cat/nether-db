@@ -21,7 +21,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|html)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'file-loader',
@@ -41,7 +41,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.runtime.esm.js',
     },
   },
   performance: {
