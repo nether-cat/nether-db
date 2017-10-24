@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrfRecord = sequelize.define('xrf_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     cu_area: DataTypes.DECIMAL,
     zn_area: DataTypes.DECIMAL,
     ga_area: DataTypes.DECIMAL,

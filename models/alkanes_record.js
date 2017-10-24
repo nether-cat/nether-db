@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const AlkanesRecord = sequelize.define('alkanes_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     sample_id: DataTypes.STRING,
     c23: DataTypes.DECIMAL,
     c25: DataTypes.DECIMAL,

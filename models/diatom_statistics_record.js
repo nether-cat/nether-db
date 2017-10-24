@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const DiatomStatisticsRecord = sequelize.define('diatom_statistics_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     diatom_valve_concentration: DataTypes.DECIMAL,
     diatom_acc_rate: DataTypes.DECIMAL,
     diatom_chrysophyte_cysts_ratio: DataTypes.DECIMAL,

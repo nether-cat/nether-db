@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     longitude: DataTypes.DECIMAL(9, 6),
     coring_method: DataTypes.STRING, // TODO: Swap out to separate table
     water_depth: DataTypes.DECIMAL,
-    depth_start: DataTypes.DECIMAL,
-    depth_end: DataTypes.DECIMAL,
+    composite_depth_start: DataTypes.DECIMAL,
+    composite_depth_end: DataTypes.DECIMAL,
     length: DataTypes.DECIMAL,
     drill_date: DataTypes.DATEONLY,
   }, {

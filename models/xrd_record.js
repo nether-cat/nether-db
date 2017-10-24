@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrdRecord = sequelize.define('xrd_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     total_intensity: DataTypes.DECIMAL,
     pyrite_ti: DataTypes.DECIMAL,
     quarz_ti: DataTypes.DECIMAL,

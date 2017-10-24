@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const PollenRecord = sequelize.define('pollen_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     quantity: DataTypes.INTEGER,
   }, {
     underscored: true,

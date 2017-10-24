@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const OrganicsRecord = sequelize.define('organics_record', {
-    composite_depth: DataTypes.DECIMAL,
+    depth: DataTypes.DECIMAL,
     nitrogen_tn: DataTypes.DECIMAL,
     total_carbon_tc: DataTypes.DECIMAL,
     total_organic_carbon_toc: DataTypes.DECIMAL,
