@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   DiatomStatisticsRecord.associate = function(models) {
     DiatomStatisticsRecord.belongsTo(models['diatom_statistics_method']);
-    DiatomStatisticsRecord.belongsTo(models['dataset']);
+    DiatomStatisticsRecord.belongsTo(models['collection']);
   };
   return DiatomStatisticsRecord;
 };

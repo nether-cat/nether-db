@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   PollenRecord.associate = function(models) {
     PollenRecord.belongsTo(models['pollen_method']);
     PollenRecord.belongsTo(models['pollen_type']);
-    PollenRecord.belongsTo(models['dataset']);
+    PollenRecord.belongsTo(models['collection']);
   };
   return PollenRecord;
 };

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   IsotopesRecord.associate = function(models) {
     IsotopesRecord.belongsTo(models['isotopes_method']);
-    IsotopesRecord.belongsTo(models['dataset']);
+    IsotopesRecord.belongsTo(models['collection']);
   };
   return IsotopesRecord;
 };

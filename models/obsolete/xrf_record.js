@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   XrfRecord.associate = function(models) {
     XrfRecord.belongsTo(models['xrf_method']);
-    XrfRecord.belongsTo(models['dataset']);
+    XrfRecord.belongsTo(models['collection']);
   };
   return XrfRecord;
 };

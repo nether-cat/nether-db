@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Publication.associate = function(models) {
     Publication.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Publication.hasMany(models['dataset']);
+    Publication.hasMany(models['collection']);
   };
   return Publication;
 };

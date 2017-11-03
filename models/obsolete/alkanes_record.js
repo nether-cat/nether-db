@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   AlkanesRecord.associate = function(models) {
     AlkanesRecord.belongsTo(models['alkanes_method']);
-    AlkanesRecord.belongsTo(models['dataset']);
+    AlkanesRecord.belongsTo(models['collection']);
   };
   return AlkanesRecord;
 };

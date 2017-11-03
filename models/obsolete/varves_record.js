@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   VarvesRecord.associate = function(models) {
     VarvesRecord.belongsTo(models['varves_method']);
-    VarvesRecord.belongsTo(models['dataset']);
+    VarvesRecord.belongsTo(models['collection']);
   };
   return VarvesRecord;
 };
