@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const AlkanesMethod = sequelize.define('alkanes_method', {
-    method_label: DataTypes.STRING,
+    method_label: DataTypes.TEXT,
     description: DataTypes.TEXT,
   }, {
     underscored: true,

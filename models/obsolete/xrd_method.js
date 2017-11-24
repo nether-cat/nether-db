@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const XrdMethod = sequelize.define('xrd_method', {
-    method_label: DataTypes.STRING,
+    method_label: DataTypes.TEXT,
     description: DataTypes.TEXT,
   }, {
     underscored: true,
