@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Collection = sequelize.define('collection', {
-    label: DataTypes.STRING,
+    label: DataTypes.TEXT,
     analysis_date: DataTypes.DATEONLY,
     data_description: DataTypes.TEXT,
     meta_information: DataTypes.TEXT,
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     Collection.belongsTo(models['core']);
     Collection.belongsTo(models['publication']);
     Collection.belongsTo(models['proxy']);
-    Collection.belongsToMany(models['property'], {through: 'collection_properties'});
+    Collection.belongsToMany(models['attribute'], {through: 'collection_attributes'});
     Collection.hasMany(models['record']);
   };
   return Collection;

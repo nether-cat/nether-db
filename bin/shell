@@ -4,28 +4,121 @@ const XLSX = require('xlsx');
 const util = require('util');
 const db = require('../models');
 
-let models = Object.values(db.sequelize.models)
-  .filter(model => model.name.indexOf('_record') !== -1);
+let replacements = {
+  // publication
+  'weblink': 'url',
+  'contact_mail': 'email',
+  // lake
+  'surface_level_elevation': 'surface_level',
+  // core
+  'core_label': 'label',
+  // collection
+  'proxytype': 'proxy',
+  'name_of_dataset': 'label',
+  'analysis_method': 'method',
+};
 
 let args = process.argv.slice(2);
-let workbook = XLSX.readFile(args[0]);
+let proxyName = args[0].toLowerCase();
+let workbook = XLSX.readFile(args[1]);
 let sheet, sheetTitle;
 let sheetNotFound = function () {
   throw new Error('Sheet with records not found!');
 };
 try {
-  sheet = workbook.Sheets['Varves'];
+  let index = proxyName.charAt(0).toUpperCase() + proxyName.slice(1);
+  sheet = workbook.Sheets[index];
   sheetTitle = sheet['B2'].v.trim().toLowerCase();
 } catch (e) {
   sheetNotFound();
 } finally {
-  if ('varves template' !== sheetTitle) sheetNotFound();
+  if (proxyName + ' template' !== sheetTitle) sheetNotFound();
 }
 let regex = /^[A-Z]{1,3}\d+:([A-Z]{1,3})(\d+)$/g;
 let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
 let keysRange = util.format('A8:%s%s', lastColumn, '8');
 let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
-let keys = XLSX.utils.sheet_to_json(sheet, {header: 1, range: keysRange})[0];
-let json = XLSX.utils.sheet_to_json(sheet, {header: keys, range: valuesRange});
+let keys = XLSX.utils.sheet_to_json(sheet, {header: 1, range: keysRange})[0].map(
+  el => el.trim().toLowerCase().replace(/\s/g, '_')
+);
+let metaData = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
+let rawData = XLSX.utils.sheet_to_json(sheet, {header: keys, range: valuesRange});
+
+metaData = metaData.reduce((meta, elem) => {
+  if (!elem.hasOwnProperty('G')) {
+    return meta;
+  }
+  let num = elem['__rowNum__'];
+  let obj = num < 26 ? 'publication'
+    : num < 47 ? 'lake'
+      : num < 65 ? 'core'
+        : 'collection';
+  let key = elem['B'].trim().toLowerCase().replace(/[(:)]/g, '').replace(/[-/\s]+/g, '_');
+  if (replacements.hasOwnProperty(key)) {
+    key = replacements[key];
+  }
+  meta[obj][key] = elem['G'];
+  return meta;
+}, {
+  publication: {}, lake: {}, core: {}, collection: {}
+});
+
+const importData = async function () {
+  let publication = await db['publication']
+    .create(metaData.publication)
+    .catch(err => console.log(err));
+  let country = await db['country']
+    .findCreateFind({where: {code: metaData.lake['country']}})
+    .spread((country, created) => country)
+    .catch(err => console.log(err));
+  let lake = await db['lake']
+    .create(Object.assign(metaData.lake, {country_code: country.code}))
+    .catch(err => console.log(err));
+  let core = await db['core']
+    .create(Object.assign(metaData.core, {lake_id: lake.id}))
+    .catch(err => console.log(err));
+  let proxy = await db['proxy']
+    .findCreateFind({where: {name: proxyName}})
+    .spread((proxy, created) => proxy)
+    .catch(err => console.log(err));
+  let collection = await db['collection']
+    .create(Object.assign(metaData.collection, {
+      core_id: core.id,
+      publication_id: publication.id,
+      proxy_id: proxy.id
+    }))
+    .catch(err => console.log(err));
+  let attributes = await Promise.all(
+    keys.map(key => {
+      if (key && ['age', 'depth'].indexOf(key) === -1) {
+        return db['attribute']
+          .findCreateFind({where: {name: key, proxy_id: proxy.id}})
+          .spread((attribute, created) => attribute)
+          .catch(err => console.log(err));
+      }
+      return null;
+    }).filter(attribute => attribute !== null)
+  );
+  await collection['addAttributes'](attributes);
+  let records = await Promise.all(
+    rawData.map(row => {
+      let data = Object.entries(row).reduce(
+        (result, entry) => {
+          if (['age', 'depth'].indexOf(entry[0]) === -1) {
+            result.data[entry[0]] = entry[1];
+          } else {
+            result[entry[0]] = entry[1];
+          }
+          return result;
+        }, {data: {}},
+      );
+      return db['record']
+        .create(Object.assign({collection_id: collection.id}, data))
+        .catch(err => console.log(err));
+    })
+  );
+};
+
+let result = importData();
 
 console.log('Done!');

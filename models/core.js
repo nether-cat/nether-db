@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Core = sequelize.define('core', {
-    label: DataTypes.STRING,
+    label: DataTypes.TEXT,
     latitude: DataTypes.DECIMAL(8, 6),
     longitude: DataTypes.DECIMAL(9, 6),
     coring_method: DataTypes.STRING, // TODO: Swap out to separate table

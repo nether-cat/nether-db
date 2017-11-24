@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     surface_level: DataTypes.DECIMAL,
     max_depth: DataTypes.DECIMAL,
     surface_area: DataTypes.DECIMAL,
-    conductivity_category: DataTypes.STRING,
+    conductivity_class: DataTypes.STRING,
   }, {
     underscored: true,
   });

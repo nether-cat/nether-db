@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Proxy.associate = function(models) {
     Proxy.belongsTo(models['user'], {foreignKey: 'created_by'});
     Proxy.hasMany(models['collection']);
-    Proxy.hasMany(models['property']);
+    Proxy.hasMany(models['attribute']);
   };
   return Proxy;
 };
