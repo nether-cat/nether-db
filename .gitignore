@@ -1,4 +1,7 @@
 /.idea/
+!/.idea/codeStyleSettings.xml
 /config/config.json
 /lscs-database.iml
+/public/
+!/public/**/.gitkeep
 /node_modules/
