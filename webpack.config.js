@@ -1,4 +1,5 @@
 const path = require('path');
+const process = require('process');
 const webpack = require('webpack');
 
 module.exports = {
@@ -32,9 +33,14 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'vue-loader',
+          options: {
+            loaders: {
+              'scss': 'vue-style-loader!css-loader!sass-loader',
+              'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+            },
+          },
         },
       },
     ],
@@ -57,7 +63,7 @@ module.exports = {
   ],
 };
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env['NODE_ENV'] === 'production') {
   module.exports.devtool = '#source-map';
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.EnvironmentPlugin({
