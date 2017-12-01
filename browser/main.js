@@ -4,7 +4,7 @@ import App from './App.vue'
 
 Vue.use(BootstrapVue);
 
-new Vue({
+window.App = new Vue({
   el: '#app',
   render: h => h(App)
 });
