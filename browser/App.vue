@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="login"></div>
     <div class="sidebar">
       <div class="logo">
         PaLimDB
@@ -28,7 +29,7 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+              <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Quick Search"/>
               <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
             </b-nav-form>
             <b-nav-item-dropdown text="Language" right>
@@ -40,7 +41,7 @@
             <b-nav-item-dropdown right>
               <!-- Using button-content slot -->
               <template slot="button-content">
-                User
+                <i class="fa fa-user-circlesp" aria-hidden="true"></i>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Logout</b-dropdown-item>
@@ -56,7 +57,7 @@
         </b-row>
         <b-row>
           <b-col cols="12">
-            <b-alert show>Yeah!</b-alert>
+            Some content
           </b-col>
         </b-row>
       </b-container>
@@ -76,8 +77,10 @@
 </script>
 
 <style lang="scss">
-  @import '../node_modules/bootstrap/scss/bootstrap';
-  @import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
+  $fa-font-path: "~font-awesome/fonts";
+  @import '~font-awesome/scss/font-awesome';
+  @import '~bootstrap/scss/bootstrap';
+  @import '~bootstrap-vue/dist/bootstrap-vue.css';
 
   #app {
     top: 0;
