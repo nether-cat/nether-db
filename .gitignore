@@ -1,7 +1,7 @@
 /*.iml
 /.idea/
-!/.idea/codeStyleSettings.xml
 /config/config.json
 /node_modules/
+/playground.cypher
 /public/
 !/public/**/.gitkeep

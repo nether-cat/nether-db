@@ -1,22 +1,22 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  const Collection = sequelize.define('collection', {
-    label: DataTypes.TEXT,
-    analysis_date: DataTypes.DATEONLY,
-    data_description: DataTypes.TEXT,
-    meta_information: DataTypes.TEXT,
-    measuring_error: DataTypes.DECIMAL,
-  }, {
-    underscored: true,
-  });
-  Collection.associate = function(models) {
-    Collection.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Collection.belongsTo(models['core']);
-    Collection.belongsTo(models['publication']);
-    Collection.belongsTo(models['proxy']);
-    Collection.belongsToMany(models['attribute'], {through: 'collection_attributes'});
-    Collection.hasMany(models['record']);
+module.exports = (seraphDb) => {
+  const Collection = require('seraph-model')(seraphDb, 'Collection');
+  Collection.schema = {
+    label: String,
+    analysis_date: Date,
+    data_description: String,
+    meta_information: String,
+    measuring_error: Number,
+  };
+  Collection.usingWhitelist = true;
+  Collection.useTimestamps();
+  Collection.setup = function() {
+    Collection.compose(this.db.models['User'], 'createdBy', 'CREATED_BY');
+    Collection.compose(this.db.models['Core'], 'sampledFrom', 'SAMPLED_FROM');
+    Collection.compose(this.db.models['Publication'], 'referencedBy', 'REFERENCED_BY', {many: true});
+    Collection.compose(this.db.models['Proxy'], 'providesWith', 'PROVIDES_WITH');
+    Collection.compose(this.db.models['Attribute'], 'includes', 'INCLUDES', {many: true});
   };
   return Collection;
 };

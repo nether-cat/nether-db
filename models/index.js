@@ -1,20 +1,23 @@
 'use strict';
 
-const fs = require('fs')
-const path = require('path')
-const Sequelize = require('sequelize')
-const basename = path.basename(__filename)
-const env = process.env.NODE_ENV || 'development'
-const config = require(__dirname + '/../config/config.json')[env]
+const fs = require('fs');
+const path = require('path');
+const seraph = require('seraph');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = seraph(config['seraph']['options']);
+const modelPrototype = require('seraph-model').modelPrototype;
 
-let sequelize = {};
-let db = {}
+db['models'] = {};
 
-if (config.hasOwnProperty('use_env_variable') && config['use_env_variable']) {
-  sequelize = new Sequelize(process.env[config['use_env_variable']]);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+modelPrototype.fixWhitelist = function () {
+  if (this['usingWhitelist'] && !this.fields.length) {
+    if (Object.keys(this.compositions).length || Object.keys(this.schema || {}).length) {
+      this.fields.push(undefined);
+    }
+  }
+};
 
 fs
   .readdirSync(__dirname)
@@ -22,17 +25,15 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file))
-    db[model.name] = model;
+    const model = require(path.join(__dirname, file))(db);
+    db['models'][model.type] = model;
   });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+Object.keys(db['models']).forEach(type => {
+  if (typeof db['models'][type].setup === 'function') {
+    db['models'][type].setup();
   }
+  db['models'][type].fixWhitelist();
 });
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
 module.exports = db;

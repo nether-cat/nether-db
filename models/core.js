@@ -1,23 +1,23 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  const Core = sequelize.define('core', {
-    label: DataTypes.TEXT,
-    latitude: DataTypes.DECIMAL(8, 6),
-    longitude: DataTypes.DECIMAL(9, 6),
-    coring_method: DataTypes.STRING, // TODO: Swap out to separate table
-    water_depth: DataTypes.DECIMAL,
-    composite_depth_start: DataTypes.DECIMAL,
-    composite_depth_end: DataTypes.DECIMAL,
-    length: DataTypes.DECIMAL,
-    drill_date: DataTypes.DATEONLY,
-  }, {
-    underscored: true,
-  });
-  Core.associate = function(models) {
-    Core.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Core.belongsTo(models['lake']);
-    Core.hasMany(models['collection']);
+module.exports = (seraphDb) => {
+  const Core = require('seraph-model')(seraphDb, 'Core');
+  Core.schema = {
+    label: String,
+    latitude: Number,
+    longitude: Number,
+    coring_method: String,
+    water_depth: Number,
+    composite_depth_start: Number,
+    composite_depth_end: Number,
+    length: Number,
+    drill_date: Date,
+  };
+  Core.usingWhitelist = true;
+  Core.useTimestamps();
+  Core.setup = function() {
+    Core.compose(this.db.models['User'], 'createdBy', 'CREATED_BY');
+    Core.compose(this.db.models['Lake'], 'drilledFrom', 'DRILLED_FROM');
   };
   return Core;
 };

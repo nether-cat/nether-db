@@ -1,21 +1,21 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  const Lake = sequelize.define('lake', {
-    name: DataTypes.STRING,
-    latitude: DataTypes.DECIMAL(8, 6),
-    longitude: DataTypes.DECIMAL(9, 6),
-    surface_level: DataTypes.DECIMAL,
-    max_depth: DataTypes.DECIMAL,
-    surface_area: DataTypes.DECIMAL,
-    conductivity_class: DataTypes.STRING,
-  }, {
-    underscored: true,
-  });
-  Lake.associate = function(models) {
-    Lake.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Lake.belongsTo(models['country']);
-    Lake.hasMany(models['core']);
+module.exports = (seraphDb) => {
+  const Lake = require('seraph-model')(seraphDb, 'Lake');
+  Lake.schema = {
+    name: String,
+    latitude: Number,
+    longitude: Number,
+    surface_level: Number,
+    max_depth: Number,
+    surface_area: Number,
+    conductivity_class: String,
+  };
+  Lake.usingWhitelist = true;
+  Lake.useTimestamps();
+  Lake.setup = function() {
+    Lake.compose(this.db.models['User'], 'createdBy', 'CREATED_BY');
+    Lake.compose(this.db.models['Country'], 'locatedIn', 'LOCATED_IN');
   };
   return Lake;
 };

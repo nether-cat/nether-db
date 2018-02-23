@@ -63,7 +63,7 @@ metaData = metaData.reduce((meta, elem) => {
   publication: {}, lake: {}, core: {}, collection: {}
 });
 
-const importData = async function () {
+const _importData = async function () {
   let publication = await db['publication']
     .create(metaData.publication)
     .catch(err => console.log(err));
@@ -119,6 +119,28 @@ const importData = async function () {
   );
 };
 
-let result = importData();
+const importData = async function () {
+  const collection = Object.assign({}, metaData.collection, {
+    sampledFrom: Object.assign({}, metaData.core, {
+      drilledFrom: Object.assign({}, metaData.lake, {
+        locatedIn: {code: metaData.lake['country']}
+      }),
+    }),
+    referencedBy: [metaData.publication],
+    providesWith: {name: proxyName},
+  });
+  // db.models['lake'].findAll(3, (err, matches) => {
+  //   console.log(matches);
+  //   db.models['lake'].save(matches[0], (err, obj) => {
+  //     console.log(obj);
+  //   });
+  // });
+  // db.models['collection'].save(collection, (err, obj) => {
+  //   console.log(obj);
+  //   db.models['collection'].save(obj, (err, obj) => {
+  //     console.log(obj);
+  //   });
+  // });
+};
 
-console.log('Done!');
+let result = importData();

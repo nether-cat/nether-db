@@ -43,6 +43,8 @@
     "sass-loader": "^6.0.6",
     "sequelize": "^4.15.0",
     "sequelize-cli": "^3.0.0",
+    "seraph": "^0.15.3",
+    "seraph-model": "^0.10.1",
     "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",

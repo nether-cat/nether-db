@@ -1,16 +1,15 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  const Proxy = sequelize.define('proxy', {
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-  }, {
-    underscored: true,
-  });
-  Proxy.associate = function(models) {
-    Proxy.belongsTo(models['user'], {foreignKey: 'created_by'});
-    Proxy.hasMany(models['collection']);
-    Proxy.hasMany(models['attribute']);
+module.exports = (seraphDb) => {
+  const Proxy = require('seraph-model')(seraphDb, 'Proxy');
+  Proxy.schema = {
+    name: String,
+    description: String,
+  };
+  Proxy.usingWhitelist = true;
+  Proxy.useTimestamps();
+  Proxy.setup = function() {
+    Proxy.compose(this.db.models['User'], 'createdBy', 'CREATED_BY');
   };
   return Proxy;
 };

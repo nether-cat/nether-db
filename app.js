@@ -16,11 +16,6 @@ const timer = function () {
   };
 };
 
-db.sequelize
-  .sync({force: true})
-  .then(() => {
-    repl.start('REPL> \n').context['db'] = db;
-  });
 app.context['db'] = db;
 app.use(timer());
 app.use(logger());

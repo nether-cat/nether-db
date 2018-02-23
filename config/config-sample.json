@@ -1,23 +1,19 @@
 {
   "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "postgres",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "seraph": {
+      "options": {
+        "server": "http://localhost:7474",
+        "endpoint": "/db/data",
+        "user": "neo4j",
+        "pass": "neo4j",
+        "id": "id",
+        "agent": null,
+        "xstream": false
+      }
+    }
   },
   "test": {
-    "username": "postgres",
-    "password": null,
-    "database": "postgres",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": null,
-    "database": "postgres",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
   }
 }

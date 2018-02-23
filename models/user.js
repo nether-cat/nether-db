@@ -1,22 +1,17 @@
 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('user', {
-    login_name: {type: DataTypes.STRING, primaryKey: true},
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    role: DataTypes.STRING,
-    institution: DataTypes.STRING,
-    department: DataTypes.STRING,
-    email: {type: DataTypes.STRING, unique: true},
-  }, {
-    underscored: true,
-  });
-  User.associate = function(models) {
-    User.hasMany(models['lake'], {foreignKey: 'created_by'});
-    User.hasMany(models['core'], {foreignKey: 'created_by'});
-    User.hasMany(models['collection'], {foreignKey: 'created_by'});
-    User.hasMany(models['publication'], {foreignKey: 'created_by'});
+module.exports = (seraphDb) => {
+  const User = require('seraph-model')(seraphDb, 'User');
+  User.schema = {
+    login_name: {type: String, required: true},
+    first_name: String,
+    last_name: String,
+    role: String,
+    institution: String,
+    department: String,
+    email: {type: String, required: true},
   };
+  User.usingWhitelist = true;
+  User.useTimestamps();
   return User;
 };
