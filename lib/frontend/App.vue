@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="login"></div>
+    <!--<div class="login"></div>-->
     <div class="sidebar">
       <div class="logo">
         PaLimDB
@@ -41,7 +41,7 @@
             <b-nav-item-dropdown right>
               <!-- Using button-content slot -->
               <template slot="button-content">
-                <i class="fa fa-user-circlesp" aria-hidden="true"></i>
+                <font-awesome-icon icon="user-circle"/>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Logout</b-dropdown-item>
@@ -66,8 +66,43 @@
 </template>
 
 <script>
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+  import bContainer from 'bootstrap-vue/es/components/layout/container';
+  import bCol from 'bootstrap-vue/es/components/layout/col';
+  import bRow from 'bootstrap-vue/es/components/layout/row';
+  import bNav from 'bootstrap-vue/es/components/nav/nav';
+  import bNavForm from 'bootstrap-vue/es/components/nav/nav-form';
+  import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
+  import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
+  import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
+  import bNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
+  import bNavbarBrand from 'bootstrap-vue/es/components/navbar/navbar-brand';
+  import bNavbarToggle from 'bootstrap-vue/es/components/navbar/navbar-toggle';
+  import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
+  import bCollapse from 'bootstrap-vue/es/components/collapse/collapse';
+  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
+  import bButton from 'bootstrap-vue/es/components/button/button';
+
   export default {
     name: 'app',
+    components: {
+      FontAwesomeIcon,
+      bContainer,
+      bCol,
+      bRow,
+      bNav,
+      bNavForm,
+      bNavItem,
+      bNavItemDropdown,
+      bNavbar,
+      bNavbarNav,
+      bNavbarBrand,
+      bNavbarToggle,
+      bDropdownItem,
+      bCollapse,
+      bFormInput,
+      bButton,
+    },
     data () {
       return {
         msg: 'Welcome to the LSCS Database!',
@@ -77,8 +112,6 @@
 </script>
 
 <style lang="scss">
-  $fa-font-path: "~font-awesome/fonts";
-  @import '~font-awesome/scss/font-awesome';
   @import '~bootstrap/scss/bootstrap';
   @import '~bootstrap-vue/dist/bootstrap-vue.css';
 

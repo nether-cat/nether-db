@@ -1,9 +1,8 @@
 const path = require('path');
-const process = require('process');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './browser/main.js',
+  entry: './client.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './public'),
@@ -18,6 +17,22 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['env'],
+          },
+        },
+      },
+      {
+        test: /\.(s)?css$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.vue$/,
+        use: {
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              'scss': 'vue-style-loader!css-loader!sass-loader',
+              'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+            },
           },
         },
       },
@@ -39,18 +54,6 @@ module.exports = {
             name: '[name].[ext]',
             outputPath: 'fonts/',
             publicPath: '../',
-          },
-        },
-      },
-      {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              'scss': 'vue-style-loader!css-loader!sass-loader',
-              'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
-            },
           },
         },
       },
