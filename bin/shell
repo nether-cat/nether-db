@@ -3,6 +3,8 @@
 const XLSX = require('xlsx');
 const util = require('util');
 const db = require('../models');
+const clone = require('clone');
+const countries = new (require('country-list'))();
 
 let replacements = {
   // publication
@@ -36,72 +38,95 @@ try {
 }
 let regex = /^[A-Z]{1,3}\d+:([A-Z]{1,3})(\d+)$/g;
 let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
-let keysRange = util.format('A8:%s%s', lastColumn, '8');
+let namesRange = util.format('A8:%s%s', lastColumn, '8');
 let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
-let keys = XLSX.utils.sheet_to_json(sheet, {header: 1, range: keysRange})[0].map(
+let columnNames = XLSX.utils.sheet_to_json(sheet, {header: 1, range: namesRange})[0].map(
   el => el.trim().toLowerCase().replace(/\s/g, '_')
 );
-let metaData = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
-let rawData = XLSX.utils.sheet_to_json(sheet, {header: keys, range: valuesRange});
+let metadata = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
+let records = XLSX.utils.sheet_to_json(sheet, {header: columnNames, range: valuesRange});
 
-metaData = metaData.reduce((meta, elem) => {
-  if (!elem.hasOwnProperty('G')) {
-    return meta;
+metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: rowNumber}) => {
+  if (!value || !property) {
+    return accumulator;
   }
-  let num = elem['__rowNum__'];
-  let obj = num < 26 ? 'publication'
-    : num < 47 ? 'lake'
-      : num < 65 ? 'core'
-        : 'collection';
-  let key = elem['B'].trim().toLowerCase().replace(/[(:)]/g, '').replace(/[-/\s]+/g, '_');
-  if (replacements.hasOwnProperty(key)) {
-    key = replacements[key];
+  let key = rowNumber < 26 ?
+    'publication' : rowNumber < 47 ?
+      'lake' : rowNumber < 65 ?
+        'core' : 'collection';
+  property = property.trim().toLowerCase()
+    .replace(/[(:)]/g, '').replace(/[-/\s]+/g, '_');
+  if (replacements.hasOwnProperty(property)) {
+    property = replacements[property];
   }
-  meta[obj][key] = elem['G'];
-  return meta;
+  accumulator[key][property] = value;
+  return accumulator;
 }, {
   publication: {}, lake: {}, core: {}, collection: {}
 });
 
-const _importData = async function () {
-  let publication = await db['publication']
-    .create(metaData.publication)
-    .catch(err => console.log(err));
-  let country = await db['country']
-    .findCreateFind({where: {code: metaData.lake['country']}})
-    .spread((country, created) => country)
-    .catch(err => console.log(err));
-  let lake = await db['lake']
-    .create(Object.assign(metaData.lake, {country_code: country.code}))
-    .catch(err => console.log(err));
-  let core = await db['core']
-    .create(Object.assign(metaData.core, {lake_id: lake.id}))
-    .catch(err => console.log(err));
-  let proxy = await db['proxy']
-    .findCreateFind({where: {name: proxyName}})
-    .spread((proxy, created) => proxy)
-    .catch(err => console.log(err));
-  let collection = await db['collection']
-    .create(Object.assign(metaData.collection, {
-      core_id: core.id,
-      publication_id: publication.id,
-      proxy_id: proxy.id
-    }))
-    .catch(err => console.log(err));
-  let attributes = await Promise.all(
-    keys.map(key => {
-      if (key && ['age', 'depth'].indexOf(key) === -1) {
-        return db['attribute']
-          .findCreateFind({where: {name: key, proxy_id: proxy.id}})
-          .spread((attribute, created) => attribute)
-          .catch(err => console.log(err));
-      }
-      return null;
-    }).filter(attribute => attribute !== null)
-  );
-  await collection['addAttributes'](attributes);
+const importData = async function () {
+  let collection = Object.assign({}, metadata.collection, {
+    sampledFrom: Object.assign({}, metadata.core, {
+      drilledFrom: Object.assign({}, metadata.lake, {
+        locatedIn: {},
+      }),
+    }),
+    referencedBy: [],
+    providesWith: {},
+    includes: [],
+  });
+  let {
+    /** @type {Model} */ Attribute,
+    /** @type {Model} */ Collection,
+    /** @type {Model} */ Core,
+    /** @type {Model} */ Country,
+    /** @type {Model} */ Lake,
+    /** @type {Model} */ Proxy,
+    /** @type {Model} */ Publication,
+    /** @type {Model} */ Record,
+    /** @type {Model} */ Synonym,
+    /** @type {Model} */ User,
+  } = db.models;
+  return Promise.resolve()
+    .then(() => Country.promised.where({code: metadata.lake['country']}))
+    .then(result => {
+      collection.sampledFrom.drilledFrom.locatedIn = result.length ? result[0] : {
+        code: metadata.lake['country'],
+        name: countries.getName(metadata.lake['country'])
+      };
+      return Proxy.promised.where({name: proxyName});
+    })
+    .then(result => {
+      collection.providesWith = result.length ? result[0] : {name: proxyName};
+      let predicate = Object.entries(metadata.publication)
+        .filter(([key]) => ['doi', 'source', 'url'].includes(key))
+        .reduce((accumulator, [key, value]) => {
+          return Object.defineProperty(accumulator, key, {value: value, enumerable: true})
+        }, {});
+      return Publication.promised.where(predicate, {any: true});
+    })
+    .then(result => {
+      collection.referencedBy = result.length ? result : [metadata.publication];
+      return Collection.promised.save(collection);
+    })
+    .then(result => {
+      collection = result;
+      let attributeNames = columnNames.filter(() => true);
+      collection.includes = attributeNames.map(key => ({name: key, characterizes: collection.providesWith}));
+      let query = 'MATCH (node:Attribute)-[:CHARACTERIZES]->(:Proxy) WHERE node.name IN {names}';
+      return Attribute.promised.query(query, {names: attributeNames});
+    })
+    .then(result => {
+      collection.includes = collection.includes.map(attribute => {
+        return result.find(obj => attribute.name === obj.name) || attribute
+      });
+      return Collection.promised.save(collection);
+    })
+    .catch(err => console.error(err.stack));
+  /*
   let records = await Promise.all(
-    rawData.map(row => {
+    records.map(row => {
       let data = Object.entries(row).reduce(
         (result, entry) => {
           if (['age', 'depth'].indexOf(entry[0]) === -1) {
@@ -117,30 +142,7 @@ const _importData = async function () {
         .catch(err => console.log(err));
     })
   );
+  */
 };
 
-const importData = async function () {
-  const collection = Object.assign({}, metaData.collection, {
-    sampledFrom: Object.assign({}, metaData.core, {
-      drilledFrom: Object.assign({}, metaData.lake, {
-        locatedIn: {code: metaData.lake['country']}
-      }),
-    }),
-    referencedBy: [metaData.publication],
-    providesWith: {name: proxyName},
-  });
-  // db.models['lake'].findAll(3, (err, matches) => {
-  //   console.log(matches);
-  //   db.models['lake'].save(matches[0], (err, obj) => {
-  //     console.log(obj);
-  //   });
-  // });
-  // db.models['collection'].save(collection, (err, obj) => {
-  //   console.log(obj);
-  //   db.models['collection'].save(obj, (err, obj) => {
-  //     console.log(obj);
-  //   });
-  // });
-};
-
-let result = importData();
+importData().then(() => console.log('Finished!'));

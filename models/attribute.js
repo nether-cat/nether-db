@@ -3,7 +3,7 @@
 module.exports = (seraphDb) => {
   const Attribute = require('seraph-model')(seraphDb, 'Attribute');
   Attribute.schema = {
-    name: String,
+    name: {type: String, required: true},
     description: String,
   };
   Attribute.usingWhitelist = true;
