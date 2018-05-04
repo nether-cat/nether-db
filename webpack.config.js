@@ -63,6 +63,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
     },
+    extensions: ['*', '.js', '.vue', '.json'],
   },
   performance: {
     hints: 'warning',

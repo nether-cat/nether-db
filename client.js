@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './lib/frontend/App.vue';
+import App from './lib/frontend/App';
 import FontAwesome from '@fortawesome/fontawesome';
 import brands from '@fortawesome/fontawesome-free-brands';
 import regular from '@fortawesome/fontawesome-free-regular';
