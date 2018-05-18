@@ -1,29 +1,15 @@
 <template>
   <div id="app">
-    <!--<div class="login"></div>-->
-    <the-sidebar title="PalimDB"></the-sidebar>
+    <the-sidebar title="PalimDB"/>
     <div class="main">
-      <the-navbar title="FooBar"></the-navbar>
-      <b-container fluid>
-        <b-row>
-          <b-col cols="12">
-            <h1>{{ msg }}</h1>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="12">
-            Some content
-          </b-col>
-        </b-row>
-      </b-container>
+      <the-navbar title="FooBar"/>
+      <the-browser></the-browser>
     </div>
   </div>
 </template>
 
 <script>
-  import bCol from 'bootstrap-vue/es/components/layout/col';
-  import bContainer from 'bootstrap-vue/es/components/layout/container';
-  import bRow from 'bootstrap-vue/es/components/layout/row';
+  import TheBrowser from './components/TheBrowser';
   import TheNavbar from './components/TheNavbar';
   import TheSidebar from './components/TheSidebar';
 
@@ -35,9 +21,7 @@
       };
     },
     components: {
-      bCol,
-      bContainer,
-      bRow,
+      TheBrowser,
       TheNavbar,
       TheSidebar,
     },

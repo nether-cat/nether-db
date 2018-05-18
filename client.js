@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './lib/frontend/App';
+import App from './lib/client/App';
 import FontAwesome from '@fortawesome/fontawesome';
 import brands from '@fortawesome/fontawesome-free-brands';
 import regular from '@fortawesome/fontawesome-free-regular';
@@ -7,9 +7,9 @@ import solid from '@fortawesome/fontawesome-free-solid';
 
 FontAwesome.library.add(brands, regular, solid);
 
-window.App = new Vue({
+window.PaLimClient = new Vue({
   el: '#app',
   render: h => h(App),
 });
 
-import './lib/frontend/index.html';
+import './lib/client/index.html';

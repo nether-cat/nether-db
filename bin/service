@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const app = require('../server.js');
+const app = require('../server');
 const port = normalizePort(process.env.PORT || '3000');
 
 app.listen(port, function () {
-  console.log('Server running on https://localhost:3000');
+  console.log('Server running on http://localhost:' + port);
 });
 
 function normalizePort (val) {

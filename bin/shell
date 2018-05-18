@@ -4,7 +4,7 @@ const XLSX = require('xlsx');
 const util = require('util');
 const db = require('../models');
 const clone = require('clone');
-const countries = new (require('country-list'))();
+const allCountries = new (require('country-list'))();
 
 let replacements = {
   // publication
@@ -90,15 +90,15 @@ const importData = async function () {
   } = db.models;
   return Promise.resolve()
     .then(() => Country.promised.where({code: metadata.lake['country']}))
-    .then(result => {
-      collection.sampledFrom.drilledFrom.locatedIn = result.length ? result[0] : {
+    .then(countries => {
+      collection.sampledFrom.drilledFrom.locatedIn = countries.length ? countries[0] : {
         code: metadata.lake['country'],
-        name: countries.getName(metadata.lake['country'])
+        name: allCountries.getName(metadata.lake['country'])
       };
       return Proxy.promised.where({name: proxyName});
     })
-    .then(result => {
-      collection.providesWith = result.length ? result[0] : {name: proxyName};
+    .then(proxies => {
+      collection.providesWith = proxies.length ? proxies[0] : {name: proxyName};
       let predicate = Object.entries(metadata.publication)
         .filter(([key]) => ['doi', 'source', 'url'].includes(key))
         .reduce((accumulator, [key, value]) => {
@@ -106,20 +106,20 @@ const importData = async function () {
         }, {});
       return Publication.promised.where(predicate, {any: true});
     })
-    .then(result => {
-      collection.referencedBy = result.length ? result : [metadata.publication];
+    .then(publications => {
+      collection.referencedBy = publications.length ? publications : [metadata.publication];
       return Collection.promised.save(collection);
     })
-    .then(result => {
-      collection = result;
+    .then(persistedCollection => {
+      collection = persistedCollection;
       let attributeNames = columnNames.filter(() => true);
       collection.includes = attributeNames.map(key => ({name: key, characterizes: collection.providesWith}));
       let query = 'MATCH (node:Attribute)-[:CHARACTERIZES]->(:Proxy) WHERE node.name IN {names}';
       return Attribute.promised.query(query, {names: attributeNames});
     })
-    .then(result => {
+    .then(attributes => {
       collection.includes = collection.includes.map(attribute => {
-        return result.find(obj => attribute.name === obj.name) || attribute
+        return attributes.find(obj => attribute.name === obj.name) || attribute
       });
       return Collection.promised.save(collection);
     })

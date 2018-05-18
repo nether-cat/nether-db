@@ -5,8 +5,7 @@ const path = require('path');
 const seraph = require('seraph');
 const promisify = require('util').promisify;
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require('../config');
 const db = seraph(config['seraph']['options']);
 const ModelPrototype = require('seraph-model').modelPrototype;
 

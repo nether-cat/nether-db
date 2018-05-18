@@ -8,7 +8,7 @@
         Dashboard
       </b-nav-item>
       <b-nav-item>
-        Query Data
+        Browse Data
       </b-nav-item>
       <b-nav-item>
         Import Data

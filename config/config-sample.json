@@ -1,5 +1,8 @@
 {
   "development": {
+    "koa": {
+      "keys": ["secret-key"]
+    },
     "seraph": {
       "options": {
         "server": "http://localhost:7474",

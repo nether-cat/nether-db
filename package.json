@@ -15,10 +15,10 @@
   ],
   "main": "server.js",
   "scripts": {
+    "service": "node $NODE_DEBUG_OPTION bin/service",
     "shell": "node $NODE_DEBUG_OPTION bin/shell",
-    "start": "node $NODE_DEBUG_OPTION bin/start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --config webpack.config.js"
+    "webpack": "webpack --config webpack.config.js --progress"
   },
   "license": "MIT",
   "dependencies": {
@@ -34,11 +34,13 @@
     "clone": "^2.1.1",
     "country-list": "^1.1.0",
     "css-loader": "^0.28.7",
+    "deepmerge": "^2.1.0",
     "file-loader": "^1.1.5",
     "jquery": "^3.2.1",
     "koa": "^2.3.0",
     "koa-logger": "^3.1.0",
-    "koa-route": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1",
     "koa-static": "^4.0.1",
     "node-sass": "^4.5.3",
     "pg": "^7.3.0",
@@ -50,12 +52,14 @@
     "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",
+    "vuex": "^3.0.1",
     "webpack": "^3.8.1",
     "xlsx": "^0.11.6"
   },
   "devDependencies": {
     "@types/koa": "^2.0.39",
-    "@types/koa-route": "^3.2.1",
+    "@types/koa-router": "^7.0.28",
+    "@types/koa-session": "^5.7.3",
     "@types/webpack": "^3.0.13"
   }
 }

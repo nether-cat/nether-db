@@ -3,10 +3,14 @@
 const Koa = require('koa');
 const logger = require('koa-logger');
 const serve = require('koa-static');
-const route = require('koa-route');
-const repl = require('repl');
+const session = require('koa-session');
+
+const config = require('./config');
 const db = require('./models');
+const api = require('./lib/server/api-router')(db);
+
 const app = new Koa();
+
 const timer = function () {
   return async (ctx, next) => {
     const start = Date.now();
@@ -17,11 +21,12 @@ const timer = function () {
 };
 
 app.context['db'] = db;
+app.keys = config['koa']['keys'];
+app.use(session(app));
 app.use(timer());
 app.use(logger());
 app.use(serve(__dirname + '/public'));
-app.use(route.get('/hello', ctx => {
-  ctx.body = 'Hello World';
-}));
+app.use(api.routes());
+app.use(api.allowedMethods());
 
 module.exports = app;
