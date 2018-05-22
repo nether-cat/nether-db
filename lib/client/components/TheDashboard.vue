@@ -2,12 +2,12 @@
   <b-container fluid>
     <b-row>
       <b-col cols="12">
-        <h1>Some other welcome message</h1>
+        <h1>Some welcome message</h1>
       </b-col>
     </b-row>
     <b-row>
       <b-col cols="12">
-        Some other content
+        Some content
       </b-col>
     </b-row>
   </b-container>
@@ -19,7 +19,7 @@
   import bRow from 'bootstrap-vue/es/components/layout/row';
 
   export default {
-    name: 'TheBrowser',
+    name: 'TheDashboard',
     components: {
       bCol,
       bContainer,

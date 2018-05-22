@@ -3,13 +3,12 @@
     <the-sidebar title="PalimDB"/>
     <div class="main">
       <the-navbar title="FooBar"/>
-      <the-browser></the-browser>
+      <router-view name="content"/>
     </div>
   </div>
 </template>
 
 <script>
-  import TheBrowser from './TheBrowser';
   import TheNavbar from './TheNavbar';
   import TheSidebar from './TheSidebar';
 
@@ -21,7 +20,6 @@
       };
     },
     components: {
-      TheBrowser,
       TheNavbar,
       TheSidebar,
     },

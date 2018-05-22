@@ -5,10 +5,10 @@
     </div>
     <b-nav vertical>
       <b-nav-item active>
-        Dashboard
+        <router-link to="/">Dashboard</router-link>
       </b-nav-item>
       <b-nav-item>
-        Browse Data
+        <router-link to="/browser">Browse Data</router-link>
       </b-nav-item>
       <b-nav-item>
         Import Data
