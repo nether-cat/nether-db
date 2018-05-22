@@ -13,7 +13,7 @@
       "email": "alex.brauser@fu-berlin.de"
     }
   ],
-  "main": "server.js",
+  "main": "./lib/server/index.js",
   "scripts": {
     "service": "node $NODE_DEBUG_OPTION bin/service",
     "shell": "node $NODE_DEBUG_OPTION bin/shell",

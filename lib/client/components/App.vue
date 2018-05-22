@@ -9,9 +9,9 @@
 </template>
 
 <script>
-  import TheBrowser from './components/TheBrowser';
-  import TheNavbar from './components/TheNavbar';
-  import TheSidebar from './components/TheSidebar';
+  import TheBrowser from './TheBrowser';
+  import TheNavbar from './TheNavbar';
+  import TheSidebar from './TheSidebar';
 
   export default {
     name: 'App',

@@ -72,7 +72,7 @@ ModelPrototype.applyFixes = function applyFixes () {
   /**
    * @type {PromisifiedInterface}
    */
-  Object.defineProperty(this, 'promised', {
+  Object.defineProperty(this, 'promise', {
     value: new PromisifiedInterface(this),
     enumerable: false,
     configurable: false,

@@ -89,13 +89,13 @@ const importData = async function () {
     /** @type {Model} */ User,
   } = db.models;
   return Promise.resolve()
-    .then(() => Country.promised.where({code: metadata.lake['country']}))
+    .then(() => Country.promise.where({code: metadata.lake['country']}))
     .then(countries => {
       collection.sampledFrom.drilledFrom.locatedIn = countries.length ? countries[0] : {
         code: metadata.lake['country'],
         name: allCountries.getName(metadata.lake['country'])
       };
-      return Proxy.promised.where({name: proxyName});
+      return Proxy.promise.where({name: proxyName});
     })
     .then(proxies => {
       collection.providesWith = proxies.length ? proxies[0] : {name: proxyName};
@@ -104,24 +104,24 @@ const importData = async function () {
         .reduce((accumulator, [key, value]) => {
           return Object.defineProperty(accumulator, key, {value: value, enumerable: true})
         }, {});
-      return Publication.promised.where(predicate, {any: true});
+      return Publication.promise.where(predicate, {any: true});
     })
     .then(publications => {
       collection.referencedBy = publications.length ? publications : [metadata.publication];
-      return Collection.promised.save(collection);
+      return Collection.promise.save(collection);
     })
     .then(persistedCollection => {
       collection = persistedCollection;
       let attributeNames = columnNames.filter(() => true);
       collection.includes = attributeNames.map(key => ({name: key, characterizes: collection.providesWith}));
       let query = 'MATCH (node:Attribute)-[:CHARACTERIZES]->(:Proxy) WHERE node.name IN {names}';
-      return Attribute.promised.query(query, {names: attributeNames});
+      return Attribute.promise.query(query, {names: attributeNames});
     })
     .then(attributes => {
       collection.includes = collection.includes.map(attribute => {
         return attributes.find(obj => attribute.name === obj.name) || attribute
       });
-      return Collection.promised.save(collection);
+      return Collection.promise.save(collection);
     })
     .catch(err => console.error(err.stack));
   /*
