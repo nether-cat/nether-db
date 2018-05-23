@@ -4,11 +4,11 @@
       {{ title }}
     </div>
     <b-nav vertical>
-      <b-nav-item active>
-        <router-link to="/">Dashboard</router-link>
+      <b-nav-item to="/">
+        Dashboard
       </b-nav-item>
-      <b-nav-item>
-        <router-link to="/browser">Browse Data</router-link>
+      <b-nav-item to="/browser">
+        Browse Data
       </b-nav-item>
       <b-nav-item>
         Import Data

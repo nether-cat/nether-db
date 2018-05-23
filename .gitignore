@@ -3,5 +3,7 @@
 /config/config.json
 /node_modules/
 /playground.cypher
-/public/
-!/public/**/.gitkeep
+/dist/*
+!/dist/.gitkeep
+/public/*
+!/public/.gitkeep

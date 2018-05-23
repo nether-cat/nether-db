@@ -3,7 +3,7 @@
     <the-sidebar title="PalimDB"/>
     <div class="main">
       <the-navbar title="FooBar"/>
-      <router-view name="content"/>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@
 <style lang="scss">
   @import '~bootstrap/scss/bootstrap';
   @import '~bootstrap-vue/dist/bootstrap-vue.css';
+  @import "~@fortawesome/fontawesome/styles.css";
 
   #app {
     top: 0;
@@ -37,12 +38,14 @@
     min-height: 100vh;
     position: relative;
   }
+
   #app > div {
     display: block;
     height: 100%;
     max-height: 100%;
     min-height: 100%;
   }
+
   .sidebar {
     float: left;
     width: 260px;
@@ -53,12 +56,16 @@
       border-bottom: 1px solid lightgrey;
     }
   }
+
   .main {
     float: right;
     width: calc(100% - 260px);
     background-color: whitesmoke;
     > .navbar {
       border-bottom: 1px solid lightgrey;
+    }
+    > .container-fluid {
+      padding-top: 1em;
     }
   }
 </style>
