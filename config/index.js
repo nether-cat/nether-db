@@ -15,7 +15,7 @@ const defaults = {
   },
   'koa': {
     'keys': [
-      '_secret-key',
+      'secret-key',
     ],
   },
   'seraph': {
