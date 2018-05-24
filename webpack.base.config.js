@@ -6,6 +6,9 @@ const isProd = process.env.NODE_ENV === 'production';
 module.exports = {
   mode: isProd ? 'production' : 'development',
   devtool: isProd ? false : 'eval-source-map',
+  resolve: {
+    extensions: ['*', '.js', '.vue', '.json'],
+  },
   module: {
     rules: [
       {

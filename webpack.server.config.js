@@ -1,8 +1,8 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config.js');
-const nodeExternals = require('webpack-node-externals');
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -19,7 +19,6 @@ module.exports = merge(baseConfig, {
     alias: {
       'vue$': 'vue/dist/vue.common.js',
     },
-    extensions: ['*', '.js', '.vue', '.json'],
   },
   // https://webpack.js.org/configuration/externals/#function
   // https://github.com/liady/webpack-node-externals

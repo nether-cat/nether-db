@@ -1,7 +1,9 @@
 {
   "development": {
     "koa": {
-      "keys": ["secret-key"]
+      "keys": [
+        "secret-key"
+      ]
     },
     "seraph": {
       "options": {

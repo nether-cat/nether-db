@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-sidebar title="PalimDB"/>
+    <the-sidebar title="PaLimDB"/>
     <div class="main">
       <the-navbar title="FooBar"/>
       <router-view/>
@@ -14,14 +14,14 @@
 
   export default {
     name: 'App',
+    components: {
+      TheNavbar,
+      TheSidebar,
+    },
     data () {
       return {
         msg: 'Welcome to the LSCS Database!',
       };
-    },
-    components: {
-      TheNavbar,
-      TheSidebar,
     },
   };
 </script>

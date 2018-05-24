@@ -4,6 +4,7 @@ const baseConfig = require('./webpack.base.config');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const configParams = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -19,16 +20,15 @@ module.exports = merge(baseConfig, {
     alias: {
       'vue$': 'vue/dist/vue.runtime.esm.js',
     },
-    extensions: ['*', '.js', '.vue', '.json'],
   },
   plugins: [
     new ManifestPlugin(),
     new VueSSRClientPlugin(),
     new HtmlWebpackPlugin({
       hash: true,
-      title: 'Palim Database',
-      template: './lib/client/index.html',
-      filename: 'index.html',
+      title: configParams.app.name,
+      template: './lib/client/template.html',
+      filename: './app/index.html',
     }),
   ],
 });
