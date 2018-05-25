@@ -111,15 +111,6 @@
       <b-button variant="primary" size="sm" v-b-toggle.collapse1>More details</b-button>
     </span>
   </b-card>
-  <b-collapse id="collapse1" class="mt-3">
-    <b-card>
-      <p class="card-text">Collapse contents Here</p>
-      <b-button v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-button>
-      <b-collapse id=collapse1_inner class="mt-3">
-        <b-card>Hello!</b-card>
-      </b-collapse>
-    </b-card>
-  </b-collapse>
   </div>
 </template>
 
