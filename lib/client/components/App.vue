@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <the-sidebar title="PaLimDB"/>
+    <the-navbar title="PaLimDB"/>
     <div class="main">
-      <the-navbar title="FooBar"/>
       <router-view/>
     </div>
   </div>
@@ -10,17 +9,15 @@
 
 <script>
   import TheNavbar from './TheNavbar';
-  import TheSidebar from './TheSidebar';
 
   export default {
     name: 'App',
     components: {
       TheNavbar,
-      TheSidebar,
     },
     data () {
       return {
-        msg: 'Welcome to the LSCS Database!',
+        msg: 'Welcome to the PaLim Database!',
       };
     },
   };
@@ -37,35 +34,17 @@
     height: 100vh;
     min-height: 100vh;
     position: relative;
-  }
-
-  #app > div {
-    display: block;
-    height: 100%;
-    max-height: 100%;
-    min-height: 100%;
-  }
-
-  .sidebar {
-    float: left;
-    width: 260px;
-    background-color: white;
-    box-shadow: inset -1px 0px 0px 0px lightgrey;
-    .logo {
-      padding: 1rem 1rem;
-      border-bottom: 1px solid lightgrey;
-    }
-  }
-
-  .main {
-    float: right;
-    width: calc(100% - 260px);
-    background-color: whitesmoke;
-    > .navbar {
-      border-bottom: 1px solid lightgrey;
-    }
-    > .container-fluid {
-      padding-top: 1em;
+    > .main {
+      display: block;
+      padding-top: 56px;
+      min-height: calc(100vh - 56px);
+      background-color: white;
+      > .container-fluid {
+        padding: 1.5em;
+      }
+      @media (min-width: 768px) {
+        padding-left: 250px;
+      }
     }
   }
 </style>

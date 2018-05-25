@@ -17,19 +17,9 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex';
-  import bCol from 'bootstrap-vue/es/components/layout/col';
-  import bContainer from 'bootstrap-vue/es/components/layout/container';
-  import bRow from 'bootstrap-vue/es/components/layout/row';
-  import bButton from 'bootstrap-vue/es/components/button/button';
 
   export default {
     name: 'TheDashboard',
-    components: {
-      bCol,
-      bContainer,
-      bRow,
-      bButton,
-    },
     computed: {
       ...mapState([
         'count',

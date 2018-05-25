@@ -2,28 +2,19 @@
   <b-container fluid>
     <b-row>
       <b-col cols="12">
-        <h1>Some other welcome message</h1>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        Some other content
+        <browser-meta-card/>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import bCol from 'bootstrap-vue/es/components/layout/col';
-  import bContainer from 'bootstrap-vue/es/components/layout/container';
-  import bRow from 'bootstrap-vue/es/components/layout/row';
+  import BrowserMetaCard from './BrowserMetaCard';
 
   export default {
     name: 'TheBrowser',
     components: {
-      bCol,
-      bContainer,
-      bRow,
+      BrowserMetaCard,
     },
   };
 </script>

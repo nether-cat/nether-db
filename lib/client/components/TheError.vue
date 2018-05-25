@@ -11,17 +11,8 @@
 </template>
 
 <script>
-  import bCol from 'bootstrap-vue/es/components/layout/col';
-  import bContainer from 'bootstrap-vue/es/components/layout/container';
-  import bRow from 'bootstrap-vue/es/components/layout/row';
-
   export default {
     name: 'TheError',
-    components: {
-      bCol,
-      bContainer,
-      bRow,
-    },
   };
 </script>
 

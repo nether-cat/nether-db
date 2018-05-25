@@ -1,11 +1,18 @@
 <template>
-  <b-navbar toggleable="md" type="light">
+  <b-navbar toggleable="md" type="light" class="fixed-top">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand href="#">{{ title }}</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav>
-        <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+      <b-navbar-nav class="navbar-sidenav flex-column">
+        <b-nav-item to="/" exact>
+          Dashboard
+        </b-nav-item>
+        <b-nav-item to="/browser">
+          Browse Data
+        </b-nav-item>
+        <b-nav-item disabled>
+          Import Data
+        </b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
@@ -19,7 +26,7 @@
           <b-dropdown-item href="#">RU</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown right>
+        <b-nav-item-dropdown right no-caret>
           <!-- Using button-content slot -->
           <template slot="button-content">
             <font-awesome-icon icon="user-circle"/>
@@ -33,8 +40,6 @@
 </template>
 
 <script>
-  import bButton from 'bootstrap-vue/es/components/button/button';
-  import bCollapse from 'bootstrap-vue/es/components/collapse/collapse';
   import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
   import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
@@ -44,7 +49,6 @@
   import bNavForm from 'bootstrap-vue/es/components/nav/nav-form';
   import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
   import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
   export default {
     name: 'TheNavbar',
@@ -52,8 +56,6 @@
       'title',
     ],
     components: {
-      bButton,
-      bCollapse,
       bDropdownItem,
       bFormInput,
       bNavbar,
@@ -63,11 +65,32 @@
       bNavForm,
       bNavItem,
       bNavItemDropdown,
-      FontAwesomeIcon,
     },
   };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  .navbar {
+    background-color: aliceblue;
+    border-bottom: 1px solid lightgrey;
+    @media (min-width: 768px) {
+      .navbar-sidenav {
+        top: 0;
+        left: 0;
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin-top: 56px;
+        background-color: aliceblue;
+        border-right: 1px solid lightgrey;
+        height: calc(100vh - 56px);;
+        > .nav-item {
+          width: 250px;
+          > .nav-link {
+            padding: 1.0rem;
+          }
+        }
+      }
+    }
+  }
 </style>
