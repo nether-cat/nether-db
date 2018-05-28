@@ -3,61 +3,58 @@
   <b-card header-tag="header"
           footer-tag="footer">
     <span slot="header">
-      <font-awesome-icon icon="info-circle"/> Record information
+      <font-awesome-icon icon="align-left"/> Record information
     </span>
     <b-container fluid class="card-text small">
         <b-col class="text-left">
           <h6 class="font-weight-normal">
-            Lake: <span>{{ "lakeName" }}</span>
+            Record information:
           </h6>
-          <!--Lake meta output-->
+          <!--Record meta output-->
           <hr/>
           <b-row>
-            <b-col class="text-right">Longitude:</b-col>
-            <b-col class="text-left"> {{ "lakeLong" }}</b-col>
+            <b-col class="text-right">Name of datasheet:</b-col>
+            <b-col class="text-left"> {{ "datasheetName" }}</b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Latitude:</b-col>
-            <b-col class="text-left"> {{ "lakeLat" }}</b-col>
+            <b-col class="text-right">Proxy type:</b-col>
+            <b-col class="text-left"> {{ "proxyType" }} </b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Surface level:</b-col>
-            <b-col class="text-left"> {{ "surfaceLevel" }}</b-col>
-          </b-row>
-          <hr/>
-          <b-row>
-            <b-col class="text-right">Maximum depth:</b-col>
-            <b-col class="text-left"> {{ "maxDepth" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Mean depth:</b-col>
-            <b-col class="text-left"> {{ "meanDepth" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Surface area:</b-col>
-            <b-col class="text-left"> {{ "surfArea" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Basin volume:</b-col>
-            <b-col class="text-left"> {{ "basinVol" }}</b-col>
+            <b-col class="text-right">Parameters:</b-col>
+            <b-col class="text-left"> {{ "parameterList" }} </b-col>
           </b-row>
           <hr/>
           <b-row>
-            <b-col class="text-right">Climate zone:</b-col>
-            <b-col class="text-left"> {{ "lakeClimate" }}</b-col>
+            <b-col class="text-right">Uploaded by:</b-col>
+            <b-col class="text-left"> {{ "uploadedBy" }} </b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Conductivity class:</b-col>
-            <b-col class="text-left"> {{ "conductivity" }}</b-col>
+            <b-col class="text-right">Upload date:</b-col>
+            <b-col class="text-left"> {{ "uploadDate" }} </b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Trophic state:</b-col>
-            <b-col class="text-left"> {{ "trophicState" }}</b-col>
+            <b-col class="text-right">Analysis method:</b-col>
+            <b-col class="text-left"> {{ "analysisMethod" }} </b-col>
           </b-row>
+          <b-row>
+            <b-col class="text-right">Age-depth-method:</b-col>
+            <b-col class="text-left"> {{ "ageDepthMethod" }} </b-col>
+          </b-row>
+          <hr/>
+          <b-row>
+            <b-col class="text-right">Age coverage:</b-col>
+            <b-col class="text-left"> {{ "proxyAgeMax" }}<span class="small"> - </span> {{ "proxyAgeMin" }} <span class="small">years B.P.</span></b-col>
+          </b-row>
+          <b-row>
+            <b-col class="text-right">Age resolution:</b-col>
+            <b-col class="text-left"> {{ "proxyAgeMax" }}</b-col>
+          </b-row>
+
         </b-col>
     </b-container>
     <span slot="footer" class="float-right">
-      <b-button variant="primary" size="sm" v-b-toggle.collapse1>More details</b-button>
+      <b-button variant="primary" size="sm" v-b-toggle.collapse1>Read data description...</b-button>
     </span>
   </b-card>
   </div>

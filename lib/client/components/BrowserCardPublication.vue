@@ -43,7 +43,7 @@
         </b-col>
       </b-container>
       <span slot="footer" class="float-right">
-        <b-button variant="primary" size="sm" v-b-toggle.collapse2>More details</b-button>
+        <b-button variant="primary" size="sm">Read abstract...</b-button>
       </span>
     </b-card>
 </template>
