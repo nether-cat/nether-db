@@ -1,17 +1,19 @@
 <template>
   <b-navbar toggleable="md" type="light" class="fixed-top">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand href="#">{{ title }}</b-navbar-brand>
+    <b-navbar-brand to="/" exact>
+      <img src="../assets/logo.png" :alt="title">
+    </b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav class="navbar-sidenav flex-column">
         <b-nav-item to="/" exact>
-          Dashboard
+          <font-awesome-icon icon="home" fixed-width/><span>Dashboard</span>
         </b-nav-item>
         <b-nav-item to="/browser">
-          Browse Data
+          <font-awesome-icon icon="database" fixed-width/><span>Browse Data</span>
         </b-nav-item>
         <b-nav-item disabled>
-          Import Data
+          <font-awesome-icon icon="cloud-upload-alt" fixed-width/><span>Import Data</span>
         </b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
@@ -73,6 +75,17 @@
   .navbar {
     background-color: aliceblue;
     border-bottom: 1px solid lightgrey;
+    .navbar-brand {
+      min-width: 111px;
+      img {
+        top: 0.25rem;
+        position: fixed;
+        max-height: 3rem;
+      }
+    }
+    .navbar-sidenav .nav-link > span::before {
+      content: '\002002';
+    }
     @media (min-width: 768px) {
       .navbar-sidenav {
         top: 0;
@@ -81,6 +94,7 @@
         overflow-x: hidden;
         overflow-y: auto;
         margin-top: 56px;
+        padding-top: 1px;
         background-color: aliceblue;
         border-right: 1px solid lightgrey;
         height: calc(100vh - 56px);;

@@ -28,12 +28,13 @@
   @import '~bootstrap-vue/dist/bootstrap-vue.css';
   @import "~@fortawesome/fontawesome/styles.css";
 
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
   #app {
-    top: 0;
-    bottom: 0;
-    height: 100vh;
     min-height: 100vh;
-    position: relative;
     > .main {
       display: block;
       padding-top: 56px;
