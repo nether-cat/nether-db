@@ -43,7 +43,7 @@
         padding: 1.5em;
       }
       @media (min-width: 768px) {
-        padding-left: 250px;
+        padding-left: 0px;
       }
     }
   }

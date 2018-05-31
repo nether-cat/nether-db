@@ -12,9 +12,6 @@
           <b-col>
             <test-chart1/>
           </b-col>
-          <b-col>
-            <test-chart2/>
-          </b-col>
         </b-row>
   </b-container>
       </b-card>
@@ -28,7 +25,6 @@
     name: 'BrowserCardProxyCharts',
     components: {
       TestChart1,
-      TestChart2,
     },
   };
 </script>

@@ -1,8 +1,13 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="12">
-        <b-row>
+      <b-col>
+        <b-row class="mt-3">
+          <b-col>
+          <browser-tools/>
+          </b-col>
+        </b-row>
+        <b-row class="mt-3">
           <b-col>
             <browser-card-meta/>
           </b-col>
@@ -34,6 +39,7 @@
 </template>
 
 <script>
+  import BrowserTools from './BrowserTools';
   import BrowserCardMeta from './BrowserCardMeta';
   import BrowserCardPublication from './BrowserCardPublication';
   import BrowserCardCollection from './BrowserCardCollection';
@@ -43,6 +49,7 @@
   export default {
     name: 'TheBrowser',
     components: {
+      BrowserTools,
       BrowserCardMeta,
       BrowserCardPublication,
       BrowserCardCollection,
@@ -52,6 +59,6 @@
   };
 </script>
 
-<style scoped>
+<style>
 
 </style>
