@@ -1,40 +1,37 @@
 <template>
   <b-container fluid>
-    <b-row>
-      <b-col>
-        <b-row class="mt-3">
-          <b-col>
+        <b-row>
           <browser-tools/>
-          </b-col>
+          <b-button  variant="primary" size="sm" v-b-toggle.datasetView>Press for single dataset view</b-button>
         </b-row>
+    <b-collapse id="datasetView">
         <b-row class="mt-3">
-          <b-col>
+          <b-col lg="8" class="ml-0">
             <browser-card-meta/>
           </b-col>
-          <b-col class="col-sm-4">
+          <b-col lg="4" class="ml-0">
             <map-api/>
           </b-col>
         </b-row>
-        <b-collapse id="collapse1">
+        <b-collapse id="showDetails">
           <b-row class="mt-3">
-           <b-col>
+           <b-col lg="8" class="ml-0">
             <browser-card-publication/>
            </b-col>
-            <b-col class="col-sm-4">
-              <b-card> Weitere Angaben: Qualitätsbewertung (5 Sterne?), Zugriffsberechtigung, Nutzungstimeline(?), Für welche Zwecke wird dieser Datensatz am häufigsten genutzt?</b-card>
-            </b-col>
+              <b-col lg="4">
+                <b-card> Weitere Angaben: Qualitätsbewertung (5 Sterne?), Zugriffsberechtigung, Nutzungstimeline(?), Für welche Zwecke wird dieser Datensatz am häufigsten genutzt?</b-card>
+              </b-col>
           </b-row>
           <b-row class="mt-3">
-            <b-col class="col-sm-4">
+            <b-col lg="4">
               <browser-card-collection/>
             </b-col>
-            <b-col>
+            <b-col lg="8" class="ml-0">
               <browser-card-proxy-charts/>
             </b-col>
           </b-row>
         </b-collapse>
-      </b-col>
-    </b-row>
+    </b-collapse>
   </b-container>
 </template>
 

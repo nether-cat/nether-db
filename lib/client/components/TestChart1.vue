@@ -1,6 +1,6 @@
 
 <template>
-  <svg width="270" height="368">
+  <svg width='400' height='270'>
     <g style="transform: translate(0, 10px)">
       <path :d="line" />
     </g>
@@ -8,12 +8,13 @@
 </template>
 <script>
   import * as d3 from 'd3';
+
   export default {
     name: 'testChart1',
     data() {
       return {
-        data: [-5, 1, 3, 32, 8, 16, 32, 4, 9,-5, 1, 3, 32, 8, 16, 32, 4, 9, -5],
-        line: '',
+        data: [-5, 1, 3, 32, 8, 16, 32],
+        line: '[-5, 1, 3, 32, 8, 16, 32]',
       };
     },
     mounted() {
@@ -42,5 +43,4 @@
 
 <!--D3 CSS Styles einbinden-->
 <style lang="sass" scoped>
-
 </style>
