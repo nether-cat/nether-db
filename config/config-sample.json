@@ -3,7 +3,18 @@
     "koa": {
       "keys": [
         "secret-key"
-      ]
+      ],
+      "jwt": {
+        "cookie": "jwt:token",
+        "secret": "shared-secret",
+        "refresh": "1m",
+        "preset": {
+          "algorithm": "HS256",
+          "expiresIn": "5m",
+          "audience": "http://localhost:3000",
+          "issuer": "http://localhost:3000"
+        }
+      }
     },
     "seraph": {
       "options": {

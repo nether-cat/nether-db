@@ -9,14 +9,25 @@ const defaults = {
     'name': 'PaLim Database',
     'shortName': 'PaLimDB',
     'paths': {
-      'root': path.normalize(__dirname + '/../'),
-      'public': path.normalize(__dirname + '/../public/'),
+      'root': path.normalize(__dirname + '/..'),
+      'public': path.normalize(__dirname + '/../dist/bundle-client'),
     },
   },
   'koa': {
     'keys': [
       'secret-key',
     ],
+    'jwt': {
+      'cookie': 'jwt:token',
+      'secret': 'shared-secret',
+      'refresh': '1m',
+      'preset': {
+        'algorithm': 'HS256',
+        'expiresIn': '5m',
+        'audience': 'http://localhost:3000',
+        'issuer': 'http://localhost:3000',
+      },
+    },
   },
   'seraph': {
     'options': {

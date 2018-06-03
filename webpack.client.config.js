@@ -12,8 +12,8 @@ module.exports = merge(baseConfig, {
   target: 'web',
   entry: './lib/client/entry-client.js',
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './public'),
+    filename: '[name].bundle.js?[hash]',
+    path: path.resolve(__dirname, './dist/bundle-client'),
     publicPath: '/',
   },
   resolve: {

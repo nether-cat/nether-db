@@ -11,8 +11,9 @@ module.exports = merge(baseConfig, {
   entry: './lib/client/entry-server.js',
   devtool: isProd ? false : 'source-map',
   output: {
-    filename: 'ssr-bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    filename: '[name].ssr-bundle.js',
+    path: path.resolve(__dirname, './dist/bundle-server'),
+    publicPath: '/',
     libraryTarget: 'commonjs2',
   },
   resolve: {

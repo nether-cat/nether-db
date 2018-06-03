@@ -2,8 +2,8 @@
 
 const XLSX = require('xlsx');
 const util = require('util');
-const db = require('../models');
-const clone = require('clone');
+
+const database = require('../lib/server/database');
 const allCountries = new (require('country-list'))();
 
 let replacements = {
@@ -87,7 +87,7 @@ const importData = async function () {
     /** @type {Model} */ Record,
     /** @type {Model} */ Synonym,
     /** @type {Model} */ User,
-  } = db.models;
+  } = database.models;
   return Promise.resolve()
     .then(() => Country.promise.where({code: metadata.lake['country']}))
     .then(countries => {

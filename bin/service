@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const app = require('../lib/server');
+const server = require('../lib/server');
 const port = normalizePort(process.env.PORT || '3000');
 
-app.listen(port, function () {
+server.listen(port, function () {
   console.log('Server running on http://localhost:' + port);
 });
 
