@@ -19,7 +19,6 @@
 
 <script>
   import TestChart1 from './TestChart1';
-  import TestChart2 from './TestChart2';
 
   export default {
     name: 'BrowserCardProxyCharts',

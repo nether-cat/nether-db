@@ -90,7 +90,7 @@
   import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
   import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
   import bTab from 'bootstrap-vue/es/components/tabs/tab';
-  import browserListLakes from './BrowserListLakes';
+  import browserListLakes from './BrowserTableLakes';
 
   export default {
     name: 'browserTools',
