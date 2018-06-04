@@ -6,7 +6,7 @@
       </b-row>
 
       <b-row>
-        <b-col md="6" class="my-1">
+        <b-col md="4" class="my-1">
           <b-form-group horizontal label="Filter" class="mb-0">
             <b-input-group>
               <b-form-input v-model="filter" placeholder="Type to Search" />
@@ -16,7 +16,7 @@
             </b-input-group>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="my-1">
+        <b-col md="4" class="my-1">
           <b-form-group horizontal label="Sort" class="mb-0">
             <b-input-group>
               <b-form-select v-model="sortBy" :options="sortOptions">
@@ -29,7 +29,7 @@
             </b-input-group>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="my-1">
+        <b-col md="4" class="my-1">
           <b-form-group horizontal label="Per page" class="mb-0">
             <b-form-select :options="pageOptions" v-model="perPage" />
           </b-form-group>
@@ -87,6 +87,7 @@
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
   import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
   import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
+  import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
   import bTable from 'bootstrap-vue/es/components/table/table';
 
 
@@ -108,6 +109,7 @@
       bFormInput,
       bFormSelect,
       bInputGroup,
+      bPagination,
       bTable,
     },
 
@@ -119,8 +121,8 @@
             { key: 'proxyType', label: 'Proxy type'},
             { key: 'lakeName', label: 'Lake', sortable: true },
             { key: 'coreLabel', label: 'Core label' },
-            { key: 'coreLatitude', label: 'Latitude' },
-            { key: 'coreLongitude', label: 'Longitude' },
+            { key: 'coreLatitude', label: 'Latitude', sortable: true },
+            { key: 'coreLongitude', label: 'Longitude', sortable: true },
             { key: 'publicationAuthors', label: 'Contributor',  sortable: true,},
             { key: 'publicationDate', label: 'Year',  sortable: true, 'class': 'text-center'},
             { key: 'proxyParameters', label: 'parameters'},
