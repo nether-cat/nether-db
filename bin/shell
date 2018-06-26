@@ -3,7 +3,7 @@
 const XLSX = require('xlsx');
 const util = require('util');
 
-const database = require('../lib/server/database');
+const seraph = require('../lib/server/database/seraph');
 const allCountries = new (require('country-list'))();
 
 let replacements = {
@@ -87,7 +87,7 @@ const importData = async function () {
     /** @type {Model} */ Record,
     /** @type {Model} */ Synonym,
     /** @type {Model} */ User,
-  } = database.models;
+  } = seraph.models;
   return Promise.resolve()
     .then(() => Country.promise.where({code: metadata.lake['country']}))
     .then(countries => {

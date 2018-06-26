@@ -12,6 +12,10 @@ const defaults = {
       'root': path.normalize(__dirname + '/..'),
       'public': path.normalize(__dirname + '/../dist/bundle-client'),
     },
+    'urls': {
+      'local': 'http://localhost:3000',
+      'public': 'http://localhost:3000',
+    },
   },
   'koa': {
     'keys': [

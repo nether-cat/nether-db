@@ -1,5 +1,11 @@
 {
   "development": {
+    "app": {
+      "urls": {
+        "local": "http://localhost:3000",
+        "public": "http://localhost:3000"
+      }
+    },
     "koa": {
       "keys": [
         "secret-key"

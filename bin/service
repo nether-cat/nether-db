@@ -3,8 +3,19 @@
 const server = require('../lib/server');
 const port = normalizePort(process.env.PORT || '3000');
 
-server.listen(port, function () {
-  console.log('Server running on http://localhost:' + port);
+const httpServer = server.listen(port, function () {
+  console.log('HTTP server listening on http://localhost:' + port);
+});
+
+httpServer.on('close', function () {
+  console.log('HTTP server has been closed gracefully!');
+  server.shutdown();
+});
+
+process.on('SIGINT', function() {
+  httpServer.close(function(err) {
+    process.exit(err ? 1 : 0);
+  });
 });
 
 function normalizePort (val) {

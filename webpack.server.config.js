@@ -1,14 +1,16 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config.js');
+const DefinePlugin = require('webpack').DefinePlugin;
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 const nodeExternals = require('webpack-node-externals');
+const configParams = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = merge(baseConfig, {
   target: 'node',
-  entry: './lib/client/entry-server.js',
+  entry: ['regenerator-runtime/runtime', './lib/client/entry-server.js'],
   devtool: isProd ? false : 'source-map',
   output: {
     filename: '[name].ssr-bundle.js',
@@ -33,6 +35,8 @@ module.exports = merge(baseConfig, {
       /\.less$/,
       /\.(s)css$/,
       /^bootstrap-vue/,
+      /^joi/,
+      /^regenerator-runtime/,
     ],
   }),
   // This is the plugin that turns the entire output of the server build
@@ -40,5 +44,8 @@ module.exports = merge(baseConfig, {
   // `vue-ssr-server-bundle.json`
   plugins: [
     new VueSSRServerPlugin(),
+    new DefinePlugin({
+      'process.env.VUE_API_URL': JSON.stringify(configParams.app.urls.public + '/api'),
+    }),
   ],
 });

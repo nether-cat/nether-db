@@ -1,6 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
+const DefinePlugin = require('webpack').DefinePlugin;
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,7 +11,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = merge(baseConfig, {
   target: 'web',
-  entry: './lib/client/entry-client.js',
+  entry: ['regenerator-runtime/runtime', './lib/client/entry-client.js'],
   output: {
     filename: '[name].bundle.js?[hash]',
     path: path.resolve(__dirname, './dist/bundle-client'),
@@ -21,6 +22,9 @@ module.exports = merge(baseConfig, {
       'vue$': 'vue/dist/vue.runtime.esm.js',
     },
   },
+  node: {
+    net: 'empty',
+  },
   plugins: [
     new ManifestPlugin(),
     new VueSSRClientPlugin(),
@@ -29,6 +33,9 @@ module.exports = merge(baseConfig, {
       title: configParams.app.name,
       template: './lib/client/template.html',
       filename: './app/index.html',
+    }),
+    new DefinePlugin({
+      'process.env.VUE_API_URL': JSON.stringify(configParams.app.urls.public + '/api'),
     }),
   ],
 });
