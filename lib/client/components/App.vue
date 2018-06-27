@@ -1,6 +1,16 @@
 <template>
   <div id="app">
-    <the-navbar title="PaLimDB"/>
+    <b-row>
+      <b-col>
+        <div id="logo" to="/" exact>
+          <img src="../assets/logo.png" :alt="title" :width=300>
+        </div>
+      </b-col>
+      <b-col>
+        <the-navbar-top/>
+      </b-col>
+    </b-row>
+    <the-navbar/>
     <div class="main">
       <router-view/>
     </div>
@@ -9,11 +19,13 @@
 
 <script>
   import TheNavbar from './TheNavbar';
+  import TheNavbarTop from './TheNavbarTop';
 
   export default {
     name: 'App',
     components: {
       TheNavbar,
+      TheNavbarTop,
     },
     data () {
       return {

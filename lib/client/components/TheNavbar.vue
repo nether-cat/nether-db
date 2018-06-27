@@ -1,21 +1,22 @@
 <template>
-  <b-navbar toggleable="md" fixed="top" type="dark" class="bg-darkblue">
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand to="/" exact>
-      <img src="../assets/logo.png" :alt="title">
-    </b-navbar-brand>
-    <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav>
-        <b-nav-item to="/" exact>
-          <font-awesome-icon icon="home" fixed-width/>&nbsp;<span class="text-uppercase">Home</span>
-        </b-nav-item>
-        <b-nav-item to="/browser">
-          <font-awesome-icon icon="database" fixed-width/>&nbsp;<span class="text-uppercase">Database</span>
-        </b-nav-item>
-        <b-nav-item disabled>
-          <font-awesome-icon icon="info-circle" fixed-width/>&nbsp;<span class="text-uppercase">About</span>
-        </b-nav-item>
-      </b-navbar-nav>
+  <div class="sticky-nav">
+    <b-navbar toggleable="md" class="navbar-dark bg-darkblue text-uppercase">
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav>
+          <b-nav-item to="/" exact>
+            <font-awesome-icon icon="home" fixed-width/><span> Dashboard</span>
+          </b-nav-item>
+          <b-nav-item to="/browser">
+            <font-awesome-icon icon="database" fixed-width/><span> Browse Data</span>
+          </b-nav-item>
+          <b-nav-item to="/importer" disabled>
+            <font-awesome-icon icon="cloud-upload-alt" fixed-width/><span> Import Data</span>
+          </b-nav-item>
+          <b-nav-item disabled>
+            Publications
+          </b-nav-item>
+        </b-navbar-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
@@ -43,6 +44,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
+  </div>
 </template>
 
 <script>
@@ -80,17 +82,25 @@
 </script>
 
 <style lang="scss" scoped>
-  .bg-darkblue {
-    background-color: #004a9c;
-    border-bottom: 2px solid lightgrey;
+
+  .sticky-nav {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 200ms ease-out;
   }
 
+  .bg-darkblue {
+    background-color: #29337b;
+    border-bottom: 2px solid lightgrey;
+  }
   .navbar {
     .navbar-brand {
       min-width: 115px;
       img {
         top: 0.2rem;
-        position: absolute;
+        position: fixed;
         max-height: 3.2rem;
       }
     }
