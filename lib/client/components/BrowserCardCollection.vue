@@ -3,61 +3,73 @@
   <b-card header-tag="header"
           footer-tag="footer">
     <span slot="header">
-      <font-awesome-icon icon="info-circle"/> Record information
+      <font-awesome-icon icon="align-left"/> Record information
     </span>
     <b-container fluid class="card-text small">
-        <b-col class="text-left">
-          <h6 class="font-weight-normal">
-            Lake: <span>{{ "lakeName" }}</span>
+      <b-row>
+        <b-col>
+          <h6 class="text-left font-weight-normal">
+            Record information:
           </h6>
-          <!--Lake meta output-->
+          <!--Record meta output-->
           <hr/>
           <b-row>
-            <b-col class="text-right">Longitude:</b-col>
-            <b-col class="text-left"> {{ "lakeLong" }}</b-col>
+            <b-col cols="4" class="text-right">Name of datasheet:</b-col>
+            <b-col class="text-left"> {{ "collection.datasheetName" }}</b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Latitude:</b-col>
-            <b-col class="text-left"> {{ "lakeLat" }}</b-col>
+            <b-col cols="4" class="text-right">Proxy type:</b-col>
+            <b-col class="text-left"> {{ "collection.proxyType" }} </b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Surface level:</b-col>
-            <b-col class="text-left"> {{ "surfaceLevel" }}</b-col>
-          </b-row>
-          <hr/>
-          <b-row>
-            <b-col class="text-right">Maximum depth:</b-col>
-            <b-col class="text-left"> {{ "maxDepth" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Mean depth:</b-col>
-            <b-col class="text-left"> {{ "meanDepth" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Surface area:</b-col>
-            <b-col class="text-left"> {{ "surfArea" }}</b-col>
-          </b-row>
-          <b-row>
-            <b-col class="text-right">Basin volume:</b-col>
-            <b-col class="text-left"> {{ "basinVol" }}</b-col>
+            <b-col cols="4" class="text-right">Parameters:</b-col>
+            <b-col class="text-left"> {{ "collection.parameterList" }} </b-col>
           </b-row>
           <hr/>
           <b-row>
-            <b-col class="text-right">Climate zone:</b-col>
-            <b-col class="text-left"> {{ "lakeClimate" }}</b-col>
+            <b-col cols="4" class="text-right">Analysis method:</b-col>
+            <b-col class="text-left"> {{ "collection.analysisMethod" }} </b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Conductivity class:</b-col>
-            <b-col class="text-left"> {{ "conductivity" }}</b-col>
+            <b-col cols="4" class="text-right">Age-depth-method:</b-col>
+            <b-col class="text-left"> {{ "collection.ageDepthMethod" }} </b-col>
+          </b-row>
+          <hr/>
+          <b-row>
+            <b-col cols="4" class="text-right">Age coverage:</b-col>
+            <b-col class="text-left"> {{ "collection.proxyAgeMax" }}<span class="small"> - </span> {{ "collection.proxyAgeMin" }} <span class="small">years B.P.</span></b-col>
           </b-row>
           <b-row>
-            <b-col class="text-right">Trophic state:</b-col>
-            <b-col class="text-left"> {{ "trophicState" }}</b-col>
+            <b-col cols="4" class="text-right">Age resolution:</b-col>
+            <b-col class="text-left"> {{ "collection.proxyAgeMax" }}</b-col>
           </b-row>
+          <hr/>
+          <b-row>
+            <b-col cols="4" class="text-right">Uploaded by:</b-col>
+            <b-col class="text-left"> {{ "collection.uploadedBy" }} </b-col>
+          </b-row>
+          <b-row>
+            <b-col cols="4" class="text-right">Upload date:</b-col>
+            <b-col class="text-left"> {{ "collection.uploadDate" }} </b-col>
+          </b-row>
+          <hr>
+          <b-collapse id="showDescription" class="mt-2">
+            <b-row>
+              <b-col class="text-left text-bold">Data description:</b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <p class="card-text">
+                  {{ collectionDataDescription }}
+                </p>
+              </b-col>
+            </b-row>
+          </b-collapse>
         </b-col>
+      </b-row>
     </b-container>
     <span slot="footer" class="float-right">
-      <b-button variant="primary" size="sm" v-b-toggle.collapse1>More details</b-button>
+      <b-button variant="primary" size="sm" v-b-toggle.showDescription>Read data description...</b-button>
     </span>
   </b-card>
   </div>
@@ -66,6 +78,12 @@
 <script>
   export default {
     name: 'BrowserCollectionCard',
+
+    data () {
+      return {
+        collectionDataDescription: `Hello, eso es un descriptión`
+      }
+    }
   };
 </script>
 

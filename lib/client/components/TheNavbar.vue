@@ -1,32 +1,36 @@
 <template>
-  <b-navbar toggleable="md" type="light" class="fixed-top">
+  <b-navbar toggleable="md" fixed="top" type="dark" class="bg-darkblue">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/" exact>
       <img src="../assets/logo.png" :alt="title">
     </b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav class="navbar-sidenav flex-column">
+      <b-navbar-nav>
         <b-nav-item to="/" exact>
-          <font-awesome-icon icon="home" fixed-width/><span>Dashboard</span>
+          <font-awesome-icon icon="home" fixed-width/>&nbsp;<span class="text-uppercase">Home</span>
         </b-nav-item>
         <b-nav-item to="/browser">
-          <font-awesome-icon icon="database" fixed-width/><span>Browse Data</span>
+          <font-awesome-icon icon="database" fixed-width/>&nbsp;<span class="text-uppercase">Database</span>
         </b-nav-item>
         <b-nav-item disabled>
-          <font-awesome-icon icon="cloud-upload-alt" fixed-width/><span>Import Data</span>
+          <font-awesome-icon icon="info-circle" fixed-width/>&nbsp;<span class="text-uppercase">About</span>
         </b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Quick Search"/>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          <b-input-group class="mr-md-2">
+            <b-form-input size="sm" type="text" placeholder="Quick Search"/>
+            <b-input-group-append>
+              <b-button size="sm" class="my-2 my-sm-0" type="submit">
+                <font-awesome-icon icon="search"/>
+              </b-button>
+            </b-input-group-append>
+          </b-input-group>
         </b-nav-form>
-        <b-nav-item-dropdown text="Language" right>
+        <b-nav-item-dropdown right no-caret text="EN">
           <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
+          <b-dropdown-item href="#" disabled>DE</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown right no-caret>
           <!-- Using button-content slot -->
@@ -44,6 +48,8 @@
 <script>
   import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
+  import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
+  import bInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
   import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
   import bNavbarBrand from 'bootstrap-vue/es/components/navbar/navbar-brand';
   import bNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
@@ -60,6 +66,8 @@
     components: {
       bDropdownItem,
       bFormInput,
+      bInputGroup,
+      bInputGroupAppend,
       bNavbar,
       bNavbarBrand,
       bNavbarNav,
@@ -72,38 +80,18 @@
 </script>
 
 <style lang="scss">
+  .bg-darkblue {
+    background-color: #004a9c;
+    border-bottom: 2px solid lightgrey;
+  }
+
   .navbar {
-    background-color: aliceblue;
-    border-bottom: 1px solid lightgrey;
     .navbar-brand {
-      min-width: 111px;
+      min-width: 115px;
       img {
-        top: 0.25rem;
-        position: fixed;
-        max-height: 3rem;
-      }
-    }
-    .navbar-sidenav .nav-link > span::before {
-      content: '\002002';
-    }
-    @media (min-width: 768px) {
-      .navbar-sidenav {
-        top: 0;
-        left: 0;
+        top: 0.2rem;
         position: absolute;
-        overflow-x: hidden;
-        overflow-y: auto;
-        margin-top: 56px;
-        padding-top: 1px;
-        background-color: aliceblue;
-        border-right: 1px solid lightgrey;
-        height: calc(100vh - 56px);;
-        > .nav-item {
-          width: 250px;
-          > .nav-link {
-            padding: 1.0rem;
-          }
-        }
+        max-height: 3.2rem;
       }
     }
   }

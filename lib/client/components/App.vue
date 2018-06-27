@@ -37,14 +37,11 @@
     min-height: 100vh;
     > .main {
       display: block;
-      padding-top: 56px;
-      min-height: calc(100vh - 56px);
+      padding-top: 58px;
+      min-height: calc(100vh - 58px);
       background-color: white;
       > .container-fluid {
         padding: 1.5em;
-      }
-      @media (min-width: 768px) {
-        padding-left: 250px;
       }
     }
   }

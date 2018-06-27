@@ -21,7 +21,7 @@
               </b-form-input>
             </b-form-group>
             <b-form-group id="inputGroupPassword"
-                          label="Your Password:"
+                          label="Your password:"
                           label-for="passwordInput">
               <b-form-input id="passwordInput"
                             type="password"
