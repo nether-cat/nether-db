@@ -10,7 +10,7 @@
         <!-- Proxy chart output-->
         <b-row>
           <b-col>
-            <test-chart1/>
+            <chart-test/>
           </b-col>
         </b-row>
   </b-container>
@@ -18,12 +18,12 @@
 </template>
 
 <script>
-  import TestChart1 from './TestChart1';
+  import ChartTest from './ChartTest';
 
   export default {
     name: 'BrowserCardProxyCharts',
     components: {
-      TestChart1,
+      ChartTest,
     },
   };
 </script>

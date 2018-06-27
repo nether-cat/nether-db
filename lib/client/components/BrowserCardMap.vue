@@ -5,8 +5,7 @@
       <font-awesome-icon icon="map"/> Map
     </span>
     <b-container fluid class="card-text small">
-        <h6 class="font-weight-normal"> Hier soll die Map rein
-        </h6>
+        <h6 class="font-weight-normal">The map should be displayed here</h6>
     </b-container>
     <span slot="footer" class="float-right">
         <b-button variant="primary" size="sm" v-b-toggle.collapse2>Zoom in</b-button>
@@ -16,7 +15,7 @@
 
 <script>
   export default {
-    name: 'MapApi',
+    name: 'BrowserCardMap',
   };
 </script>
 

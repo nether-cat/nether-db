@@ -117,10 +117,10 @@
 
 <script>
   export default {
-    name: 'BrowserMetaCard',
+    name: 'BrowserCardMeta',
   };
 </script>
 
-<style>
+<style scoped>
 
 </style>

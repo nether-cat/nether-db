@@ -10,7 +10,7 @@
   import * as d3 from 'd3';
 
   export default {
-    name: 'testChart1',
+    name: 'ChartTest',
     data() {
       return {
         data: [-5, 1, 3, 32, 8, 16, 32],
@@ -41,6 +41,7 @@
   };
 </script>
 
-<!--D3 CSS Styles einbinden-->
+<!-- TODO: D3 CSS Styles einbinden -->
 <style lang="sass" scoped>
+
 </style>

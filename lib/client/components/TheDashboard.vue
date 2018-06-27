@@ -1,12 +1,12 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="12">
-        User: <strong>{{ user ? user.email : 'not logged in' }}</strong><hr/>
+      <b-col cols="12" md="8" xl="4">
+        User: <em>{{ user ? user.email : 'not logged in' }}</em><hr/>
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="12">
+      <b-col cols="12" md="8" xl="4">
         <b-form @submit="onSubmit" novalidate>
           <div v-if="!user">
             <b-form-group id="inputGroupEmail"

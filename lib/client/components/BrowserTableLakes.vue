@@ -155,7 +155,7 @@
           { key: 'coreLongitude', label: 'Longitude', sortable: true },
           { key: 'publicationAuthors', label: 'Contributor', sortable: true },
           { key: 'publicationDate', label: 'Year', sortable: true, 'class': 'text-center' },
-          { key: 'proxyParameters', label: 'parameters' },
+          { key: 'proxyParameters', label: 'Parameters' },
           { key: 'actions', label: 'Actions' },
         ],
 
@@ -196,6 +196,7 @@
     },
   };
 </script>
-<style>
+
+<style scoped>
 
 </style>

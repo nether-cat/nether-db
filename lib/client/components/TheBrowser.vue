@@ -3,11 +3,9 @@
     <b-row>
       <browser-tools/>
     </b-row>
-
     <b-row>
       <browser-table-lakes/>
     </b-row>
-
     <b-button variant="primary" size="sm" v-b-toggle.datasetView>Press for single dataset view</b-button>
     <b-collapse id="datasetView">
       <b-row class="mt-3">
@@ -15,9 +13,8 @@
           <browser-card-meta/>
         </b-col>
         <b-col lg="4" class="ml-0">
-          <map-api/>
+          <browser-card-map/>
         </b-col>
-
       </b-row>
       <b-collapse id="showDetails">
         <b-row class="mt-3">
@@ -25,12 +22,12 @@
             <browser-card-publication/>
           </b-col>
           <b-col lg="4">
-            <b-card> <p> Weitere Angaben: Qualitätsbewertung (5 Sterne?), Zugriffsberechtigung, Nutzungstimeline(?), Für
-              welche Zwecke wird dieser Datensatz am häufigsten genutzt?</p>
+            <b-card>
+              Further considerations: Quality rating (1-5 stars?), Access control list, Usage timeline (?),
+              For which purposes has the dataset been used most frequently?
             </b-card>
           </b-col>
         </b-row>
-
         <b-row class="mt-3">
           <b-col lg="4">
             <browser-card-collection/>
@@ -39,37 +36,34 @@
             <browser-card-proxy-charts/>
           </b-col>
         </b-row>
-
       </b-collapse>
     </b-collapse>
   </b-container>
 </template>
 
 <script>
-  import BrowserTools from './BrowserTools';
-  import BrowserCardMeta from './BrowserCardMeta';
-  import BrowserCardPublication from './BrowserCardPublication';
   import BrowserCardCollection from './BrowserCardCollection';
+  import BrowserCardMap from './BrowserCardMap';
+  import BrowserCardMeta from './BrowserCardMeta';
   import BrowserCardProxyCharts from './BrowserCardProxyCharts';
+  import BrowserCardPublication from './BrowserCardPublication';
   import BrowserTableLakes from './BrowserTableLakes';
-  import MapApi from './MapApi';
-  import TestChart1 from './TestChart1';
+  import BrowserTools from './BrowserTools';
 
   export default {
     name: 'TheBrowser',
     components: {
-      BrowserTools,
-      BrowserCardMeta,
-      BrowserCardPublication,
       BrowserCardCollection,
+      BrowserCardMap,
+      BrowserCardMeta,
       BrowserCardProxyCharts,
+      BrowserCardPublication,
       BrowserTableLakes,
-      MapApi,
-      TestChart1,
+      BrowserTools,
     },
   };
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -3,7 +3,7 @@
     <b-container fluid>
       <h6>Proxy records</h6>
       <hr>
-      <p>Such- und Filteroptionen für Proxies</p>
+      <p>Search and filter results by proxy</p>
       <hr>
       <b-form-group label="proxySelection">
         <b-form-checkbox-group buttons stacked id="proxyCheckboxes" v-model="proxySelect" :options="options">

@@ -1,8 +1,8 @@
 <template>
   <b-card class="text-small">
   <b-container fluid>
-    <h6> Search by location </h6>
-    <br>
+    <h6>Location</h6>
+    <hr>
     <b-form-group>
       <b-form-input v-model="locationSelect.lakeName" placeholder="Lake..."></b-form-input>
     </b-form-group>
@@ -67,7 +67,7 @@
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
 
 export default {
-name: 'browserToolsLocation',
+name: 'BrowserToolsLocation',
 components: {
   bFormGroup,
   bFormInput,
@@ -90,6 +90,7 @@ data () {
 }
 };
 </script>
-<style>
+
+<style scoped>
 
 </style>

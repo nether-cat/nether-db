@@ -79,7 +79,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .bg-darkblue {
     background-color: #004a9c;
     border-bottom: 2px solid lightgrey;
