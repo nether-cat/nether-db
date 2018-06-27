@@ -5,45 +5,48 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <b-nav-item to="/" exact>
-            <font-awesome-icon icon="home" fixed-width/><span> Dashboard</span>
+            <font-awesome-icon icon="home" fixed-width/>
+            <span> Dashboard</span>
           </b-nav-item>
           <b-nav-item to="/browser">
-            <font-awesome-icon icon="database" fixed-width/><span> Browse Data</span>
+            <font-awesome-icon icon="database" fixed-width/>
+            <span> Browse Data</span>
           </b-nav-item>
           <b-nav-item to="/importer" disabled>
-            <font-awesome-icon icon="cloud-upload-alt" fixed-width/><span> Import Data</span>
+            <font-awesome-icon icon="cloud-upload-alt" fixed-width/>
+            <span> Import Data</span>
           </b-nav-item>
           <b-nav-item disabled>
             Publications
           </b-nav-item>
         </b-navbar-nav>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-          <b-input-group class="mr-md-2">
-            <b-form-input size="sm" type="text" placeholder="Quick Search"/>
-            <b-input-group-append>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">
-                <font-awesome-icon icon="search"/>
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-nav-form>
-        <b-nav-item-dropdown right no-caret text="EN">
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#" disabled>DE</b-dropdown-item>
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown right no-caret>
-          <!-- Using button-content slot -->
-          <template slot="button-content">
-            <font-awesome-icon icon="user-circle"/>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Logout</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-form>
+            <b-input-group class="mr-md-2">
+              <b-form-input size="sm" type="text" placeholder="Quick Search"/>
+              <b-input-group-append>
+                <b-button size="sm" class="my-2 my-sm-0" type="submit">
+                  <font-awesome-icon icon="search"/>
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-nav-form>
+          <b-nav-item-dropdown right no-caret text="EN">
+            <b-dropdown-item href="#">EN</b-dropdown-item>
+            <b-dropdown-item href="#" disabled>DE</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item-dropdown right no-caret>
+            <!-- Using button-content slot -->
+            <template slot="button-content">
+              <font-awesome-icon icon="user-circle"/>
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item href="#">Logout</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 
@@ -95,6 +98,7 @@
     background-color: #29337b;
     border-bottom: 2px solid lightgrey;
   }
+
   .navbar {
     .navbar-brand {
       min-width: 115px;

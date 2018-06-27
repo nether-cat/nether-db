@@ -14,7 +14,7 @@
             <span> | </span>
           </b-nav-item>
           <b-nav-item disabled>
-           <span> Legal information </span>
+            <span> Legal information </span>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -91,5 +91,7 @@
         }
       }
     }
-  };
+  }
+
+  ;
 </style>
