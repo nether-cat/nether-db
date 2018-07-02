@@ -1,5 +1,9 @@
 <template>
   <b-container fluid>
+    <b-button-group>
+      <b-button>List all Lakes</b-button>
+      <b-button>List all Cores</b-button>
+    </b-button-group>
 
     <b-row class="mt-3">
 

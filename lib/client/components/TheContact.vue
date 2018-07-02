@@ -2,25 +2,28 @@
   <b-container>
     <b-row>
       <b-col>
-  <b-card>
-    <b-container fluid class="small">
-      <h6> Contributors: </h6>
-      <p>Mario Dorn (GFZ-Potsdam)</p>
-      <p>Alexander Brauser (GFZ-Potsdam)</p>
-      <p>Dr. Arne Ramisch (GFZ-Potsdam)</p>
-      <p>Dr. Boris Biskaborn (AWI Potsdam)</p>
-      <hr>
-      <h6> Mail: </h6>
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
-      <p>4</p>
+        <b-card>
+          <b-container fluid class="small">
+            <h6> Contributors: </h6>
+            <p>Mario Dorn (GFZ-Potsdam)</p>
+            <p>Alexander Brauser (GFZ-Potsdam)</p>
+            <p>Dr. Arne Ramisch (GFZ-Potsdam)</p>
+            <p>Dr. Boris Biskaborn (AWI Potsdam)</p>
+            <hr>
+            <h6> Mail: </h6>
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
 
-      <h6> <font-awesome-icon icon="hands-helping" fixed-width/> Participate! </h6>
-      <p>Help this project to grow by sharing your thoughts with us.</p>
-      <p>We appreciate all your suggestions, bug reports and further cooperations.</p>
-    </b-container>
-  </b-card>
+            <h6>
+              <font-awesome-icon icon="hands-helping" fixed-width/>
+              Participate!
+            </h6>
+            <p>Help this project to grow by sharing your thoughts with us.</p>
+            <p>We appreciate all your suggestions, bug reports and further cooperations.</p>
+          </b-container>
+        </b-card>
       </b-col>
       <b-col>
         <b-card>
@@ -56,7 +59,7 @@
               <b-form-input prepend="Subject:" v-model="contact.subject"></b-form-input>
             </b-form-group>
             <b-form-group label="Your message:">
-              <b-form-input prepend="Message:" v-model="contact.message"></b-form-input>
+              <b-form-textarea prepend="Message:" v-model="contact.message" rows="2"></b-form-textarea>
             </b-form-group>
 
 
@@ -74,28 +77,29 @@
 <script>
   import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-
+  import bFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea';
 
   export default {
     name: 'TheContact',
     components: {
       bFormGroup,
       bFormInput,
+      bFormTextarea,
     },
 
     data () {
       return {
         contact: {
-          name: "",
-          surname: "",
-          email:"",
-          institution: "",
-          subject:"",
-          message: "",
+          name: '',
+          surname: '',
+          email: '',
+          institution: '',
+          subject: '',
+          message: '',
 
-        }
-      }
-    }
+        },
+      };
+    },
   };
 </script>
 <style>

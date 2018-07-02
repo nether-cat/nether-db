@@ -30,6 +30,7 @@
     data () {
       return {
         msg: 'Welcome to the PaLim Database!',
+        title: 'PALIM DB',
       };
     },
   };

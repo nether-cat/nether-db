@@ -72,15 +72,8 @@
 </template>
 
 <script>
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-
   export default {
     name: 'BrowserToolsLocation',
-    components: {
-      bFormGroup,
-      bFormInput,
-    },
 
     data () {
       return {

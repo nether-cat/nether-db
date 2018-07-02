@@ -1,8 +1,7 @@
-
 <template>
-  <svg width='400' height='270'>
+  <svg width='300' height='270'>
     <g style="transform: translate(0, 10px)">
-      <path :d="line" />
+      <path :d="line"/>
     </g>
   </svg>
 </template>
@@ -10,18 +9,18 @@
   import * as d3 from 'd3';
 
   export default {
-    name: 'ChartTest',
-    data() {
+    name: 'TestChart',
+    data () {
       return {
         data: [-5, 1, 3, 32, 8, 16, 32],
         line: '[-5, 1, 3, 32, 8, 16, 32]',
       };
     },
-    mounted() {
+    mounted () {
       this.calculatePath();
     },
     methods: {
-      getScales() {
+      getScales () {
         const x = d3.scaleTime().range([0, 430]);
         const y = d3.scaleLinear().range([210, 0]);
         d3.axisLeft().scale(x);
@@ -30,7 +29,7 @@
         y.domain([0, d3.max(this.data, d => d)]);
         return { x, y };
       },
-      calculatePath() {
+      calculatePath () {
         const scale = this.getScales();
         const path = d3.line()
           .x((d, i) => scale.x(i))

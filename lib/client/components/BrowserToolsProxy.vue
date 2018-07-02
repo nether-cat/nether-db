@@ -37,25 +37,8 @@
 </template>
 
 <script>
-  import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-  import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-  import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
-  import bTab from 'bootstrap-vue/es/components/tabs/tab';
-  import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
-
   export default {
     name: 'BrowserToolsProxy',
-    components: {
-      bFormCheckboxGroup,
-      bFormGroup,
-      bFormInput,
-      bFormSelect,
-      bInputGroup,
-      bTab,
-      bTabs,
-    },
 
     data () {
       return {

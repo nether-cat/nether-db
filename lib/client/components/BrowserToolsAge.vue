@@ -18,7 +18,7 @@
           </b-row>
         </b-form-group>
 
-        <playgroundd3/>
+        <test-chart/>
 
         <b-form-group label="Age resolution:">
           <b-form-checkbox-group buttons id="ageCheckboxes" v-model="ageResolution" :options="classes">
@@ -34,22 +34,12 @@
 </template>
 
 <script>
-  import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-  import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-  import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
-  //import playgroundD3 from './PlaygroundD3';
+  import TestChart from './TestChart';
 
   export default {
     name: 'BrowserToolsAge',
     components: {
-      bFormCheckboxGroup,
-      bFormGroup,
-      bFormInput,
-      bFormSelect,
-      bInputGroup,
-      //playgroundD3,
+      TestChart,
     },
 
     data () {
