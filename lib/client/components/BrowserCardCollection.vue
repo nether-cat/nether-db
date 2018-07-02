@@ -78,12 +78,11 @@
 <script>
   export default {
     name: 'BrowserCardCollection',
-
     data () {
       return {
-        collectionDataDescription: `Hello, eso es un descriptión`
-      }
-    }
+        collectionDataDescription: `Hello, eso es un descriptión`,
+      };
+    },
   };
 </script>
 

@@ -26,7 +26,6 @@
       bFormCheckboxGroup,
       bFormGroup,
     },
-
     data () {
       return {
         proxySelect: [],

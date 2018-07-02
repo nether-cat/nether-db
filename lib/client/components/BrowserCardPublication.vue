@@ -64,21 +64,17 @@
 <script>
   export default {
     name: 'BrowserCardPublication',
-
     data () {
       return {
         publicationAbstract: `
-        This is an abstract.
-        This is an abstract.
-        This is an abstract.
-        This is an abstract.This is an abstract.This is an abstract.
-        This is an abstract.
-        This is an abstract.This is an abstract.This is an abstract.This is an abstract.This is an abstract.
-      `,
-        publicationAuthors:`Adam Ries`,
-        publicationYear:`2018`
-      }
-    }
+          This is an abstract.
+          This is an abstract. This is an abstract.
+          This is an abstract. This is an abstract. This is an abstract.
+          This is an abstract. This is an abstract. This is an abstract. This is an abstract.`,
+        publicationAuthors: `Adam Ries`,
+        publicationYear: `2018`,
+      };
+    },
   };
 </script>
 

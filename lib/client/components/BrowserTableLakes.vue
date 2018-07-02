@@ -94,7 +94,6 @@
   import bTable from 'bootstrap-vue/es/components/table/table';
 
   const items = [
-    // { datasetId: '', proxyType: '', lakeName: '', coreLabel: '', coreLatitude: '', coreLongitude: '', publicationAuthors: '', publicationDate: '', proxyParameters: '' },
     {
       datasetId: '1',
       proxyType: 'Varves',
@@ -142,7 +141,6 @@
       bPagination,
       bTable,
     },
-
     data () {
       return {
         items: items,

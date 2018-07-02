@@ -2,7 +2,7 @@
   <b-container fluid>
     <b-row>
       <b-col cols="12" md="8" xl="4">
-        User: <em>{{ user ? user.email : 'not logged in' }}</em><hr/>
+        User: <em>{{ user ? user.email : 'Not logged in' }}</em><hr/>
       </b-col>
     </b-row>
     <b-row>
@@ -48,6 +48,11 @@
 
   export default {
     name: 'TheDashboard',
+    components: {
+      bForm,
+      bFormGroup,
+      bFormInput,
+    },
     asyncData ({ renderContext, store }) {
       return store.dispatch('user/getStatus', renderContext);
     },
@@ -83,11 +88,6 @@
           this.doLogin(credentials);
         }
       },
-    },
-    components: {
-      bForm,
-      bFormGroup,
-      bFormInput,
     },
   };
 </script>
