@@ -5,7 +5,5 @@
 !/.idea/codeStyles/*
 /config/config.json
 /dist/*
-!/dist/*/
-/dist/*/**
-!/dist/**/.gitkeep
+!/dist/.gitkeep
 /node_modules/

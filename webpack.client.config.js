@@ -1,4 +1,3 @@
-const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
 const DefinePlugin = require('webpack').DefinePlugin;
@@ -14,7 +13,6 @@ module.exports = merge(baseConfig, {
   entry: ['regenerator-runtime/runtime', './lib/client/entry-client.js'],
   output: {
     filename: '[name].bundle.js?[hash]',
-    path: path.resolve(__dirname, './dist/bundle-client'),
     publicPath: '/',
   },
   resolve: {

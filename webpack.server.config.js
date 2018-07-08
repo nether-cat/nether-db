@@ -1,4 +1,3 @@
-const path = require('path');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config.js');
 const DefinePlugin = require('webpack').DefinePlugin;
@@ -14,7 +13,6 @@ module.exports = merge(baseConfig, {
   devtool: isProd ? false : 'source-map',
   output: {
     filename: '[name].ssr-bundle.js',
-    path: path.resolve(__dirname, './dist/bundle-server'),
     publicPath: '/',
     libraryTarget: 'commonjs2',
   },
