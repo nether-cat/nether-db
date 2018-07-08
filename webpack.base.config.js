@@ -6,7 +6,6 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
-  devtool: isProd ? false : 'eval-source-map',
   output: {
     path: path.resolve(__dirname, './dist'),
   },

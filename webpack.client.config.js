@@ -11,6 +11,7 @@ const isProd = process.env.NODE_ENV === 'production';
 module.exports = merge(baseConfig, {
   target: 'web',
   entry: ['regenerator-runtime/runtime', './lib/client/entry-client.js'],
+  devtool: isProd ? false : 'source-map',
   output: {
     filename: '[name].bundle.js?[hash]',
     publicPath: '/',

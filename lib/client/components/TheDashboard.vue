@@ -17,7 +17,8 @@
                             type="email"
                             v-model="credentials.name"
                             required
-                            placeholder="Enter your e-mail address">
+                            placeholder="Enter your e-mail address"
+                            autocomplete="username">
               </b-form-input>
             </b-form-group>
             <b-form-group id="inputGroupPassword"
@@ -27,7 +28,8 @@
                             type="password"
                             v-model="credentials.password"
                             required
-                            placeholder="Enter your password">
+                            placeholder="Enter your password"
+                            autocomplete="current-password">
               </b-form-input>
             </b-form-group>
           </div>
