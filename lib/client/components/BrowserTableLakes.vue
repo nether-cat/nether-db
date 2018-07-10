@@ -1,20 +1,20 @@
 <template>
   <b-container fluid>
     <!-- User Interface controls -->
-    <p>Table options:</p>
+    <p>Filter and sorting options:</p>
     <b-row class="mt-1 mb-3">
-      <b-col md="4">
-        <b-form-group horizontal label="Filter" class="mb-0">
+      <b-col>
+        <b-form-group horizontal class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="..." />
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
-      <b-col md="4">
-        <b-form-group horizontal label="Sort" class="mb-0">
+      <b-col >
+        <b-form-group horizontal class="mb-0">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
@@ -26,8 +26,8 @@
           </b-input-group>
         </b-form-group>
       </b-col>
-      <b-col md="4">
-        <b-form-group horizontal label="Per page" class="mb-0">
+      <b-col>
+        <b-form-group horizontal class="mb-0">
           <b-form-select :options="pageOptions" v-model="perPage" />
         </b-form-group>
       </b-col>
@@ -46,8 +46,7 @@
              :sort-direction="sortDirection"
              @filtered="onFiltered"
     >
-      <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
-      <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
+      <template slot="lake" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
@@ -81,12 +80,6 @@
 </template>
 
 <script>
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-  import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-  import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
-  import bInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
-  import bModal from 'bootstrap-vue/es/components/modal/modal';
   import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
   import bTable from 'bootstrap-vue/es/components/table/table';
 
@@ -131,12 +124,6 @@
   export default {
     name: 'BrowserTableLakes',
     components: {
-      bFormGroup,
-      bFormInput,
-      bFormSelect,
-      bInputGroup,
-      bInputGroupAppend,
-      bModal,
       bPagination,
       bTable,
     },
@@ -191,3 +178,10 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .table {
+    font-size: x-small;
+    }
+
+</style>

@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <b-row>
-      <b-col>
-        <div id="logo" to="/" exact>
-          <img src="../assets/logo.png" :alt="title" :width=300>
-        </div>
-      </b-col>
-      <b-col>
-        <the-navbar-top/>
-      </b-col>
-    </b-row>
+    <div class="header">
+      <router-link to="/" exact>
+        <img src="../assets/logo.png" alt="PaLimDB">
+      </router-link>
+      <b-nav class="float-right px-3">
+        <b-nav-item to="/contact">Contact</b-nav-item>
+        <b-nav-item to="/imprint" disabled>Imprint</b-nav-item>
+        <b-nav-item to="/privacy" disabled>Privacy</b-nav-item>
+      </b-nav>
+    </div>
     <the-navbar/>
+
     <div class="main">
       <router-view/>
     </div>
@@ -19,19 +20,11 @@
 
 <script>
   import TheNavbar from './TheNavbar';
-  import TheNavbarTop from './TheNavbarTop';
 
   export default {
     name: 'App',
     components: {
       TheNavbar,
-      TheNavbarTop,
-    },
-    data () {
-      return {
-        msg: 'Welcome to the PaLim Database!',
-        title: 'PALIM DB',
-      };
     },
   };
 </script>
@@ -48,14 +41,44 @@
 
   #app {
     min-height: 100vh;
-    > .main {
+    display: block;
+    background-color: whitesmoke;
+
+    .header {
       display: block;
-      padding-top: 58px;
-      min-height: calc(100vh - 58px);
       background-color: white;
-      > .container-fluid {
+
+      img {
+        max-height: 100px;
+        padding: 5px 10px;
+      }
+      .nav {
+        .nav-item::before {
+          content: '|';
+        }
+        .nav-item:first-child::before {
+          content: '';
+        }
+        .nav-link {
+          display: inline-block;
+          padding: 0.5rem 0.5rem;
+        }
+      }
+    }
+
+    .main {
+      display: block;
+
+      .container-fluid {
         padding: 1.5em;
       }
     }
+    .bg-blue {
+      background-color: #00589c;
+    }
+    a.disabled:hover {
+      cursor: default;
+    }
+
   }
 </style>

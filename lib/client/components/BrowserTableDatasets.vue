@@ -17,7 +17,6 @@
              :sort-by.sync="sortBy"
              :sort-desc.sync="sortDesc"
              :sort-direction="sortDirection"
-             @filtered="onFiltered"
     >
       <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="actions" slot-scope="row">
@@ -53,6 +52,9 @@
 </template>
 
 <script>
+  import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
+  import bTable from 'bootstrap-vue/es/components/table/table';
+
   const items = [
     {
       lakeName: 'Meerfelder Maar',
@@ -93,6 +95,10 @@
 
   export default {
     name: 'BrowserTableDatasets',
+    components: {
+      bPagination,
+      bTable,
+    },
 
     data () {
       return {

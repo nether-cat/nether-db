@@ -1,28 +1,42 @@
 <template>
   <b-container fluid>
     <b-row>
-      <browser-tools/>
-    </b-row>
-    <hr>
-    <b-row>
-      <h1> Output table: </h1>
-      <browser-table-lakes/>
-    </b-row>
-    <b-button-group>
-      <b-button variant="primary" size="sm" v-b-toggle.datasetView>Press for single dataset view</b-button>
-      <b-button variant="primary" size="sm" v-b-toggle.lakeView>Press for lake view</b-button>
-    </b-button-group>
+      <b-col lg="2" class="mt-2">
+        <div class="mb-2">
+          <browser-tools/>
+        </div>
+        <b-button size="sm" type="submit">
+          <span>Get data </span>
+          <font-awesome-icon icon="search"/>
+        </b-button>
+      </b-col>
 
-    <b-collapse id="datasetView">
-      <browser-view-dataset/>
-    </b-collapse>
-    <b-collapse id="lakeView">
-      <browser-view-lake/>
-    </b-collapse>
+      <b-col>
+        <b-card class="mt-2 mr-2">
+          <h6> Output table: </h6>
+          <browser-table-lakes/>
+        </b-card>
+        <hr>
+        <b-button-group>
+          <b-button variant="primary" size="sm" v-b-toggle.datasetView>Single dataset view</b-button>
+          <b-button variant="primary" size="sm" v-b-toggle.lakeView>Lake view</b-button>
+        </b-button-group>
+
+        <b-collapse id="datasetView">
+          <browser-view-dataset/>
+        </b-collapse>
+        <b-collapse id="lakeView">
+          <browser-view-lake/>
+        </b-collapse>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
+  import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
+  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
+  import bButtonGroup from 'bootstrap-vue/es/components/button-group/button-group';
   import BrowserTableLakes from './BrowserTableLakes';
   import BrowserTools from './BrowserTools';
   import BrowserViewDataset from './BrowserViewDataset';
@@ -31,6 +45,9 @@
   export default {
     name: 'TheBrowser',
     components: {
+      bDropdownItem,
+      bFormInput,
+      bButtonGroup,
       BrowserTableLakes,
       BrowserTools,
       BrowserViewDataset,
@@ -39,6 +56,5 @@
   };
 </script>
 
-<style scoped>
-
+<style>
 </style>
