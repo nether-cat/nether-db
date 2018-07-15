@@ -13,7 +13,8 @@ module.exports = merge(baseConfig, {
   entry: ['regenerator-runtime/runtime', './lib/client/entry-client.js'],
   devtool: isProd ? false : 'source-map',
   output: {
-    filename: '[name].bundle.js?[hash]',
+    filename: '[name].bundle.[hash].js',
+    chunkFilename: '[name].bundle.[chunkhash].js',
     publicPath: '/',
   },
   resolve: {

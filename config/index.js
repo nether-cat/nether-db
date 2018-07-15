@@ -10,7 +10,7 @@ const defaults = {
     'shortName': 'PaLimDB',
     'paths': {
       'root': path.normalize(__dirname + '/..'),
-      'public': path.normalize(__dirname + '/../dist/bundle-client'),
+      'public': path.normalize(__dirname + '/../dist'),
     },
     'urls': {
       'local': 'http://localhost:3000',
@@ -27,7 +27,7 @@ const defaults = {
       'refresh': '1m',
       'preset': {
         'algorithm': 'HS256',
-        'expiresIn': '5m',
+        'expiresIn': '60m',
         'audience': 'http://localhost:3000',
         'issuer': 'http://localhost:3000',
       },

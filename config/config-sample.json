@@ -16,7 +16,7 @@
         "refresh": "1m",
         "preset": {
           "algorithm": "HS256",
-          "expiresIn": "5m",
+          "expiresIn": "60m",
           "audience": "http://localhost:3000",
           "issuer": "http://localhost:3000"
         }

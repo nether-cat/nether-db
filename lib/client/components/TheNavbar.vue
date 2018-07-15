@@ -29,7 +29,7 @@
           <b-dropdown-item href="#">EN</b-dropdown-item>
           <b-dropdown-item href="#" disabled>DE</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item to="/user/login" v-if="!user" disabled>
+        <b-nav-item to="/user/login" v-if="!user">
           <font-awesome-icon icon="sign-in-alt"/>
         </b-nav-item>
         <b-nav-item-dropdown right no-caret v-if="user">
@@ -37,8 +37,8 @@
           <template slot="button-content">
             <font-awesome-icon icon="user-circle"/>
           </template>
-          <b-dropdown-item href="/user/profile" disabled>Profile</b-dropdown-item>
-          <b-dropdown-item @click="doLogout()">Logout</b-dropdown-item>
+          <b-dropdown-item to="/user/profile" disabled>Profile</b-dropdown-item>
+          <b-dropdown-item to="/user/logout">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState } from 'vuex';
   import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
   import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
   import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
@@ -74,19 +74,11 @@
       bNavItem,
       bNavItemDropdown,
     },
-    asyncData ({ renderContext, store }) {
-      return store.dispatch('user/getStatus', renderContext);
-    },
     computed: {
       ...mapState('user', [
         'user',
       ]),
     },
-    methods: {
-      ...mapActions('user', [
-        'doLogout',
-      ]),
-    }
   };
 </script>
 

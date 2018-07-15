@@ -43,7 +43,7 @@ module.exports = merge(baseConfig, {
   plugins: [
     new VueSSRServerPlugin(),
     new DefinePlugin({
-      'process.env.VUE_API_URL': JSON.stringify(configParams.app.urls.public + '/api'),
+      'process.env.VUE_API_URL': JSON.stringify(configParams.app.urls.local + '/api'),
     }),
   ],
 });

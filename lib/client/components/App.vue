@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="header">
+    <div class="header" v-if="showTemplate">
       <router-link to="/" exact>
         <img src="../assets/logo.png" alt="PaLimDB">
       </router-link>
@@ -10,7 +10,7 @@
         <b-nav-item to="/privacy" disabled>Privacy</b-nav-item>
       </b-nav>
     </div>
-    <the-navbar/>
+    <the-navbar v-if="showTemplate"/>
     <div class="main">
       <router-view/>
     </div>
@@ -29,6 +29,11 @@
       bNavItem,
       TheNavbar,
     },
+    computed: {
+      showTemplate: function () {
+        return this.$route.meta.hideTemplate !== true;
+      }
+    },
   };
 </script>
 
@@ -40,12 +45,12 @@
   html, body {
     margin: 0;
     padding: 0;
+    background-color: whitesmoke;
   }
 
   #app {
     display: block;
     min-height: 100vh;
-    background-color: whitesmoke;
     > .header {
       display: block;
       background-color: white;

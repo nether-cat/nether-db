@@ -1,13 +1,13 @@
-const path = require('path');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const configParams = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: configParams.app.paths.public
   },
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
