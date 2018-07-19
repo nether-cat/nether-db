@@ -33,6 +33,11 @@ const defaults = {
       },
     },
   },
+  'neo4j': {
+    'url': 'bolt://localhost',
+    'username': 'neo4j',
+    'password': 'neo4j',
+  },
   'seraph': {
     'options': {
       'server': 'http://localhost:7474',
