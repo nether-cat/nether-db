@@ -17,15 +17,8 @@
 </template>
 
 <script>
-  import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-
   export default {
     name: 'BrowserToolsProxy',
-    components: {
-      bFormCheckboxGroup,
-      bFormGroup,
-    },
     data () {
       return {
         proxySelect: [],

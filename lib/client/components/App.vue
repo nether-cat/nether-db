@@ -18,15 +18,11 @@
 </template>
 
 <script>
-  import bNav from 'bootstrap-vue/es/components/nav/nav';
-  import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
   import TheNavbar from './TheNavbar';
 
   export default {
     name: 'App',
     components: {
-      bNav,
-      bNavItem,
       TheNavbar,
     },
     computed: {
@@ -41,6 +37,7 @@
   @import '~bootstrap/scss/bootstrap';
   @import '~bootstrap-vue/dist/bootstrap-vue.css';
   @import '~@fortawesome/fontawesome/styles.css';
+  @import '~@johmun/vue-tags-input/vue-tags-input/vue-tags-input';
 
   html, body {
     margin: 0;
@@ -73,8 +70,15 @@
     }
     > .main {
       display: block;
-      > .container-fluid {
+      > .container, .container-fluid {
         padding: 1.5em;
+      }
+      .card {
+        .card-body {
+          .container, .container-fluid {
+            padding: 0;
+          }
+        }
       }
     }
     .bg-blue {
@@ -82,6 +86,70 @@
     }
     a.disabled:hover {
       cursor: default;
+    }
+    .vue-tags-input {
+      max-width: unset;
+      .input {
+        @extend .form-control;
+      }
+      .input:focus-within {
+        @extend .input:focus;
+      }
+      .new-tag-input-wrapper {
+        margin: 0;
+        padding: 0;
+        @at-root {
+          #app .vue-tags-input.allow {
+            &--enter, &--delete {
+              .new-tag-input-wrapper:focus-within::after {
+                display: none;
+                color: $input-placeholder-color;
+                background-color: $white;
+                margin: 1px 0 0 .5em;
+                padding: 0 .4em 0 .3em;
+                border: 1px solid $input-border-color;
+                border-radius: $input-border-radius;
+              }
+            }
+            &--enter {
+              .new-tag-input-wrapper:focus-within::after {
+                display: inline-block;
+                content: '\23ce';
+              }
+            }
+            &--delete {
+              .deletion-mark ~ .new-tag-input-wrapper:focus-within {
+                input {
+                  min-width: 1em;
+                  max-width: 1em;
+                  &::placeholder {
+                    color: rgba(0, 0, 0, 0);
+                  }
+                }
+                &::after {
+                  display: block;
+                  content: '\232b';
+                  position: absolute;
+                  right: 1em;
+                }
+              }
+            }
+          }
+        }
+      }
+      .tag {
+        margin: 2px .5em 1px 0;
+        padding: 0 .3em 0 .5em;
+        transition: background-color .25s;
+      }
+      input {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: $input-color;
+        &::placeholder {
+          @extend .form-control::placeholder;
+        }
+      }
     }
   }
 </style>

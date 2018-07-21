@@ -77,16 +77,12 @@
 </template>
 
 <script>
-  import bFormCheckbox from 'bootstrap-vue/es/components/form-checkbox/form-checkbox';
-  import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
   import bTab from 'bootstrap-vue/es/components/tabs/tab';
   import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
 
   export default {
     name: 'BrowserTools',
     components: {
-      bFormCheckbox,
-      bFormCheckboxGroup,
       bTab,
       bTabs,
     },

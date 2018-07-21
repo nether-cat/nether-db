@@ -277,7 +277,6 @@
 <script>
   export default {
     name: 'BrowserViewDataset',
-
     data () {
       return {
         collectionDataDescription: 'Hello, eso es un descriptión',

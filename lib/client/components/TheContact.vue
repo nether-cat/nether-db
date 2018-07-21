@@ -75,15 +75,11 @@
 </template>
 
 <script>
-  import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
   import bFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea';
 
   export default {
     name: 'TheContact',
     components: {
-      bFormGroup,
-      bFormInput,
       bFormTextarea,
     },
 

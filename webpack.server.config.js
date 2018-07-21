@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
   devtool: isProd ? false : 'source-map',
   output: {
     filename: '[name].ssr-bundle.js',
-    publicPath: '/',
+    publicPath: configParams.app.urls.public + '/',
     libraryTarget: 'commonjs2',
   },
   resolve: {
@@ -35,6 +35,7 @@ module.exports = merge(baseConfig, {
       /^bootstrap-vue/,
       /^joi/,
       /^regenerator-runtime/,
+      /^@johmun\/vue-tags-input/,
     ],
   }),
   // This is the plugin that turns the entire output of the server build

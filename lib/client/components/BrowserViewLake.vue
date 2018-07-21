@@ -56,8 +56,7 @@
 
             <b-col sm="8">
               <b-card class="mt-3">
-                <!-- Here should the MapAPI be placed-->
-                <api-map/>
+                <!-- Here the map should be embedded -->
               </b-card>
             </b-col>
           </b-row>
@@ -83,13 +82,11 @@
 </template>
 
 <script>
-  //import ApiMap from './ApiMap';
   import BrowserTableDatasets from './BrowserTableDatasets';
 
   export default {
     name: 'BrowserViewLake',
     components: {
-      // ApiMap,
       BrowserTableDatasets,
     },
   };

@@ -3,16 +3,12 @@
   <b-card header-tag="header"
           footer-tag="footer">
     <span slot="header">
-      <font-awesome-icon icon="align-left"/> Record information
+      <font-awesome-icon icon="align-left"/>&emsp;Record information
     </span>
     <b-container fluid class="card-text small">
       <b-row>
         <b-col>
-          <h6 class="text-left font-weight-normal">
-            Record information:
-          </h6>
           <!--Record meta output-->
-          <hr/>
           <b-row>
             <b-col cols="4" class="text-right">Name of datasheet:</b-col>
             <b-col class="text-left"> {{ "collection.datasheetName" }}</b-col>
@@ -25,7 +21,11 @@
             <b-col cols="4" class="text-right">Parameters:</b-col>
             <b-col class="text-left"> {{ "collection.parameterList" }} </b-col>
           </b-row>
-          <hr/>
+          <b-row>
+            <b-col>
+              <hr/>
+            </b-col>
+          </b-row>
           <b-row>
             <b-col cols="4" class="text-right">Analysis method:</b-col>
             <b-col class="text-left"> {{ "collection.analysisMethod" }} </b-col>
@@ -34,16 +34,24 @@
             <b-col cols="4" class="text-right">Age-depth-method:</b-col>
             <b-col class="text-left"> {{ "collection.ageDepthMethod" }} </b-col>
           </b-row>
-          <hr/>
+          <b-row>
+            <b-col>
+              <hr/>
+            </b-col>
+          </b-row>
           <b-row>
             <b-col cols="4" class="text-right">Age coverage:</b-col>
-            <b-col class="text-left"> {{ "collection.proxyAgeMax" }}<span class="small"> - </span> {{ "collection.proxyAgeMin" }} <span class="small">years B.P.</span></b-col>
+            <b-col class="text-left"> {{ "collection.proxyAgeMax" }} - {{ "collection.proxyAgeMin" }} years B.P.</b-col>
           </b-row>
           <b-row>
             <b-col cols="4" class="text-right">Age resolution:</b-col>
             <b-col class="text-left"> {{ "collection.proxyAgeMax" }}</b-col>
           </b-row>
-          <hr/>
+          <b-row>
+            <b-col>
+              <hr/>
+            </b-col>
+          </b-row>
           <b-row>
             <b-col cols="4" class="text-right">Uploaded by:</b-col>
             <b-col class="text-left"> {{ "collection.uploadedBy" }} </b-col>
@@ -52,17 +60,15 @@
             <b-col cols="4" class="text-right">Upload date:</b-col>
             <b-col class="text-left"> {{ "collection.uploadDate" }} </b-col>
           </b-row>
-          <hr>
           <b-collapse id="showDescription" class="mt-2">
             <b-row>
-              <b-col class="text-left text-bold">Data description:</b-col>
+              <b-col>
+                <hr/>
+              </b-col>
             </b-row>
             <b-row>
-              <b-col>
-                <p class="card-text">
-                  {{ collectionDataDescription }}
-                </p>
-              </b-col>
+              <b-col cols="4" class="text-right">Data description:</b-col>
+              <b-col class="text-left"> {{ collectionDataDescription }} </b-col>
             </b-row>
           </b-collapse>
         </b-col>

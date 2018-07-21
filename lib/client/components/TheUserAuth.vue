@@ -54,17 +54,9 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
-  import bForm from 'bootstrap-vue/src/components/form/form';
-  import bFormGroup from 'bootstrap-vue/src/components/form-group/form-group';
-  import bFormInput from 'bootstrap-vue/src/components/form-input/form-input';
 
   export default {
     name: 'TheUserAuth',
-    components: {
-      bForm,
-      bFormGroup,
-      bFormInput,
-    },
     props: {
       action: String,
     },
@@ -125,9 +117,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .card {
-    border-radius: 0.5rem;
-  }
   .logo {
     max-height: 100px;
     margin: 40px 0 30px;

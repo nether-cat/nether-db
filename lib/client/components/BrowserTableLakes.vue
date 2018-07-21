@@ -80,6 +80,7 @@
 </template>
 
 <script>
+  import bModal from 'bootstrap-vue/es/components/modal/modal';
   import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
   import bTable from 'bootstrap-vue/es/components/table/table';
 
@@ -119,11 +120,12 @@
       moreInfo: 'more info than shown in table',
       moreInfo2: 'additional info not shown in table, too',
     },
-  ]
+  ];
 
   export default {
     name: 'BrowserTableLakes',
     components: {
+      bModal,
       bPagination,
       bTable,
     },

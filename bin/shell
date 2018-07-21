@@ -4,7 +4,7 @@ const XLSX = require('xlsx');
 const util = require('util');
 
 const seraph = require('../lib/server/database/seraph');
-const allCountries = new (require('country-list'))();
+const CountriesList = require('countries-list');
 
 let replacements = {
   // publication
@@ -93,7 +93,7 @@ const importData = async function () {
     .then(countries => {
       collection.sampledFrom.drilledFrom.locatedIn = countries.length ? countries[0] : {
         code: metadata.lake['country'],
-        name: allCountries.getName(metadata.lake['country'])
+        name: CountriesList.countries[metadata.lake['country']].name,
       };
       return Proxy.promise.where({name: proxyName});
     })

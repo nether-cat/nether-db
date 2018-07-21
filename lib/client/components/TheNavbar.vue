@@ -6,7 +6,7 @@
         <b-nav-item to="/" exact>
           <font-awesome-icon icon="home" fixed-width/>&nbsp;<span class="text-uppercase">Home</span>
         </b-nav-item>
-        <b-nav-item to="/browser">
+        <b-nav-item to="/database">
           <font-awesome-icon icon="database" fixed-width/>&nbsp;<span class="text-uppercase">Database</span>
         </b-nav-item>
         <b-nav-item disabled>
@@ -47,32 +47,18 @@
 
 <script>
   import { mapState } from 'vuex';
-  import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
-  import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-  import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
-  import bInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
   import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
   import bNavbarBrand from 'bootstrap-vue/es/components/navbar/navbar-brand';
   import bNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
   import bNavbarToggle from 'bootstrap-vue/es/components/navbar/navbar-toggle';
-  import bNavForm from 'bootstrap-vue/es/components/nav/nav-form';
-  import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
-  import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
 
   export default {
     name: 'TheNavbar',
     components: {
-      bDropdownItem,
-      bFormInput,
-      bInputGroup,
-      bInputGroupAppend,
       bNavbar,
       bNavbarBrand,
       bNavbarNav,
       bNavbarToggle,
-      bNavForm,
-      bNavItem,
-      bNavItemDropdown,
     },
     computed: {
       ...mapState('user', [

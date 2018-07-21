@@ -15,7 +15,7 @@ module.exports = merge(baseConfig, {
   output: {
     filename: '[name].bundle.[hash].js',
     chunkFilename: '[name].bundle.[chunkhash].js',
-    publicPath: '/',
+    publicPath: configParams.app.urls.public + '/',
   },
   resolve: {
     alias: {

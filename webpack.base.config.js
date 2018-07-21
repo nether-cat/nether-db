@@ -10,6 +10,10 @@ module.exports = {
     path: configParams.app.paths.public
   },
   resolve: {
+    alias: {
+      '@client': configParams.app.paths.root + '/lib/client',
+      '@server': configParams.app.paths.root + '/lib/server',
+    },
     extensions: ['*', '.js', '.vue', '.json'],
   },
   module: {
@@ -37,7 +41,7 @@ module.exports = {
       },
       {
         test: /\.(s)?css$/,
-        use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader?sourceMap'],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
