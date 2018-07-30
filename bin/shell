@@ -89,22 +89,31 @@ const importData = async function () {
     /** @type {Model} */ User,
   } = seraph.models;
   return Promise.resolve()
-    .then(() => Country.promise.where({code: metadata.lake['country']}))
+    .then(() => Lake.promise.where({ name: metadata.lake['name'] }))
+    .then(lake => {
+      if (lake.length) {
+        collection.sampledFrom.drilledFrom = lake[0];
+      }
+      let countryCode = metadata.lake['country'] ?
+        metadata.lake['country'] :
+        collection.sampledFrom.drilledFrom.locatedIn.code;
+      return Country.promise.where({ code: countryCode });
+    })
     .then(countries => {
       collection.sampledFrom.drilledFrom.locatedIn = countries.length ? countries[0] : {
         code: metadata.lake['country'],
         name: CountriesList.countries[metadata.lake['country']].name,
       };
-      return Proxy.promise.where({name: proxyName});
+      return Proxy.promise.where({ name: proxyName });
     })
     .then(proxies => {
-      collection.providesWith = proxies.length ? proxies[0] : {name: proxyName};
+      collection.providesWith = proxies.length ? proxies[0] : { name: proxyName };
       let predicate = Object.entries(metadata.publication)
-        .filter(([key]) => ['doi', 'source', 'url'].includes(key))
+        .filter(([key]) => ['title', 'doi', 'source', 'url'].includes(key))
         .reduce((accumulator, [key, value]) => {
-          return Object.defineProperty(accumulator, key, {value: value, enumerable: true})
+          return Object.defineProperty(accumulator, key, { value: value, enumerable: true });
         }, {});
-      return Publication.promise.where(predicate, {any: true});
+      return Publication.promise.where(predicate, { any: true });
     })
     .then(publications => {
       collection.referencedBy = publications.length ? publications : [metadata.publication];
@@ -113,16 +122,20 @@ const importData = async function () {
     .then(persistedCollection => {
       collection = persistedCollection;
       let attributeNames = columnNames.filter(() => true);
-      collection.includes = attributeNames.map(key => ({name: key, characterizes: collection.providesWith}));
+      collection.includes = attributeNames.map(key => ({ name: key, characterizes: collection.providesWith }));
       let query = 'MATCH (node:Attribute)-[:CHARACTERIZES]->(:Proxy) WHERE node.name IN {names}';
-      return Attribute.promise.query(query, {names: attributeNames});
+      return Attribute.promise.query(query, { names: attributeNames });
     })
     .then(attributes => {
       collection.includes = collection.includes.map(attribute => {
-        return attributes.find(obj => attribute.name === obj.name) || attribute
+        return attributes.find(obj => attribute.name === obj.name) || attribute;
       });
       return Collection.promise.save(collection);
     })
+    .then(persistedCollection => {
+      return seraph.queryAsync('MATCH (node) RETURN node');
+    })
+    .then(result => console.log(result))
     .catch(err => console.error(err.stack));
   /*
   let records = await Promise.all(

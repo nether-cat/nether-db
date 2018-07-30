@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+const CountriesList = require('countries-list');
+const database = require('../lib/server/database');
+
+async function migrateDatabase () {
+  /** @type Session */ let session = database.session();
+
+  let countries = await session.run(
+    `
+    MATCH (country:Country)
+    RETURN country.code as code
+    `,
+  ).then(({records}) => {
+    return records.map(row => row.get('code'))
+  });
+
+  countries.forEach(async code => {
+    let short = CountriesList.countries[code].continent;
+    let name = CountriesList.continents[short];
+    let result = await session.run(
+      `
+      MATCH (country:Country { code: {code} })
+      MERGE (continent:Continent { code: {short}, name: {name} })
+      MERGE (country)-[r:LOCATED_IN]->(continent)
+      RETURN country.name as country, type(r) as relation, continent.name as continent
+      `,
+      { code, short, name }
+    ).then(({records}) => {
+      session.close();
+      database.close();
+      return records.map(row => ({
+        country: row.get('country'),
+        relation: row.get('relation'),
+        continent: row.get('continent'),
+      }))
+    });
+
+    console.log(result);
+  });
+
+  return true;
+}
+
+migrateDatabase()
+  .then(output => console.log(output))
+  .catch(err => console.error(err));
