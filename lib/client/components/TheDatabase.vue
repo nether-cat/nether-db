@@ -8,15 +8,8 @@
             <b-row>
               <b-col>
                 <b-form-group label="Search terms:">
-                  <v-tags-input v-model="form.terms.text"
-                                :tags.sync="form.terms.array"
-                                :class="form.terms.classes"
-                                :separators="[';', ',']"
-                                :autocomplete-items="[{text:'foo'},{text:'bar'}]"
-                                :autocomplete-always-open="form.terms.focused"
-                                @focus="onFocus(form.terms)"
-                                @blur="onBlur(form.terms)"
-                                placeholder="Add proxies, keywords, authors, etc."/>
+                  <form-input-tags :groups="filters.terms.groups"
+                                   :tags.sync="filters.terms.tags"/>
                 </b-form-group>
               </b-col>
             </b-row>
@@ -24,7 +17,7 @@
               <b-col>
                 <b-form-group label="Locations:">
                   <b-form-input type="text"
-                                v-model="form.location"
+                                v-model="filters.location"
                                 required
                                 placeholder="Add coordinates, continents or countries"/>
                 </b-form-group>
@@ -58,7 +51,7 @@
     <b-row>
       <b-col class="mt-4">
         <b-card>
-          <b-table hover outlined striped caption-top :items="results">
+          <b-table hover outlined striped caption-top :items="transformResults">
             <template slot="table-caption">
               This is a table caption.
             </template>
@@ -70,9 +63,10 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters, mapActions } from 'vuex';
   import * as CountryList from 'countries-list';
   import bTable from 'bootstrap-vue/es/components/table/table';
+  import FormInputTags from './FormInputTags';
 
   const noSSR = {};
 
@@ -99,22 +93,74 @@
     name: 'TheDatabase',
     components: {
       bTable,
+      FormInputTags,
       ...noSSR,
     },
     async prefetchData ({ store, route, renderContext }) {
       if (!store.getters['user/isAuthenticated']) {
         await store.dispatch('user/doRefresh', renderContext);
       }
+      await store.dispatch('database/loadProxies', renderContext);
+      await store.dispatch('database/loadResultData', renderContext);
     },
     data () {
       return {
-        values: {
+        filters: {
           terms: {
-            text: '',
-            array: [],
-            focused: false,
+            tags: [],
+            groups: [
+              {
+                text: 'Proxy',
+                icon: 'archive',
+                name: 'proxy',
+                isAvailable: () => true,
+                fetchOptions: () => {
+                  return !Array.isArray(this['proxies']) ? [] : this['proxies'].map(
+                    proxy => ({
+                      text: proxy.name.slice(0, 1).toUpperCase() + proxy.name.slice(1),
+                      name: proxy.name,
+                      parent: 'proxy',
+                    })
+                  );
+                },
+              },
+              {
+                text: 'Attribute',
+                icon: 'chart-area',
+                name: 'attribute',
+                isAvailable: () => !!this.filters.terms.tags.find(
+                  tag => tag.type === 'group' && tag.text === 'Proxy',
+                ),
+                fetchOptions: () => {
+                  return this.filters.terms.tags
+                    .filter(tag => tag.type === 'option' && tag.parent === 'proxy')
+                    .reduce((items, tag) => {
+                      if (Array.isArray(this['proxies'])) {
+                        let proxy = this['proxies'].find(proxy => proxy.name === tag.name);
+                        if (proxy) {
+                          if (!proxy._attributes) {
+                            this.loadProxyAttributes(proxy.id);
+                          } else {
+                            let attributes = proxy._attributes;
+                            items.push(
+                              ...attributes.map(
+                                attribute => ({
+                                  text: attribute.name + ' (' + tag.text + ')',
+                                  name: attribute.name,
+                                  parent: 'attribute',
+                                }),
+                              ),
+                            );
+                          }
+                        }
+                      }
+                      return items;
+                    }, []);
+                },
+              },
+            ],
           },
-          location: ''
+          location: '',
         },
         map: {
           zoom: 1,
@@ -124,28 +170,27 @@
       };
     },
     computed: {
-      results () {
-        return Object.entries(CountryList.continents);
-      },
-      form () {
-        const form = this.values;
-        form.terms.classes = {
-          'allow--enter': !!form.terms.text,
-          'allow--delete': !form.terms.text && form.terms.array.length,
-        };
-        return form;
-      },
       ...mapState('user', [
         'user',
       ]),
+      ...mapState('database', [
+        'proxies',
+        'results',
+      ]),
+      ...mapGetters('database', [
+        'countProxies'
+      ]),
+      transformResults () {
+        //debugger;
+        return Object.entries(this['results']);
+      },
     },
     methods: {
-      onFocus (obj) {
-        window.setTimeout(() => obj.focused = true, 50);
-      },
-      onBlur (obj) {
-        window.setTimeout(() => obj.focused = false, 50);
-      },
+      ...mapActions('database', [
+        'loadProxies',
+        'loadProxyAttributes',
+        'loadResultData',
+      ]),
     },
   };
 </script>

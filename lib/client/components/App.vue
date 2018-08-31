@@ -39,6 +39,8 @@
   @import '~@fortawesome/fontawesome/styles.css';
   @import '~@johmun/vue-tags-input/vue-tags-input/vue-tags-input';
 
+  $primary: #00589c;
+
   html, body {
     margin: 0;
     padding: 0;
@@ -82,7 +84,7 @@
       }
     }
     .bg-blue {
-      background-color: #00589c;
+      background-color: $primary;
     }
     a.disabled:hover {
       cursor: default;
@@ -141,6 +143,48 @@
         margin: 2px .5em 1px 0;
         padding: 0 .3em 0 .5em;
         transition: background-color .25s;
+        background-color: $primary;
+        &.deletion-mark {
+          background-color: $error !important;
+        }
+        &.group {
+          background-color: $primary;
+          border-radius: 2px 0 0 2px;
+          padding-right: .5em;
+          &.current {
+            border-radius: 2px;
+            padding-right: .3em;
+            .content::after {
+              content: '\2026';
+              margin-bottom: .5em;
+              line-height: 50%;
+              padding: 0 .1em 0 .5em;
+            }
+            .actions {
+              display: flex;
+            }
+          }
+          .actions {
+            display: none;
+          }
+          &.duplicate {
+            background-color: $primary;
+          }
+        }
+        &.option {
+          background-color: cornflowerblue;
+          border-radius: 0 2px 2px 0;
+          margin-left: -.5em;
+        }
+      }
+      .selected-item {
+        background-color: $primary;
+        .group {
+          background-color: $primary;
+        }
+        .option {
+          background-color: cornflowerblue;
+        }
       }
       input {
         font-size: 1rem;
