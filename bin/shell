@@ -17,7 +17,6 @@ let replacements = {
   // collection
   'proxytype': 'proxy',
   'name_of_dataset': 'label',
-  'analysis_method': 'method',
 };
 
 let args = process.argv.slice(2);
@@ -89,7 +88,13 @@ const importData = async function () {
     /** @type {Model} */ User,
   } = seraph.models;
   return Promise.resolve()
-    .then(() => Lake.promise.where({ name: metadata.lake['name'] }))
+    .then(() => Core.promise.where({ label: metadata.core['label']}))
+    .then(core => {
+      if (core.length) {
+        collection.sampledFrom = core[0];
+      }
+      return Lake.promise.where({ name: metadata.lake['name'] });
+    })
     .then(lake => {
       if (lake.length) {
         collection.sampledFrom.drilledFrom = lake[0];
