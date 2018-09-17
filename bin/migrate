@@ -43,5 +43,5 @@ async function migrateDatabase () {
 }
 
 migrateDatabase()
-  .then(output => console.log(output))
+  .then(() => console.log('Finished!'))
   .catch(err => console.error(err));

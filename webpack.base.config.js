@@ -48,14 +48,21 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'file-loader',
         options: {
-          name: 'assets/[name].[ext]?[hash]',
+          name: 'assets/[name].[hash].[ext]',
         },
       },
       {
         test: /.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
         loader: 'file-loader',
         options: {
-          name: 'assets/[name].[ext]?[hash]',
+          name: 'assets/[name].[hash].[ext]',
+        },
+      },
+      {
+        test: /\.csv$/,
+        loader: 'file-loader',
+        options: {
+          name: 'resources/[name].[hash].[ext]',
         },
       },
     ],

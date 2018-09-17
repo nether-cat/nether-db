@@ -29,23 +29,26 @@ let sheetNotFound = function () {
 try {
   let index = proxyName.charAt(0).toUpperCase() + proxyName.slice(1);
   sheet = workbook.Sheets[index];
-  sheetTitle = sheet['B2'].v.trim().toLowerCase();
+  // Some datasheets don't have a title in cell B2 anymore!
+  // sheetTitle = sheet['B2'].v.trim().toLowerCase();
 } catch (e) {
   sheetNotFound();
 } finally {
-  if (proxyName + ' template' !== sheetTitle) sheetNotFound();
+  // if (proxyName + ' template' !== sheetTitle) sheetNotFound();
 }
 let regex = /^[A-Z]{1,3}\d+:([A-Z]{1,3})(\d+)$/g;
 let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
 let namesRange = util.format('A8:%s%s', lastColumn, '8');
 let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
 let columnNames = XLSX.utils.sheet_to_json(sheet, {header: 1, range: namesRange})[0].map(
-  el => el.trim().toLowerCase().replace(/\s/g, '_')
+  el => el.trim().toLowerCase().replace(/[[\]{}()]/g, '').replace(/[-/\\.,;:\s]+/g, '_').replace(/_+/g, '_')
 );
 let metadata = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
 let records = XLSX.utils.sheet_to_json(sheet, {header: columnNames, range: valuesRange});
 
 metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: rowNumber}) => {
+  property = typeof property === 'string' ? property.trim() : property;
+  value = typeof value === 'string' ? value.trim() : value;
   if (!value || !property) {
     return accumulator;
   }
@@ -54,7 +57,9 @@ metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: row
       'lake' : rowNumber < 65 ?
         'core' : 'collection';
   property = property.trim().toLowerCase()
-    .replace(/[(:)]/g, '').replace(/[-/\s]+/g, '_');
+    .replace(/[[\]{}()]/g, '')
+    .replace(/[-/\\.,;:\s]+/g, '_')
+    .replace(/_+/g, '_');
   if (replacements.hasOwnProperty(property)) {
     property = replacements[property];
   }
@@ -138,29 +143,21 @@ const importData = async function () {
       return Collection.promise.save(collection);
     })
     .then(persistedCollection => {
-      return seraph.queryAsync('MATCH (node) RETURN node');
-    })
-    .then(result => console.log(result))
-    .catch(err => console.error(err.stack));
-  /*
-  let records = await Promise.all(
-    records.map(row => {
-      let data = Object.entries(row).reduce(
-        (result, entry) => {
-          if (['age', 'depth'].indexOf(entry[0]) === -1) {
-            result.data[entry[0]] = entry[1];
-          } else {
-            result[entry[0]] = entry[1];
-          }
-          return result;
-        }, {data: {}},
+      console.log('Persisted meta information to database:');
+      console.log(persistedCollection);
+      console.log('---------------------------------------');
+      return Promise.all(
+        records.map(row => {
+          let data = Object.entries(row).reduce((result, [key, value]) => {
+            result[key] = value;
+            return result;
+          }, {});
+          return Record.promise.save({ belongsTo: persistedCollection, ...data });
+        })
       );
-      return db['record']
-        .create(Object.assign({collection_id: collection.id}, data))
-        .catch(err => console.log(err));
+      //return seraph.queryAsync('MATCH (node) RETURN node');
     })
-  );
-  */
+    .catch(err => console.error(err.stack));
 };
 
 importData().then(() => console.log('Finished!'));

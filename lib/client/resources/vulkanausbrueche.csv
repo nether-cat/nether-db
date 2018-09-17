@@ -1,0 +1,25 @@
+date,close,region,locality,Event,Date,Uncertainty,Reference
+25-Apr-20,00.00,Europe,Askja,Askja AD 1875,75, 0, McLean et al. 2016
+25-Apr-19,00.00,Asia, Tianchi/Changbaishan/Baitous,B-T m,1032, 76 14C, Jensen et al. 2014
+25-Apr-18,00.00,North America,Chruchill, WRAe,1100, 9 14C, Friedrich et al. 2006
+25-Apr-17,00.00,Europe,Santorini, Minoan eruption,3563, 14 14C, Pyne-O'Donnell et al. 2012
+25-Apr-16,00.00,North America,Aniakchak, Aniakchak 3.6,3661, 136 14C, vdBilt 2017
+25-Apr-15,00.00,Asia,Kamchatkan Ksudach, KS2,7300, ? 14C, Berger 1992
+25-Apr-14,00.00,North America, Mazama, Mazama 7.6,7660, 100TL, Hamann et al. 2010
+25-Apr-13,00.00,Europe,?, S1, 8833, 143 14C, Smith et al. 2013
+25-Apr-12,00.00,Asia,Ulleungdo, U4, 10216, 39 14C Ar/Ar, Lohne et al. 2013 
+25-Apr-11,00.00,Europe,Vedde,Vedde Ash, 12066, 42 14C, Brauer et al. 1999
+25-Apr-10,00.00,Europe,Laacher See, LST, 12880,40 Varve, Siani et al. 2004
+25-Apr-09,00.00,Europe, Campi Flegrei, NYT, 14190,680 14C, Alberts et al. 2015
+25-Apr-08,00.00,Europe, Etna, Y1, 17318, 176 14C, Alberts et al. 2015
+25-Apr-07,00.00,Europe, Campi Flegrei,Y3, 29050,740 14C, Machida and Arai 2003
+25-Apr-06,00.00,Asia, Aira,AT, 29788,720 14C, Kissel et al. 2011
+25-Apr-05,00.00,Global, X, Mono Lake Excursion, 32000,1000 Ar/Ar, Vivo et al. 2001
+25-Apr-04,00.00,Europe, Campanian Ignimbrite,Y5, 39280, 55 Ar/Ar, Singer 2014
+25-Apr-03,00.00,Global, X, Laschamp Excursion, 40700, 900 Ar/Ar, Watts et al. 1996
+25-Apr-02,00.00,Europe, Ischia, Y7, 55000,2000 Ar/Ar, Mark et al. 2014
+25-Apr-01,00.00,Asia, Aira, YTT, 75000,900 Ar/Ar, Kutterolf et al. 2016
+25-Apr-00,00.00,Asia	,Aso	,Aso-4	,87100	,700 K-Ar,	Aoki 2008
+25-Apr-00,00.00,Europe	,Phlegrean fields	,X5	,105500,	5300 Varve,	Wulf et al. 2012
+25-Apr-00,00.00,Europe	,Campi Flegrei	,X6	,108000	,1800 Ar/Ar	,Iorio et al. 2014
+25-Apr-00,00.00,Global,X		,Blake Excursion,	120000,	12000 Ar/Ar,	Singer 2014
