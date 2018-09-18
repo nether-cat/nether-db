@@ -39,7 +39,8 @@
                 <b-progress variant="primary" animated class="mb-3" slot="placeholder">
                   <b-progress-bar :value="100">Loading map...</b-progress-bar>
                 </b-progress>
-                <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" data-projection="EPSG:4326" style="height: 485px" @postrender="trySelectFeature">
+                <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
+                        data-projection="EPSG:4326" style="height: 485px" @postrender="trySelectFeature">
                   <vl-view :max-zoom="18" :zoom.sync="mapZoom" :center.sync="mapCenter" :rotation.sync="mapRotation"></vl-view>
                   <vl-feature v-for="result in transformedResults"
                               ref="features"
@@ -94,13 +95,20 @@
         <b-card>
           <b-table hover outlined striped caption-top show-empty :items="transformedResults" :fields="fields">
             <template slot="table-caption">
-              This is a table caption.
+              Found lakes with datasets:
             </template>
             <!--suppress HtmlUnknownAttribute -->
             <template slot="actions" slot-scope="cell">
-              <router-link :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
-                <font-awesome-icon icon="external-link-alt" alt="View details"/>
-              </router-link>
+              <div class="text-center">
+                <router-link :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
+                  <font-awesome-icon icon="external-link-alt" alt="View details"/>
+                </router-link>
+              </div>
+            </template>
+            <!--suppress HtmlUnknownAttribute, JSUnresolvedVariable -->
+            <template slot="HEAD_actions" slot-scope="cell">
+              <!-- A custom formatted header cell for field 'name' -->
+              <div class="text-center">{{ cell.label }}</div>
             </template>
           </b-table>
         </b-card>
@@ -133,12 +141,12 @@
       climateChart: () => ccLoad.then(module => module.default),
       vlMap: () => vlLoad.then(module => module.Map['Map']).catch(() => fallback),
       vlView: () => vlLoad.then(module => module.Map['View']).catch(() => fallback),
+      vlFeature: () => vlLoad.then(module => module.Feature['Feature']).catch(() => fallback),
+      vlGeomPoint: () => vlLoad.then(module => module.PointGeom['Geom']).catch(() => fallback),
       vlInteractionSelect: () => vlLoad.then(module => module.SelectInteraction['Interaction']).catch(() => fallback),
       vlOverlay: () => vlLoad.then(module => module.Overlay['Overlay']).catch(() => fallback),
       vlLayerTile: () => vlLoad.then(module => module.TileLayer['Layer']).catch(() => fallback),
       vlSourceOsm: () => vlLoad.then(module => module.OsmSource['Source']).catch(() => fallback),
-      vlFeature: () => vlLoad.then(module => module.Feature['Feature']).catch(() => fallback),
-      vlGeomPoint: () => vlLoad.then(module => module.PointGeom['Geom']).catch(() => fallback),
     });
   }
 
@@ -225,7 +233,7 @@
           //'surface_area',
           //'water_body_volume',
           //'catchment_area',
-          { key: 'actions', label: '' },
+          { key: 'actions', label: 'Link' },
         ],
       };
     },

@@ -83,11 +83,14 @@
         }
       }
     }
+    a.disabled:hover {
+      cursor: default;
+    }
     .bg-blue {
       background-color: $primary;
     }
-    a.disabled:hover {
-      cursor: default;
+    .comma-separated :not(:last-child)::after {
+      content: ', ';
     }
     .vue-tags-input {
       max-width: unset;
