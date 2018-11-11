@@ -6,4 +6,6 @@
 /config/config.json
 /dist/*
 !/dist/.gitkeep
+/import/*
+!/import/.gitkeep
 /node_modules/

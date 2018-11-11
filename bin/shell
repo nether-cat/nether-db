@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
+const startTime = Date.now();
+
+const fs = require('fs');
 const XLSX = require('xlsx');
 const util = require('util');
 
 const seraph = require('../lib/server/database/seraph');
+const database = require('../lib/server/database');
 const CountriesList = require('countries-list');
 
 let replacements = {
@@ -19,58 +23,75 @@ let replacements = {
   'name_of_dataset': 'label',
 };
 
+let successCount = 0, errors = [];
+let fileName, files, sheetName;
 let args = process.argv.slice(2);
-let proxyName = args[0].toLowerCase();
-let workbook = XLSX.readFile(args[1]);
-let sheet, sheetTitle;
-let sheetNotFound = function () {
-  throw new Error('Sheet with records not found!');
-};
-try {
-  let index = proxyName.charAt(0).toUpperCase() + proxyName.slice(1);
-  sheet = workbook.Sheets[index];
-  // Some datasheets don't have a title in cell B2 anymore!
-  // sheetTitle = sheet['B2'].v.trim().toLowerCase();
-} catch (e) {
-  sheetNotFound();
-} finally {
-  // if (proxyName + ' template' !== sheetTitle) sheetNotFound();
+if (args.length === 2) {
+  sheetName = args[0];
+  fileName = args[1];
+  files = [fileName];
+} else if (args.length === 1) {
+  fileName = args[0];
+  files = [fileName];
+} else {
+  files = [];
+  let path = __dirname + '/../import';
+  let entries = fs.readdirSync(path);
+  entries.forEach(entry => {
+    if (/\.xlsx?$/.test(entry)) {
+      files.push(path + '/' + entry);
+    }
+  });
 }
-let regex = /^[A-Z]{1,3}\d+:([A-Z]{1,3})(\d+)$/g;
-let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
-let namesRange = util.format('A8:%s%s', lastColumn, '8');
-let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
-let columnNames = XLSX.utils.sheet_to_json(sheet, {header: 1, range: namesRange})[0].map(
-  el => el.toLowerCase().replace(/[[\]{}()]/g, '').replace(/[-/\\.,;:_]+/g, ' ').trim().replace(/\s+/g, '_')
-);
-let metadata = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
-let records = XLSX.utils.sheet_to_json(sheet, {header: columnNames, range: valuesRange});
 
-metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: rowNumber}) => {
-  property = typeof property === 'string' ? property.trim() : property;
-  value = typeof value === 'string' ? value.trim() : value;
-  if (!value || !property) {
+const importData = async function (file) {
+  if (!file) {
+    throw new Error('No filename passed as argument!');
+  }
+  let sheet;
+  let workbook = XLSX.readFile(file);
+  let proxyName = !!sheetName
+    ? sheetName.toLowerCase()
+    : workbook.Sheets['Metadata']['G72'].v.trim().toLowerCase();
+  try {
+    let index = proxyName.charAt(0).toUpperCase() + proxyName.slice(1).toLowerCase();
+    sheet = workbook.Sheets[index];
+  } catch (e) {
+    throw new Error('Sheet with records not found!');
+  }
+  let regex = /^[A-Z]{1,3}\d+:([A-Z]{1,3})(\d+)$/g;
+  let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
+  let namesRange = util.format('A8:%s%s', lastColumn, '8');
+  let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
+  let columnNames = XLSX.utils.sheet_to_json(sheet, {header: 1, range: namesRange})[0].map(
+    el => el.toLowerCase().replace(/[[\]{}()]/g, '').replace(/[-/+\\.,;:#_]+/g, ' ').trim().replace(/\s+/g, '_')
+  );
+  let metadata = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
+  let records = XLSX.utils.sheet_to_json(sheet, {header: columnNames, range: valuesRange});
+
+  metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: rowNumber}) => {
+    property = typeof property === 'string' ? property.trim() : property;
+    value = typeof value === 'string' ? value.trim().replace(/^[-/]$/g, '') : value;
+    if (!value || !property) {
+      return accumulator;
+    }
+    let key = rowNumber < 26 ?
+      'publication' : rowNumber < 47 ?
+        'lake' : rowNumber < 65 ?
+          'core' : 'collection';
+    property = property.toLowerCase()
+      .replace(/[[\]{}()]/g, '')
+      .replace(/[-/+\\.,;:#_]+/g, ' ')
+      .trim()
+      .replace(/\s+/g, '_');
+    if (replacements.hasOwnProperty(property)) {
+      property = replacements[property];
+    }
+    accumulator[key][property] = value;
     return accumulator;
-  }
-  let key = rowNumber < 26 ?
-    'publication' : rowNumber < 47 ?
-      'lake' : rowNumber < 65 ?
-        'core' : 'collection';
-  property = property.toLowerCase()
-    .replace(/[[\]{}()]/g, '')
-    .replace(/[-/\\.,;:_]+/g, ' ')
-    .trim()
-    .replace(/\s+/g, '_');
-  if (replacements.hasOwnProperty(property)) {
-    property = replacements[property];
-  }
-  accumulator[key][property] = value;
-  return accumulator;
-}, {
-  publication: {}, lake: {}, core: {}, collection: {}
-});
-
-const importData = async function () {
+  }, {
+    publication: {}, lake: {}, core: {}, collection: {}
+  });
   let collection = Object.assign({}, metadata.collection, {
     sampledFrom: Object.assign({}, metadata.core, {
       drilledFrom: Object.assign({}, metadata.lake, {
@@ -144,21 +165,82 @@ const importData = async function () {
       return Collection.promise.save(collection);
     })
     .then(persistedCollection => {
-      console.log('Persisted meta information to database:');
-      console.log(persistedCollection);
+      let seen = [];
+      let overview = JSON.stringify(persistedCollection, function(key, val) {
+        if (val != null && typeof val === "object") {
+          if (seen.indexOf(val) >= 0) {
+            return;
+          }
+          seen.push(val);
+        }
+        return val;
+      }, 2);
+      console.log('Updated meta information in the database:');
       console.log('---------------------------------------');
-      return Promise.all(
-        records.map(row => {
-          let data = Object.entries(row).reduce((result, [key, value]) => {
-            result[key] = value;
-            return result;
-          }, {});
-          return Record.promise.save({ belongsTo: persistedCollection, ...data });
-        })
-      );
-      //return seraph.queryAsync('MATCH (node) RETURN node');
+      console.log(overview);
+      console.log('---------------------------------------');
+      console.log('Adding the actual records to database...');
+      const neo4j = require('neo4j-driver').v1;
+      return new Promise(function (resolve, reject) {
+        /** @type Session */ let session = database.session();
+        let writeTxResultPromise = session.writeTransaction(function (transaction) {
+          return records.map(row => {
+            let props = Object.entries(row).reduce((object, [key, value]) => {
+              object[key] = value;
+              return object;
+            }, {});
+            return transaction.run(`
+              MATCH (n:Collection) WHERE id(n) = toInteger($id)
+              CREATE (m:Record $props)
+              MERGE (m)-[r:BELONGS_TO]->(n)
+              RETURN n AS collection, m AS record
+            `, { id: neo4j.int(persistedCollection.id), props });
+          });
+        });
+        writeTxResultPromise.then(writtenRecords => {
+          console.log('Persisted ' + writtenRecords.length + ' records to the database.');
+          console.log('---------------------------------------');
+          session.close(() => {
+            successCount++;
+            resolve(0);
+          });
+        }).catch(err => {
+          reject(err);
+        });
+      });
     })
-    .catch(err => console.error(err.stack));
+    .catch(err => {
+      errors.push(file);
+      console.error(err.stack)
+    });
 };
 
-importData().then(() => console.log('Finished!'));
+const importFiles = async function () {
+  let nextFile = files.shift();
+  while (!!nextFile) {
+    try {
+      await importData(nextFile);
+    } catch (e) {
+      console.error(e);
+      errors.push(nextFile);
+    }
+    nextFile = files.shift();
+  }
+  if (!successCount) {
+    console.log('Sorry! Could not import any files.');
+  }
+};
+
+importFiles().then(() => {
+  database.close();
+  let duration = (Date.now() - startTime) / 1000;
+  if (successCount) {
+    let s = successCount > 1 ? 's' : '';
+    console.log('Done! Successfully imported ' + successCount + ' datasheet' + s + '.');
+  }
+  if (errors.length) {
+    console.log('Attention! There were errors handling these files:');
+    errors.forEach(path => console.log(path));
+  }
+  console.log('Execution finished after ' + duration + ' seconds.');
+});
