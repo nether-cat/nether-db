@@ -41,7 +41,7 @@ let [, lastColumn, lastRow] = regex.exec(sheet['!ref']);
 let namesRange = util.format('A8:%s%s', lastColumn, '8');
 let valuesRange = util.format('A9:%s%s', lastColumn, lastRow);
 let columnNames = XLSX.utils.sheet_to_json(sheet, {header: 1, range: namesRange})[0].map(
-  el => el.trim().toLowerCase().replace(/[[\]{}()]/g, '').replace(/[-/\\.,;:\s]+/g, '_').replace(/_+/g, '_')
+  el => el.toLowerCase().replace(/[[\]{}()]/g, '').replace(/[-/\\.,;:_]+/g, ' ').trim().replace(/\s+/g, '_')
 );
 let metadata = XLSX.utils.sheet_to_json(workbook.Sheets['Metadata'], {header: 'A', range: 'B1:G81'});
 let records = XLSX.utils.sheet_to_json(sheet, {header: columnNames, range: valuesRange});
@@ -56,10 +56,11 @@ metadata = metadata.reduce((accumulator, {B: property, G: value, __rowNum__: row
     'publication' : rowNumber < 47 ?
       'lake' : rowNumber < 65 ?
         'core' : 'collection';
-  property = property.trim().toLowerCase()
+  property = property.toLowerCase()
     .replace(/[[\]{}()]/g, '')
-    .replace(/[-/\\.,;:\s]+/g, '_')
-    .replace(/_+/g, '_');
+    .replace(/[-/\\.,;:_]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, '_');
   if (replacements.hasOwnProperty(property)) {
     property = replacements[property];
   }

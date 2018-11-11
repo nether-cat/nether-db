@@ -58,7 +58,7 @@
             <b-card>
               <b-table hover outlined striped caption-top show-empty :items="collections" :fields="['type', 'year', 'actions']">
                 <template slot="table-caption">
-                  Available datasets:
+                  Available datasheets:
                 </template>
                 <!--suppress HtmlUnknownAttribute -->
                 <template slot="type" slot-scope="cell">
@@ -66,10 +66,7 @@
                 </template>
                 <!--suppress HtmlUnknownAttribute -->
                 <template slot="actions" slot-scope="cell">
-                  <b-button variant="primary" size="sm" v-b-toggle.showDetails>Show records</b-button>
-                  <!--<router-link :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="Show records">-->
-                    <!--Show records-->
-                  <!--</router-link>-->
+                  <b-button variant="primary" size="sm" @click="onCollectionClick(cell.item.id)">Show records</b-button>
                 </template>
               </b-table>
             </b-card>
@@ -114,12 +111,12 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="showRecords && records && records.length">
       <b-col class="mt-4">
         <b-card>
-          <b-table hover outlined striped caption-top show-empty :items="[]" :fields="['id', 'name']">
+          <b-table hover outlined striped caption-top show-empty :items="records" :fields="Object.keys(records[0])">
             <template slot="table-caption">
-              This is a table caption.
+              Records in the selected datasheet:
             </template>
           </b-table>
         </b-card>
@@ -170,9 +167,15 @@
       bTable,
       ...noSSR,
     },
+    data () {
+      return {
+        showRecords: false,
+      };
+    },
     computed: {
       ...mapState('database', [
         'results',
+        'records',
       ]),
       ...mapGetters('database', [
         'reducedResults',
@@ -185,6 +188,13 @@
       this.$store.commit('database/DETAILS_ID_SET', this.$route.params['id']);
     },
     methods: {
+      ...mapActions('database', [
+        'loadCollection',
+      ]),
+      onCollectionClick (id) {
+        this.showRecords = true;
+        this.loadCollection(id);
+      },
       onMapMounted () {
         ScaleLineLoad.then(() => {
           // noinspection JSUnresolvedFunction
