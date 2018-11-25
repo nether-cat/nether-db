@@ -114,7 +114,8 @@
     <b-row v-if="showRecords && records && records.length">
       <b-col class="mt-4">
         <b-card>
-          <b-table hover outlined striped caption-top show-empty :items="records" :fields="Object.keys(records[0])">
+          <b-table hover outlined striped caption-top show-empty sort-by="row_index" :items="records"
+                   :fields="[{key: 'row_index', label: 'No.'}].concat(Object.keys(records[0]).filter(k => !['id', 'row_index'].includes(k)))">
             <template slot="table-caption">
               Records in the selected datasheet:
             </template>

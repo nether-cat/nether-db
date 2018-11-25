@@ -5,6 +5,7 @@ const startTime = Date.now();
 const fs = require('fs');
 const XLSX = require('xlsx');
 const util = require('util');
+const latinize = require('latinize');
 
 const seraph = require('../lib/server/database/seraph');
 const database = require('../lib/server/database');
@@ -23,7 +24,7 @@ let replacements = {
   'name_of_dataset': 'label',
 };
 
-let successCount = 0, errors = [];
+let successCount = 0, recordsCount = 0, errors = [];
 let fileName, files, sheetName;
 let args = process.argv.slice(2);
 if (args.length === 2) {
@@ -92,6 +93,15 @@ const importData = async function (file) {
   }, {
     publication: {}, lake: {}, core: {}, collection: {}
   });
+  if (!metadata.core['label'] || metadata.core['label'].slice(0, 8) === 'NO LABEL') {
+    let countryCode = metadata.lake['country'].toUpperCase();
+    let lakeAbbr = latinize(metadata.lake['name']).toUpperCase().replace(/\W/g, '').slice(0, 4);
+    let year = metadata.publication['year'];
+    let suffix = Math.floor(Math.random() * Math.floor(255)).toString(16).toUpperCase();
+    suffix = suffix.length === 1 ? `0${suffix}` : suffix;
+    let append = metadata.core['label'].slice(0, 8) === 'NO LABEL' ? metadata.core['label'].slice(8) : '';
+    metadata.core['label'] = `GFZ/${countryCode}-${lakeAbbr}-${year}/${suffix}${append}`;
+  }
   let collection = Object.assign({}, metadata.collection, {
     sampledFrom: Object.assign({}, metadata.core, {
       drilledFrom: Object.assign({}, metadata.lake, {
@@ -123,12 +133,13 @@ const importData = async function (file) {
       return Lake.promise.where({ name: metadata.lake['name'] });
     })
     .then(lake => {
+      let countryCode;
       if (lake.length) {
         collection.sampledFrom.drilledFrom = lake[0];
+        countryCode = collection.sampledFrom.drilledFrom.locatedIn.code;
+      } else {
+        countryCode = metadata.lake['country'];
       }
-      let countryCode = metadata.lake['country'] ?
-        metadata.lake['country'] :
-        collection.sampledFrom.drilledFrom.locatedIn.code;
       return Country.promise.where({ code: countryCode });
     })
     .then(countries => {
@@ -184,11 +195,12 @@ const importData = async function (file) {
       return new Promise(function (resolve, reject) {
         /** @type Session */ let session = database.session();
         let writeTxResultPromise = session.writeTransaction(function (transaction) {
-          return records.map(row => {
+          return records.map((row, index) => {
             let props = Object.entries(row).reduce((object, [key, value]) => {
               object[key] = value;
               return object;
             }, {});
+            props['row_index'] = index;
             return transaction.run(`
               MATCH (n:Collection) WHERE id(n) = toInteger($id)
               CREATE (m:Record $props)
@@ -198,6 +210,7 @@ const importData = async function (file) {
           });
         });
         writeTxResultPromise.then(writtenRecords => {
+          recordsCount += writtenRecords.length;
           console.log('Persisted ' + writtenRecords.length + ' records to the database.');
           console.log('---------------------------------------');
           session.close(() => {
@@ -237,6 +250,10 @@ importFiles().then(() => {
   if (successCount) {
     let s = successCount > 1 ? 's' : '';
     console.log('Done! Successfully imported ' + successCount + ' datasheet' + s + '.');
+  }
+  if (recordsCount) {
+    let s = recordsCount > 1 ? 's' : '';
+    console.log('A total number of ' + recordsCount + ' record' + s + ' were created.');
   }
   if (errors.length) {
     console.log('Attention! There were errors handling these files:');

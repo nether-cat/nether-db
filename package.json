@@ -57,6 +57,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.3",
     "koa-webpack": "^5.0.2",
+    "latinize": "^0.4.0",
     "launch-editor-middleware": "^2.2.1",
     "memory-fs": "^0.4.0",
     "ms": "^2.0.0",
@@ -93,6 +94,7 @@
     "@types/koa-router": "^7.0.28",
     "@types/koa-session": "^5.7.3",
     "@types/koa-webpack": "^5.0.1",
+    "@types/latinize": "^0.2.15",
     "@types/webpack": "^4.4.0"
   }
 }
