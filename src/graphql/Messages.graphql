@@ -1,0 +1,7 @@
+#import "./MessageFragment.graphql"
+
+query messages {
+  messages {
+    ...Message
+  }
+}

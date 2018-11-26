@@ -1,0 +1,7 @@
+#import "./MessageFragment.graphql"
+
+subscription messageAdded {
+  messageAdded {
+    ...Message
+  }
+}

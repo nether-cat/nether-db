@@ -1,0 +1,7 @@
+#import "./FileFragment.graphql"
+
+query files {
+  files: uploads {
+    ...file
+  }
+}

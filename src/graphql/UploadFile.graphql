@@ -1,0 +1,7 @@
+#import "./FileFragment.graphql"
+
+mutation uploadFile ($file: Upload!) {
+  singleUpload (file: $file) {
+    ...file
+  }
+}
