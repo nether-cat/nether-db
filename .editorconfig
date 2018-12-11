@@ -1,4 +1,4 @@
-[*.{cyp,gql,graphql,graphqle,graphqls,html,js,json,jsx,ts,tsx,vue}]
+[*.{cql,cyp,cypher,gql,graphql,graphqle,graphqls,html,js,json,jsx,ts,tsx,vue}]
 charset = utf-8
 end_of_line = lf
 indent_style = space

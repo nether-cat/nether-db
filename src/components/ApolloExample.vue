@@ -141,8 +141,8 @@ export default {
     return {
       name: 'Anne',
       newMessage: '',
-      stringLiteralGQL: gql`query HelloWorld ($name: String) {
-        hello (name: $name)
+      stringLiteralGQL: gql`{
+        Test(id: 0)
       }`,
     };
   },

@@ -1,5 +1,6 @@
-
+node_modules
 /dist
 /live
-*.graphqls
+
+# Do not lint schema files
 schema.graphql

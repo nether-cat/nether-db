@@ -1,70 +1,39 @@
-import GraphQLJSON from 'graphql-type-json';
-import shortid from 'shortid';
+//const { neo4jgraphql } = require('neo4j-graphql-js');
+const GraphQLJSON = require('graphql-type-json');
 
-export default {
+module.exports = {
+  // Schema resolvers
+  // https://www.apollographql.com/docs/graphql-tools/resolvers.html
   JSON: GraphQLJSON,
-
-  Counter: {
-    countStr: counter => `Current count: ${counter.count}`,
-  },
-
   Query: {
-    hello: (root, { name }) => `Hello ${name || 'World'}!`,
-    messages: (root, args, { db }) => db.get('messages').value(),
-    uploads: (root, args, { db }) => db.get('uploads').value(),
-
+    // eslint-disable-next-line no-unused-vars
+    Something(object, params, ctx, resolveInfo) {
+      debugger;
+      return [{ id: 1, data: { field: 'content' }, _id: 'empty' }];
+      //return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
+    // eslint-disable-next-line no-unused-vars
+    async Test(object, params, ctx, resolveInfo) {
+      debugger;
+      /** @type Session */ let session = ctx.driver.session();
+      let queryResult = await session.run(
+        `
+        MATCH (n0:Actor) WHERE id(n0) = toInteger($id) RETURN n0 AS record
+        `,
+        { id: Number(params.id) },
+      );
+      return queryResult.records.map(row => {
+        let record = row.get('record');
+        return { ...record.properties, id: record.identity };
+      });
+    },
   },
-
   Mutation: {
-    myMutation: (root, args, context) => {
-      const message = 'My mutation completed!';
-      context.pubsub.publish('hey', { mySub: message });
-      return message;
+    // eslint-disable-next-line no-unused-vars
+    CreateSomething(object, params, ctx, resolveInfo) {
+      debugger;
+      return [{ id: 1, data: { field: 'content' }, _id: 'empty' }];
+      //return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },
-    addMessage: (root, { input }, { pubsub, db }) => {
-      const message = {
-        id: shortid.generate(),
-        text: input.text,
-      };
-
-      db
-        .get('messages')
-        .push(message)
-        .last()
-        .write();
-
-      pubsub.publish('messages', { messageAdded: message });
-
-      return message;
-    },
-
-    singleUpload: (root, { file }, { processUpload }) => processUpload(file),
-    multipleUpload: (root, { files }, { processUpload }) => Promise.all(files.map(processUpload)),
-
-  },
-
-  Subscription: {
-    mySub: {
-      subscribe: (parent, args, { pubsub }) => pubsub.asyncIterator('hey'),
-    },
-    counter: {
-      subscribe: (parent, args, { pubsub }) => {
-        const channel = Math.random().toString(36).substring(2, 15); // random channel name
-        let count = 0;
-        setInterval(() => pubsub.publish(
-          channel,
-          {
-            // eslint-disable-next-line no-plusplus
-            counter: { count: count++ },
-          }
-        ), 2000);
-        return pubsub.asyncIterator(channel);
-      },
-    },
-
-    messageAdded: {
-      subscribe: (parent, args, { pubsub }) => pubsub.asyncIterator('messages'),
-    },
-
   },
 };

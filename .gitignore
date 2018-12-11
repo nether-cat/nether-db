@@ -6,7 +6,7 @@ node_modules
 /tests/e2e/videos/
 /tests/e2e/screenshots/
 
-# local env files
+# Local env files
 .env.local
 .env.*.local
 
