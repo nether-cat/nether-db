@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "app": {
+      "schemaPath": "./schema.graphql"
+    }
+  }
+}

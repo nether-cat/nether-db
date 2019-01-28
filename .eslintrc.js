@@ -1,4 +1,10 @@
-const { schema } = require('./apollo-server/utils/setup');
+const secret = process.env.SHARED_TOKEN_SECRET;
+if (!secret || typeof secret !== 'string' || secret.length < 32) {
+  process.env.SHARED_TOKEN_SECRET = 'x'.repeat(32);
+}
+// TODO: Find a better workaround for ESLint
+
+const { schema } = require('./apollo-server/utils/schema');
 const { printSchema } = require('graphql');
 const schemaString = printSchema(schema);
 
@@ -42,7 +48,7 @@ module.exports = {
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     'vue/html-closing-bracket-spacing': ['error', { 'selfClosingTag': 'never' }],
     'vue/max-attributes-per-line': ['error', {
-      'singleline': 4,
+      'singleline': 8,
       'multiline': {
         'max': 1,
         'allowFirstLine': true,

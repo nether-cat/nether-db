@@ -1,0 +1,8 @@
+fragment session on Session {
+  _id
+  user
+  userRole
+  token
+  expires
+  state
+}

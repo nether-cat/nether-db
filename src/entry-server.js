@@ -13,7 +13,17 @@ export default context => {
       router,
       store,
       apolloProvider,
-    } = await createApp();
+    } = await createApp({
+      modifyOptions({ providerOptions }) {
+        providerOptions.ssr = true;
+        let cookieHeader = context.req.header('Cookie');
+        if (cookieHeader) {
+          providerOptions.httpLinkOptions.headers = {
+            cookie: context.req.header('Cookie'),
+          };
+        }
+      },
+    });
 
     router.push(context.url);
 

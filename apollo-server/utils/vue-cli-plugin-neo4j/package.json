@@ -1,0 +1,15 @@
+{
+  "name": "vue-cli-plugin-neo4j",
+  "description": "Local plugin to integrate Neo4j related tasks into Vue CLI",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Mario Dorn"
+  },
+  "deprecated": false,
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "vue:ui": "npx -n $NODE_DEBUG_OPTION -- vue ui --headless --dev"
+  }
+}

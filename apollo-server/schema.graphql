@@ -1,0 +1,200 @@
+scalar JSON
+
+scalar Date
+
+scalar DateTime
+
+scalar LocalDateTime
+
+directive @auth(role: UserRole = USER) on OBJECT | FIELD_DEFINITION
+
+directive @cypher(statement: String!) on FIELD_DEFINITION
+
+directive @relation(name: String!, direction: String) on FIELD_DEFINITION | OBJECT
+
+directive @uniqueID(name: String = "uuid", from: [String] = ["_id"]) on OBJECT
+
+enum Privilege {
+  OWNER
+  EDITOR
+  VIEWER
+  NONE
+}
+
+enum SessionState {
+  AUTHORIZED
+  AUTH_ERROR
+  AUTH_EXPIRED
+  AUTH_FROZEN
+  AUTH_MISMATCH
+  AUTH_PENDING
+  UNAUTHORIZED
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  REVIEWER
+  USER
+  NONE
+}
+
+input Password {
+  isHash: Boolean!
+  value: String!
+}
+
+type Query {
+  Session: Session!
+  Test(_id: ID!): [JSON]
+}
+
+type Mutation {
+  Login(email: String!, password: Password!): Session!
+  Logout: Session!
+  Test(_id: ID!, payload: JSON!): JSON
+}
+
+type Attribute {
+  uid: ID!
+  name: String!
+  description: String
+  proxy(first: Int = 1, offset: Int = 0): [Proxy] @relation(name: "BELONGS_TO", direction: "OUT")
+}
+
+type Collection {
+  uid: ID!
+  label: String
+  analysisDate: Date
+  analysisMethod: String
+  dataDescription: String # TODO: Determine usage or removal
+  metaInformation: String # TODO: Determine usage or removal
+  depthResolution: Float
+  measuringError: Float # TODO: Determine usage or removal
+  continuousRecord: Boolean # TODO: Determine usage or removal
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "INCLUDES", direction: "OUT")
+  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
+  proxy(first: Int = 1, offset: Int = 0): [Proxy] @relation(name: "BELONGS_TO", direction: "OUT")
+  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")
+  records(first: Int = 100, offset: Int = 0): [Record] @cypher(statement: "MATCH (m:Record)-[:COLLECTED_IN]->(this) RETURN m LIMIT {first}")
+}
+
+type Core {
+  uid: ID!
+  label: String
+  latitude: Float
+  longitude: Float
+  coringMethod: String
+  drillDate: Date
+  waterDepth: Float
+  compositeDepthStart: Float # TODO: Determine usage or removal
+  compositeDepthEnd: Float # TODO: Determine usage or removal
+  length: Float # TODO: Determine usage or removal
+  ageDepthMethod: String
+  comments: String
+  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "SAMPLED_FROM", direction: "IN")
+  lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: "OUT")
+}
+
+type Continent {
+  uid: ID!
+  "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
+  code: String!
+  "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
+  name: String!
+  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: "IN")
+}
+
+type Country {
+  uid: ID!
+  "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
+  code: String!
+  "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
+  name: String!
+  continents(first: Int = 100, offset: Int = 0): [Continent] @relation(name: "LOCATED_IN", direction: "OUT")
+  lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: "IN")
+}
+
+type Group {
+  uid: ID!
+  name: String!
+  memberships: [MEMBER_OF]
+}
+
+type Lake {
+  uid: ID!
+  name: String!
+  latitude: Float!
+  longitude: Float!
+  maxDepth: Float
+  surfaceLevel: Float
+  surfaceArea: Float
+  waterBodyVolume: Float
+  cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: "IN")
+  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: "OUT")
+}
+
+type Proxy {
+  uid: ID!
+  name: String!
+  description: String
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: "IN")
+  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "BELONGS_TO", direction: "IN")
+}
+
+type Publication {
+  uid: ID!
+  title: String!
+  authors: String
+  year: Float
+  description: String # TODO: Determine usage or removal
+  originalReferenceCitation: String # TODO: Determine usage or removal
+  doi: String
+  source: String
+  url: String # TODO: Determine usage or removal
+  email: String
+  abstract: String
+  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "PUBLISHED_IN", direction: "IN")
+}
+
+type Record {
+  _id: ID!
+  data: JSON!
+}
+
+type Session {
+  _id: ID!
+  user: String!
+  userRole: UserRole!
+  token: String
+  expires: Float!
+  state: SessionState!
+}
+
+type User {
+  uid: ID!
+  firstName: String
+  lastName: String
+  role: String
+  department: String
+  institution: String
+  email: String!
+  password: String!
+  userRole: UserRole!
+  disabled: Boolean!
+  frozen: Boolean!
+  memberships: [MEMBER_OF]
+  privileges: [HAS_PRIVILEGE]
+}
+
+type HAS_PRIVILEGE @relation(name: "HAS_PRIVILEGE") {
+  from: User
+  to: Collection
+  type: Privilege
+}
+
+type MEMBER_OF @relation(name: "MEMBER_OF") {
+  from: User
+  to: Group
+  moderates: Boolean
+}

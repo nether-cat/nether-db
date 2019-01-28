@@ -1,0 +1,139 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const loadEnv = require('@vue/cli-service/lib/util/loadEnv');
+const { default: chalk } = require('chalk');
+
+const stripSecrets = (key, value) => {
+  if (value && /key|password|secret|token/i.test(key)) {
+    return '*'.repeat(16);
+  }
+  return value;
+};
+
+const showEnv = env => {
+  let stringified = JSON.stringify(env, stripSecrets, 2);
+  return chalk.gray(stringified.replace(/"\*{16}"/g, '-HIDDEN-'));
+};
+
+const buffered = {
+  content: '',
+  log(...args) {
+    this.content = this.content.concat(args.join(' '), '\n');
+  },
+};
+
+const environment = { ...process.env };
+
+const envFiles = [
+  path.resolve('.env.local'),
+  path.resolve('.env'),
+];
+
+const load = path => {
+  try {
+    const result = loadEnv(path);
+    Object.keys(result).forEach(key => {
+      if (typeof environment[key] === 'undefined') {
+        environment[key] = result[key];
+      } else {
+        delete result[key];
+      }
+    });
+    if (Object.keys(result).length) {
+      buffered.log(chalk.blueBright(path), '=>', showEnv(result));
+    }
+  } catch (err) {
+    // only ignore error if file is not found
+    if (err.toString().indexOf('ENOENT') < 0) {
+      throw err;
+    }
+  }
+};
+
+buffered.log('Fetching additional environment variables...\n');
+envFiles.forEach(f => load(path.resolve(f)));
+
+let running = false;
+const builder = yargs => {
+  yargs.env('NEO4J')
+    .options({
+      'host': {
+        alias: ['uri', 'h'],
+        type: 'string',
+        nargs: 1,
+        default: process.env.NEO4J_URI || 'bolt://localhost:7687',
+        describe: chalk.yellow('Use this URI to connect with Neo4j'),
+      },
+      'user': {
+        alias: 'u',
+        type: 'string',
+        nargs: 1,
+        default: process.env.NEO4J_USER || 'neo4j',
+        describe: chalk.yellow('Specify the user to authenticate with Neo4j'),
+      },
+      'password': {
+        alias: 'p',
+        type: 'string',
+        nargs: 1,
+        describe: chalk.yellow('The user\'s password for authentication'),
+      },
+    })
+    .default('password', process.env.NEO4J_PASSWORD || 'neo4j', process.env.NEO4J_PASSWORD ? '-HIDDEN-' : '"neo4j"')
+    .strict(true).hide('help').version(false);
+};
+const handler = execute => {
+  return async argv => {
+    if (argv._.length > 1) {
+      parser.showHelp();
+      let invalid = argv._[1] === 'help' && argv._.length > 2 ? argv._[2] : argv._[1];
+      console.log(chalk.red('\nUnrecognized input: ' + invalid));
+      process.exit(1);
+    }
+    running = true;
+    console.log(buffered.content);
+    let result = await execute(argv);
+    process.exit(result ? 1 : 0);
+  };
+};
+const info = cmd => {
+  if (cmd === migrate) return chalk.yellow('Initializes and migrates your database');
+  if (cmd === seed) return chalk.yellow('Adds example datasets to your database');
+  if (cmd === reset) return chalk.yellow('Removes everything from your database');
+  return chalk.yellow('Shows usage details and options for ') + chalk.gray('<cmd>');
+};
+/** @var {object} */ const yargs = require('yargs');
+const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
+(() => {
+  return parser
+    .usage('Usage:\n  $0 ' + chalk.gray('<cmd> [opts]'))
+    .command(chalk.gray('<cmd>') + ' --help', info())
+    .command('migrate', info(migrate), builder, handler(migrate))
+    .command('seed', info(seed), builder, handler(seed))
+    .command('reset', info(reset), builder, handler(reset))
+    .help('help', info()).hide('version').argv;
+})();
+
+if (!running) {
+  parser.showHelp();
+  console.log(chalk.red('\nPlease specify a valid command to proceed.'));
+  process.exit(1);
+}
+
+async function migrate(argv) {
+  return new Promise(resolve => setTimeout(() => {
+    resolve(console.log(`Migration task on ${chalk.underline(argv.host)} has been started!\n`));
+  }, 2000));
+}
+
+async function seed(argv) {
+  return new Promise(resolve => setTimeout(() => {
+    resolve(console.log(`Seeding task on ${chalk.underline(argv.host)} has been started!\n`));
+  }, 2000));
+}
+
+async function reset(argv) {
+  return new Promise(resolve => setTimeout(() => {
+    resolve(console.log(`Reset task on ${chalk.underline(argv.host)} has been started!\n`));
+  }, 2000));
+}

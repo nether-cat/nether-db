@@ -1,0 +1,7 @@
+#import "./SessionFragment.graphql"
+
+mutation logout {
+  session: Logout {
+    ...session
+  }
+}

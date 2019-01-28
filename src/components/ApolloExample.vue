@@ -18,7 +18,7 @@
 
     <!-- Apollo watched Graphql query -->
     <apollo-query
-      :query="require('../graphql/HelloWorld.graphql')"
+      :query="require('../graphql/examples/HelloWorld.graphql')"
       :variables="{ name }"
     >
       <template slot-scope="{ result: { loading, error, data } }">
@@ -58,10 +58,10 @@
 
     <!-- Tchat example -->
     <apollo-query
-      :query="require('../graphql/Messages.graphql')"
+      :query="require('../graphql/examples/Messages.graphql')"
     >
       <apollo-subscribe-to-more
-        :document="require('../graphql/MessageAdded.graphql')"
+        :document="require('../graphql/examples/MessageAdded.graphql')"
         :update-query="onMessageAdded"
       />
 
@@ -79,7 +79,7 @@
     </apollo-query>
 
     <apollo-mutation
-      :mutation="require('../graphql/AddMessage.graphql')"
+      :mutation="require('../graphql/examples/AddMessage.graphql')"
       :variables="{
         input: {
           text: newMessage,
@@ -133,8 +133,8 @@
 
 <script>
 import gql from 'graphql-tag';
-import FILES from '../graphql/Files.graphql';
-import UPLOAD_FILE from '../graphql/UploadFile.graphql';
+import FILES from '../graphql/examples/Files.graphql';
+import UPLOAD_FILE from '../graphql/examples/UploadFile.graphql';
 
 export default {
   data () {
@@ -142,7 +142,7 @@ export default {
       name: 'Anne',
       newMessage: '',
       stringLiteralGQL: gql`{
-        Test(id: 0)
+        Test(_id: 0)
       }`,
     };
   },

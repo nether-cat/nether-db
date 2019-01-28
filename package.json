@@ -1,6 +1,23 @@
 {
   "name": "nether-db",
-  "version": "0.1.0",
+  "description": "A database application for paleolimnological research",
+  "repository": "https://github.com/nether-cat/nether-db",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Mario Dorn"
+  },
+  "contributors": [
+    {
+      "name": "Mario Dorn",
+      "email": "mario.dorn@forgefire.net"
+    },
+    {
+      "name": "Alexander Brauser",
+      "email": "alex.brauser@fu-berlin.de"
+    }
+  ],
+  "deprecated": false,
   "private": true,
   "scripts": {
     "lint": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service lint --ext \"gql,graphql,js,jsx,ts,tsx,vue\"",
@@ -9,40 +26,67 @@
     "ssr:serve": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service ssr:serve",
     "ssr:build": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service ssr:build",
     "ssr:start": "cross-env NODE_ENV=production vue-cli-service ssr:serve --mode production",
-    "apollo:dev": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service apollo:watch --run \"vue-cli-service ssr:serve\"",
+    "apollo:watch": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service apollo:watch",
     "apollo:run": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service apollo:run",
+    "apollo:prod": "cross-env NODE_ENV=production vue-cli-service apollo:run --mode production",
+    "neo4j:migrate": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service migrate",
+    "neo4j:seed": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service seed",
+    "neo4j:reset": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service reset",
     "test:e2e": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:e2e",
     "test:unit": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:unit"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.10",
+    "@fortawesome/free-brands-svg-icons": "^5.6.1",
+    "@fortawesome/free-regular-svg-icons": "^5.6.1",
+    "@fortawesome/free-solid-svg-icons": "^5.6.1",
+    "@fortawesome/vue-fontawesome": "^0.1.3",
+    "@johmun/vue-tags-input": "^1.6.0",
+    "ajv": "^6.6.2",
+    "argon2": "^0.20.0",
+    "axios": "^0.18.0",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "c3": "^0.6.11",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "countries-list": "^2.3.2",
+    "d3": "^5.7.0",
     "esm": "^3.0.84",
     "express": "^4.16.3",
     "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.3",
     "graphql-type-json": "^0.2.1",
     "isomorphic-fetch": "^2.2.1",
-    "lowdb": "^1.0.0",
+    "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.4.0",
     "mkdirp": "^0.5.1",
     "neo4j-driver": "^1.7.2",
     "neo4j-graphql-js": "^2.0.1",
     "register-service-worker": "^1.0.0",
+    "resolve-url-loader": "^3.0.0",
     "shortid": "^2.2.8",
+    "uuid": "^3.3.2",
     "vue": "^2.5.17",
     "vue-apollo": "^3.0.0-beta.11",
+    "vue-no-ssr": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.16",
-    "vuex": "^3.0.1"
+    "vuelayers": "^0.11.1",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0",
+    "yargs": "^12.0.5"
   },
   "devDependencies": {
-    "@akryum/vue-cli-plugin-ssr": "^0.3.0",
+    "@akryum/vue-cli-plugin-ssr": "^0.4.0",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-e2e-cypress": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
     "@vue/cli-plugin-pwa": "^3.2.0",
     "@vue/cli-plugin-unit-jest": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
+    "@vue/cli-shared-utils": "^3.2.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.26",
-    "apollo": "^2.1.7",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -52,7 +96,12 @@
     "graphql-tag": "^2.9.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-cli-plugin-apollo": "^0.18.1",
+    "vue-cli-plugin-apollo": "^0.19.1",
     "vue-template-compiler": "^2.5.17"
+  },
+  "vuePlugins": {
+    "ui": [
+      "apollo-server/utils/vue-cli-plugin-neo4j"
+    ]
   }
 }
