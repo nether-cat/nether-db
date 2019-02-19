@@ -1,5 +1,4 @@
 const path = require('path');
-const { schema } = require('./apollo-server/utils/schema');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -67,6 +66,8 @@ module.exports = {
         keepQuery: false,
       })
       .before('sass-loader');
+    config.resolve.alias
+      .set('@seeds', path.resolve(__dirname, 'apollo-server/utils/neo4j-cli-service/seeds'));
   },
 
   pluginOptions: {
@@ -74,7 +75,7 @@ module.exports = {
       enableMocks: true,
       enableEngine: true,
       cors: { origin: true, credentials: true },
-      serverOptions: { schema, introspection: true },
+      serverOptions: { introspection: true },
     },
     ssr: {
       templatePath: path.resolve(__dirname, './dist/index.server.html'),

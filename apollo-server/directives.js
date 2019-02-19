@@ -19,7 +19,7 @@ class UniqueIdDirective extends SchemaDirectiveVisitor {
       isDeprecated: false,
       args: [],
       resolve(object) {
-        let uuid = uuidv5(type.name, process.env.VUE_APP_UUID5_ROOT);
+        let uuid = uuidv5(type.name, process.env.VUE_APP_UUIDV5_ROOT);
         from.forEach(fieldName => {
           uuid = uuidv5(String(object[fieldName]), uuid);
         });
@@ -91,5 +91,5 @@ module.exports = {
   // Schema directives
   // https://www.apollographql.com/docs/graphql-tools/schema-directives.html
   auth: AuthDirective,
-  uniqueID: UniqueIdDirective,
+  calcUID: UniqueIdDirective,
 };

@@ -1,0 +1,1612 @@
+[
+  {
+    "name": "A",
+    "latitude": 83.000368,
+    "longitude": -75.424734,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Ahvenainen",
+    "latitude": 60.826345,
+    "longitude": 28.125358,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Albano",
+    "latitude": 41.7461118276999,
+    "longitude": 12.6695080233,
+    "@countries": [
+      "IT"
+    ]
+  },
+  {
+    "name": "Alimmainen Savijärvi",
+    "latitude": 61.7442196149999,
+    "longitude": 24.4016080769999,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Ammersee",
+    "latitude": 47.9982989246,
+    "longitude": 11.1217698928,
+    "maxDepth": 81,
+    "surfaceLevel": 533,
+    "surfaceArea": 47000000,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Angulinao",
+    "latitude": 41.35,
+    "longitude": 114.383333333,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Anterne",
+    "latitude": 45.9909942534999,
+    "longitude": 6.79831417076,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Arendsee",
+    "latitude": 52.8899898256999,
+    "longitude": 11.4758917293,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Arreo",
+    "latitude": 42.7784301236,
+    "longitude": -2.9911253668,
+    "@countries": [
+      "ES"
+    ]
+  },
+  {
+    "name": "Aspevatnet",
+    "latitude": 69.750303,
+    "longitude": 19.960814,
+    "maxDepth": 8,
+    "surfaceLevel": 35,
+    "@countries": [
+      "NO"
+    ]
+  },
+  {
+    "name": "Avigliana",
+    "latitude": 45.0654314491999,
+    "longitude": 7.38696178466,
+    "@countries": [
+      "IT"
+    ]
+  },
+  {
+    "name": "Ayr Lake",
+    "latitude": 70.459,
+    "longitude": -70.086,
+    "maxDepth": 50,
+    "surfaceLevel": 68,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Baldeggersee",
+    "latitude": 47.1979402831999,
+    "longitude": 8.26135020537999,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Barrine",
+    "latitude": -17.2503569192,
+    "longitude": 145.635593820999,
+    "maxDepth": 67,
+    "surfaceLevel": 725,
+    "surfaceArea": 1000000,
+    "catchmentArea": 1950000,
+    "@countries": [
+      "AU"
+    ]
+  },
+  {
+    "name": "Bear Lake",
+    "latitude": 75.4837988,
+    "longitude": -85.1900167,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Bear Lake",
+    "latitude": 41.995015,
+    "longitude": -111.338239,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Belau",
+    "latitude": 54.1005607940999,
+    "longitude": 10.2523622788,
+    "maxDepth": 29,
+    "surfaceArea": 1150000,
+    "catchmentArea": 32860000,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Berrington Pool",
+    "latitude": 52.660516,
+    "longitude": -2.704246,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Big Round Lake",
+    "latitude": 69.8647630978999,
+    "longitude": -68.8548436608,
+    "maxDepth": 36.3,
+    "surfaceLevel": 180,
+    "surfaceArea": 1300000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Big Watab Lake",
+    "latitude": 45.5526180405,
+    "longitude": -94.4524283274,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Blue Lake",
+    "latitude": 68.0870134782,
+    "longitude": -150.465176157999,
+    "maxDepth": 4,
+    "surfaceLevel": 1275,
+    "surfaceArea": 40000,
+    "catchmentArea": 4100000,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Bosumtwi",
+    "latitude": 6.50143937147,
+    "longitude": -1.41126902364,
+    "@countries": [
+      "GH"
+    ]
+  },
+  {
+    "name": "Bourget",
+    "latitude": 45.7262053899,
+    "longitude": 5.86729304422,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Bow Lake",
+    "latitude": 51.664444,
+    "longitude": -116.448611,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Bramant",
+    "latitude": 45.1998576677,
+    "longitude": 6.17592466908,
+    "maxDepth": 39,
+    "surfaceLevel": 2448,
+    "catchmentArea": 5000000,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Brownie Lake",
+    "latitude": 44.967609,
+    "longitude": -93.324327,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Butrint",
+    "latitude": 39.7803471276,
+    "longitude": 20.0312658946,
+    "maxDepth": 21.4,
+    "surfaceLevel": 0,
+    "surfaceArea": 16000000,
+    "@countries": [
+      "AL"
+    ]
+  },
+  {
+    "name": "C2",
+    "latitude": 82.827593,
+    "longitude": -77.985993,
+    "maxDepth": 84,
+    "surfaceArea": 1800000,
+    "catchmentArea": 21000000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Chala",
+    "latitude": -3.31676,
+    "longitude": 37.70403,
+    "maxDepth": 100,
+    "surfaceLevel": 880,
+    "surfaceArea": 4200000,
+    "catchmentArea": 5600000,
+    "@countries": [
+      "KE",
+      "TZ"
+    ]
+  },
+  {
+    "name": "Cheakamus",
+    "latitude": 50.0080306808999,
+    "longitude": -122.917856396999,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Constance",
+    "latitude": 47.6016560783999,
+    "longitude": 9.42183358287,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Crawford Lake",
+    "latitude": 43.4684369857,
+    "longitude": -79.9488007517,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Crevice",
+    "latitude": 45.0005852342999,
+    "longitude": -110.578357401999,
+    "surfaceLevel": 1684,
+    "surfaceArea": 77600,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Dead Sea",
+    "latitude": 31.5352192022999,
+    "longitude": 35.4909151359,
+    "surfaceLevel": -413,
+    "@countries": [
+      "IL",
+      "JO",
+      "PS"
+    ]
+  },
+  {
+    "name": "Deep Lake",
+    "latitude": 47.683,
+    "longitude": -95.3993,
+    "maxDepth": 24,
+    "surfaceLevel": 411,
+    "surfaceArea": 40000,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Diss Mere",
+    "latitude": 52.3753965280999,
+    "longitude": 1.10749060665,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Donard",
+    "latitude": 66.6625264044999,
+    "longitude": -61.7874877005,
+    "maxDepth": 22,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "DV09",
+    "latitude": 75.5743865599999,
+    "longitude": -89.3094331052,
+    "maxDepth": 16,
+    "surfaceLevel": 35,
+    "surfaceArea": 30000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "East Lake",
+    "latitude": 74.8882112283999,
+    "longitude": -109.534166145,
+    "maxDepth": 32,
+    "surfaceLevel": 5,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Eklutna",
+    "latitude": 61.405278,
+    "longitude": -149.025862,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Elk Lake",
+    "latitude": 47.1890509875999,
+    "longitude": -95.2179011233999,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Ellesmere Mere",
+    "latitude": 52.908798,
+    "longitude": -2.88428,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Erlongwan",
+    "latitude": 42.3026287251,
+    "longitude": 126.380571315,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Foy Lake",
+    "latitude": 48.1662251906,
+    "longitude": -114.359874989,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Frängsjön",
+    "latitude": 64.0227969841999,
+    "longitude": 19.7375969185,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Frías",
+    "latitude": -41.0617468196999,
+    "longitude": -71.7990482155999,
+    "maxDepth": 75,
+    "surfaceLevel": 790,
+    "@countries": [
+      "AR"
+    ]
+  },
+  {
+    "name": "Frickenhäuser See",
+    "latitude": 50.4029393402,
+    "longitude": 10.2372700987,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Fukami",
+    "latitude": 35.3256039222,
+    "longitude": 137.819460154,
+    "@countries": [
+      "JP"
+    ]
+  },
+  {
+    "name": "Furskogstjärnet",
+    "latitude": 59.380193,
+    "longitude": 12.080099,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Geneva",
+    "latitude": 46.4391880291999,
+    "longitude": 6.51644743452,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Glacier Lake",
+    "latitude": 40.022961,
+    "longitude": -105.502722,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Gosciaz",
+    "latitude": 52.5829242160999,
+    "longitude": 19.339757878,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Green Lake",
+    "latitude": 43.811007,
+    "longitude": -89.00016,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Greifen",
+    "latitude": 47.35,
+    "longitude": 8.67944516104,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Grimselsee",
+    "latitude": 46.5680372361999,
+    "longitude": 8.30918564125999,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Gropviken",
+    "latitude": 58.337646,
+    "longitude": 16.667813,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Gyltigesjön",
+    "latitude": 56.756687,
+    "longitude": 13.175415,
+    "maxDepth": 20,
+    "surfaceLevel": 66,
+    "surfaceArea": 400000,
+    "catchmentArea": 182000000,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Hämelsee",
+    "latitude": 52.7596089396,
+    "longitude": 9.31066430069,
+    "maxDepth": 4.9,
+    "surfaceLevel": 19.5,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Hancza",
+    "latitude": 54.2646571545,
+    "longitude": 22.8126476424,
+    "maxDepth": 229,
+    "surfaceLevel": 108.5,
+    "surfaceArea": 3100000,
+    "catchmentArea": 39700000,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Hännisenlampi",
+    "latitude": 62.074972,
+    "longitude": 30.209572,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Hector Lake",
+    "latitude": 51.5880922552999,
+    "longitude": -116.364287206,
+    "surfaceLevel": 1800,
+    "surfaceArea": 5230000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Hell's Kitchen Lake",
+    "latitude": 46.1867967103,
+    "longitude": -89.7025301512999,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Holzmaar",
+    "latitude": 50.1193499895,
+    "longitude": 6.87865915812,
+    "maxDepth": 20,
+    "surfaceLevel": 425,
+    "catchmentArea": 2000000,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Hoya La Alberca",
+    "latitude": 20.3888809554999,
+    "longitude": -101.200913894,
+    "@countries": [
+      "MX"
+    ]
+  },
+  {
+    "name": "Hoya Rincón de Parangueo",
+    "latitude": 20.4311366561,
+    "longitude": -101.249543053,
+    "surfaceLevel": 1684,
+    "@countries": [
+      "MX"
+    ]
+  },
+  {
+    "name": "Huron",
+    "latitude": 44.641788,
+    "longitude": -82.357979,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Hvítárvatn",
+    "latitude": 64.6101351515,
+    "longitude": -19.8401487173,
+    "surfaceLevel": 422,
+    "@countries": [
+      "IS"
+    ]
+  },
+  {
+    "name": "Iceberg Lake",
+    "latitude": 60.7880446660999,
+    "longitude": -142.958851595,
+    "surfaceLevel": 933,
+    "surfaceArea": 4400000,
+    "catchmentArea": 74000000,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Järlasjön",
+    "latitude": 59.3020203868,
+    "longitude": 18.1515126456,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Judesjön",
+    "latitude": 62.833713,
+    "longitude": 17.772755,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Jyväsjärvi",
+    "latitude": 62.2385451365,
+    "longitude": 25.7771199807,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Kälksjön",
+    "latitude": 60.1531144655999,
+    "longitude": 13.0558625235,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Kallio Kourujärvi",
+    "latitude": 62.559978,
+    "longitude": 27.003032,
+    "maxDepth": 11,
+    "surfaceLevel": 117.2,
+    "surfaceArea": 130000,
+    "catchmentArea": 10000000,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Kalliojärvi",
+    "latitude": 63.226115,
+    "longitude": 25.367812,
+    "maxDepth": 12.3,
+    "surfaceLevel": 121.1,
+    "surfaceArea": 150000,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Kassjön",
+    "latitude": 63.925373,
+    "longitude": 20.010003,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Kissalammi",
+    "latitude": 61.2555911469,
+    "longitude": 24.3549190839,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Koltjärnen",
+    "latitude": 62.952595,
+    "longitude": 18.304317,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Kongressvatnet",
+    "latitude": 78.021246485,
+    "longitude": 13.9604839119,
+    "@countries": [
+      "SJ"
+    ]
+  },
+  {
+    "name": "Kortejärvi",
+    "latitude": 63.6236285246,
+    "longitude": 28.934082394,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Korttajärvi",
+    "latitude": 62.337259,
+    "longitude": 25.69025,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Lac Brulé",
+    "latitude": 45.719167,
+    "longitude": -75.442222,
+    "maxDepth": 43,
+    "surfaceLevel": 270,
+    "surfaceArea": 100000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Lac D'Annecy",
+    "latitude": 45.8578209024,
+    "longitude": 6.17166353478,
+    "maxDepth": 67,
+    "surfaceLevel": 446.5,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Lac Pavin",
+    "latitude": 45.4954663696999,
+    "longitude": 2.88766599378,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Lagoon Etoliko",
+    "latitude": 38.473228,
+    "longitude": 21.324779,
+    "surfaceLevel": 0,
+    "maxDepth": 27.5,
+    "surfaceArea": 17000000,
+    "@countries": [
+      "GR"
+    ]
+  },
+  {
+    "name": "Laguna Potrok Aike",
+    "latitude": -51.960833,
+    "longitude": -70.379444,
+    "maxDepth": 100,
+    "@countries": [
+      "AR"
+    ]
+  },
+  {
+    "name": "Lake of the Clouds",
+    "latitude": 48.1426387475,
+    "longitude": -91.1121613435,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Lampellonjärvi",
+    "latitude": 61.073663,
+    "longitude": 25.060525,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Laukunlampi",
+    "latitude": 62.668226,
+    "longitude": 29.156351,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Lavijärvi",
+    "latitude": 61.633333,
+    "longitude": 30.5,
+    "@countries": [
+      "RU"
+    ]
+  },
+  {
+    "name": "Lehmilampi",
+    "latitude": 63.628294,
+    "longitude": 29.102242,
+    "surfaceLevel": 95,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Lillooet",
+    "latitude": 50.242491,
+    "longitude": -122.497272,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Lind",
+    "latitude": 45.750355,
+    "longitude": -92.435421,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Linné",
+    "latitude": 78.04628,
+    "longitude": 13.802782,
+    "@countries": [
+      "SJ"
+    ]
+  },
+  {
+    "name": "Loch Ness",
+    "latitude": 57.3,
+    "longitude": -4.45,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Loe Pool",
+    "latitude": 50.0729911457,
+    "longitude": -5.29088812203,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Lögurinn",
+    "latitude": 65.2506776262,
+    "longitude": -14.4649136507,
+    "surfaceLevel": 20,
+    "surfaceArea": 53000000,
+    "@countries": [
+      "IS"
+    ]
+  },
+  {
+    "name": "Lower Murray Lake",
+    "latitude": 81.332754,
+    "longitude": -69.551021,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Lower Mystic Lake",
+    "latitude": 42.4260850698,
+    "longitude": -71.1473642678,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Lugano",
+    "latitude": 45.9202671771,
+    "longitude": 8.90533290800999,
+    "@countries": [
+      "IT"
+    ]
+  },
+  {
+    "name": "Malawi",
+    "latitude": -11.5486328533999,
+    "longitude": 34.5376319509,
+    "@countries": [
+      "MW"
+    ]
+  },
+  {
+    "name": "Mascardi",
+    "latitude": -41.315699,
+    "longitude": -71.575739,
+    "surfaceLevel": 800,
+    "@countries": [
+      "AR"
+    ]
+  },
+  {
+    "name": "McCarrons",
+    "latitude": 44.998087,
+    "longitude": -93.113123,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Meerfelder Maar",
+    "latitude": 50.1009813896,
+    "longitude": 6.75696786645,
+    "maxDepth": 17.6,
+    "surfaceLevel": 336,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Mina",
+    "latitude": 45.8878477256999,
+    "longitude": -95.478818941,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Mirror Lake",
+    "latitude": 62.030485464,
+    "longitude": -128.283978582,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Mondsee",
+    "latitude": 47.8157044426,
+    "longitude": 13.3819056567,
+    "@countries": [
+      "AT"
+    ]
+  },
+  {
+    "name": "Montcortés",
+    "latitude": 42.3306164194,
+    "longitude": 0.995087291672,
+    "maxDepth": 30,
+    "surfaceLevel": 1027,
+    "surfaceArea": 100000,
+    "@countries": [
+      "ES"
+    ]
+  },
+  {
+    "name": "Monticchio",
+    "latitude": 40.931298,
+    "longitude": 15.604976,
+    "surfaceLevel": 656,
+    "maxDepth": 36,
+    "surfaceArea": 405000,
+    "catchmentArea": 2370000,
+    "@countries": [
+      "IT"
+    ]
+  },
+  {
+    "name": "Mötterutstjärnet",
+    "latitude": 59.639434,
+    "longitude": 12.667512,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Murray Lakes",
+    "latitude": 81.35545,
+    "longitude": -69.543631,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Nar Gölü (Lake)",
+    "latitude": 38.3403467312,
+    "longitude": 34.4559631103999,
+    "@countries": [
+      "TR"
+    ]
+  },
+  {
+    "name": "Nautajärvi",
+    "latitude": 61.8052434247,
+    "longitude": 24.6782488003,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Nedre Heimredalsvatnet",
+    "latitude": 68.299028,
+    "longitude": 13.654721,
+    "maxDepth": 36.7,
+    "surfaceLevel": 8,
+    "@countries": [
+      "NO"
+    ]
+  },
+  {
+    "name": "Nedrefloen",
+    "latitude": 61.930574,
+    "longitude": 6.866418,
+    "maxDepth": 20,
+    "surfaceLevel": 29,
+    "surfaceArea": 100000,
+    "catchmentArea": 7000000,
+    "@countries": [
+      "NO"
+    ]
+  },
+  {
+    "name": "Nicolay Lake",
+    "latitude": 77.7669956989,
+    "longitude": -94.6529004904,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Nikkilänlampi",
+    "latitude": 63.174527,
+    "longitude": 30.947909,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Nylandssjön",
+    "latitude": 62.9458316977,
+    "longitude": 18.2826443577,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Oeschinen",
+    "latitude": 46.4984110834,
+    "longitude": 7.72744499549,
+    "maxDepth": 56,
+    "surfaceLevel": 1580,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Ogac",
+    "latitude": 62.8431590495999,
+    "longitude": -67.3401147972,
+    "maxDepth": 48.8,
+    "surfaceLevel": 5,
+    "surfaceArea": 1480000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Ohrid",
+    "latitude": 41.037069,
+    "longitude": 20.718085,
+    "maxDepth": 289,
+    "surfaceLevel": 693,
+    "surfaceArea": 358000000,
+    "catchmentArea": 2393000000,
+    "@countries": [
+      "AL",
+      "MK"
+    ]
+  },
+  {
+    "name": "Ojibway",
+    "latitude": 48.473944,
+    "longitude": -79.280104,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Pääjärvi",
+    "latitude": 61.062459,
+    "longitude": 25.130719,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Pavin",
+    "latitude": 45.495678,
+    "longitude": 2.887885,
+    "maxDepth": 92,
+    "surfaceLevel": 1197,
+    "catchmentArea": 360000,
+    "@countries": [
+      "FR"
+    ]
+  },
+  {
+    "name": "Perespilno",
+    "latitude": 51.426862,
+    "longitude": 23.569535,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Pettaquamscutt",
+    "latitude": 41.50298,
+    "longitude": -71.450617,
+    "maxDepth": 19.5,
+    "catchmentArea": 35000000,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Pitkälampi",
+    "latitude": 62.254345,
+    "longitude": 30.467883,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Plomo",
+    "latitude": -47.0047484823999,
+    "longitude": -72.9121738583999,
+    "surfaceLevel": 203,
+    "@countries": [
+      "CL"
+    ]
+  },
+  {
+    "name": "Pohjajärvi",
+    "latitude": 62.815703,
+    "longitude": 28.033228,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Polvijärvi",
+    "latitude": 63.161422,
+    "longitude": 28.969961,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Prespa",
+    "latitude": 40.896705,
+    "longitude": 21.005033,
+    "maxDepth": 48,
+    "surfaceArea": 254000000,
+    "catchmentArea": 1300000000,
+    "@countries": [
+      "AL",
+      "GR",
+      "MK"
+    ]
+  },
+  {
+    "name": "Puyehue",
+    "latitude": -40.6666666667,
+    "longitude": -72.4666666666999,
+    "surfaceLevel": 185,
+    "@countries": [
+      "CL"
+    ]
+  },
+  {
+    "name": "Pyhäjärvi",
+    "latitude": 60.716667,
+    "longitude": 26,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Rehwiese",
+    "latitude": 52.427972,
+    "longitude": 13.199556,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Rostherne Mere",
+    "latitude": 53.354265,
+    "longitude": -2.386165,
+    "@countries": [
+      "GB"
+    ]
+  },
+  {
+    "name": "Rõuge Suurjärv",
+    "latitude": 57.728194,
+    "longitude": 26.922272,
+    "@countries": [
+      "EE"
+    ]
+  },
+  {
+    "name": "RS29",
+    "latitude": 73.14,
+    "longitude": -95.278,
+    "surfaceLevel": 160,
+    "surfaceArea": 120000,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Rudetjärn",
+    "latitude": 62.36621,
+    "longitude": 16.997511,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Sacrower See",
+    "latitude": 52.4432284115,
+    "longitude": 13.0991167493,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Saky",
+    "latitude": 45.122387,
+    "longitude": 33.561186,
+    "@countries": [
+      "UA"
+    ]
+  },
+  {
+    "name": "San Pueto",
+    "latitude": 41.2855811829,
+    "longitude": 13.4079539294,
+    "@countries": [
+      "IT"
+    ]
+  },
+  {
+    "name": "Sanagak Lake",
+    "latitude": 70.2094823879999,
+    "longitude": -93.6355418165999,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Sarsjön",
+    "latitude": 64.0386795702,
+    "longitude": 19.6008224979999,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Sawtooth",
+    "latitude": 79.3493946951,
+    "longitude": -83.9235253451,
+    "maxDepth": 100,
+    "surfaceLevel": 285,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Schleinsee",
+    "latitude": 47.612175434,
+    "longitude": 9.63480119283,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Seebergsee",
+    "latitude": 46.5773436941,
+    "longitude": 7.4432813239,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Sihailongwan",
+    "latitude": 42.2864742219,
+    "longitude": 126.601903569,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Silvaplana",
+    "latitude": 46.4487101735999,
+    "longitude": 9.79226104169,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Skilak Lake",
+    "latitude": 60.4106912836,
+    "longitude": -150.338561793,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Soppensee",
+    "latitude": 47.0900815553999,
+    "longitude": 8.08031439186999,
+    "maxDepth": 27,
+    "surfaceLevel": 596,
+    "surfaceArea": 227000,
+    "catchmentArea": 160000000,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Sotkulampi",
+    "latitude": 61.496419,
+    "longitude": 29.089386,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Starnberger See",
+    "latitude": 47.8999999999999,
+    "longitude": 11.3166666667,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Steel Lake",
+    "latitude": 46.9729734973,
+    "longitude": -94.6834010032,
+    "maxDepth": 21,
+    "surfaceLevel": 415.4,
+    "surfaceArea": 230000,
+    "catchmentArea": 1080000,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Storsjön",
+    "latitude": 63.214863,
+    "longitude": 14.314551,
+    "maxDepth": 74,
+    "surfaceLevel": 292,
+    "surfaceArea": 456000000,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Sugan Lake",
+    "latitude": 38.8666666666999,
+    "longitude": 93.9,
+    "maxDepth": 5,
+    "surfaceLevel": 2795,
+    "surfaceArea": 10400,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Suigetsu",
+    "latitude": 35.5833333332999,
+    "longitude": 135.883333333,
+    "@countries": [
+      "JP"
+    ]
+  },
+  {
+    "name": "Suminko",
+    "latitude": 54.184062,
+    "longitude": 17.796962,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Summit Lake",
+    "latitude": 59.673673,
+    "longitude": -135.095833027999,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Superior",
+    "latitude": 47.75078,
+    "longitude": -72.271852,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Szurpily",
+    "latitude": 54.229098,
+    "longitude": 22.89778,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Taka-Killo",
+    "latitude": 61.0584128523,
+    "longitude": 24.9477052778,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Tanganyika",
+    "latitude": -5.83626,
+    "longitude": 29.59764,
+    "@countries": [
+      "TZ"
+    ]
+  },
+  {
+    "name": "Tekapo",
+    "latitude": 35.030132,
+    "longitude": -108.932947,
+    "@countries": [
+      "US"
+    ]
+  },
+  {
+    "name": "Teletskoye",
+    "latitude": 51.591425,
+    "longitude": 87.667225,
+    "maxDepth": 330,
+    "@countries": [
+      "RU"
+    ]
+  },
+  {
+    "name": "Tiefer See",
+    "latitude": 52.405506,
+    "longitude": 13.080057,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Tõugjärv",
+    "latitude": 57.738611,
+    "longitude": 26.905086,
+    "@countries": [
+      "EE"
+    ]
+  },
+  {
+    "name": "Tougou-ike",
+    "latitude": 35.4775384611999,
+    "longitude": 133.892473075,
+    "@countries": [
+      "JP"
+    ]
+  },
+  {
+    "name": "Trübsee",
+    "latitude": 46.794216,
+    "longitude": 8.38994,
+    "@countries": [
+      "CH"
+    ]
+  },
+  {
+    "name": "Tuborg",
+    "latitude": 80.95,
+    "longitude": -75.7666666667,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Tutira",
+    "latitude": -39.223754,
+    "longitude": 176.892304,
+    "@countries": [
+      "NZ"
+    ]
+  },
+  {
+    "name": "Upper Soper Lake",
+    "latitude": 62.915001044,
+    "longitude": -69.8783959517,
+    "@countries": [
+      "CA"
+    ]
+  },
+  {
+    "name": "Valkiajärvi",
+    "latitude": 61.9047961357,
+    "longitude": 23.8811716947,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Van",
+    "latitude": 38.6039933874999,
+    "longitude": 42.8763449052,
+    "@countries": [
+      "TR"
+    ]
+  },
+  {
+    "name": "Vesijärvi",
+    "latitude": 61.136817,
+    "longitude": 25.473228,
+    "@countries": [
+      "FI"
+    ]
+  },
+  {
+    "name": "Vuolep Njakajaure",
+    "latitude": 68.3418667499,
+    "longitude": 18.7807630271,
+    "@countries": [
+      "SE"
+    ]
+  },
+  {
+    "name": "Waikopiro",
+    "latitude": -39.235062,
+    "longitude": 176.894429,
+    "@countries": [
+      "NZ"
+    ]
+  },
+  {
+    "name": "Woserin",
+    "latitude": 53.668412,
+    "longitude": 12.026252,
+    "maxDepth": 39,
+    "surfaceLevel": 37.5,
+    "surfaceArea": 2200000,
+    "catchmentArea": 75800000,
+    "@countries": [
+      "DE"
+    ]
+  },
+  {
+    "name": "Xiaolongwan",
+    "latitude": 42.2999286161999,
+    "longitude": 126.359351282,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Xinluhai",
+    "latitude": 31.848514,
+    "longitude": 99.112887,
+    "@countries": [
+      "CN"
+    ]
+  },
+  {
+    "name": "Yoa",
+    "latitude": 19.0575547886999,
+    "longitude": 20.5069108765,
+    "@countries": [
+      "TD"
+    ]
+  },
+  {
+    "name": "Żabińskie",
+    "latitude": 54.131806,
+    "longitude": 21.983639,
+    "@countries": [
+      "PL"
+    ]
+  },
+  {
+    "name": "Zoñar",
+    "latitude": 37.4832746427999,
+    "longitude": -4.6897159266,
+    "maxDepth": 14.5,
+    "surfaceLevel": 300,
+    "surfaceArea": 370000,
+    "@countries": [
+      "ES"
+    ]
+  },
+  {
+    "name": "Zürichsee",
+    "latitude": 47.2512710821999,
+    "longitude": 8.66720086603,
+    "@countries": [
+      "CH"
+    ]
+  }
+]

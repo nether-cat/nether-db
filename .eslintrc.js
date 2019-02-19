@@ -1,12 +1,7 @@
-const secret = process.env.SHARED_TOKEN_SECRET;
-if (!secret || typeof secret !== 'string' || secret.length < 32) {
-  process.env.SHARED_TOKEN_SECRET = 'x'.repeat(32);
-}
-// TODO: Find a better workaround for ESLint
-
-const { schema } = require('./apollo-server/utils/schema');
-const { printSchema } = require('graphql');
-const schemaString = printSchema(schema);
+const fs = require('fs');
+const path = require('path');
+const schemaFile = path.resolve(__dirname, './apollo-server/schema.graphql');
+const schemaString = fs.readFileSync(schemaFile, 'utf8');
 
 module.exports = {
   root: true,
@@ -33,8 +28,8 @@ module.exports = {
     'comma-style': ['error', 'last'],
     'graphql/template-strings': [
       'warn',
-      { 'env': 'literal', schemaString, 'projectName': 'app' },
-      { 'env': 'apollo', schemaString, 'projectName': 'app' },
+      { 'env': 'literal', 'projectName': 'app', schemaString },
+      { 'env': 'apollo', 'projectName': 'app', schemaString },
     ],
     'no-console': 'off',
     'no-debugger': 'off',

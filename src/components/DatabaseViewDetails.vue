@@ -106,10 +106,8 @@
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
                     <vl-style-box :z-index="1">
-                      <vl-style-stroke color="#ffffff" :width="1.5"/>
-                      <vl-style-fill :color="[0, 153, 255, 1]"/>
                       <vl-style-circle :radius="6">
-                        <vl-style-stroke color="#ffffff" :width="1.5"/>
+                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="1.5"/>
                         <vl-style-fill :color="[0, 153, 255, 1]"/>
                       </vl-style-circle>
                     </vl-style-box>

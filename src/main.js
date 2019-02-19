@@ -23,6 +23,9 @@ export async function createApp ({
     httpLinkOptions: {
       credentials: 'include',
     },
+    inMemoryCacheOptions: {
+      dataIdFromObject: object => object['uuid'] || object['_id'] || null,
+    },
   };
   await modifyOptions({ providerOptions });
   const apolloProvider = createProvider(providerOptions);

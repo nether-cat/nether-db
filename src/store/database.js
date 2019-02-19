@@ -14,6 +14,17 @@ const MAP_CENTER_SET = 'MAP_CENTER_SET';
 const MAP_ROTATION_SET = 'MAP_ROTATION_SET';
 const MAP_FEATURES_SET = 'MAP_FEATURES_SET';
 
+/** @type Array */ import lakes from '@seeds/lakes';
+/** @type Array */ import datasets from '@seeds/datasets';
+
+const fakeResults = new Map();
+lakes.forEach((el, index) => {
+  fakeResults.set(el.name, { id: index, ...el, datasetCount: 0 });
+});
+datasets.filter(el => el['_lakeExists']).forEach(el => {
+  fakeResults.get(el['@lake.name']).datasetCount++;
+});
+
 export const database = {
   namespaced: true,
   state () {
@@ -42,7 +53,7 @@ export const database = {
             ...lake.properties,
           }));
       } else {
-        return [];
+        return Array.from(fakeResults.values()).sort((a, b) => a.datasetCount - b.datasetCount);
       }
     },
     reducedResults: (state) => {

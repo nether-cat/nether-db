@@ -80,7 +80,12 @@ module.exports = {
     return sessionCache.flush();
   },
   async load($0, $1, ctx) {
-    let user, payload, cached, token = ctx.req.cookies['apollo-token'];
+    let user, payload, cached, token;
+    try {
+      token = ctx.req.cookies['apollo-token'];
+    } catch (e) {
+      token = undefined;
+    }
     if (!token) {
       return defaultSession;
     }

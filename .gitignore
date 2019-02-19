@@ -6,6 +6,11 @@ node_modules
 /tests/e2e/videos/
 /tests/e2e/screenshots/
 
+# Local backup files
+
+*.bak
+*.bak.*
+
 # Local env files
 .env.local
 .env.*.local

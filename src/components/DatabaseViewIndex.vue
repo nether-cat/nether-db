@@ -21,7 +21,6 @@
                     <b-progress slot="placeholder" variant="primary" animated class="mb-3">
                       <b-progress-bar :value="100">Loading diagram...</b-progress-bar>
                     </b-progress>
-                    <!--suppress HtmlUnknownTag -->
                     <climate-chart @filterLakes="updateLakes"/>
                   </no-ssr>
                 </div>
@@ -52,24 +51,34 @@
                               ref="features"
                               :key="'vl_feature_' + result.id"
                               :result="result"
-                              :properties="{ id: result.id, name: result.name }"
+                              :properties="{ id: result.id, name: result.name, count: result.datasetCount }"
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
+                    <vl-style-box v-if="result.datasetCount" :z-index="1">
+                      <vl-style-circle :radius="Math.max(3.5, mapZoom)">
+                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1, mapZoom / 6)"/>
+                        <vl-style-fill :color="[0, 153, 255, 1]"/>
+                      </vl-style-circle>
+                    </vl-style-box>
+                    <vl-style-box v-if="!result.datasetCount" :z-index="1">
+                      <vl-style-circle :radius="Math.max(3.5, mapZoom)">
+                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1, mapZoom / 6)"/>
+                        <vl-style-fill :color="[175, 175, 175, 1]"/>
+                      </vl-style-circle>
+                    </vl-style-box>
                   </vl-feature>
                   <vl-interaction-select ref="interaction" :features.sync="mapFeatures">
-                    <!--suppress HtmlUnknownAttribute -->
                     <template slot-scope="select">
                       <!--vl-overlay :position="findPointOnSurface(feature.geometry)"-->
-                      <vl-overlay v-for="feature in select.features"
+                      <vl-overlay v-for="feature in select['features']"
                                   :id="feature.id.replace('vl_feature_', 'vl_overlay_')"
                                   :key="feature.id.replace('vl_feature_', 'vl_overlay_')"
                                   class="feature-popup feature-popup-lake"
                                   :auto-pan="true"
                                   :position="[-90, -180]"
                       >
-                        <!--suppress HtmlUnknownAttribute -->
                         <template>
-                          <b-card style="position: absolute; bottom: .5em; left: .5em; width: 200px">
+                          <b-card style="position: absolute; bottom: .5em; left: .5em; width: 256px">
                             <div slot="header">
                               <span style="float: left; font-size: 1rem; padding: 0 1rem .25rem 0">
                                 {{ feature.properties.name }}
@@ -83,8 +92,9 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
+                            {{ feature.properties.count || 'No' }} datasheets available<br>
                             <router-link :to="{ name: 'databaseDetails', params: { id: feature.properties.id } }">
-                              View details
+                              {{ feature.properties.count ? '&#8627; View details' : '&#8627; Show lake info' }}
                             </router-link>
                           </b-card>
                         </template>
@@ -116,7 +126,6 @@
             <template slot="table-caption">
               Found lakes with datasets:
             </template>
-            <!--suppress HtmlUnknownAttribute -->
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
                 <router-link :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
@@ -124,10 +133,19 @@
                 </router-link>
               </div>
             </template>
-            <!--suppress HtmlUnknownAttribute, JSUnresolvedVariable -->
             <template slot="HEAD_actions" slot-scope="cell">
-              <!-- A custom formatted header cell for field 'name' -->
+              <!-- A custom formatted header cell for field 'actions' -->
               <div class="text-center">{{ cell.label }}</div>
+            </template>
+            <template slot="countries" slot-scope="cell">
+              <div class="text-left">
+                {{ cell.item['@countries'].join(', ') }}
+              </div>
+            </template>
+            <!--eslint-disable-next-line vue/no-unused-vars -->
+            <template slot="HEAD_countries" slot-scope="cell">
+              <!-- A custom formatted header cell for field 'countries' -->
+              <div class="text-left">Country</div>
             </template>
           </b-table>
         </b-card>
@@ -167,6 +185,10 @@ if (process.client) {
     vlOverlay: () => vlLoad.then(module => module.Overlay['Overlay']).catch(() => fallback),
     vlLayerTile: () => vlLoad.then(module => module.TileLayer['Layer']).catch(() => fallback),
     vlSourceOsm: () => vlLoad.then(module => module.OsmSource['Source']).catch(() => fallback),
+    vlStyleBox: () => vlLoad.then(module => module.StyleBox['Style']).catch(() => fallback),
+    vlStyleFill: () => vlLoad.then(module => module.FillStyle['Style']).catch(() => fallback),
+    vlStyleStroke: () => vlLoad.then(module => module.StrokeStyle['Style']).catch(() => fallback),
+    vlStyleCircle: () => vlLoad.then(module => module.CircleStyle['Style']).catch(() => fallback),
   });
 } else if (process.server) {
   // TODO: Figure out why computedItems throws an error during SSR
@@ -256,9 +278,10 @@ export default {
       },
       fields: [
         'name',
+        'countries',
         'longitude',
         'latitude',
-        'surface_level',
+        'datasetCount',
         //'max_depth',
         //'surface_area',
         //'water_body_volume',

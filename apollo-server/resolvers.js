@@ -28,6 +28,10 @@ module.exports = {
         return { _id: node.identity.toString(), ...node.properties };
       });
     },
+    Country(object, params, ctx, resolveInfo) {
+      debugger;
+      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
   },
   Mutation: {
     // eslint-disable-next-line no-unused-vars
