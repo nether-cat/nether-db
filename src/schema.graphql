@@ -3,227 +3,162 @@
 
 scalar JSON
 
+scalar Date
+
+scalar DateTime
+
+scalar LocalDateTime
+
 # TODO: This comment and the lines above schould be restored manually after a new schema introspection!
 
-# This file was generated based on ".graphqlconfig" at Mon Jan 28 18:32:31 CET 2019. Do not edit manually.
+# This file was generated based on ".graphqlconfig" at Fri Mar 15 02:32:45 CET 2019. Do not edit manually.
+
+interface Privileged {
+  privileges: [Privilege]
+  uuid: ID!
+}
+
+interface Resource {
+  restricted: Boolean
+  uuid: ID!
+}
 
 type Attribute {
-  _id: String
   description: String
   name: String!
-  proxy(first: Int = 1, offset: Int = 0, orderBy: _ProxyOrdering): [Proxy]
-  uid: ID!
+  proxy(first: Int = 1, offset: Int = 0): [Proxy]
+  uuid: ID!
 }
 
 type Collection {
-  _id: String
-  analysisDate: _Neo4jDate
+  ageResolution: Float
   analysisMethod: String
-  attributes(first: Int = 100, offset: Int = 0, orderBy: _AttributeOrdering): [Attribute]
-  continuousRecord: Boolean
-  core(first: Int = 1, offset: Int = 0, orderBy: _CoreOrdering): [Core]
-  dataDescription: String
+  attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  comments: String
+  core(first: Int = 1, offset: Int = 0): [Core]
   depthResolution: Float
+  file: String!
   label: String
-  measuringError: Float
-  metaInformation: String
-  proxy(first: Int = 1, offset: Int = 0, orderBy: _ProxyOrdering): [Proxy]
-  publication(first: Int = 1, offset: Int = 0, orderBy: _PublicationOrdering): [Publication]
+  proxy(first: Int = 1, offset: Int = 0): [Proxy]
+  publication(first: Int = 1, offset: Int = 0): [Publication]
   records(first: Int = 100, offset: Int = 0): [Record]
-  uid: ID!
+  url: String
+  uuid: ID!
 }
 
 type Continent {
-  _id: String
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
-  countries(first: Int = 100, offset: Int = 0, orderBy: _CountryOrdering): [Country]
+  countries(first: Int = 100, offset: Int = 0): [Country]
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
-  uid: ID!
+  uuid: ID!
 }
 
 type Core {
-  _id: String
   ageDepthMethod: String
-  collections(first: Int = 100, offset: Int = 0, orderBy: _CollectionOrdering): [Collection]
+  collections(first: Int = 100, offset: Int = 0): [Collection]
   comments: String
-  compositeDepthEnd: Float
-  compositeDepthStart: Float
+  composite: Boolean
   coringMethod: String
-  drillDate: _Neo4jDate
+  drillDate: Date
   label: String
-  lake(first: Int = 1, offset: Int = 0, orderBy: _LakeOrdering): [Lake]
+  lake(first: Int = 1, offset: Int = 0): [Lake]
   latitude: Float
-  length: Float
   longitude: Float
-  uid: ID!
+  uuid: ID!
   waterDepth: Float
 }
 
 type Country {
-  _id: String
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
-  continents(first: Int = 100, offset: Int = 0, orderBy: _ContinentOrdering): [Continent]
-  lakes(first: Int = 100, offset: Int = 0, orderBy: _LakeOrdering): [Lake]
+  continents(first: Int = 100, offset: Int = 0): [Continent]
+  lakes(first: Int = 100, offset: Int = 0): [Lake]
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
-  uid: ID!
+  uuid: ID!
 }
 
-type Group {
-  _id: String
-  memberships: [_GroupMemberships]
+type Group implements Privileged {
+  members: [Membership]
   name: String!
-  uid: ID!
-}
-
-type HAS_PRIVILEGE {
-  from: User
-  to: Collection
-  type: Privilege
+  privileges: [Privilege]
+  uuid: ID!
 }
 
 type Lake {
-  _id: String
-  cores(first: Int = 100, offset: Int = 0, orderBy: _CoreOrdering): [Core]
-  countries(first: Int = 100, offset: Int = 0, orderBy: _CountryOrdering): [Country]
+  catchmentArea: Float
+  cores(first: Int = 100, offset: Int = 0): [Core]
+  countries(first: Int = 100, offset: Int = 0): [Country]
   latitude: Float!
   longitude: Float!
   maxDepth: Float
   name: String!
   surfaceArea: Float
   surfaceLevel: Float
-  uid: ID!
+  uuid: ID!
   waterBodyVolume: Float
 }
 
-type MEMBER_OF {
-  from: User
+type Membership {
+  _id: ID!
+  from: User!
   moderates: Boolean
-  to: Group
+  to: Group!
 }
 
 type Mutation {
-  AddAttributeProxy(from: _AttributeInput!, to: _ProxyInput!): _AddAttributeProxyPayload
-  AddCollectionAttributes(from: _CollectionInput!, to: _AttributeInput!): _AddCollectionAttributesPayload
-  AddCollectionCore(from: _CollectionInput!, to: _CoreInput!): _AddCollectionCorePayload
-  AddCollectionProxy(from: _CollectionInput!, to: _ProxyInput!): _AddCollectionProxyPayload
-  AddCollectionPublication(from: _CollectionInput!, to: _PublicationInput!): _AddCollectionPublicationPayload
-  AddContinentCountries(from: _CountryInput!, to: _ContinentInput!): _AddContinentCountriesPayload
-  AddCoreCollections(from: _CollectionInput!, to: _CoreInput!): _AddCoreCollectionsPayload
-  AddCoreLake(from: _CoreInput!, to: _LakeInput!): _AddCoreLakePayload
-  AddCountryContinents(from: _CountryInput!, to: _ContinentInput!): _AddCountryContinentsPayload
-  AddCountryLakes(from: _LakeInput!, to: _CountryInput!): _AddCountryLakesPayload
-  AddGroupMemberships(data: _MEMBER_OFInput!, from: _UserInput!, to: _GroupInput!): _AddGroupMembershipsPayload
-  AddLakeCores(from: _CoreInput!, to: _LakeInput!): _AddLakeCoresPayload
-  AddLakeCountries(from: _LakeInput!, to: _CountryInput!): _AddLakeCountriesPayload
-  AddProxyAttributes(from: _AttributeInput!, to: _ProxyInput!): _AddProxyAttributesPayload
-  AddProxyCollections(from: _CollectionInput!, to: _ProxyInput!): _AddProxyCollectionsPayload
-  AddPublicationCollections(from: _CollectionInput!, to: _PublicationInput!): _AddPublicationCollectionsPayload
-  AddUserMemberships(data: _MEMBER_OFInput!, from: _UserInput!, to: _GroupInput!): _AddUserMembershipsPayload
-  AddUserPrivileges(data: _HAS_PRIVILEGEInput!, from: _UserInput!, to: _CollectionInput!): _AddUserPrivilegesPayload
-  CreateAttribute(description: String, name: String!, uid: ID): Attribute
-  CreateCollection(analysisDate: _Neo4jDateInput, analysisMethod: String, continuousRecord: Boolean, dataDescription: String, depthResolution: Float, label: String, measuringError: Float, metaInformation: String, uid: ID): Collection
-  CreateContinent(code: String!, name: String!, uid: ID): Continent
-  CreateCore(ageDepthMethod: String, comments: String, compositeDepthEnd: Float, compositeDepthStart: Float, coringMethod: String, drillDate: _Neo4jDateInput, label: String, latitude: Float, length: Float, longitude: Float, uid: ID, waterDepth: Float): Core
-  CreateCountry(code: String!, name: String!, uid: ID): Country
-  CreateGroup(name: String!, uid: ID): Group
-  CreateLake(latitude: Float!, longitude: Float!, maxDepth: Float, name: String!, surfaceArea: Float, surfaceLevel: Float, uid: ID, waterBodyVolume: Float): Lake
-  CreateProxy(description: String, name: String!, uid: ID): Proxy
-  CreatePublication(abstract: String, authors: String, description: String, doi: String, email: String, originalReferenceCitation: String, source: String, title: String!, uid: ID, url: String, year: Float): Publication
-  CreateUser(department: String, disabled: Boolean!, email: String!, firstName: String, frozen: Boolean!, institution: String, lastName: String, password: String!, role: String, uid: ID, userRole: UserRole!): User
-  DeleteAttribute(uid: ID!): Attribute
-  DeleteCollection(uid: ID!): Collection
-  DeleteContinent(uid: ID!): Continent
-  DeleteCore(uid: ID!): Core
-  DeleteCountry(uid: ID!): Country
-  DeleteGroup(uid: ID!): Group
-  DeleteLake(uid: ID!): Lake
-  DeleteProxy(uid: ID!): Proxy
-  DeletePublication(uid: ID!): Publication
-  DeleteUser(uid: ID!): User
+  CreateCountry(code: String!, name: String!, uuid: ID): Country
+  DeleteCountry(uuid: ID!): Country
   Login(email: String!, password: Password!): Session!
   Logout: Session!
-  RemoveAttributeProxy(from: _AttributeInput!, to: _ProxyInput!): _RemoveAttributeProxyPayload
-  RemoveCollectionAttributes(from: _CollectionInput!, to: _AttributeInput!): _RemoveCollectionAttributesPayload
-  RemoveCollectionCore(from: _CollectionInput!, to: _CoreInput!): _RemoveCollectionCorePayload
-  RemoveCollectionProxy(from: _CollectionInput!, to: _ProxyInput!): _RemoveCollectionProxyPayload
-  RemoveCollectionPublication(from: _CollectionInput!, to: _PublicationInput!): _RemoveCollectionPublicationPayload
-  RemoveContinentCountries(from: _CountryInput!, to: _ContinentInput!): _RemoveContinentCountriesPayload
-  RemoveCoreCollections(from: _CollectionInput!, to: _CoreInput!): _RemoveCoreCollectionsPayload
-  RemoveCoreLake(from: _CoreInput!, to: _LakeInput!): _RemoveCoreLakePayload
-  RemoveCountryContinents(from: _CountryInput!, to: _ContinentInput!): _RemoveCountryContinentsPayload
-  RemoveCountryLakes(from: _LakeInput!, to: _CountryInput!): _RemoveCountryLakesPayload
-  RemoveGroupMemberships(from: _UserInput!, to: _GroupInput!): _RemoveGroupMembershipsPayload
-  RemoveLakeCores(from: _CoreInput!, to: _LakeInput!): _RemoveLakeCoresPayload
-  RemoveLakeCountries(from: _LakeInput!, to: _CountryInput!): _RemoveLakeCountriesPayload
-  RemoveProxyAttributes(from: _AttributeInput!, to: _ProxyInput!): _RemoveProxyAttributesPayload
-  RemoveProxyCollections(from: _CollectionInput!, to: _ProxyInput!): _RemoveProxyCollectionsPayload
-  RemovePublicationCollections(from: _CollectionInput!, to: _PublicationInput!): _RemovePublicationCollectionsPayload
-  RemoveUserMemberships(from: _UserInput!, to: _GroupInput!): _RemoveUserMembershipsPayload
-  RemoveUserPrivileges(from: _UserInput!, to: _CollectionInput!): _RemoveUserPrivilegesPayload
   Test(_id: ID!, payload: JSON!): JSON
-  UpdateAttribute(description: String, name: String, uid: ID!): Attribute
-  UpdateCollection(analysisDate: _Neo4jDateInput, analysisMethod: String, continuousRecord: Boolean, dataDescription: String, depthResolution: Float, label: String, measuringError: Float, metaInformation: String, uid: ID!): Collection
-  UpdateContinent(code: String, name: String, uid: ID!): Continent
-  UpdateCore(ageDepthMethod: String, comments: String, compositeDepthEnd: Float, compositeDepthStart: Float, coringMethod: String, drillDate: _Neo4jDateInput, label: String, latitude: Float, length: Float, longitude: Float, uid: ID!, waterDepth: Float): Core
-  UpdateCountry(code: String, name: String, uid: ID!): Country
-  UpdateGroup(name: String, uid: ID!): Group
-  UpdateLake(latitude: Float, longitude: Float, maxDepth: Float, name: String, surfaceArea: Float, surfaceLevel: Float, uid: ID!, waterBodyVolume: Float): Lake
-  UpdateProxy(description: String, name: String, uid: ID!): Proxy
-  UpdatePublication(abstract: String, authors: String, description: String, doi: String, email: String, originalReferenceCitation: String, source: String, title: String, uid: ID!, url: String, year: Float): Publication
-  UpdateUser(department: String, disabled: Boolean, email: String, firstName: String, frozen: Boolean, institution: String, lastName: String, password: String, role: String, uid: ID!, userRole: UserRole): User
+  UpdateCountry(code: String, name: String, uuid: ID!): Country
+}
+
+type Privilege {
+  _id: ID!
+  from: Privileged!
+  to: Resource!
+  type: PrivilegeType
 }
 
 type Proxy {
-  _id: String
-  attributes(first: Int = 100, offset: Int = 0, orderBy: _AttributeOrdering): [Attribute]
-  collections(first: Int = 100, offset: Int = 0, orderBy: _CollectionOrdering): [Collection]
+  attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  collections(first: Int = 100, offset: Int = 0): [Collection]
   description: String
   name: String!
-  uid: ID!
+  uuid: ID!
 }
 
 type Publication {
-  _id: String
   abstract: String
   authors: String
-  collections(first: Int = 100, offset: Int = 0, orderBy: _CollectionOrdering): [Collection]
-  description: String
+  collections(first: Int = 100, offset: Int = 0): [Collection]
   doi: String
   email: String
-  originalReferenceCitation: String
   source: String
   title: String!
-  uid: ID!
   url: String
+  uuid: ID!
   year: Float
 }
 
 type Query {
-  Attribute(_id: String, description: String, first: Int, name: String, offset: Int, orderBy: _AttributeOrdering, uid: ID): [Attribute]
-  Collection(_id: String, analysisDate: _Neo4jDateInput, analysisMethod: String, continuousRecord: Boolean, dataDescription: String, depthResolution: Float, first: Int, label: String, measuringError: Float, metaInformation: String, offset: Int, orderBy: _CollectionOrdering, uid: ID): [Collection]
-  Continent(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: _ContinentOrdering, uid: ID): [Continent]
-  Core(_id: String, ageDepthMethod: String, comments: String, compositeDepthEnd: Float, compositeDepthStart: Float, coringMethod: String, drillDate: _Neo4jDateInput, first: Int, label: String, latitude: Float, length: Float, longitude: Float, offset: Int, orderBy: _CoreOrdering, uid: ID, waterDepth: Float): [Core]
-  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: _CountryOrdering, uid: ID): [Country]
-  Group(_id: String, first: Int, name: String, offset: Int, orderBy: _GroupOrdering, uid: ID): [Group]
-  Lake(_id: String, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: _LakeOrdering, surfaceArea: Float, surfaceLevel: Float, uid: ID, waterBodyVolume: Float): [Lake]
-  Proxy(_id: String, description: String, first: Int, name: String, offset: Int, orderBy: _ProxyOrdering, uid: ID): [Proxy]
-  Publication(_id: String, abstract: String, authors: String, description: String, doi: String, email: String, first: Int, offset: Int, orderBy: _PublicationOrdering, originalReferenceCitation: String, source: String, title: String, uid: ID, url: String, year: Float): [Publication]
+  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
+  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
-  User(_id: String, department: String, disabled: Boolean, email: String, first: Int, firstName: String, frozen: Boolean, institution: String, lastName: String, offset: Int, orderBy: _UserOrdering, password: String, role: String, uid: ID, userRole: UserRole): [User]
 }
 
 type Record {
-  _id: String
+  _id: ID!
   data: JSON!
 }
 
 type Session {
-  _id: String
+  _id: ID!
   expires: Float!
   state: SessionState!
   token: String
@@ -231,8 +166,7 @@ type Session {
   userRole: UserRole!
 }
 
-type User {
-  _id: String
+type User implements Privileged {
   department: String
   disabled: Boolean!
   email: String!
@@ -240,268 +174,20 @@ type User {
   frozen: Boolean!
   institution: String
   lastName: String
-  memberships: [_UserMemberships]
+  memberships: [Membership]
   password: String!
-  privileges: [_UserPrivileges]
+  privileges: [Privilege]
   role: String
-  uid: ID!
   userRole: UserRole!
+  uuid: ID!
 }
 
-type _AddAttributeProxyPayload {
-  from: Attribute
-  to: Proxy
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
 }
 
-type _AddCollectionAttributesPayload {
-  from: Collection
-  to: Attribute
-}
-
-type _AddCollectionCorePayload {
-  from: Collection
-  to: Core
-}
-
-type _AddCollectionProxyPayload {
-  from: Collection
-  to: Proxy
-}
-
-type _AddCollectionPublicationPayload {
-  from: Collection
-  to: Publication
-}
-
-type _AddContinentCountriesPayload {
-  from: Country
-  to: Continent
-}
-
-type _AddCoreCollectionsPayload {
-  from: Collection
-  to: Core
-}
-
-type _AddCoreLakePayload {
-  from: Core
-  to: Lake
-}
-
-type _AddCountryContinentsPayload {
-  from: Country
-  to: Continent
-}
-
-type _AddCountryLakesPayload {
-  from: Lake
-  to: Country
-}
-
-type _AddGroupMembershipsPayload {
-  from: User
-  moderates: Boolean
-  to: Group
-}
-
-type _AddLakeCoresPayload {
-  from: Core
-  to: Lake
-}
-
-type _AddLakeCountriesPayload {
-  from: Lake
-  to: Country
-}
-
-type _AddProxyAttributesPayload {
-  from: Attribute
-  to: Proxy
-}
-
-type _AddProxyCollectionsPayload {
-  from: Collection
-  to: Proxy
-}
-
-type _AddPublicationCollectionsPayload {
-  from: Collection
-  to: Publication
-}
-
-type _AddUserMembershipsPayload {
-  from: User
-  moderates: Boolean
-  to: Group
-}
-
-type _AddUserPrivilegesPayload {
-  from: User
-  to: Collection
-  type: Privilege
-}
-
-type _GroupMemberships {
-  User: User
-  moderates: Boolean
-}
-
-type _Neo4jDate {
-  day: Int
-  formatted: String
-  month: Int
-  year: Int
-}
-
-type _Neo4jDateTime {
-  day: Int
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  month: Int
-  nanosecond: Int
-  second: Int
-  timezone: String
-  year: Int
-}
-
-type _Neo4jLocalDateTime {
-  day: Int
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  month: Int
-  nanosecond: Int
-  second: Int
-  year: Int
-}
-
-type _Neo4jLocalTime {
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  nanosecond: Int
-  second: Int
-}
-
-type _Neo4jTime {
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  nanosecond: Int
-  second: Int
-  timezone: String
-}
-
-type _RemoveAttributeProxyPayload {
-  from: Attribute
-  to: Proxy
-}
-
-type _RemoveCollectionAttributesPayload {
-  from: Collection
-  to: Attribute
-}
-
-type _RemoveCollectionCorePayload {
-  from: Collection
-  to: Core
-}
-
-type _RemoveCollectionProxyPayload {
-  from: Collection
-  to: Proxy
-}
-
-type _RemoveCollectionPublicationPayload {
-  from: Collection
-  to: Publication
-}
-
-type _RemoveContinentCountriesPayload {
-  from: Country
-  to: Continent
-}
-
-type _RemoveCoreCollectionsPayload {
-  from: Collection
-  to: Core
-}
-
-type _RemoveCoreLakePayload {
-  from: Core
-  to: Lake
-}
-
-type _RemoveCountryContinentsPayload {
-  from: Country
-  to: Continent
-}
-
-type _RemoveCountryLakesPayload {
-  from: Lake
-  to: Country
-}
-
-type _RemoveGroupMembershipsPayload {
-  from: User
-  to: Group
-}
-
-type _RemoveLakeCoresPayload {
-  from: Core
-  to: Lake
-}
-
-type _RemoveLakeCountriesPayload {
-  from: Lake
-  to: Country
-}
-
-type _RemoveProxyAttributesPayload {
-  from: Attribute
-  to: Proxy
-}
-
-type _RemoveProxyCollectionsPayload {
-  from: Collection
-  to: Proxy
-}
-
-type _RemovePublicationCollectionsPayload {
-  from: Collection
-  to: Publication
-}
-
-type _RemoveUserMembershipsPayload {
-  from: User
-  to: Group
-}
-
-type _RemoveUserPrivilegesPayload {
-  from: User
-  to: Collection
-}
-
-type _UserMemberships {
-  Group: Group
-  moderates: Boolean
-}
-
-type _UserPrivileges {
-  Collection: Collection
-  type: Privilege
-}
-
-enum Privilege {
+enum PrivilegeType {
   EDITOR
   NONE
   OWNER
@@ -526,289 +212,7 @@ enum UserRole {
   USER
 }
 
-enum _AttributeOrdering {
-  _id_asc
-  _id_desc
-  description_asc
-  description_desc
-  name_asc
-  name_desc
-  uid_asc
-  uid_desc
-}
-
-enum _CollectionOrdering {
-  _id_asc
-  _id_desc
-  analysisMethod_asc
-  analysisMethod_desc
-  continuousRecord_asc
-  continuousRecord_desc
-  dataDescription_asc
-  dataDescription_desc
-  depthResolution_asc
-  depthResolution_desc
-  label_asc
-  label_desc
-  measuringError_asc
-  measuringError_desc
-  metaInformation_asc
-  metaInformation_desc
-  uid_asc
-  uid_desc
-}
-
-enum _ContinentOrdering {
-  _id_asc
-  _id_desc
-  code_asc
-  code_desc
-  name_asc
-  name_desc
-  uid_asc
-  uid_desc
-}
-
-enum _CoreOrdering {
-  _id_asc
-  _id_desc
-  ageDepthMethod_asc
-  ageDepthMethod_desc
-  comments_asc
-  comments_desc
-  compositeDepthEnd_asc
-  compositeDepthEnd_desc
-  compositeDepthStart_asc
-  compositeDepthStart_desc
-  coringMethod_asc
-  coringMethod_desc
-  label_asc
-  label_desc
-  latitude_asc
-  latitude_desc
-  length_asc
-  length_desc
-  longitude_asc
-  longitude_desc
-  uid_asc
-  uid_desc
-  waterDepth_asc
-  waterDepth_desc
-}
-
-enum _CountryOrdering {
-  _id_asc
-  _id_desc
-  code_asc
-  code_desc
-  name_asc
-  name_desc
-  uid_asc
-  uid_desc
-}
-
-enum _GroupOrdering {
-  _id_asc
-  _id_desc
-  name_asc
-  name_desc
-  uid_asc
-  uid_desc
-}
-
-enum _LakeOrdering {
-  _id_asc
-  _id_desc
-  latitude_asc
-  latitude_desc
-  longitude_asc
-  longitude_desc
-  maxDepth_asc
-  maxDepth_desc
-  name_asc
-  name_desc
-  surfaceArea_asc
-  surfaceArea_desc
-  surfaceLevel_asc
-  surfaceLevel_desc
-  uid_asc
-  uid_desc
-  waterBodyVolume_asc
-  waterBodyVolume_desc
-}
-
-enum _ProxyOrdering {
-  _id_asc
-  _id_desc
-  description_asc
-  description_desc
-  name_asc
-  name_desc
-  uid_asc
-  uid_desc
-}
-
-enum _PublicationOrdering {
-  _id_asc
-  _id_desc
-  abstract_asc
-  abstract_desc
-  authors_asc
-  authors_desc
-  description_asc
-  description_desc
-  doi_asc
-  doi_desc
-  email_asc
-  email_desc
-  originalReferenceCitation_asc
-  originalReferenceCitation_desc
-  source_asc
-  source_desc
-  title_asc
-  title_desc
-  uid_asc
-  uid_desc
-  url_asc
-  url_desc
-  year_asc
-  year_desc
-}
-
-enum _RelationDirections {
-  IN
-  OUT
-}
-
-enum _UserOrdering {
-  _id_asc
-  _id_desc
-  department_asc
-  department_desc
-  disabled_asc
-  disabled_desc
-  email_asc
-  email_desc
-  firstName_asc
-  firstName_desc
-  frozen_asc
-  frozen_desc
-  institution_asc
-  institution_desc
-  lastName_asc
-  lastName_desc
-  password_asc
-  password_desc
-  role_asc
-  role_desc
-  uid_asc
-  uid_desc
-}
-
 input Password {
   isHash: Boolean!
   value: String!
-}
-
-input _AttributeInput {
-  uid: ID!
-}
-
-input _CollectionInput {
-  uid: ID!
-}
-
-input _ContinentInput {
-  uid: ID!
-}
-
-input _CoreInput {
-  uid: ID!
-}
-
-input _CountryInput {
-  uid: ID!
-}
-
-input _GroupInput {
-  uid: ID!
-}
-
-input _HAS_PRIVILEGEInput {
-  type: Privilege
-}
-
-input _LakeInput {
-  uid: ID!
-}
-
-input _MEMBER_OFInput {
-  moderates: Boolean
-}
-
-input _Neo4jDateInput {
-  day: Int
-  formatted: String
-  month: Int
-  year: Int
-}
-
-input _Neo4jDateTimeInput {
-  day: Int
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  month: Int
-  nanosecond: Int
-  second: Int
-  timezone: String
-  year: Int
-}
-
-input _Neo4jLocalDateTimeInput {
-  day: Int
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  month: Int
-  nanosecond: Int
-  second: Int
-  year: Int
-}
-
-input _Neo4jLocalTimeInput {
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  nanosecond: Int
-  second: Int
-}
-
-input _Neo4jTimeInput {
-  formatted: String
-  hour: Int
-  microsecond: Int
-  millisecond: Int
-  minute: Int
-  nanosecond: Int
-  second: Int
-  timezone: String
-}
-
-input _ProxyInput {
-  uid: ID!
-}
-
-input _PublicationInput {
-  uid: ID!
-}
-
-input _UserInput {
-  uid: ID!
 }

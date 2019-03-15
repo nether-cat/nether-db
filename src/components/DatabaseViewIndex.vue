@@ -46,7 +46,7 @@
                         @postrender="trySelectFeature"
                 >
                   <vl-view :max-zoom="18" :zoom.sync="mapZoom" :center.sync="mapCenter" :rotation.sync="mapRotation"/>
-                  <vl-feature v-for="result in transformedResults"
+                  <vl-feature v-for="result in mappedResults"
                               :id="'vl_feature_' + result.id"
                               ref="features"
                               :key="'vl_feature_' + result.id"
@@ -120,7 +120,7 @@
                    caption-top
                    show-empty
                    sort-by="name"
-                   :items="transformedResults"
+                   :items="mappedResults"
                    :fields="fields"
           >
             <template slot="table-caption">
@@ -139,7 +139,7 @@
             </template>
             <template slot="countries" slot-scope="cell">
               <div class="text-left">
-                {{ cell.item['@countries'].join(', ') }}
+                {{ cell.item['countries'].map(c => c['code']).join(', ') }}
               </div>
             </template>
             <!--eslint-disable-next-line vue/no-unused-vars -->
@@ -160,6 +160,7 @@ import * as CountryList from 'countries-list';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import bTable from 'bootstrap-vue/es/components/table/table';
 import FormInputTags from './FormInputTags';
+import gql from 'graphql-tag';
 
 const noSSR = {};
 
@@ -290,7 +291,46 @@ export default {
       ],
     };
   },
+  apollo: {
+    lakes: {
+      query: gql`
+        query lakes {
+          lakes: Lake(orderBy: "name_asc") {
+            uuid
+            name
+            longitude
+            latitude
+            countries {
+              uuid
+              code
+              name
+            }
+            cores {
+              uuid
+              label
+              collections {
+                uuid
+                label
+                file
+                proxy {
+                  uuid
+                  name
+                }
+              }
+            }
+          }
+        }
+      `,
+    },
+  },
   computed: {
+    mappedResults () {
+      return this.lakes.map(lake => {
+        let datasetCount = 0;
+        lake.cores.forEach(core => core.collections.forEach(() => datasetCount++));
+        return Object.assign({}, lake, { id: lake['uuid'], datasetCount });
+      });
+    },
     ...mapState('user', [
       'user',
     ]),
@@ -325,8 +365,9 @@ export default {
       'loadProxyAttributes',
       'loadResultData',
     ]),
+    // eslint-disable-next-line no-unused-vars
     updateLakes (filteredLakes) {
-      this.lakes = filteredLakes;
+      //this.lakes = filteredLakes;
     },
     trySelectFeature () {
       // TODO: This gets executed far too often; Find a better trigger

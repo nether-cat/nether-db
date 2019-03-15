@@ -48,8 +48,8 @@ export default {
     ]).then(([climateData, eruptions, lakes]) => {
       // Daten-Bezeichnungen
       const dataLabel = {
-        data1: '∂18O',
-        data2: 'Tephra layers',
+        data1: '𝛿18O (NGRIP)',
+        data2: 'Tephra events (global)',
       };
       const dataRows = climateData
         // Daten ausdünnen (SVG hat Kackperformance mit vielen Elementen => wechselt am besten zu Chart.js bzw. ner canvas-basierten Library)
@@ -57,18 +57,22 @@ export default {
         // in C3.js-Form umwandeln
         .map((val, i) => {
           if (eruptions[i]) {
-            return [val.age, val.d18o, eruptions[i].Date / 1000, -46];
+            return [val['age'], val['d18o'], eruptions[i].Date / 1000, -52];
           } else {
-            return [val.age, val.d18o];
+            return [val['age'], val['d18o']];
           }
         });
       // Chart generieren
-      c3.generate({
+      const chart = c3.generate({
         bindto: this.$refs.chart,
         data: {
           xs: {
             [dataLabel.data1]: 'x1', // Klima-Daten
             [dataLabel.data2]: 'x2', // Vulkanausbrueche
+          },
+          axes: {
+            age: 'x',
+            d18o: 'y',
           },
           types: {
             [dataLabel.data2]: 'scatter', // Bubbles für 'data2' (Vulkanausbrueche)
@@ -85,20 +89,29 @@ export default {
         },
         axis: {
           x: {
-            label: 'age',
+            label: 'ka BP',
+            max: 123,
             tick: {
-              // Werte auf der x-Achse
+              outer: false,
               values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
             },
           },
           y: {
-            label: 'd18o',
+            label: '𝛿¹⁸O',
+            max: -32,
+            min: -54,
+            tick: {
+              format: (d) => d > -48 ? d : 'Events',
+              outer: false,
+              values: [-32, -34, -36, -38, -40, -42, -44, -46, -52],
+            },
           },
         },
+        padding: { left: 30 },
         size: {
           height: 400,
         },
-        // Tooltips ausgeben (ultra schlecht hingehackt - bitte nicht nachmachen! (lieber durch Vue rendern))
+        // Tooltips ausgeben (ultra schlecht hingehackt - bitte nicht nachmachen! Besser durch Vue.js rendern)
         tooltip: {
           // eslint-disable-next-line no-unused-vars
           contents: (d, defaultTitleFormat, defaultValueFormat, color) => {
@@ -109,8 +122,8 @@ export default {
             case dataLabel.data1:
               climate = climateData[data.index * 8];
               content = `
-                    <p class="card-text">Alter: ${climate.age}</p>
-                    <p class="card-text">d18o: ${climate.d18o}</p>
+                    <p class="card-text">Date:&nbsp;${climate.age}&nbsp;ka&nbsp;BP</p>
+                    <p class="card-text">Value:&nbsp;${climate.d18o}&nbsp;𝛿<sup>18</sup>O</p>
                   `;
               break;
             // Vulkanausbrüche
@@ -119,7 +132,7 @@ export default {
               content = `
                     <h6 class="card-title">${eruption.Event}</h6>
                     <p class="card-text">Region: ${eruption.region}</p>
-                    <p class="card-text">Date: ${eruption.Date}</p>
+                    <p class="card-text">Date: ${eruption.Date} a BP</p>
                     <p class="card-text">Uncertainty: ${eruption.Uncertainty}</p>
                     <p class="card-text">Reference: ${eruption.Reference}</p>
                   `;
@@ -138,22 +151,48 @@ export default {
         },
         // Line-Punkte ausblenden (sieht kacke aus)
         point: {
-          r: 12,
+          r: 16,
           show: false,
         },
+        regions: [
+          { axis: 'y', end: -48, class: 'events' },
+        ],
         // Subchart aktivieren
         subchart: {
           show: true,
+          onbrush: domain => console.log(domain),
         },
         // Zoom aktivieren
         zoom: {
           enabled: true,
+          onzoom: domain => console.log(domain),
         },
       });
+      console.log(chart);
     });
   },
 };
 </script>
+
+<style lang="scss">
+  .c3-region.events {
+    fill: none;
+    stroke: black;
+    stroke-width: 1;
+    stroke-dasharray: 8, 2;
+    transform: scaleX(1.01);
+  }
+  .c3-axis-y-label {
+    font: 11px cursive;
+    font-weight: bolder;
+  }
+  .c3-axis-y > .tick:last-of-type > text {
+    transform: rotate(-90deg) translate(24px, -14px);
+  }
+  .c3-tooltip-container > .tooltip-card {
+    word-wrap: normal;
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~c3/c3.min.css';

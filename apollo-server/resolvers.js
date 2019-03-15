@@ -28,7 +28,28 @@ module.exports = {
         return { _id: node.identity.toString(), ...node.properties };
       });
     },
+    async RecordsByCollection(object, params, ctx, resolveInfo) {
+      debugger;
+      /** @type Session */ let session = ctx.driver.session();
+      let queryResult = await session.run(
+        'MATCH (n0:Record)-[:COLLECTED_IN]->(:Collection {uuid: $uuid}) RETURN n0 AS node',
+        { uuid: params.uuid },
+      );
+      return queryResult.records.map(record => {
+        let node = record.toObject()['node'];
+        // This example shows how to handle Neo4j integers, but with the
+        // identity this should not be done as GraphQL expects a string.
+        //
+        // let identity = ctx.neo4j.integer.inSafeRange(node.identity)
+        //   ? node.identity.toNumber() : node.identity.toString();
+        return { _id: node.identity.toString(), data: { ...node.properties } };
+      });
+    },
     Country(object, params, ctx, resolveInfo) {
+      debugger;
+      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
+    Lake(object, params, ctx, resolveInfo) {
       debugger;
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },

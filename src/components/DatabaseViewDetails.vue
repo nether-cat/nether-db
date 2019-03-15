@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid>
+  <b-container v-if="lake" fluid>
     <b-row>
       <b-col cols="12" lg="6">
         <b-row>
@@ -13,7 +13,7 @@
                       <span v-if="lake.name">{{ lake.name }}</span>
                       <span v-else><em>Unknown lake</em></span>
                       <span v-if="countries" class="comma-separated text-muted">
-                        (<span v-for="country in countries" :key="country.code">{{ country.code }}</span>)
+                        (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
                       </span>
                     </h5>
                     <hr>
@@ -27,25 +27,25 @@
                     </b-row>
                     <b-row>
                       <b-col cols="5" class="text-right">Surface level:</b-col>
-                      <b-col cols="7" class="text-left">{{ lake.surface_level || '&mdash;' }}</b-col>
+                      <b-col cols="7" class="text-left">{{ lake.surfaceLevel || '&mdash;' }}</b-col>
                     </b-row>
                     <hr>
                     <b-row>
                       <b-col cols="5" class="text-right">Maximum depth:</b-col>
-                      <b-col cols="7" class="text-left">{{ lake.max_depth || '&mdash;' }}</b-col>
+                      <b-col cols="7" class="text-left">{{ lake.maxDepth || '&mdash;' }}</b-col>
                     </b-row>
                     <b-row>
                       <b-col cols="5" class="text-right">Surface area:</b-col>
-                      <b-col cols="7" class="text-left">{{ lake.surface_area || '&mdash;' }}</b-col>
+                      <b-col cols="7" class="text-left">{{ lake.surfaceArea || '&mdash;' }}</b-col>
                     </b-row>
                     <b-row>
                       <b-col cols="5" class="text-right">Water body volume:</b-col>
-                      <b-col cols="7" class="text-left">{{ lake.water_body_volume || '&mdash;' }}</b-col>
+                      <b-col cols="7" class="text-left">{{ lake.waterBodyVolume || '&mdash;' }}</b-col>
                     </b-row>
-                    <hr v-if="lake.catchment_area">
-                    <b-row v-if="lake.catchment_area">
+                    <hr v-if="lake.catchmentArea">
+                    <b-row v-if="lake.catchmentArea">
                       <b-col cols="5" class="text-right">Catchment area:</b-col>
-                      <b-col cols="7" class="text-left">{{ lake.catchment_area }}</b-col>
+                      <b-col cols="7" class="text-left">{{ lake.catchmentArea }}</b-col>
                     </b-row>
                   </b-col>
                 </b-row>
@@ -62,18 +62,20 @@
                        caption-top
                        show-empty
                        :items="collections"
-                       :fields="['type', 'year', 'actions']"
+                       :fields="['type', 'ageResolution', 'actions']"
               >
                 <template slot="table-caption">
                   Available datasheets:
                 </template>
-                <!--suppress HtmlUnknownAttribute -->
                 <template slot="type" slot-scope="cell">
-                  {{ cell.item.type.charAt(0).toUpperCase() + cell.item.type.slice(1) }}
+                  {{ cell.item.proxy[0].name.charAt(0).toUpperCase() + cell.item.proxy[0].name.slice(1) }}
                 </template>
-                <!--suppress HtmlUnknownAttribute -->
+                <!-- eslint-disable-next-line vue/no-unused-vars -->
+                <template slot="HEAD_ageResolution" slot-scope="cell">
+                  Records per 1000 years
+                </template>
                 <template slot="actions" slot-scope="cell">
-                  <b-button variant="primary" size="sm" @click="onCollectionClick(cell.item.id)">Show records</b-button>
+                  <b-button variant="primary" size="sm" @click="onCollectionClick(cell.item.uuid)">Show records</b-button>
                 </template>
               </b-table>
             </b-card>
@@ -99,10 +101,10 @@
                 >
                   <vl-view :max-zoom="18" :zoom="10" :center="[lake.longitude, lake.latitude]" :rotation="0"/>
                   <vl-feature v-for="result in [lake]"
-                              :id="'vl_feature_' + result.id"
-                              :key="'vl_feature_' + result.id"
+                              :id="'vl_feature_' + result.uuid"
+                              :key="'vl_feature_' + result.uuid"
                               :result="result"
-                              :properties="{ id: result.id, name: result.name }"
+                              :properties="{ id: result.uuid, name: result.name }"
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
                     <vl-style-box :z-index="1">
@@ -122,7 +124,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row v-if="showRecords && records && records.length">
+    <b-row v-if="showRecords && flatRecords && flatRecords.length">
       <b-col class="mt-4">
         <b-card style="overflow-x: auto;">
           <b-table hover
@@ -130,9 +132,9 @@
                    striped
                    caption-top
                    show-empty
-                   sort-by="row_index"
-                   :items="records"
-                   :fields="[{key: 'row_index', label: 'No.'}].concat(Object.keys(records[0]).filter(k => !['id', 'row_index'].includes(k)))"
+                   sort-by="rowNum"
+                   :items="flatRecords"
+                   :fields="[{key: 'rowNum', label: 'No.'}].concat(Object.keys(flatRecords[0]).filter(k => !['_id', 'rowNum'].includes(k)))"
           >
             <template slot="table-caption">
               Records in the selected datasheet:
@@ -147,6 +149,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import bTable from 'bootstrap-vue/es/components/table/table';
+import gql from 'graphql-tag';
 
 const noSSR = {};
 
@@ -189,18 +192,103 @@ export default {
   data () {
     return {
       showRecords: false,
+      collectionUUID: '',
+      lakes: [],
+      countries: [],
+      records: [],
     };
   },
+  apollo: {
+    lakes: {
+      query: gql`
+        query lakeByUUID($uuid: ID!) {
+          lakes: Lake(uuid: $uuid, orderBy: "name_asc") {
+            uuid
+            name
+            longitude
+            latitude
+            maxDepth
+            surfaceLevel
+            surfaceArea
+            catchmentArea
+            waterBodyVolume
+            countries {
+              uuid
+              code
+              name
+            }
+            cores {
+              uuid
+              label
+              collections {
+                uuid
+                label
+                ageResolution
+                file
+                proxy {
+                  uuid
+                  name
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        // Use vue reactive properties here
+        return {
+          uuid: this.$route.params['id'],
+        };
+      },
+    },
+    records: {
+      query: gql`
+        query getRecords($uuid: ID!) {
+          records: RecordsByCollection(uuid: $uuid) {
+            _id
+            data
+          }
+        }
+      `,
+      variables() {
+        // Use vue reactive properties here
+        return {
+          uuid: this.collectionUUID,
+        };
+      },
+    },
+  },
   computed: {
+    lake () {
+      if (this.lakes) {
+        return this.lakes[0];
+      } else {
+        return undefined;
+      }
+    },
+    collections () {
+      if (this.lake) {
+        return this.lake.cores.reduce((collections, core) => collections.concat(core.collections), []);
+      } else {
+        return [];
+      }
+    },
+    flatRecords () {
+      if (this.records) {
+        return this.records.map(r => Object.assign({ _id: r['_id'] }, r['data']));
+      } else {
+        return [];
+      }
+    },
     ...mapState('database', [
       'results',
-      'records',
+      //'records',
     ]),
     ...mapGetters('database', [
       'reducedResults',
-      'lake',
-      'countries',
-      'collections',
+      //'lake',
+      //'countries',
+      //'collections',
     ]),
   },
   created () {
@@ -212,7 +300,7 @@ export default {
     ]),
     onCollectionClick (id) {
       this.showRecords = true;
-      this.loadCollection(id);
+      this.collectionUUID = id;
     },
     onMapMounted () {
       ScaleLineLoad.then(() => {

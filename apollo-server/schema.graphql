@@ -59,6 +59,8 @@ type Query {
   Test(_id: ID!): [JSON]
 
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
+  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
+  RecordsByCollection(uuid: ID): [Record]
 }
 
 type Mutation {
@@ -86,6 +88,7 @@ type Collection {
   ageResolution: Float
   depthResolution: Float
   comments: String
+  url: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "INCLUDES", direction: "OUT")
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
   proxy(first: Int = 1, offset: Int = 0): [Proxy] @relation(name: "BELONGS_TO", direction: "OUT")
@@ -174,7 +177,7 @@ type Publication {
   uuid: ID!
   title: String!
   authors: String
-  year: Float
+  year: Int
   doi: String
   source: String
   url: String

@@ -117,7 +117,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   console.log(`Indexed ${chalk.blueBright(String(lakes.length - lakesWithData.length))} lakes without datasets.\n`);
   console.log(`Processed datasets covering ${chalk.blueBright(String(lakesWithData.length))} lakes.\n`);
-  console.log(`The current total of datasets is ${chalk.blueBright(String(datasets.length))} now.\n`);
+  console.log(`The total number of datasets is ${chalk.blueBright(String(datasets.length))} now.\n`);
   console.log(`That results in ${chalk.blueBright('~' + average.toFixed(2))} datasets per covered lake.\n`);
 
   const actualFile = path.resolve(__dirname, './seeds/datasets.json');
@@ -184,6 +184,8 @@ module.exports = async function taskSeed ({ host, user, password }) {
     `,
   }).catch(() => status.set(0x2));
 
+  if (status.hasError()) return onExitTask();
+
   await executeQuery({
     label: 'Add all known lakes',
     params: { lakes },
@@ -202,6 +204,8 @@ module.exports = async function taskSeed ({ host, user, password }) {
         collect(DISTINCT n1) AS countries
     `,
   }).catch(() => status.set(0x3));
+
+  if (status.hasError()) return onExitTask();
 
   await executeQuery({
     label: 'Create structured metadata',
@@ -266,6 +270,66 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   if (status.hasError()) return onExitTask();
 
+  let recordsCountTotal = 0;
+
+  let importRecordsJobs = datasets.map(({ '@collection': collection, '@proxy': proxy }) => async () => {
+    let attributes, records;
+    const file = path.resolve(process.env.SHARED_SHEETS_PATH, collection['file'] + '.xlsx');
+    const sheetName = proxy['name'] === '14C' ? 'Age' : proxy['name'];
+    console.log('================================================================\n');
+    try {
+      ({ header: attributes, values: records } = readFromFile({ file, sheetName, headerStart: 'B8' }));
+      console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records with ${chalk.blueBright(String(attributes.length))} columns for proxy \`${chalk.cyan(proxy['name'])}\` in the file: ${chalk.yellowBright(collection['file'])}\n`);
+    } catch (err) {
+      console.log(`${chalk.red('fail')} --> Could not find a sheet named \`${chalk.cyan(proxy['name'])}\` in the file: ${chalk.yellowBright(collection['file'])}\n`);
+      return;
+    }
+
+    records = records.map((record, index) => Object.assign({ rowNum: index + 1 }, record));
+
+    await executeQuery({
+      check: false,
+      dryRun: false,
+      label: 'Import records from file -> ' + collection['file'],
+      params: { collection, proxy, attributes, records },
+      statement: cql`
+        MATCH (n0:Collection {file: $collection.file})-[:BELONGS_TO]->(n1:Proxy {name: $proxy.name})
+        WITH n0, n1
+        UNWIND $attributes as attribute
+        MERGE (n2:Attribute {name: attribute})
+          ON CREATE SET n2.uuid = randomUUID()
+        MERGE (n0)-[:INCLUDES]->(n2)
+        MERGE (n2)-[:BELONGS_TO]->(n1)
+        WITH n0, n1, collect(DISTINCT n2) AS attributes
+        UNWIND $records as record
+        CREATE (n3:Record)
+        SET n3 = record
+        MERGE (n3)-[:COLLECTED_IN]->(n0)
+        RETURN
+          n0 as collection,
+          n1 as proxy,
+          attributes,
+          collect(DISTINCT n3) AS records
+    `,
+    }).catch(() => status.set(0x4));
+
+    if (!status.hasError()) {
+      recordsCountTotal += records.length;
+    }
+    status.set(0);
+  });
+
+  const runJobsSequence = jobs =>
+    jobs.reduce((promise, job) => {
+      return promise.then(result => job().then(Array.prototype.concat.bind(result)));
+    }, Promise.resolve([]));
+
+  await runJobsSequence(importRecordsJobs);
+
+  console.log(`The total number of records is ${chalk.blueBright(String(recordsCountTotal))} now.\n`);
+
+  if (status.hasError()) return onExitTask();
+
   console.log(chalk.bold.green('All queries have been executed successfully!\n'));
 
   return onExitTask();
@@ -285,7 +349,7 @@ function checkFileExists (dataset) {
       found = false;
     }
   }
-  console.log(`${ found === true ? chalk.green('okay') : found === 'move' ? chalk.yellow('move') : chalk.red('miss') } --> ${ dataset['file'] }`);
+  console.log(`${ found === true ? chalk.green('okay') : found === 'move' ? chalk.yellow('move') : chalk.red('fail') } --> ${ dataset['file'] }`);
   Object.assign(dataset, { '_fileExists': found === true });
 }
 
@@ -373,18 +437,22 @@ function sortProperties (dataset) {
   sortedEntries.forEach(([key, value]) => dataset[key] = value);
 }
 
-async function executeQuery ({ label, params, statement, dryRun = false }) {
+async function executeQuery ({ label, params, statement, dryRun = false, check = true }) {
   let query, results, tx = session.beginTransaction();
   try {
     query = tx.run(statement, params);
     results = (({ records: [r] }) => r.toObject())(await query);
-    let resultMatchesInput = (Object.entries(query['_parameters']).map(([key, values]) => {
+    let resultMatchesInput = !check ? true : (Object.entries(query['_parameters']).map(([key, values]) => {
       function compareProperties (x) {
         return Object.keys(this).filter(k => !k.match(/^[@|_]/g)).reduce((valid, p) => {
           return valid && x[p] === this[p];
         }, true);
       };
-      return values.reduce((valid, value) => valid && !!results[key].map(x => ({ ...x.properties })).find(compareProperties.bind(value)), true);
+      if (Array.isArray(values)) {
+        return values.reduce((valid, value) => valid && !!results[key].map(x => ({ ...x.properties })).find(compareProperties.bind(value)), true);
+      } else if (Object.keys(values)) {
+        return !![results[key].properties].find(compareProperties.bind(values));
+      }
     }).reduce((total, valid) => valid && total, true));
     if (!resultMatchesInput) { throw new TaskError('Returned objects don\'t match passed input objects'); }
     query.then(r => printQueryStats(label, r));
