@@ -16,12 +16,14 @@
             </b-row>
             <b-row>
               <b-col>
-                <div>
+                <div style="height: 400px;">
+                  <transition name="fade-cover">
+                    <div v-show="chart.loading" class="loading-cover" style="height: 400px; line-height: 400px;">
+                      <span>Chart loading...<br><font-awesome-icon icon="circle-notch" size="5x" :transform="{ rotate: 180 }" spin/></span>
+                    </div>
+                  </transition>
                   <no-ssr>
-                    <b-progress slot="placeholder" variant="primary" animated class="mb-3">
-                      <b-progress-bar :value="100">Loading diagram...</b-progress-bar>
-                    </b-progress>
-                    <climate-chart @filterLakes="updateLakes"/>
+                    <climate-chart @init="onChartInit" @filterLakes="updateLakes"/>
                   </no-ssr>
                 </div>
               </b-col>
@@ -34,11 +36,13 @@
         <b-card header-tag="header" footer-tag="footer">
           <h1 slot="header">Map</h1>
           <b-container fluid class="card-text">
-            <div style="height: 485px">
+            <transition name="fade-cover">
+              <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
+                <span>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></span>
+              </div>
+            </transition>
+            <div style="height: 485px;">
               <no-ssr>
-                <b-progress slot="placeholder" variant="primary" animated class="mb-3">
-                  <b-progress-bar :value="100">Loading map...</b-progress-bar>
-                </b-progress>
                 <vl-map :load-tiles-while-animating="true"
                         :load-tiles-while-interacting="true"
                         data-projection="EPSG:4326"
@@ -47,22 +51,27 @@
                 >
                   <vl-view :max-zoom="18" :zoom.sync="mapZoom" :center.sync="mapCenter" :rotation.sync="mapRotation"/>
                   <vl-feature v-for="result in mappedResults"
-                              :id="'vl_feature_' + result.id"
+                              :id="result.id"
                               ref="features"
-                              :key="'vl_feature_' + result.id"
-                              :result="result"
-                              :properties="{ id: result.id, name: result.name, count: result.datasetCount }"
+                              :key="result.id"
+                              :properties="{ id: result.id, name: result.name, count: result.datasets }"
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
-                    <vl-style-box v-if="result.datasetCount" :z-index="1">
+                    <vl-style-box v-if="!!mapFeatures.find(f => f.id === result.id)" :z-index="3">
+                      <vl-style-circle :radius="Math.max(3.5 * 1.25, mapZoom * 1.25)">
+                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1.25, mapZoom / 5)"/>
+                        <vl-style-fill :color="[0, 235, 137, 1]"/>
+                      </vl-style-circle>
+                    </vl-style-box>
+                    <vl-style-box v-else-if="result.datasets" :z-index="2">
                       <vl-style-circle :radius="Math.max(3.5, mapZoom)">
-                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1, mapZoom / 6)"/>
+                        <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
                         <vl-style-fill :color="[0, 153, 255, 1]"/>
                       </vl-style-circle>
                     </vl-style-box>
-                    <vl-style-box v-if="!result.datasetCount" :z-index="1">
+                    <vl-style-box v-else :z-index="1">
                       <vl-style-circle :radius="Math.max(3.5, mapZoom)">
-                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1, mapZoom / 6)"/>
+                        <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
                         <vl-style-fill :color="[175, 175, 175, 1]"/>
                       </vl-style-circle>
                     </vl-style-box>
@@ -71,8 +80,8 @@
                     <template slot-scope="select">
                       <!--vl-overlay :position="findPointOnSurface(feature.geometry)"-->
                       <vl-overlay v-for="feature in select['features']"
-                                  :id="feature.id.replace('vl_feature_', 'vl_overlay_')"
-                                  :key="feature.id.replace('vl_feature_', 'vl_overlay_')"
+                                  :id="feature.id"
+                                  :key="feature.id"
                                   class="feature-popup feature-popup-lake"
                                   :auto-pan="true"
                                   :position="[-90, -180]"
@@ -80,7 +89,7 @@
                         <template>
                           <b-card style="position: absolute; bottom: .5em; left: .5em; width: 256px">
                             <div slot="header">
-                              <span style="float: left; font-size: 1rem; padding: 0 1rem .25rem 0">
+                              <span style="float: left; font-size: 1rem; padding: 0 1rem 0 0; max-width: 200px;">
                                 {{ feature.properties.name }}
                               </span>
                               <button type="button"
@@ -92,7 +101,7 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            {{ feature.properties.count || 'No' }} datasheets available<br>
+                            {{ (feature.properties.count || 'No') + ' dataset' + (feature.properties.count !== 1 ? 's' : '') }} available<br>
                             <router-link :to="{ name: 'databaseDetails', params: { id: feature.properties.id } }">
                               {{ feature.properties.count ? '&#8627; View details' : '&#8627; Show lake info' }}
                             </router-link>
@@ -102,7 +111,7 @@
                     </template>
                   </vl-interaction-select>
                   <vl-layer-tile id="osm">
-                    <vl-source-osm/>
+                    <vl-source-osm @mounted="onSourceOsmMounted"/>
                   </vl-layer-tile>
                 </vl-map>
               </no-ssr>
@@ -123,8 +132,24 @@
                    :items="mappedResults"
                    :fields="fields"
           >
-            <template slot="table-caption">
-              Found lakes with datasets:
+            <template slot="table-caption">Found lakes with datasets:</template>
+            <template slot="countries" slot-scope="cell">
+              <div class="text-monospace">
+                {{ cell.item['countries'].map(c => c['code']).join(', ') }}
+              </div>
+            </template>
+            <template slot="coordinates" slot-scope="cell">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div class="text-monospace" v-html="formatCoordinates(cell.item)"/>
+            </template>
+            <template slot="HEAD_datasets" slot-scope="cell">
+              <div class="text-right">{{ cell.label }}</div>
+            </template>
+            <template slot="datasets" slot-scope="cell">
+              <div class="text-monospace text-right">{{ cell.item.datasets }}</div>
+            </template>
+            <template slot="HEAD_actions" slot-scope="cell">
+              <div class="text-center">{{ cell.label }}</div>
             </template>
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
@@ -132,20 +157,6 @@
                   <font-awesome-icon icon="external-link-alt" alt="View details"/>
                 </router-link>
               </div>
-            </template>
-            <template slot="HEAD_actions" slot-scope="cell">
-              <!-- A custom formatted header cell for field 'actions' -->
-              <div class="text-center">{{ cell.label }}</div>
-            </template>
-            <template slot="countries" slot-scope="cell">
-              <div class="text-left">
-                {{ cell.item['countries'].map(c => c['code']).join(', ') }}
-              </div>
-            </template>
-            <!--eslint-disable-next-line vue/no-unused-vars -->
-            <template slot="HEAD_countries" slot-scope="cell">
-              <!-- A custom formatted header cell for field 'countries' -->
-              <div class="text-left">Country</div>
             </template>
           </b-table>
         </b-card>
@@ -155,8 +166,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import * as CountryList from 'countries-list';
 import { mapState, mapGetters, mapActions } from 'vuex';
 import bTable from 'bootstrap-vue/es/components/table/table';
 import FormInputTags from './FormInputTags';
@@ -277,17 +286,18 @@ export default {
         },
         location: '',
       },
+      chart: {
+        loading: true,
+      },
+      map: {
+        loading: true,
+      },
       fields: [
         'name',
-        'countries',
-        'longitude',
-        'latitude',
-        'datasetCount',
-        //'max_depth',
-        //'surface_area',
-        //'water_body_volume',
-        //'catchment_area',
-        { key: 'actions', label: 'Link' },
+        { key: 'countries', label: 'Country' },
+        'coordinates',
+        'datasets',
+        { key: 'actions', label: 'Details' },
       ],
     };
   },
@@ -326,9 +336,9 @@ export default {
   computed: {
     mappedResults () {
       return this.lakes.map(lake => {
-        let datasetCount = 0;
-        lake.cores.forEach(core => core.collections.forEach(() => datasetCount++));
-        return Object.assign({}, lake, { id: lake['uuid'], datasetCount });
+        let datasets = 0;
+        lake.cores.forEach(core => core.collections.forEach(() => datasets++));
+        return Object.assign({}, lake, { id: lake['uuid'], datasets });
       });
     },
     ...mapState('user', [
@@ -365,9 +375,15 @@ export default {
       'loadProxyAttributes',
       'loadResultData',
     ]),
+    onChartInit () {
+      this.chart.loading = false;
+    },
     // eslint-disable-next-line no-unused-vars
     updateLakes (filteredLakes) {
       //this.lakes = filteredLakes;
+    },
+    onSourceOsmMounted () {
+      this.map.loading = false;
     },
     trySelectFeature () {
       // TODO: This gets executed far too often; Find a better trigger
@@ -384,6 +400,21 @@ export default {
           }
         }
       }
+    },
+    formatCoordinates({ latitude, longitude }) {
+      latitude = Number.parseFloat(latitude);
+      longitude = Number.parseFloat(longitude);
+      latitude = latitude < 0 ? (-1 * latitude).toFixed(6) + '° S' : latitude.toFixed(6) + '° N';
+      if (latitude.length < 12) {
+        latitude = '&nbsp;' + latitude;
+      }
+      longitude = longitude < 0 ? (-1 * longitude).toFixed(6) + '° W' : longitude.toFixed(6) + '° E';
+      if (longitude.length < 12) {
+        longitude = '&nbsp;&nbsp;' + longitude;
+      } else if (longitude.length < 13) {
+        longitude = '&nbsp;' + longitude;
+      }
+      return [latitude, longitude].join(', ');
     },
   },
 };

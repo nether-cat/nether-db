@@ -1,5 +1,5 @@
 <template>
-  <div ref="chart" class="chart"/>
+  <div id="mainChart" ref="chart" class="chart"/>
 </template>
 
 <script>
@@ -37,6 +37,11 @@ export default {
       default: lakesCsvUrl,
     },
   },
+  data () {
+    return {
+      chart: {},
+    };
+  },
   /**
    * Mounted Hook
    */
@@ -53,7 +58,7 @@ export default {
       };
       const dataRows = climateData
         // Daten ausdünnen (SVG hat Kackperformance mit vielen Elementen => wechselt am besten zu Chart.js bzw. ner canvas-basierten Library)
-        .filter((val, i) => i % 8 === 0)
+        .filter((val, i) => i % 4 === 0)
         // in C3.js-Form umwandeln
         .map((val, i) => {
           if (eruptions[i]) {
@@ -63,7 +68,7 @@ export default {
           }
         });
       // Chart generieren
-      const chart = c3.generate({
+      this.chart = c3.generate({
         bindto: this.$refs.chart,
         data: {
           xs: {
@@ -90,7 +95,8 @@ export default {
         axis: {
           x: {
             label: 'ka BP',
-            max: 123,
+            min: -0.075,
+            max: 122.875,
             tick: {
               outer: false,
               values: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
@@ -98,12 +104,12 @@ export default {
           },
           y: {
             label: '𝛿¹⁸O',
-            max: -32,
+            max: -30,
             min: -54,
             tick: {
-              format: (d) => d > -48 ? d : 'Events',
+              format: (d) => d === -52 ? 'Events' : d,
               outer: false,
-              values: [-32, -34, -36, -38, -40, -42, -44, -46, -52],
+              values: [-52, -46, -44, -42, -40, -38, -36, -34, -32],
             },
           },
         },
@@ -120,7 +126,7 @@ export default {
             switch (data.id) {
             // Klimadaten
             case dataLabel.data1:
-              climate = climateData[data.index * 8];
+              climate = climateData[data.index * 4];
               content = `
                     <p class="card-text">Date:&nbsp;${climate.age}&nbsp;ka&nbsp;BP</p>
                     <p class="card-text">Value:&nbsp;${climate.d18o}&nbsp;𝛿<sup>18</sup>O</p>
@@ -160,37 +166,53 @@ export default {
         // Subchart aktivieren
         subchart: {
           show: true,
-          onbrush: domain => console.log(domain),
+          onbrush: domain => console.log('onBrush:', domain),
         },
         // Zoom aktivieren
         zoom: {
           enabled: true,
-          onzoom: domain => console.log(domain),
+          onzoom: domain => console.log('onZoom:', domain),
+        },
+        oninit: () => {
+          this.$emit('init');
+          this.$nextTick(() => {
+            let padding = 1.2295;
+            let { min: { x: min }, max: { x: max } } = this.chart.axis.range();
+            this.chart.zoom([min - padding, max + padding]);
+          });
         },
       });
-      console.log(chart);
     });
   },
 };
 </script>
 
 <style lang="scss">
-  .c3-region.events {
-    fill: none;
-    stroke: black;
-    stroke-width: 1;
-    stroke-dasharray: 8, 2;
-    transform: scaleX(1.01);
-  }
-  .c3-axis-y-label {
-    font: 11px cursive;
-    font-weight: bolder;
-  }
-  .c3-axis-y > .tick:last-of-type > text {
-    transform: rotate(-90deg) translate(24px, -14px);
-  }
-  .c3-tooltip-container > .tooltip-card {
-    word-wrap: normal;
+  #mainChart {
+    .c3-brush > .selection {
+      fill: rgb(31, 119, 180);
+      fill-opacity: 0.2;
+      stroke: rgb(0, 0, 0);
+      stroke-opacity: 0.125;
+      stroke-width: 1px;
+    }
+    .c3-axis-y > .tick:first-of-type > text {
+      transform: rotate(-90deg) translate(24px, -14px);
+    }
+    .c3-axis-y-label {
+      font: 11px cursive;
+      font-weight: bolder;
+    }
+    .c3-region.events {
+      fill: none;
+      stroke: black;
+      stroke-width: 1;
+      stroke-dasharray: 8, 2;
+      transform: scaleX(1.01);
+    }
+    .c3-tooltip-container > .tooltip-card {
+      word-wrap: normal;
+    }
   }
 </style>
 

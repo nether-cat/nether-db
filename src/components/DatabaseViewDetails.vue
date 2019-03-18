@@ -65,14 +65,17 @@
                        :fields="['type', 'ageResolution', 'actions']"
               >
                 <template slot="table-caption">
-                  Available datasheets:
+                  Available datasets:
                 </template>
                 <template slot="type" slot-scope="cell">
                   {{ cell.item.proxy[0].name.charAt(0).toUpperCase() + cell.item.proxy[0].name.slice(1) }}
                 </template>
                 <!-- eslint-disable-next-line vue/no-unused-vars -->
                 <template slot="HEAD_ageResolution" slot-scope="cell">
-                  Records per 1000 years
+                  Samples per 1000 years
+                </template>
+                <template slot="ageResolution" slot-scope="cell">
+                  {{ Number.parseFloat(cell.item.ageResolution).toFixed(3) }}
                 </template>
                 <template slot="actions" slot-scope="cell">
                   <b-button variant="primary" size="sm" @click="onCollectionClick(cell.item.uuid)">Show records</b-button>
@@ -87,11 +90,13 @@
         <b-card header-tag="header" footer-tag="footer">
           <h1 slot="header">Map</h1>
           <b-container fluid class="card-text">
-            <div style="height: 485px">
+            <transition name="fade-cover">
+              <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
+                <span>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></span>
+              </div>
+            </transition>
+            <div style="height: 485px;">
               <no-ssr>
-                <b-progress slot="placeholder" variant="primary" animated class="mb-3">
-                  <b-progress-bar :value="100">Loading map...</b-progress-bar>
-                </b-progress>
                 <vl-map ref="map"
                         :load-tiles-while-animating="true"
                         :load-tiles-while-interacting="true"
@@ -101,9 +106,8 @@
                 >
                   <vl-view :max-zoom="18" :zoom="10" :center="[lake.longitude, lake.latitude]" :rotation="0"/>
                   <vl-feature v-for="result in [lake]"
-                              :id="'vl_feature_' + result.uuid"
-                              :key="'vl_feature_' + result.uuid"
-                              :result="result"
+                              :id="result.uuid"
+                              :key="result.uuid"
                               :properties="{ id: result.uuid, name: result.name }"
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
@@ -115,7 +119,7 @@
                     </vl-style-box>
                   </vl-feature>
                   <vl-layer-tile id="osm">
-                    <vl-source-osm/>
+                    <vl-source-osm @mounted="onSourceOsmMounted"/>
                   </vl-layer-tile>
                 </vl-map>
               </no-ssr>
@@ -134,10 +138,10 @@
                    show-empty
                    sort-by="rowNum"
                    :items="flatRecords"
-                   :fields="[{key: 'rowNum', label: 'No.'}].concat(Object.keys(flatRecords[0]).filter(k => !['_id', 'rowNum'].includes(k)))"
+                   :fields="[{ key: 'rowNum', label: '#' }].concat(Object.keys(flatRecords[0]).filter(k => !['_id', 'rowNum'].includes(k)))"
           >
             <template slot="table-caption">
-              Records in the selected datasheet:
+              Records in the selected dataset:
             </template>
           </b-table>
         </b-card>
@@ -196,6 +200,9 @@ export default {
       lakes: [],
       countries: [],
       records: [],
+      map: {
+        loading: true,
+      },
     };
   },
   apollo: {
@@ -309,6 +316,9 @@ export default {
           new ScaleLine(),
         ]);
       });
+    },
+    onSourceOsmMounted () {
+      this.map.loading = false;
     },
   },
 };
