@@ -2,18 +2,22 @@
   <b-container class="overlay" fluid>
     <b-row>
       <b-col cols="12" class="text-center">
-        <router-link :to="target" exact replace>
-          <img class="logo" src="../assets/palim-logo.png" alt="PaLimDB" :class="animation">
-        </router-link>
+        <img class="logo" src="../assets/palim-logo.png" alt="PaLimDB" :class="animation">
       </b-col>
+    </b-row>
+    <b-row v-if="messages.length">
+      <b-col/>
+      <b-col cols="12" sm="10" md="7" xl="5">
+        <b-alert class="mt-4" :variant="messages[0]['variant']" show :class="animation">
+          {{ messages[0]['text'] }}
+        </b-alert>
+      </b-col>
+      <b-col/>
     </b-row>
     <b-row>
       <b-col/>
       <b-col cols="12" sm="10" md="7" xl="5">
         <b-card title="Login" class="container-fluid" :class="animation">
-          <router-link class="close" aria-label="Close" :to="target" exact replace>
-            <font-awesome-icon icon="times"/>
-          </router-link>
           <b-row>
             <b-col>
               <b-form class="my-4" @submit="doLogin">
@@ -50,9 +54,6 @@
                 <b-button :disabled="pending" type="submit" variant="primary" class="mt-4" block>
                   Login <font-awesome-icon v-if="pending" icon="spinner" spin/>
                 </b-button>
-                <b-alert v-if="error" class="mt-4" variant="danger" show>
-                  Login failed! Please check your credentials.
-                </b-alert>
               </b-form>
             </b-col>
           </b-row>
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import crypto from 'crypto';
 import { onLogin } from '@/vue-apollo';
 import LOGIN from '@/graphql/Login.graphql';
 import SESSION from '@/graphql/Session.graphql';
@@ -79,27 +81,43 @@ export default {
         name: '',
         password: '',
       },
-      target: '/',
-      error: false,
-      pending: false,
+      redirect: '/',
+      messages: [],
       animation: [],
+      pending: false,
     };
   },
   apollo: {
     session: SESSION,
   },
+  computed: {
+    redirectPath () {
+      return this.$route.query['redirect'] || '/';
+    },
+  },
+  created () {
+    if (this.$route.query['d'] === null) {
+      this.messages.push({
+        variant: 'warning',
+        text: 'You need to be logged in to access this resource.',
+      });
+    }
+  },
   methods: {
     doLogin (evt) {
       evt.preventDefault();
       const email = this.credentials.name.toLowerCase();
-      const password = this.credentials.password;
+      const password = crypto
+        .createHash('sha256')
+        .update(this.credentials.password)
+        .digest('hex');
       this.pending = true;
       this.$apollo.mutate({
         mutation: LOGIN,
         variables: {
           email,
           password,
-          isHash: false,
+          isHash: true,
         },
         optimisticResponse: {
           __typename: 'Mutation',
@@ -116,41 +134,25 @@ export default {
       }).then(({ data }) => {
         this.pending = false;
         if (data['session']['token']) {
-          this.error = false;
-          this.credentials.password = '';
-          this.$router.replace(this.target);
-          return onLogin(
+          onLogin(
             this.$apolloProvider.defaultClient,
             data['session']['token'],
-          );
+          ).then(() => this.$router.replace(this.redirectPath));
         } else {
-          this.error = true;
+          this.credentials.name = '';
+          this.credentials.password = '';
+          this.messages.splice(0, this.messages.length);
+          this.messages.push({
+            variant: 'danger',
+            text: 'Login failed! Please check your credentials.',
+          });
           this.animation.push('shake-error');
-          setTimeout(() => this.animation.pop() && this.$refs.password.$el.focus(), 300);
+          setTimeout(() => this.animation.pop(), 300);
         }
       }).catch((error) => {
         console.error(error);
       });
     },
-  },
-  beforeRouteEnter (to, from, next) {
-    let { name, params } = from;
-    if (!name) {
-      name = 'dashboard';
-      params = {};
-    }
-    next(vm => {
-      if (vm.session.state === 'AUTHORIZED') {
-        vm.$router.replace({ name, params });
-      } else {
-        vm.target = { name, params };
-      }
-    });
-  },
-  beforeRouteLeave (to, from, next) {
-    // TODO: Check behaviour while login mutation is in flight
-    this.error = false;
-    next();
   },
 };
 </script>
@@ -167,13 +169,6 @@ export default {
   .logo {
     max-height: 100px;
     margin: 40px 0 30px;
-  }
-  .card .close {
-    color: #212529;
-    font-size: 1rem;
-    position: absolute;
-    top: 1.25em;
-    right: 2.5em;
   }
   .shake-error {
     animation: shake 0.3s;

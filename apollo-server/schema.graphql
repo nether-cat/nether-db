@@ -56,21 +56,19 @@ interface Resource {
 
 type Query {
   Session: Session!
-  Test(_id: ID!): [JSON]
-
-  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
-  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
-  RecordsByCollection(uuid: ID): [Record]
+  Test(_id: ID!): [JSON] @auth
+  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country] @auth
+  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake] @auth
+  RecordsByCollection(uuid: ID): [Record] @auth
 }
 
 type Mutation {
   Login(email: String!, password: Password!): Session!
   Logout: Session!
-  Test(_id: ID!, payload: JSON!): JSON
-
-  CreateCountry(code: String!, name: String!, uuid: ID): Country
-  DeleteCountry(uuid: ID!): Country
-  UpdateCountry(code: String, name: String, uuid: ID!): Country
+  Test(_id: ID!, payload: JSON!): JSON @auth
+  CreateCountry(code: String!, name: String!, uuid: ID): Country @auth
+  DeleteCountry(uuid: ID!): Country @auth
+  UpdateCountry(code: String, name: String, uuid: ID!): Country @auth
 }
 
 type Attribute {

@@ -10,11 +10,10 @@
       <b-nav-item v-if="session.state === 'AUTH_PENDING'" disabled>
         <font-awesome-icon icon="spinner" spin/>
       </b-nav-item>
-      <b-nav-item v-else-if="session.state !== 'AUTHORIZED'" to="/user/login">
+      <b-nav-item v-else-if="session.state !== 'AUTHORIZED'" :to="{ name: 'auth', query: { redirect: $route.fullPath } }">
         <font-awesome-icon icon="sign-in-alt"/>
       </b-nav-item>
       <b-nav-item-dropdown v-else-if="session.state === 'AUTHORIZED'" right no-caret>
-        <!-- Using button-content slot -->
         <template slot="button-content">
           <font-awesome-icon icon="user-circle"/>
         </template>
@@ -56,7 +55,7 @@
         <b-nav-item v-if="session.state === 'AUTH_PENDING'" disabled class="d-none d-md-inline">
           <font-awesome-icon icon="spinner" spin/>
         </b-nav-item>
-        <b-nav-item v-else-if="session.state !== 'AUTHORIZED'" to="/user/login" class="d-none d-md-inline">
+        <b-nav-item v-else-if="session.state !== 'AUTHORIZED'" :to="{ name: 'auth', query: { redirect: $route.fullPath } }" class="d-none d-md-inline">
           <font-awesome-icon icon="sign-in-alt"/>
         </b-nav-item>
         <b-nav-item-dropdown v-else-if="session.state === 'AUTHORIZED'" right no-caret class="d-none d-md-inline">
@@ -121,7 +120,10 @@ export default {
           },
         },
       }).then(() => {
-        return onLogout(this.$apolloProvider.defaultClient);
+        this.$router.replace(
+          { name: 'auth', query: { redirect: this.$route.fullPath } },
+          () => onLogout(this.$apolloProvider.defaultClient),
+        );
       }).catch((error) => {
         console.error(error);
       });

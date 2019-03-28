@@ -6,6 +6,7 @@ Vue.use(VueRouter.install);
 export function createRouter () {
   return new VueRouter({
     mode: 'history',
+    fallback: false,
     base: process.env.BASE_URL,
     routes: createRoutes(),
   });
@@ -19,6 +20,7 @@ function createRoutes () {
       components: {
         default: () => import('@/views/TheDashboard'),
       },
+      meta: { requiresAuth: true },
     },
     {
       path: '/app',
@@ -31,6 +33,7 @@ function createRoutes () {
       components: {
         default: () => import('@/views/TheDatabase'),
       },
+      meta: { requiresAuth: true },
       children: [
         {
           path: '/',
@@ -56,6 +59,7 @@ function createRoutes () {
       },
       meta: {
         hideTemplate: true,
+        requiresGuest: true,
       },
     },
     {

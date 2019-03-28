@@ -35,6 +35,15 @@ export default {
   apollo: {
     session: SESSION,
   },
+  mounted () {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.$apollo.queries.session.setOptions({
+          fetchPolicy: 'cache-and-network',
+        }).then(() => this.$apollo.queries.session.startPolling(60 * 1000));
+      }, 100);
+    });
+  },
 };
 </script>
 

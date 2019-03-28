@@ -12,7 +12,7 @@ const ms = require('ms');
 
 const timers = {
   cache: '1m',
-  session: '5m',
+  session: '1d',
   cookie: '7d',
 };
 const sessionCache = {

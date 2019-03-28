@@ -68,9 +68,19 @@ export function createProvider (options = {}) {
         // fetchPolicy: 'cache-and-network',
       },
     },
-    errorHandler (error) {
+    errorHandler (err) {
       // eslint-disable-next-line no-console
-      console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message);
+      console.log(
+        '%cError',
+        `
+        background: red;
+        color: white;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-weight: bold;
+        `,
+        err.message,
+      );
     },
   });
 
@@ -85,9 +95,20 @@ export async function onLogin (apolloClient, token) {
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
-  } catch (e) {
+  } catch (err) {
     // eslint-disable-next-line no-console
-    console.log('%cError on cache reset (login)', 'color: orange;', e.message);
+    console.log(
+      '%cWarning',
+      `
+      background: orange;
+      color: white;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+      `,
+      'Cache reset failed (login) -> ',
+      err.message,
+    );
   }
 }
 
@@ -99,8 +120,19 @@ export async function onLogout (apolloClient) {
   if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient);
   try {
     await apolloClient.resetStore();
-  } catch (e) {
+  } catch (err) {
     // eslint-disable-next-line no-console
-    console.log('%cError on cache reset (logout)', 'color: orange;', e.message);
+    console.log(
+      '%cWarning',
+      `
+      background: orange;
+      color: white;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: bold;
+      `,
+      'Cache reset failed (logout) -> ',
+      err.message,
+    );
   }
 }

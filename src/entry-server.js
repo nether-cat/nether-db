@@ -14,28 +14,25 @@ export default context => {
       store,
       apolloProvider,
     } = await createApp({
-      modifyOptions({ providerOptions }) {
-        providerOptions.ssr = true;
+      beforeProvider(options) {
+        options.ssr = true;
         let cookieHeader = context.req.header('Cookie');
         if (cookieHeader) {
-          providerOptions.httpLinkOptions.headers = {
+          options.httpLinkOptions.headers = {
             cookie: context.req.header('Cookie'),
           };
         }
       },
     });
-
     router.push(context.url);
-
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
-
       Promise.all([
         // Async data
         ...matchedComponents.map(component => {
-          // noinspection JSUnresolvedVariable
           if (component.asyncData) {
             return component.asyncData({
+              apolloProvider,
               store,
               route: router.currentRoute,
             });
@@ -53,9 +50,13 @@ export default context => {
         // is used for the renderer, the state will automatically be
         // serialized and injected into the HTML as `window.__INITIAL_STATE__`.
         context.state = store.state;
-
         // Same for Apollo client cache
         context.apolloState = ApolloSSR.getStates(apolloProvider);
+        // Additionally we eventually add the router's status code
+        if (router.status && router.status !== 200) {
+          // TODO: Figure out if one could also trigger HTTP redirects here.
+          context.httpCode = router.status;
+        }
         resolve(app);
       });
     }, reject);

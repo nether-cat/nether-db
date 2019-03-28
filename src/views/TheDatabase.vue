@@ -10,14 +10,6 @@ export default {
   name: 'TheDatabase',
   components: {
   },
-  // eslint-disable-next-line no-unused-vars
-  async asyncData ({ store, route, renderContext }) {
-    if (!store.getters['user/isAuthenticated']) {
-      await store.dispatch('user/doRefresh', renderContext);
-    }
-    await store.dispatch('database/loadProxies', renderContext);
-    await store.dispatch('database/loadResultData', renderContext);
-  },
   data () {
     return {};
   },
@@ -87,7 +79,7 @@ export default {
     left: 1rem;
     right: 1rem;
     z-index: 99;
-    > span {
+    > div {
       display: inline-block;
       line-height: 4.5rem;
       font-size: 1.25rem;

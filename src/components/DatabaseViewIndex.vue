@@ -19,7 +19,7 @@
                 <div style="height: 400px;">
                   <transition name="fade-cover">
                     <div v-show="chart.loading" class="loading-cover" style="height: 400px; line-height: 400px;">
-                      <span>Chart loading...<br><font-awesome-icon icon="circle-notch" size="5x" :transform="{ rotate: 180 }" spin/></span>
+                      <div>Chart loading...<br><font-awesome-icon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/></div>
                     </div>
                   </transition>
                   <no-ssr>
@@ -38,7 +38,7 @@
           <b-container fluid class="card-text">
             <transition name="fade-cover">
               <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
-                <span>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></span>
+                <div>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></div>
               </div>
             </transition>
             <div style="height: 485px;">
@@ -58,19 +58,19 @@
                   >
                     <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
                     <vl-style-box v-if="!!mapFeatures.find(f => f.id === result.id)" :z-index="3">
-                      <vl-style-circle :radius="Math.max(3.5 * 1.25, mapZoom * 1.25)">
-                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1.25, mapZoom / 5)"/>
+                      <vl-style-circle :radius="Math.max(4 * 1.5, mapZoom * 1.5)">
+                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1.5, mapZoom / 5)"/>
                         <vl-style-fill :color="[0, 235, 137, 1]"/>
                       </vl-style-circle>
                     </vl-style-box>
                     <vl-style-box v-else-if="result.datasets" :z-index="2">
-                      <vl-style-circle :radius="Math.max(3.5, mapZoom)">
+                      <vl-style-circle :radius="Math.max(4, mapZoom * 1.2)">
                         <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
                         <vl-style-fill :color="[0, 153, 255, 1]"/>
                       </vl-style-circle>
                     </vl-style-box>
                     <vl-style-box v-else :z-index="1">
-                      <vl-style-circle :radius="Math.max(3.5, mapZoom)">
+                      <vl-style-circle :radius="Math.max(4, mapZoom * 1.2)">
                         <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
                         <vl-style-fill :color="[175, 175, 175, 1]"/>
                       </vl-style-circle>
@@ -219,14 +219,6 @@ export default {
     bTable,
     FormInputTags,
     ...noSSR,
-  },
-  // eslint-disable-next-line no-unused-vars
-  async asyncData ({ store, route, renderContext }) {
-    // if (!store.getters['user/isAuthenticated']) {
-    //   await store.dispatch('user/doRefresh', renderContext);
-    // }
-    // await store.dispatch('database/loadProxies', renderContext);
-    // await store.dispatch('database/loadResultData', renderContext);
   },
   data () {
     return {

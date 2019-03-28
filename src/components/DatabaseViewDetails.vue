@@ -92,7 +92,7 @@
           <b-container fluid class="card-text">
             <transition name="fade-cover">
               <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
-                <span>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></span>
+                <div>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></div>
               </div>
             </transition>
             <div style="height: 485px;">
