@@ -7,7 +7,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import gql from 'graphql-tag';
 
 export default {
-  name: 'TheDatabase',
+  name: 'the-database',
   components: {
   },
   data () {

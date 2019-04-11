@@ -188,7 +188,7 @@ if (process.client) {
 }
 
 export default {
-  name: 'DatabaseViewDetails',
+  name: 'database-view-details',
   components: {
     bTable,
     ...noSSR,

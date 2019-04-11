@@ -49,6 +49,7 @@ module.exports = {
         'allowFirstLine': true,
       },
     }],
+    'vue/name-property-casing': ['error', 'kebab-case'],
     'vue/script-indent': 'warn',
     'vue/singleline-html-element-content-newline': 'off',
   },

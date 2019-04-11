@@ -78,7 +78,7 @@
 import bFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea';
 
 export default {
-  name: 'TheContact',
+  name: 'the-contact',
   components: {
     bFormTextarea,
   },

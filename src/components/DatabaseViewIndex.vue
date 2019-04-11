@@ -23,7 +23,7 @@
                     </div>
                   </transition>
                   <no-ssr>
-                    <climate-chart @init="onChartInit" @filterLakes="updateLakes"/>
+                    <climate-chart @init="$nextTick(() => chart.loading = false)" @filterLakes="updateLakes"/>
                   </no-ssr>
                 </div>
               </b-col>
@@ -43,77 +43,7 @@
             </transition>
             <div style="height: 485px;">
               <no-ssr>
-                <vl-map :load-tiles-while-animating="true"
-                        :load-tiles-while-interacting="true"
-                        data-projection="EPSG:4326"
-                        style="height: 485px"
-                        @postrender="trySelectFeature"
-                >
-                  <vl-view :max-zoom="18" :zoom.sync="mapZoom" :center.sync="mapCenter" :rotation.sync="mapRotation"/>
-                  <vl-feature v-for="result in mappedResults"
-                              :id="result.id"
-                              ref="features"
-                              :key="result.id"
-                              :properties="{ id: result.id, name: result.name, count: result.datasets }"
-                  >
-                    <vl-geom-point :coordinates="[result.longitude, result.latitude]"/>
-                    <vl-style-box v-if="!!mapFeatures.find(f => f.id === result.id)" :z-index="3">
-                      <vl-style-circle :radius="Math.max(4 * 1.5, mapZoom * 1.5)">
-                        <vl-style-stroke :color="[255, 255, 255, 1]" :width="Math.max(1.5, mapZoom / 5)"/>
-                        <vl-style-fill :color="[0, 235, 137, 1]"/>
-                      </vl-style-circle>
-                    </vl-style-box>
-                    <vl-style-box v-else-if="result.datasets" :z-index="2">
-                      <vl-style-circle :radius="Math.max(4, mapZoom * 1.2)">
-                        <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
-                        <vl-style-fill :color="[0, 153, 255, 1]"/>
-                      </vl-style-circle>
-                    </vl-style-box>
-                    <vl-style-box v-else :z-index="1">
-                      <vl-style-circle :radius="Math.max(4, mapZoom * 1.2)">
-                        <vl-style-stroke :color="[235, 235, 235, 1]" :width="Math.max(1, mapZoom / 6)"/>
-                        <vl-style-fill :color="[175, 175, 175, 1]"/>
-                      </vl-style-circle>
-                    </vl-style-box>
-                  </vl-feature>
-                  <vl-interaction-select ref="interaction" :features.sync="mapFeatures">
-                    <template slot-scope="select">
-                      <!--vl-overlay :position="findPointOnSurface(feature.geometry)"-->
-                      <vl-overlay v-for="feature in select['features']"
-                                  :id="feature.id"
-                                  :key="feature.id"
-                                  class="feature-popup feature-popup-lake"
-                                  :auto-pan="true"
-                                  :position="[-90, -180]"
-                      >
-                        <template>
-                          <b-card style="position: absolute; bottom: .5em; left: .5em; width: 256px">
-                            <div slot="header">
-                              <span style="float: left; font-size: 1rem; padding: 0 1rem 0 0; max-width: 200px;">
-                                {{ feature.properties.name }}
-                              </span>
-                              <button type="button"
-                                      class="close"
-                                      aria-label="Close"
-                                      style="font-size: 1.25rem"
-                                      @click="mapFeatures = mapFeatures.filter(f => f.id !== feature.id)"
-                              >
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            {{ (feature.properties.count || 'No') + ' dataset' + (feature.properties.count !== 1 ? 's' : '') }} available<br>
-                            <router-link :to="{ name: 'databaseDetails', params: { id: feature.properties.id } }">
-                              {{ feature.properties.count ? '&#8627; View details' : '&#8627; Show lake info' }}
-                            </router-link>
-                          </b-card>
-                        </template>
-                      </vl-overlay>
-                    </template>
-                  </vl-interaction-select>
-                  <vl-layer-tile id="osm">
-                    <vl-source-osm @mounted="onSourceOsmMounted"/>
-                  </vl-layer-tile>
-                </vl-map>
+                <map-overview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
               </no-ssr>
             </div>
           </b-container>
@@ -129,7 +59,7 @@
                    caption-top
                    show-empty
                    sort-by="name"
-                   :items="mappedResults"
+                   :items="getResults"
                    :fields="fields"
           >
             <template slot="table-caption">Found lakes with datasets:</template>
@@ -166,39 +96,43 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import bTable from 'bootstrap-vue/es/components/table/table';
 import FormInputTags from './FormInputTags';
 import gql from 'graphql-tag';
 
 const noSSR = {};
 
+let lakeToFeature = (lake, index) => {
+  return {
+    type: 'Feature',
+    id: lake['uuid'],
+    geometry: {
+      type: 'Point',
+      coordinates: [lake['longitude'], lake['latitude']],
+    },
+    properties: {
+      ...lake,
+      index,
+    },
+  };
+};
+
 if (process.client) {
-  const fallback = {
-    template: `
+  const handleError = (err) => {
+    console.error(err);
+    return {
+      template: `
       <div>
         <div class="alert alert-danger">
           <strong>Error:</strong> This component could not be loaded!
         </div>
       </div>`,
+    };
   };
-  const ccLoad = import('./ClimateChart').catch(e => console.error(e));
-  const vlLoad = import('vuelayers').catch(e => console.error(e));
-  // noinspection JSUnusedGlobalSymbols
   Object.assign(noSSR, {
-    climateChart: () => ccLoad.then(module => module.default),
-    vlMap: () => vlLoad.then(module => module.Map['Map']).catch(() => fallback),
-    vlView: () => vlLoad.then(module => module.Map['View']).catch(() => fallback),
-    vlFeature: () => vlLoad.then(module => module.Feature['Feature']).catch(() => fallback),
-    vlGeomPoint: () => vlLoad.then(module => module.PointGeom['Geom']).catch(() => fallback),
-    vlInteractionSelect: () => vlLoad.then(module => module.SelectInteraction['Interaction']).catch(() => fallback),
-    vlOverlay: () => vlLoad.then(module => module.Overlay['Overlay']).catch(() => fallback),
-    vlLayerTile: () => vlLoad.then(module => module.TileLayer['Layer']).catch(() => fallback),
-    vlSourceOsm: () => vlLoad.then(module => module.OsmSource['Source']).catch(() => fallback),
-    vlStyleBox: () => vlLoad.then(module => module.StyleBox['Style']).catch(() => fallback),
-    vlStyleFill: () => vlLoad.then(module => module.FillStyle['Style']).catch(() => fallback),
-    vlStyleStroke: () => vlLoad.then(module => module.StrokeStyle['Style']).catch(() => fallback),
-    vlStyleCircle: () => vlLoad.then(module => module.CircleStyle['Style']).catch(() => fallback),
+    'climate-chart': () => import('@/components/ClimateChart').then(m => m.default).catch(handleError),
+    'map-overview': () => import('@/components/MapOverview').then(m => m.default).catch(handleError),
   });
 } else if (process.server) {
   // TODO: Figure out why computedItems throws an error during SSR
@@ -214,11 +148,11 @@ if (process.client) {
 }
 
 export default {
-  name: 'DatabaseViewIndex',
+  name: 'database-view-index',
   components: {
+    ...noSSR,
     bTable,
     FormInputTags,
-    ...noSSR,
   },
   data () {
     return {
@@ -226,55 +160,7 @@ export default {
       filters: {
         terms: {
           tags: [],
-          groups: [
-            {
-              text: 'Proxy',
-              icon: 'archive',
-              name: 'proxy',
-              isAvailable: () => true,
-              fetchOptions: () => {
-                return !Array.isArray(this['proxies']) ? [] : this['proxies'].map(proxy => ({
-                  text: proxy.name.slice(0, 1).toUpperCase() + proxy.name.slice(1),
-                  name: proxy.name,
-                  parent: 'proxy',
-                }));
-              },
-            },
-            {
-              text: 'Attribute',
-              icon: 'chart-area',
-              name: 'attribute',
-              isAvailable: () => !!this.filters.terms.tags.find(tag => {
-                return tag.type === 'group' && tag.text === 'Proxy';
-              }),
-              fetchOptions: () => {
-                return this.filters.terms.tags
-                  .filter(tag => tag.type === 'option' && tag.parent === 'proxy')
-                  .reduce((items, tag) => {
-                    if (Array.isArray(this['proxies'])) {
-                      let proxy = this['proxies'].find(proxy => proxy.name === tag.name);
-                      if (proxy) {
-                        if (!proxy._attributes) {
-                          this.loadProxyAttributes(proxy.id);
-                        } else {
-                          let attributes = proxy._attributes;
-                          items.push(
-                            ...attributes.map(
-                              attribute => ({
-                                text: attribute.name + ' (' + tag.text + ')',
-                                name: attribute.name,
-                                parent: 'attribute',
-                              }),
-                            ),
-                          );
-                        }
-                      }
-                    }
-                    return items;
-                  }, []);
-              },
-            },
-          ],
+          groups: [],
         },
         location: '',
       },
@@ -326,13 +212,6 @@ export default {
     },
   },
   computed: {
-    mappedResults () {
-      return this.lakes.map(lake => {
-        let datasets = 0;
-        lake.cores.forEach(core => core.collections.forEach(() => datasets++));
-        return Object.assign({}, lake, { id: lake['uuid'], datasets });
-      });
-    },
     ...mapState('user', [
       'user',
     ]),
@@ -344,6 +223,16 @@ export default {
       'countProxies',
       'transformedResults',
     ]),
+    getResults () {
+      return this.lakes.map(lake => {
+        let datasets = 0;
+        lake.cores.forEach(core => core.collections.forEach(() => datasets++));
+        return Object.assign({}, lake, { id: lake['uuid'], datasets });
+      });
+    },
+    getFeatures () {
+      return this.getResults.map(lakeToFeature);
+    },
     mapZoom: {
       get () { return this.$store.state.database.map.zoom; },
       set (value) { this.$store.commit('database/MAP_ZOOM_SET', value); },
@@ -362,36 +251,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions('database', [
-      'loadProxies',
-      'loadProxyAttributes',
-      'loadResultData',
-    ]),
-    onChartInit () {
-      this.chart.loading = false;
-    },
     // eslint-disable-next-line no-unused-vars
     updateLakes (filteredLakes) {
-      //this.lakes = filteredLakes;
-    },
-    onSourceOsmMounted () {
-      this.map.loading = false;
-    },
-    trySelectFeature () {
-      // TODO: This gets executed far too often; Find a better trigger
-      let selectedFeatures = this.$store.state.database.map.features;
-      if (Array.isArray(selectedFeatures) && selectedFeatures.length) {
-        if (Array.isArray(this.$refs.features)) {
-          let feature = this.$refs.features.find(f => f.id === selectedFeatures[0].id);
-          if (feature) {
-            try {
-              this.$refs.interaction.select(feature);
-            } catch (e) {
-              // do nothing
-            }
-          }
-        }
-      }
+      // this.lakes = filteredLakes;
     },
     formatCoordinates({ latitude, longitude }) {
       latitude = Number.parseFloat(latitude);
@@ -411,10 +273,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .feature-popup-lake {
-    bottom: .5em;
-    left: .5em;
-  }
-</style>

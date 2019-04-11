@@ -28,7 +28,7 @@ import TheNavbar from '@/views/TheNavbar';
 import SESSION from '@/graphql/Session.graphql';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     TheNavbar,
   },
@@ -106,9 +106,12 @@ export default {
       background-color: $primary;
     }
     button.btn > svg.fa-spin {
+      margin-left: .75em;
+    }
+    button.btn.w-100 > svg.fa-spin,
+    button.btn.btn-block > svg.fa-spin {
       position: absolute;
       margin-top: .25em;
-      margin-left: .75em;
     }
     .comma-separated :not(:last-child)::after {
       content: ', ';

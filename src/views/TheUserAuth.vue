@@ -51,7 +51,7 @@
                     />
                   </b-form-group>
                 </div>
-                <b-button :disabled="pending" type="submit" variant="primary" class="mt-4" block>
+                <b-button :disabled="pending" type="submit" variant="primary" class="mt-2 w-100">
                   Login <font-awesome-icon v-if="pending" icon="spinner" spin/>
                 </b-button>
               </b-form>
@@ -71,7 +71,7 @@ import LOGIN from '@/graphql/Login.graphql';
 import SESSION from '@/graphql/Session.graphql';
 
 export default {
-  name: 'TheUserAuth',
+  name: 'the-user-auth',
   data () {
     return {
       session: {

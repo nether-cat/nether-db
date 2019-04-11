@@ -19,7 +19,7 @@ import eruptionCsvUrl from '@/assets/vulkanausbrueche.csv';
 import lakesCsvUrl from '@/assets/seen-mit-vulkanaschelagen.csv';
 
 export default {
-  name: 'ClimateChart',
+  name: 'climate-chart',
   /**
    * Properties
    */

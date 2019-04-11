@@ -81,7 +81,7 @@ import LOGOUT from '@/graphql/Logout.graphql';
 import SESSION from '@/graphql/Session.graphql';
 
 export default {
-  name: 'TheNavbar',
+  name: 'the-navbar',
   components: {
     bNavbar,
     bNavbarNav,
