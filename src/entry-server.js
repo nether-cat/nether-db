@@ -1,6 +1,5 @@
 import 'isomorphic-fetch';
 import Vue from 'vue';
-import App from './App.vue';
 import ApolloSSR from 'vue-apollo/ssr';
 import { createApp } from './main';
 
@@ -26,39 +25,23 @@ export default context => {
     });
     router.push(context.url);
     router.onReady(() => {
-      const matchedComponents = router.getMatchedComponents();
-      Promise.all([
-        // Async data
-        ...matchedComponents.map(component => {
-          if (component.asyncData) {
-            return component.asyncData({
-              apolloProvider,
-              store,
-              route: router.currentRoute,
-            });
-          }
-        }),
-        // Apollo prefetch
-        ApolloSSR.prefetchAll(apolloProvider, [App, ...matchedComponents], {
-          store,
-          route: router.currentRoute,
-        }),
-      ]).then(() => {
-        // After all preFetch hooks are resolved, our store is now
-        // filled with the state needed to render the app.
-        // When we attach the state to the context, and the `template` option
-        // is used for the renderer, the state will automatically be
-        // serialized and injected into the HTML as `window.__INITIAL_STATE__`.
+      // This `rendered` hook is called when the app has finished rendering
+      context.rendered = () => {
+        // After the app is rendered, our store is filled with the
+        // Vuex state from our components. When we attach the state to
+        // the context, and the `template` option is used for the renderer,
+        // the state will automatically be serialized and injected into
+        // our DOM as `window.__INITIAL_STATE__`.
         context.state = store.state;
-        // Same for Apollo client cache
+        // Also inject the Apollo cache state as `window.__APOLLO_STATE__`
         context.apolloState = ApolloSSR.getStates(apolloProvider);
         // Additionally we eventually add the router's status code
         if (router.status && router.status !== 200) {
           // TODO: Figure out if one could also trigger HTTP redirects here.
           context.httpCode = router.status;
         }
-        resolve(app);
-      });
+      };
+      resolve(app);
     }, reject);
   });
 };

@@ -25,7 +25,12 @@ import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown'
 import bProgress from 'bootstrap-vue/es/components/progress/progress';
 import bProgressBar from 'bootstrap-vue/es/components/progress/progress-bar';
 import bRow from 'bootstrap-vue/es/components/layout/row';
+import bTable from 'bootstrap-vue/es/components/table/table';
 import bToggle from 'bootstrap-vue/es/directives/toggle/toggle';
+
+// fix nav item's defaults for router-link specific props
+bNavItem.options.props.activeClass.default = 'active';
+bNavItem.options.props.exactActiveClass.default = 'exact-active';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -124,6 +129,7 @@ export function installPlugins (Vue) {
   Vue.component('bProgress', bProgress);
   Vue.component('bProgressBar', bProgressBar);
   Vue.component('bRow', bRow);
+  Vue.component('bTable', bTable);
   // add components from vue-fontawesome
   Vue.component('FontAwesomeIcon', FontAwesomeIcon);
   Vue.component('FontAwesomeLayers', FontAwesomeLayers);

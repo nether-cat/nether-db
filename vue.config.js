@@ -4,7 +4,7 @@ const isProd = process.env.NODE_ENV === 'production';
 module.exports = {
   lintOnSave: true,
 
-  baseUrl: '/',
+  publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'assets',
   indexPath: 'index.client.html',

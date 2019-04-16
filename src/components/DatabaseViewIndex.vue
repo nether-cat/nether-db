@@ -97,7 +97,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import bTable from 'bootstrap-vue/es/components/table/table';
 import FormInputTags from './FormInputTags';
 import gql from 'graphql-tag';
 
@@ -134,24 +133,12 @@ if (process.client) {
     'climate-chart': () => import('@/components/ClimateChart').then(m => m.default).catch(handleError),
     'map-overview': () => import('@/components/MapOverview').then(m => m.default).catch(handleError),
   });
-} else if (process.server) {
-  // TODO: Figure out why computedItems throws an error during SSR
-  // This dirty hack prevents an error from accessing this.$emit
-  const tryComputedItems = bTable.computed.computedItems;
-  bTable.computed.computedItems = function(...args) {
-    try {
-      return tryComputedItems.call(this, ...args);
-    } catch (e) {
-      return this.items;
-    }
-  };
 }
 
 export default {
   name: 'database-view-index',
   components: {
     ...noSSR,
-    bTable,
     FormInputTags,
   },
   data () {

@@ -216,8 +216,11 @@ export default {
               load-tiles-while-interacting={true}
               data-projection="EPSG:4326"
               style="height: 485px"
-              _onpostcompose="trySelectFeature"
-              _onpointermove="experimentalHandler"
+              {...{ /*
+              TODO: Listen for pointer events
+              onpostcompose="trySelectFeature"
+              onpointermove="experimentalHandler"
+              */ }}
       >
         <vl-view
           min-zoom={1}

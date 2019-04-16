@@ -129,7 +129,6 @@ export const database = {
       state.results = results;
     },
     [DETAILS_ID_SET] (state, detailsId) {
-      detailsId = Number(detailsId);
       state.detailsId = detailsId || undefined;
     },
     [RECORDS_SET] (state, records) {

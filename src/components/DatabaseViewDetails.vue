@@ -152,7 +152,6 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import bTable from 'bootstrap-vue/es/components/table/table';
 import gql from 'graphql-tag';
 
 const noSSR = {};
@@ -190,7 +189,6 @@ if (process.client) {
 export default {
   name: 'database-view-details',
   components: {
-    bTable,
     ...noSSR,
   },
   data () {
