@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const loadEnv = require('@vue/cli-service/lib/util/loadEnv');
+const dotenv = require('dotenv');
 const { default: chalk } = require('chalk');
 const seed = require('../apollo-server/utils/neo4j-cli-service/seed');
 
@@ -33,9 +33,9 @@ const envFiles = [
 
 const load = path => {
   try {
-    const result = loadEnv(path);
+    const result = dotenv.config({ path }).parsed;
     Object.keys(result).forEach(key => {
-      if (typeof environment[key] === 'undefined') {
+      if (environment[key] === undefined) {
         environment[key] = result[key];
       } else {
         delete result[key];
@@ -52,7 +52,7 @@ const load = path => {
   }
 };
 
-buffered.log('Fetching additional environment variables...\n');
+buffered.log('Loading additional environment variables...\n');
 envFiles.forEach(f => load(path.resolve(f)));
 
 let running = false;

@@ -20,17 +20,20 @@
     <div class="main">
       <router-view/>
     </div>
+    <page-footer/>
   </div>
 </template>
 
 <script>
 import TheNavbar from '@/views/TheNavbar';
+import PageFooter from '@/components/PageFooter';
 import SESSION from '@/graphql/Session.graphql';
 
 export default {
   name: 'app',
   components: {
     TheNavbar,
+    PageFooter,
   },
   apollo: {
     session: SESSION,
@@ -70,7 +73,7 @@ export default {
       display: block;
       background-color: white;
       img {
-        max-height: 100px;
+        max-height: 111px;
         padding: 5px 10px;
       }
       .nav {
@@ -89,11 +92,18 @@ export default {
     > .main {
       display: block;
       > .container, > .container-fluid {
-        padding: 1.5em;
+        padding: 1.5rem;
       }
       .card {
-        .card-body {
-          .container, .container-fluid {
+        > .card-header {
+          h1, h2, h3, h4, h5, h6,
+          .h1, .h2, .h3, .h4, .h5, .h6 {
+            display: inline;
+            margin-bottom: 0;
+          }
+        }
+        > .card-body {
+          > .container, > .container-fluid {
             padding: 0;
           }
         }

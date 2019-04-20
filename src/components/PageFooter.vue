@@ -1,0 +1,39 @@
+<script>
+export default {
+  name: 'page-footer',
+  props: {
+    wrapAlways: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    classesDefaultBlock() {
+      return { 'd-block': true, 'd-lg-inline': !this.wrapAlways };
+    },
+    classesDefaultNone() {
+      return { 'd-none': true, 'd-lg-inline': !this.wrapAlways };
+    },
+  },
+  render () {
+    return (
+      <div class="footer container-fluid text-muted">
+        <span class={this.classesDefaultBlock}>© Helmholtz-Zentrum Potsdam</span>
+        <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
+        <a class="font-weight-bold text-muted" href="#">Deutsches GeoForschungsZentrum GFZ</a>
+        <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
+        <span class={this.classesDefaultBlock}>Powered by nether-db v1.0.0</span>
+      </div>
+    );
+  },
+};
+</script>
+
+<style scoped>
+  .footer {
+    display: block;
+    padding: 1rem 0 2rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+</style>

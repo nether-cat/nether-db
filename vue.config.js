@@ -66,6 +66,21 @@ module.exports = {
         keepQuery: false,
       })
       .before('sass-loader');
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(options => {
+        options.transformAssetUrls = Object.assign({}, options.transformAssetUrls, {
+          'b-img': 'src',
+          'b-img-lazy': ['src', 'blank-src'],
+          'b-card': 'img-src',
+          'b-card-img': 'img-src',
+          'b-card-img-lazy': ['src', 'blank-src'],
+          'b-carousel-slide': 'img-src',
+          'b-embed': 'src',
+        });
+        return options;
+      });
     config.resolve.alias
       .set('@seeds', path.resolve(__dirname, 'apollo-server/utils/neo4j-cli-service/seeds'));
   },

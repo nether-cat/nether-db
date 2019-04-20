@@ -1,5 +1,5 @@
 <template>
-  <b-container class="overlay" fluid>
+  <b-container fluid class="overlay">
     <b-row>
       <b-col cols="12" class="text-center">
         <img class="logo" src="../assets/palim-logo.png" alt="PaLimDB" :class="animation">
@@ -61,6 +61,13 @@
       </b-col>
       <b-col/>
     </b-row>
+    <b-row>
+      <b-col/>
+      <b-col cols="12" sm="10" md="7" xl="5">
+        <page-footer class="my-4" wrap-always/>
+      </b-col>
+      <b-col/>
+    </b-row>
   </b-container>
 </template>
 
@@ -69,9 +76,13 @@ import crypto from 'crypto';
 import { onLogin } from '@/vue-apollo';
 import LOGIN from '@/graphql/Login.graphql';
 import SESSION from '@/graphql/Session.graphql';
+import PageFooter from '@/components/PageFooter';
 
 export default {
   name: 'the-user-auth',
+  components: {
+    PageFooter,
+  },
   data () {
     return {
       session: {
@@ -167,8 +178,8 @@ export default {
     top: 0;
   }
   .logo {
-    max-height: 100px;
-    margin: 40px 0 30px;
+    max-height: 111px;
+    margin: 2.5rem 0 2rem;
   }
   .shake-error {
     animation: shake 0.3s;

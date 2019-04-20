@@ -152,3 +152,9 @@ export default {
     }
   }
 </style>
+
+<style lang="scss">
+  .navbar-nav.icons .dropdown-menu {
+    position: absolute;
+  }
+</style>
