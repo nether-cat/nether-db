@@ -8,7 +8,7 @@
     "samples": 3,
     "ageSpan": 2316,
     "ageResolution": 1.2953367875647668,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2012.11.010",
     "@lake.name": "Ammersee",
     "@core.label": "AS10dist",
@@ -16,7 +16,7 @@
     "@core.longitude": 11.12,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:57.616Z"
+    "_lastCheck": "2019-04-21T01:40:38.420Z"
   },
   {
     "file": "Ammersee-14C-CZYMZIK_et_al_2013-AS10prox",
@@ -27,7 +27,7 @@
     "samples": 11,
     "ageSpan": 3546,
     "ageResolution": 3.102086858432036,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2012.11.010",
     "@lake.name": "Ammersee",
     "@core.label": "AS10prox",
@@ -35,7 +35,7 @@
     "@core.longitude": 11.12,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:57.723Z"
+    "_lastCheck": "2019-04-21T01:40:38.530Z"
   },
   {
     "file": "Aspvatnet-14C_Bakke_et_al_2005_core1",
@@ -46,7 +46,7 @@
     "samples": 10,
     "ageSpan": 6851,
     "ageResolution": 1.4596409283316303,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1191/0959683605hl815rp",
     "@lake.name": "Aspevatnet",
     "@core.label": "Core 1",
@@ -57,7 +57,7 @@
     "@core.drillDate": 2000,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:57.842Z"
+    "_lastCheck": "2019-04-21T01:40:38.666Z"
   },
   {
     "file": "Ayr_Lake-Varves-THOMAS_et_al_2012",
@@ -67,14 +67,14 @@
     "samples": 572,
     "ageSpan": 572,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9584-7 ",
     "@lake.name": "Ayr Lake",
     "@core.latitude": 70.459,
     "@core.longitude": -70.086,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:57.924Z"
+    "_lastCheck": "2019-04-21T01:40:38.719Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_58_78",
@@ -85,7 +85,7 @@
     "samples": 5,
     "ageSpan": 2201,
     "ageResolution": 2.271694684234439,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "58/78",
@@ -95,7 +95,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:57.974Z"
+    "_lastCheck": "2019-04-21T01:40:38.763Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_63_78",
@@ -106,7 +106,7 @@
     "samples": 8,
     "ageSpan": 7891,
     "ageResolution": 1.0138132049169941,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "63/78",
@@ -116,7 +116,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.025Z"
+    "_lastCheck": "2019-04-21T01:40:38.808Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_68_78",
@@ -127,7 +127,7 @@
     "samples": 4,
     "ageSpan": 5051,
     "ageResolution": 0.7919223916056226,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "68/78",
@@ -137,7 +137,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.074Z"
+    "_lastCheck": "2019-04-21T01:40:38.851Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_69_78",
@@ -148,7 +148,7 @@
     "samples": 6,
     "ageSpan": 8581,
     "ageResolution": 0.6992192052208367,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "69/78",
@@ -158,7 +158,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.130Z"
+    "_lastCheck": "2019-04-21T01:40:38.907Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_71_78",
@@ -169,7 +169,7 @@
     "samples": 5,
     "ageSpan": 3261,
     "ageResolution": 1.5332720024532351,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "71/78",
@@ -179,7 +179,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.177Z"
+    "_lastCheck": "2019-04-21T01:40:38.954Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_1c",
@@ -190,7 +190,7 @@
     "samples": 36,
     "ageSpan": 5971,
     "ageResolution": 6.029140847429241,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "83/1c",
@@ -200,7 +200,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.236Z"
+    "_lastCheck": "2019-04-21T01:40:39.015Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_23A",
@@ -211,7 +211,7 @@
     "samples": 4,
     "ageSpan": 4771,
     "ageResolution": 0.8383986585621463,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "83/23A",
@@ -221,7 +221,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.281Z"
+    "_lastCheck": "2019-04-21T01:40:39.058Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_7A",
@@ -232,7 +232,7 @@
     "samples": 23,
     "ageSpan": 7533,
     "ageResolution": 3.0532324439134473,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "83/7A",
@@ -242,7 +242,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.327Z"
+    "_lastCheck": "2019-04-21T01:40:39.104Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_9",
@@ -253,7 +253,7 @@
     "samples": 28,
     "ageSpan": 9931,
     "ageResolution": 2.819454234216091,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "83/9",
@@ -263,7 +263,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.375Z"
+    "_lastCheck": "2019-04-21T01:40:39.158Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B55_78",
@@ -274,7 +274,7 @@
     "samples": 7,
     "ageSpan": 5281,
     "ageResolution": 1.3255065328536262,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B55/78",
@@ -284,7 +284,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.425Z"
+    "_lastCheck": "2019-04-21T01:40:39.203Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B56_78",
@@ -295,7 +295,7 @@
     "samples": 6,
     "ageSpan": 5171,
     "ageResolution": 1.1603171533552503,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B56/78",
@@ -305,7 +305,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.471Z"
+    "_lastCheck": "2019-04-21T01:40:39.246Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B6",
@@ -316,7 +316,7 @@
     "samples": 4,
     "ageSpan": 1561,
     "ageResolution": 2.5624599615631007,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B6",
@@ -326,7 +326,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.516Z"
+    "_lastCheck": "2019-04-21T01:40:39.289Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B75_78",
@@ -337,7 +337,7 @@
     "samples": 4,
     "ageSpan": 3701,
     "ageResolution": 1.0807889759524454,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B75/78",
@@ -347,7 +347,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.563Z"
+    "_lastCheck": "2019-04-21T01:40:39.336Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B779",
@@ -358,7 +358,7 @@
     "samples": 11,
     "ageSpan": 8581,
     "ageResolution": 1.2819018762382006,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B779",
@@ -368,7 +368,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.608Z"
+    "_lastCheck": "2019-04-21T01:40:39.379Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B8",
@@ -379,7 +379,7 @@
     "samples": 6,
     "ageSpan": 11201,
     "ageResolution": 0.5356664583519329,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "B8",
@@ -389,7 +389,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.684Z"
+    "_lastCheck": "2019-04-21T01:40:39.458Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core379",
@@ -400,7 +400,7 @@
     "samples": 8,
     "ageSpan": 12151,
     "ageResolution": 0.6583820261706855,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "Core379",
@@ -410,7 +410,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.747Z"
+    "_lastCheck": "2019-04-21T01:40:39.526Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core479",
@@ -421,7 +421,7 @@
     "samples": 12,
     "ageSpan": 10481,
     "ageResolution": 1.144928918996279,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "Core479",
@@ -431,7 +431,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.787Z"
+    "_lastCheck": "2019-04-21T01:40:39.564Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core579",
@@ -442,7 +442,7 @@
     "samples": 12,
     "ageSpan": 7421,
     "ageResolution": 1.6170327449130846,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "Core579",
@@ -452,7 +452,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.835Z"
+    "_lastCheck": "2019-04-21T01:40:39.608Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E1_77",
@@ -463,7 +463,7 @@
     "samples": 2,
     "ageSpan": 4671,
     "ageResolution": 0.42817383857846286,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "E1/77",
@@ -473,7 +473,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.879Z"
+    "_lastCheck": "2019-04-21T01:40:39.652Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E2_77",
@@ -484,7 +484,7 @@
     "samples": 3,
     "ageSpan": 3011,
     "ageResolution": 0.9963467286615743,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "E2/77",
@@ -494,7 +494,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.923Z"
+    "_lastCheck": "2019-04-21T01:40:39.695Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E77_78",
@@ -505,7 +505,7 @@
     "samples": 4,
     "ageSpan": 2431,
     "ageResolution": 1.6454134101192925,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "E77/78",
@@ -515,7 +515,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:58.968Z"
+    "_lastCheck": "2019-04-21T01:40:39.737Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E78_78",
@@ -526,7 +526,7 @@
     "samples": 8,
     "ageSpan": 3341,
     "ageResolution": 2.3944926668662077,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "E78/78",
@@ -536,7 +536,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.047Z"
+    "_lastCheck": "2019-04-21T01:40:39.817Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E80_78",
@@ -547,7 +547,7 @@
     "samples": 2,
     "ageSpan": 3101,
     "ageResolution": 0.6449532408900355,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S003382220001434X",
     "@lake.name": "Barrine",
     "@core.label": "E80/78",
@@ -557,7 +557,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.110Z"
+    "_lastCheck": "2019-04-21T01:40:39.884Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL00-1",
@@ -569,7 +569,7 @@
     "samples": 2,
     "ageSpan": 941,
     "ageResolution": 2.1253985122210413,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL00-1",
@@ -581,7 +581,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.156Z"
+    "_lastCheck": "2019-04-21T01:40:39.931Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-1",
@@ -593,7 +593,7 @@
     "samples": 12,
     "ageSpan": 10806,
     "ageResolution": 1.110494169905608,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL02-1",
@@ -602,7 +602,7 @@
     "@core.waterDepth": 9.5,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.217Z"
+    "_lastCheck": "2019-04-21T01:40:39.991Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-2",
@@ -614,7 +614,7 @@
     "samples": 3,
     "ageSpan": 19621,
     "ageResolution": 0.1528974058406809,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL02-2",
@@ -624,7 +624,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.262Z"
+    "_lastCheck": "2019-04-21T01:40:40.039Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-3",
@@ -636,7 +636,7 @@
     "samples": 15,
     "ageSpan": 8331,
     "ageResolution": 1.8005041411595248,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL02-3",
@@ -647,7 +647,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.309Z"
+    "_lastCheck": "2019-04-21T01:40:40.090Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-4",
@@ -659,7 +659,7 @@
     "samples": 3,
     "ageSpan": 636,
     "ageResolution": 4.716981132075472,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL02-4",
@@ -670,7 +670,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.371Z"
+    "_lastCheck": "2019-04-21T01:40:40.153Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-5",
@@ -682,7 +682,7 @@
     "samples": 3,
     "ageSpan": 15916,
     "ageResolution": 0.18848957024377985,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL02-5",
@@ -692,7 +692,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.417Z"
+    "_lastCheck": "2019-04-21T01:40:40.198Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL2K-3-1",
@@ -704,7 +704,7 @@
     "samples": 4,
     "ageSpan": 3208,
     "ageResolution": 1.2468827930174564,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@lake.latitude": 41.995015,
@@ -712,7 +712,7 @@
     "@core.label": "BL2K-3-1",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.463Z"
+    "_lastCheck": "2019-04-21T01:40:40.243Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-1",
@@ -724,7 +724,7 @@
     "samples": 9,
     "ageSpan": 13611,
     "ageResolution": 0.6612298875909192,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL96-1",
@@ -734,7 +734,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.509Z"
+    "_lastCheck": "2019-04-21T01:40:40.289Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-2",
@@ -746,7 +746,7 @@
     "samples": 14,
     "ageSpan": 14221,
     "ageResolution": 0.9844596019970466,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL96-2",
@@ -756,7 +756,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.558Z"
+    "_lastCheck": "2019-04-21T01:40:40.339Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-3",
@@ -768,7 +768,7 @@
     "samples": 9,
     "ageSpan": 17711,
     "ageResolution": 0.508158771385015,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL96-3",
@@ -778,7 +778,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.605Z"
+    "_lastCheck": "2019-04-21T01:40:40.384Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL98-9",
@@ -790,7 +790,7 @@
     "samples": 4,
     "ageSpan": 911,
     "ageResolution": 4.390779363336993,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BL98-9",
@@ -800,7 +800,7 @@
     "@core.coringMethod": "Gravity core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.653Z"
+    "_lastCheck": "2019-04-21T01:40:40.430Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BLR2K-3",
@@ -812,7 +812,7 @@
     "samples": 5,
     "ageSpan": 6654,
     "ageResolution": 0.7514277126540427,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/2009.2450(05)",
     "@lake.name": "Bear Lake",
     "@core.label": "BLR2K-3",
@@ -822,7 +822,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.699Z"
+    "_lastCheck": "2019-04-21T01:40:40.474Z"
   },
   {
     "file": "Belau-Dörfler_et_al_2012-14C-P2002",
@@ -834,7 +834,7 @@
     "samples": 16,
     "ageSpan": 5631,
     "ageResolution": 2.841413603267626,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683612449756",
     "@lake.name": "Belau",
     "@core.label": "P2002",
@@ -845,7 +845,7 @@
     "@core.drillDate": 2002,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.753Z"
+    "_lastCheck": "2019-04-21T01:40:40.529Z"
   },
   {
     "file": "Big_Round_Lake-Varves-THOMAS_BRINER-2008-06BRDP1",
@@ -855,7 +855,7 @@
     "samples": 1033,
     "ageSpan": 1051,
     "ageResolution": 982.8734538534729,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9258-7",
     "@lake.name": "Big Round Lake",
     "@core.label": "06BRDP1",
@@ -866,7 +866,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.841Z"
+    "_lastCheck": "2019-04-21T01:40:40.618Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_B06",
@@ -875,7 +875,7 @@
     "samples": 2,
     "ageSpan": 2626,
     "ageResolution": 0.7616146230007617,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-008-9262-y",
     "@lake.name": "Blue Lake",
     "@core.label": "B06",
@@ -884,7 +884,7 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.903Z"
+    "_lastCheck": "2019-04-21T01:40:40.681Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_C06",
@@ -893,7 +893,7 @@
     "samples": 2,
     "ageSpan": 2551,
     "ageResolution": 0.7840062720501764,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-008-9262-y",
     "@lake.name": "Blue Lake",
     "@core.label": "C06",
@@ -902,7 +902,7 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.943Z"
+    "_lastCheck": "2019-04-21T01:40:40.718Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_I06",
@@ -911,7 +911,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-008-9262-y",
     "@lake.name": "Blue Lake",
     "@core.label": "I06",
@@ -920,7 +920,7 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:30:59.982Z"
+    "_lastCheck": "2019-04-21T01:40:40.756Z"
   },
   {
     "file": "Blue_Lake-Varves-BIRD_et_al_2009-A99",
@@ -930,7 +930,7 @@
     "samples": 1997,
     "ageSpan": 1997,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9262-y",
     "@lake.name": "Blue Lake",
     "@core.label": "A-99",
@@ -942,7 +942,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.174Z"
+    "_lastCheck": "2019-04-21T01:40:40.931Z"
   },
   {
     "file": "Bow_Lake-14C-LEONARD_&_REASONER_1999_B84-III",
@@ -953,7 +953,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1006/qres.1998.2009",
     "@lake.name": "Bow Lake",
     "@core.label": "B84-III",
@@ -962,7 +962,7 @@
     "@core.waterDepth": 7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.251Z"
+    "_lastCheck": "2019-04-21T01:40:41.018Z"
   },
   {
     "file": "Bramant-14C-GUYARD_et_al_2007_BRA-03",
@@ -974,7 +974,7 @@
     "samples": 2,
     "ageSpan": 1016,
     "ageResolution": 1.968503937007874,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2007.07.007",
     "@lake.name": "Bramant",
     "@core.label": "BRA03",
@@ -984,7 +984,7 @@
     "@core.coringMethod": "modified piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.296Z"
+    "_lastCheck": "2019-04-21T01:40:41.061Z"
   },
   {
     "file": "Butrint-14C-MORELLÓN_et_al_2016_BUT-12-1-2",
@@ -996,7 +996,7 @@
     "samples": 7,
     "ageSpan": 2501,
     "ageResolution": 2.7988804478208715,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2015.10.043",
     "@lake.name": "Butrint",
     "@core.label": "BUT-12-1/2",
@@ -1006,7 +1006,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.347Z"
+    "_lastCheck": "2019-04-21T01:40:41.110Z"
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-81",
@@ -1017,7 +1017,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/BF00176939",
     "@lake.name": "C2",
     "@core.label": "C2-81",
@@ -1025,7 +1025,7 @@
     "@core.longitude": -78,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.391Z"
+    "_lastCheck": "2019-04-21T01:40:41.153Z"
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-84",
@@ -1036,7 +1036,7 @@
     "samples": 3,
     "ageSpan": 1371,
     "ageResolution": 2.1881838074398248,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/BF00176939",
     "@lake.name": "C2",
     "@core.label": "C2-84",
@@ -1044,7 +1044,7 @@
     "@core.longitude": -78,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.434Z"
+    "_lastCheck": "2019-04-21T01:40:41.195Z"
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_C2-82",
@@ -1055,7 +1055,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/BF00176939",
     "@lake.name": "C2",
     "@core.label": "C2-82",
@@ -1063,7 +1063,7 @@
     "@core.longitude": -78,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.479Z"
+    "_lastCheck": "2019-04-21T01:40:41.240Z"
   },
   {
     "file": "C2-Varves-LAMOUREUX_&_BRADLEY_1996",
@@ -1073,7 +1073,7 @@
     "samples": 3297,
     "ageSpan": 3297,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/BF00176939",
     "@lake.name": "C2",
     "@core.label": "composed of 6 cores",
@@ -1082,7 +1082,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.671Z"
+    "_lastCheck": "2019-04-21T01:40:41.364Z"
   },
   {
     "file": "Chala-Blauuw_et_al-2011-C14",
@@ -1094,7 +1094,7 @@
     "samples": 66,
     "ageSpan": 20177,
     "ageResolution": 3.27105119690737,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2011.07.014",
     "@lake.name": "Chala",
     "@core.label": "CH99-1G/03-2K, CH05-1G/05-4P",
@@ -1102,7 +1102,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.734Z"
+    "_lastCheck": "2019-04-21T01:40:41.424Z"
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-glacial",
@@ -1114,14 +1114,14 @@
     "samples": 3056,
     "ageSpan": 2554,
     "ageResolution": 1196.554424432263,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1126/science.1203724 ",
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:00.930Z"
+    "_lastCheck": "2019-04-21T01:40:41.590Z"
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-holocene",
@@ -1133,14 +1133,14 @@
     "samples": 260,
     "ageSpan": 3056,
     "ageResolution": 85.07853403141361,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1126/science.1203724 ",
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.226Z"
+    "_lastCheck": "2019-04-21T01:40:41.904Z"
   },
   {
     "file": "Crevice-Whitlock_et_al-2012-14C",
@@ -1153,7 +1153,7 @@
     "samples": 13,
     "ageSpan": 11091,
     "ageResolution": 1.172121539987377,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.palaeo.2012.03.001",
     "@lake.name": "Crevice",
     "@core.label": "CV01",
@@ -1164,7 +1164,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.315Z"
+    "_lastCheck": "2019-04-21T01:40:42.012Z"
   },
   {
     "file": "Dead_Sea_14C_Migowski_et_al_2004_Ein_Gedi",
@@ -1175,7 +1175,7 @@
     "samples": 20,
     "ageSpan": 8485,
     "ageResolution": 2.3571007660577488,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.epsl.2004.02.015",
     "@lake.name": "Dead Sea",
     "@core.label": "Ein Gedi",
@@ -1184,7 +1184,7 @@
     "@core.waterDepth": 413,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.360Z"
+    "_lastCheck": "2019-04-21T01:40:42.056Z"
   },
   {
     "file": "Deep_Lake-14C-Hu_et_al_1997",
@@ -1195,7 +1195,7 @@
     "samples": 2,
     "ageSpan": 2611,
     "ageResolution": 0.7659900421294523,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/0091-7613(1997)025<0207:CEOGLA>2.3.CO;2",
     "@lake.name": "Deep Lake",
     "@core.latitude": 47.683333,
@@ -1204,7 +1204,7 @@
     "@core.drillDate": 1995,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.405Z"
+    "_lastCheck": "2019-04-21T01:40:42.100Z"
   },
   {
     "file": "Deep_lake-Varves-HU_1999",
@@ -1214,14 +1214,14 @@
     "samples": 2844,
     "ageSpan": 2844,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1038/22728",
     "@lake.name": "Deep Lake",
     "@core.latitude": 47.68389,
     "@core.longitude": -95.39944,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.480Z"
+    "_lastCheck": "2019-04-21T01:40:42.174Z"
   },
   {
     "file": "Donard-14C_Moore_et_al_2001_95DON-03",
@@ -1232,7 +1232,7 @@
     "samples": 2,
     "ageSpan": 3661,
     "ageResolution": 0.5462988254575253,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1023/A:1011181301514",
     "@lake.name": "Donard",
     "@core.label": "95DON-03",
@@ -1241,7 +1241,7 @@
     "@core.coringMethod": "Piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.517Z"
+    "_lastCheck": "2019-04-21T01:40:42.223Z"
   },
   {
     "file": "Donard-14C-Moore_et_al_2001_94DON-01",
@@ -1252,7 +1252,7 @@
     "samples": 3,
     "ageSpan": 3716,
     "ageResolution": 0.8073196986006458,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1023/A:1011181301514",
     "@lake.name": "Donard",
     "@core.label": "94DON-01",
@@ -1261,7 +1261,7 @@
     "@core.coringMethod": "Piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.556Z"
+    "_lastCheck": "2019-04-21T01:40:42.262Z"
   },
   {
     "file": "Donard-Varves-MOORE_et_al-2001-95DON-B03_05",
@@ -1270,7 +1270,7 @@
     "samples": 1241,
     "ageSpan": 1241,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1023/A:1011181301514",
     "@lake.name": "Donard",
     "@core.label": "95DON-B3 & -05",
@@ -1279,7 +1279,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.735Z"
+    "_lastCheck": "2019-04-21T01:40:42.439Z"
   },
   {
     "file": "DV09-14C-MUSTAPHI_&_GAJEWSKI_2013_Core_T",
@@ -1290,7 +1290,7 @@
     "samples": 7,
     "ageSpan": 2561,
     "ageResolution": 2.7333073018352207,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1139/cjes-2012-0143",
     "@lake.name": "DV09",
     "@core.label": "Core T",
@@ -1300,7 +1300,7 @@
     "@core.drillDate": 1996,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.785Z"
+    "_lastCheck": "2019-04-21T01:40:42.498Z"
   },
   {
     "file": "DV09-Varves-MUSTAPHI_&_GAJEWSKI_2013",
@@ -1310,7 +1310,7 @@
     "samples": 1627,
     "ageSpan": 1627,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1139/cjes-2012-0143",
     "@lake.name": "DV09",
     "@core.label": "Core B",
@@ -1318,7 +1318,7 @@
     "@core.longitude": -89.3153,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:01.848Z"
+    "_lastCheck": "2019-04-21T01:40:42.556Z"
   },
   {
     "file": "East_Lake-Varves-CUVEN_et_al_2011-CB06EV1",
@@ -1330,7 +1330,7 @@
     "samples": 4198,
     "ageSpan": 4198,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.019",
     "@lake.name": "East Lake",
     "@core.label": "CB06EV1",
@@ -1340,7 +1340,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.098Z"
+    "_lastCheck": "2019-04-21T01:40:42.794Z"
   },
   {
     "file": "Elk_Lake-14C-Smith_et_al-1997",
@@ -1351,14 +1351,14 @@
     "samples": 8,
     "ageSpan": 12220,
     "ageResolution": 0.6546644844517185,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1130/0091-7613(1997)025<0391:gwpcap>2.3.co;2",
     "@lake.name": "Elk Lake",
     "@core.waterDepth": 9.1,
     "@core.drillDate": 1994,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.228Z"
+    "_lastCheck": "2019-04-21T01:40:42.946Z"
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL83B-1",
@@ -1368,7 +1368,7 @@
     "samples": 741,
     "ageSpan": 741,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1130/SPE276-p97",
     "@lake.name": "Elk Lake",
     "@core.label": "EL83B-1",
@@ -1376,7 +1376,7 @@
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.392Z"
+    "_lastCheck": "2019-04-21T01:40:43.118Z"
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL84B",
@@ -1386,7 +1386,7 @@
     "samples": 674,
     "ageSpan": 674,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1130/SPE276-p97",
     "@lake.name": "Elk Lake",
     "@core.label": "EL84B",
@@ -1394,7 +1394,7 @@
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.557Z"
+    "_lastCheck": "2019-04-21T01:40:43.245Z"
   },
   {
     "file": "Elk_Lake-Varves-BRADBURY_&_DEAN_1993",
@@ -1404,14 +1404,14 @@
     "samples": 10224,
     "ageSpan": 10224,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1130/SPE276",
     "@lake.name": "Elk Lake",
     "@core.latitude": 45.867222,
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.815Z"
+    "_lastCheck": "2019-04-21T01:40:43.490Z"
   },
   {
     "file": "Frias-14C-Aritzegui_et_al_2007_F94-2",
@@ -1422,7 +1422,7 @@
     "samples": 4,
     "ageSpan": 1266,
     "ageResolution": 3.1595576619273302,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quaint.2006.10.022",
     "@lake.name": "Frías",
     "@core.label": "F94-2",
@@ -1431,7 +1431,7 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.861Z"
+    "_lastCheck": "2019-04-21T01:40:43.534Z"
   },
   {
     "file": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP1",
@@ -1444,7 +1444,7 @@
     "samples": 12,
     "ageSpan": 465,
     "ageResolution": 25.806451612903224,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S0033822200048086",
     "@lake.name": "Gyltigesjön",
     "@core.label": "GP1",
@@ -1452,7 +1452,7 @@
     "@core.drillDate": 2010,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:02.957Z"
+    "_lastCheck": "2019-04-21T01:40:43.631Z"
   },
   {
     "file": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP2",
@@ -1465,7 +1465,7 @@
     "samples": 3,
     "ageSpan": 115,
     "ageResolution": 26.08695652173913,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S0033822200048086",
     "@lake.name": "Gyltigesjön",
     "@core.label": "GP2",
@@ -1473,7 +1473,7 @@
     "@core.drillDate": 2010,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.054Z"
+    "_lastCheck": "2019-04-21T01:40:43.731Z"
   },
   {
     "file": "Gyltigesjön-Snowball_et_al-2013-14C",
@@ -1486,14 +1486,14 @@
     "samples": 31,
     "ageSpan": 8813,
     "ageResolution": 3.517530920231476,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.gloplacha.2013.10.005",
     "@lake.name": "Gyltigesjön",
     "@core.coringMethod": "rod-operated piston cores",
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.108Z"
+    "_lastCheck": "2019-04-21T01:40:43.783Z"
   },
   {
     "file": "Haemelsee-Tephra-JONES_et_al_2018-HÄM13",
@@ -1502,7 +1502,7 @@
     "samples": 7,
     "ageSpan": 2728,
     "ageResolution": 2.565982404692082,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1111/bor.12250",
     "@lake.name": "Hämelsee",
     "@core.latitude": 52.759444,
@@ -1512,20 +1512,20 @@
     "@core.drillDate": 2013,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.162Z"
+    "_lastCheck": "2019-04-21T01:40:43.838Z"
   },
   {
     "file": "Haemelsee-Varves-MERKT-1994",
     "samples": 694,
     "comments": "https://core.ac.uk/download/pdf/11772168.pdf",
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@lake.name": "Hämelsee",
     "@core.latitude": 52.759444,
     "@core.longitude": 9.311111,
     "@core.coringMethod": "Livingstone Corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.248Z"
+    "_lastCheck": "2019-04-21T01:40:43.924Z"
   },
   {
     "file": "Hancza-LAUTERBACH_et_al-2011-14C",
@@ -1537,14 +1537,14 @@
     "samples": 13,
     "ageSpan": 8427,
     "ageResolution": 1.5426604960246824,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1111/j.1502-3885.2010.00159.x",
     "@lake.name": "Hancza",
     "@core.label": "JH 05_01/02, JH 05_03/04, JH 05_05",
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.317Z"
+    "_lastCheck": "2019-04-21T01:40:43.994Z"
   },
   {
     "file": "Hector_Lake-14C-LEONARD_&_REASONER_1999_H93-II",
@@ -1555,7 +1555,7 @@
     "samples": 3,
     "ageSpan": 3431,
     "ageResolution": 0.8743806470416787,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1006/qres.1998.2009",
     "@lake.name": "Hector Lake",
     "@core.label": "H93-II",
@@ -1563,7 +1563,7 @@
     "@core.longitude": -116.359722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.361Z"
+    "_lastCheck": "2019-04-21T01:40:44.041Z"
   },
   {
     "file": "Holzmaar-14C-PRASAD_&_BAIER_2014_HZM-BC_(Composite)",
@@ -1574,7 +1574,7 @@
     "samples": 35,
     "ageSpan": 8806,
     "ageResolution": 3.97456279809221,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.gloplacha.2014.08.020",
     "@lake.name": "Holzmaar",
     "@core.label": "HZM-B/C",
@@ -1582,7 +1582,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.407Z"
+    "_lastCheck": "2019-04-21T01:40:44.086Z"
   },
   {
     "file": "Hoya_Rincon_de_Parangueo-14C-PARK_et_al-2010-RP-1",
@@ -1593,7 +1593,7 @@
     "samples": 7,
     "ageSpan": 6971,
     "ageResolution": 1.0041600918089226,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2009.10.017",
     "@lake.name": "Hoya Rincón de Parangueo",
     "@core.label": "RP-1",
@@ -1603,7 +1603,7 @@
     "@core.drillDate": 2001,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.452Z"
+    "_lastCheck": "2019-04-21T01:40:44.129Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-1",
@@ -1613,7 +1613,7 @@
     "samples": 1131,
     "ageSpan": 1131,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
     "@core.label": "HVT031",
@@ -1621,7 +1621,7 @@
     "@core.longitude": -19.840278,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.489Z"
+    "_lastCheck": "2019-04-21T01:40:44.165Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-2",
@@ -1631,7 +1631,7 @@
     "samples": 2984,
     "ageSpan": 2984,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
     "@core.label": "HVT032",
@@ -1639,7 +1639,7 @@
     "@core.longitude": -19.849667,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.566Z"
+    "_lastCheck": "2019-04-21T01:40:44.235Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-3",
@@ -1649,7 +1649,7 @@
     "samples": 898,
     "ageSpan": 898,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
     "@core.label": "HVT033",
@@ -1657,7 +1657,7 @@
     "@core.longitude": -19.8595,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.600Z"
+    "_lastCheck": "2019-04-21T01:40:44.267Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-1",
@@ -1666,7 +1666,7 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn03-1",
@@ -1675,7 +1675,7 @@
     "@core.waterDepth": 36.5,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.627Z"
+    "_lastCheck": "2019-04-21T01:40:44.294Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-2",
@@ -1684,7 +1684,7 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn03-2",
@@ -1693,7 +1693,7 @@
     "@core.waterDepth": 23.1,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.652Z"
+    "_lastCheck": "2019-04-21T01:40:44.320Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-3",
@@ -1702,7 +1702,7 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn03-3",
@@ -1711,7 +1711,7 @@
     "@core.waterDepth": 30.4,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.677Z"
+    "_lastCheck": "2019-04-21T01:40:44.344Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-4",
@@ -1720,7 +1720,7 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn03-4",
@@ -1729,7 +1729,7 @@
     "@core.waterDepth": 31.26,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.704Z"
+    "_lastCheck": "2019-04-21T01:40:44.370Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-09-06",
@@ -1738,7 +1738,7 @@
     "samples": 31,
     "ageSpan": 301,
     "ageResolution": 102.99003322259136,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn09-6",
@@ -1747,7 +1747,7 @@
     "@core.waterDepth": 58.05,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.728Z"
+    "_lastCheck": "2019-04-21T01:40:44.392Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-10-07",
@@ -1756,7 +1756,7 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
     "@core.label": "Hvítárvatn10-7",
@@ -1765,7 +1765,7 @@
     "@core.waterDepth": 36.11,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.753Z"
+    "_lastCheck": "2019-04-21T01:40:44.415Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D1",
@@ -1776,7 +1776,7 @@
     "samples": 3,
     "ageSpan": 201,
     "ageResolution": 14.925373134328359,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D1",
@@ -1785,7 +1785,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.792Z"
+    "_lastCheck": "2019-04-21T01:40:44.454Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D2",
@@ -1796,7 +1796,7 @@
     "samples": 3,
     "ageSpan": 333,
     "ageResolution": 9.00900900900901,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D2",
@@ -1805,7 +1805,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.830Z"
+    "_lastCheck": "2019-04-21T01:40:44.491Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D3",
@@ -1816,7 +1816,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D3",
@@ -1825,7 +1825,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.872Z"
+    "_lastCheck": "2019-04-21T01:40:44.536Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_P1",
@@ -1836,7 +1836,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "P1",
@@ -1845,7 +1845,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.905Z"
+    "_lastCheck": "2019-04-21T01:40:44.575Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D1",
@@ -1854,7 +1854,7 @@
     "depthMax": 10348.9,
     "samples": 192,
     "ageSpan": 0,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D1",
@@ -1863,7 +1863,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.923Z"
+    "_lastCheck": "2019-04-21T01:40:44.611Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D2",
@@ -1872,7 +1872,7 @@
     "depthMax": 2282.6,
     "samples": 113,
     "ageSpan": 0,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D2",
@@ -1881,7 +1881,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.938Z"
+    "_lastCheck": "2019-04-21T01:40:44.633Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D3",
@@ -1890,7 +1890,7 @@
     "depthMax": 4565.6,
     "samples": 93,
     "ageSpan": 0,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "D3",
@@ -1899,7 +1899,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.952Z"
+    "_lastCheck": "2019-04-21T01:40:44.650Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P1",
@@ -1911,7 +1911,7 @@
     "samples": 171,
     "ageSpan": 137,
     "ageResolution": 1248.1751824817518,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "P1",
@@ -1920,7 +1920,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:03.971Z"
+    "_lastCheck": "2019-04-21T01:40:44.672Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P2",
@@ -1932,7 +1932,7 @@
     "samples": 435,
     "ageSpan": 527,
     "ageResolution": 825.426944971537,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
     "@core.label": "P2",
@@ -1941,7 +1941,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.015Z"
+    "_lastCheck": "2019-04-21T01:40:44.714Z"
   },
   {
     "file": "Iceberg-Varves-Loso_et_al-2008",
@@ -1951,13 +1951,13 @@
     "samples": 1557,
     "ageSpan": 1557,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9264-9 ",
     "@lake.name": "Iceberg Lake",
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.198Z"
+    "_lastCheck": "2019-04-21T01:40:44.950Z"
   },
   {
     "file": "Kallio_Kourujärvi-Varves-SAARNI_et_al-2015-KKJ-2_3",
@@ -1969,7 +1969,7 @@
     "samples": 2950,
     "ageSpan": 2950,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-015-9832-8",
     "@lake.name": "Kallio Kourujärvi",
     "@core.label": "KKJ-2/3",
@@ -1979,7 +1979,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.312Z"
+    "_lastCheck": "2019-04-21T01:40:45.054Z"
   },
   {
     "file": "Kalliojärvi-Varves-SAARNI_et_al-2016",
@@ -1991,7 +1991,7 @@
     "samples": 4083,
     "ageSpan": 4084,
     "ageResolution": 999.7551420176297,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615609747",
     "@lake.name": "Kalliojärvi",
     "@core.label": "KAL-1/2",
@@ -2001,7 +2001,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.484Z"
+    "_lastCheck": "2019-04-21T01:40:45.206Z"
   },
   {
     "file": "Lac_Brule-14C-Lafontaine-Boyer_&_Gajewski_2014_NO_LABEL",
@@ -2012,7 +2012,7 @@
     "samples": 2,
     "ageSpan": 291,
     "ageResolution": 6.8728522336769755,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
     "@core.latitude": 45.719167,
@@ -2020,7 +2020,7 @@
     "@core.coringMethod": "freeze corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.557Z"
+    "_lastCheck": "2019-04-21T01:40:45.263Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core3",
@@ -2030,7 +2030,7 @@
     "samples": 133,
     "ageSpan": 1321,
     "ageResolution": 100.68130204390613,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
     "@core.label": "Core 3",
@@ -2038,7 +2038,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.601Z"
+    "_lastCheck": "2019-04-21T01:40:45.285Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core4",
@@ -2048,7 +2048,7 @@
     "samples": 132,
     "ageSpan": 1311,
     "ageResolution": 100.68649885583524,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
     "@core.label": "Core 4",
@@ -2056,7 +2056,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.629Z"
+    "_lastCheck": "2019-04-21T01:40:45.312Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core5",
@@ -2066,7 +2066,7 @@
     "samples": 142,
     "ageSpan": 1411,
     "ageResolution": 100.63784549964564,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
     "@core.label": "Core 5",
@@ -2074,7 +2074,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.656Z"
+    "_lastCheck": "2019-04-21T01:40:45.339Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core7",
@@ -2084,7 +2084,7 @@
     "samples": 121,
     "ageSpan": 1201,
     "ageResolution": 100.74937552039967,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
     "@core.label": "Core 7",
@@ -2092,7 +2092,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.684Z"
+    "_lastCheck": "2019-04-21T01:40:45.363Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-I",
@@ -2103,7 +2103,7 @@
     "samples": 4,
     "ageSpan": 2841,
     "ageResolution": 1.407954945441746,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1023/A:1008136029735",
     "@lake.name": "Lac D'Annecy",
     "@core.label": "AN-I",
@@ -2112,7 +2112,7 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.737Z"
+    "_lastCheck": "2019-04-21T01:40:45.412Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-II",
@@ -2123,7 +2123,7 @@
     "samples": 10,
     "ageSpan": 19631,
     "ageResolution": 0.5093984004890225,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1023/A:1008136029735",
     "@lake.name": "Lac D'Annecy",
     "@core.label": "AN-II",
@@ -2132,7 +2132,7 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.786Z"
+    "_lastCheck": "2019-04-21T01:40:45.460Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-III",
@@ -2143,7 +2143,7 @@
     "samples": 2,
     "ageSpan": 1961,
     "ageResolution": 1.0198878123406425,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1023/A:1008136029735",
     "@lake.name": "Lac D'Annecy",
     "@core.label": "AN-III",
@@ -2152,7 +2152,7 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.835Z"
+    "_lastCheck": "2019-04-21T01:40:45.508Z"
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1B",
@@ -2163,7 +2163,7 @@
     "samples": 7,
     "ageSpan": 17506,
     "ageResolution": 0.3998629041471496,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quaint.2012.06.031",
     "@lake.name": "Lagoon Etoliko",
     "@core.label": "ETO1B",
@@ -2173,7 +2173,7 @@
     "@core.coringMethod": "Floating raft (UWITEC)",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.881Z"
+    "_lastCheck": "2019-04-21T01:40:45.552Z"
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1C",
@@ -2184,7 +2184,7 @@
     "samples": 4,
     "ageSpan": 9186,
     "ageResolution": 0.43544524276072283,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quaint.2012.06.031",
     "@lake.name": "Lagoon Etoliko",
     "@core.label": "ETO1C",
@@ -2193,7 +2193,7 @@
     "@core.waterDepth": 26.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.930Z"
+    "_lastCheck": "2019-04-21T01:40:45.600Z"
   },
   {
     "file": "Lagoon-Etoliko-Varves-Koutsodendris_et_al_2017-ETO12_2-3",
@@ -2205,7 +2205,7 @@
     "samples": 572,
     "ageSpan": 572,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.871182\t\t\t",
     "@lake.name": "Lagoon Etoliko",
     "@core.label": "ETO12_2-3",
@@ -2214,7 +2214,7 @@
     "@core.coringMethod": "Composite Core (COMPCORE)",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:04.986Z"
+    "_lastCheck": "2019-04-21T01:40:45.649Z"
   },
   {
     "file": "Laguna_Potrok_Aike-14C-Haberzettl_et_al_2007_PTA03",
@@ -2226,7 +2226,7 @@
     "samples": 24,
     "ageSpan": 13011,
     "ageResolution": 1.8445930366612866,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683607076437",
     "@lake.name": "Laguna Potrok Aike",
     "@core.label": "PTA03",
@@ -2235,7 +2235,7 @@
     "@core.coringMethod": "UWITEC piston coring system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.031Z"
+    "_lastCheck": "2019-04-21T01:40:45.694Z"
   },
   {
     "file": "Laguna_Potrok_Aike-Tephra-Haberzettl_et_al_2007_PTA03",
@@ -2246,7 +2246,7 @@
     "samples": 3,
     "ageSpan": 5724,
     "ageResolution": 0.5241090146750524,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1177/0959683607076437",
     "@lake.name": "Laguna Potrok Aike",
     "@core.label": "PTA03",
@@ -2255,7 +2255,7 @@
     "@core.coringMethod": "UWITEC piston coring system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.077Z"
+    "_lastCheck": "2019-04-21T01:40:45.740Z"
   },
   {
     "file": "Lehmilampi-Varves-Haltia-Hovi_et_al_2009",
@@ -2265,7 +2265,7 @@
     "samples": 2004,
     "ageSpan": 2004,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2006.11.005",
     "@lake.name": "Lehmilampi",
     "@core.latitude": 63.45,
@@ -2273,7 +2273,7 @@
     "@core.waterDepth": 10,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.136Z"
+    "_lastCheck": "2019-04-21T01:40:45.793Z"
   },
   {
     "file": "Linne_Lake-Varves-WERNER_et_al_2009",
@@ -2284,14 +2284,14 @@
     "ageSpan": 42,
     "ageResolution": 1000,
     "comments": "Unpublished data",
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@lake.name": "Linné",
     "@core.label": "C2-05",
     "@core.latitude": 78.031875,
     "@core.longitude": 13.861441,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.214Z"
+    "_lastCheck": "2019-04-21T01:40:45.866Z"
   },
   {
     "file": "Lögurinn-Tephra-STRIEBERGER_et_al_2010",
@@ -2302,7 +2302,7 @@
     "samples": 8,
     "ageSpan": 614,
     "ageResolution": 13.029315960912053,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1111/j.1502-3885.2010.00153.x",
     "@lake.name": "Lögurinn",
     "@core.label": "L1",
@@ -2313,7 +2313,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.251Z"
+    "_lastCheck": "2019-04-21T01:40:45.904Z"
   },
   {
     "file": "Lower_Murray_Lake-Varves-COOK_et_al_2008_LML-05",
@@ -2324,7 +2324,7 @@
     "samples": 5221,
     "ageSpan": 5241,
     "ageResolution": 996.1839343636709,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9252-0",
     "@lake.name": "Lower Murray Lake",
     "@core.label": "LML-05",
@@ -2335,7 +2335,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.404Z"
+    "_lastCheck": "2019-04-21T01:40:46.037Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_12P",
@@ -2346,7 +2346,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "12P",
@@ -2356,7 +2356,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.448Z"
+    "_lastCheck": "2019-04-21T01:40:46.081Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_13P",
@@ -2367,7 +2367,7 @@
     "samples": 3,
     "ageSpan": 3461,
     "ageResolution": 0.8668015024559376,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "13P",
@@ -2377,7 +2377,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.492Z"
+    "_lastCheck": "2019-04-21T01:40:46.124Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_16P",
@@ -2388,7 +2388,7 @@
     "samples": 4,
     "ageSpan": 6021,
     "ageResolution": 0.6643414715163594,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "16P",
@@ -2398,7 +2398,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.536Z"
+    "_lastCheck": "2019-04-21T01:40:46.168Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_22P",
@@ -2409,7 +2409,7 @@
     "samples": 3,
     "ageSpan": 5651,
     "ageResolution": 0.5308794903556893,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "22P",
@@ -2419,7 +2419,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.581Z"
+    "_lastCheck": "2019-04-21T01:40:46.210Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_24P",
@@ -2430,7 +2430,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "24P",
@@ -2440,7 +2440,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.625Z"
+    "_lastCheck": "2019-04-21T01:40:46.254Z"
   },
   {
     "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_4P",
@@ -2451,7 +2451,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.4319/lo.1991.36.3.0544",
     "@lake.name": "Malawi",
     "@core.label": "4P",
@@ -2461,7 +2461,7 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.667Z"
+    "_lastCheck": "2019-04-21T01:40:46.296Z"
   },
   {
     "file": "Mascardi-Hajdas_et_al-2002-14C",
@@ -2474,12 +2474,12 @@
     "samples": 22,
     "ageSpan": 3106,
     "ageResolution": 7.083065035415325,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/S0033-5894(02)00017-0",
     "@lake.name": "Mascardi",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.830Z"
+    "_lastCheck": "2019-04-21T01:40:46.459Z"
   },
   {
     "file": "Meerfelder_Maar-14C-BRAUER_et_al_2000",
@@ -2490,14 +2490,14 @@
     "samples": 51,
     "ageSpan": 14361,
     "ageResolution": 3.5512847294756638,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S0033822200030307",
     "@lake.name": "Meerfelder Maar",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.867Z"
+    "_lastCheck": "2019-04-21T01:40:46.494Z"
   },
   {
     "file": "Meerfelder_Maar-Tephra-ENGELS_et_al_2015_MFM09",
@@ -2508,7 +2508,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.revpalbo.2015.06.010",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM09",
@@ -2516,7 +2516,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.911Z"
+    "_lastCheck": "2019-04-21T01:40:46.536Z"
   },
   {
     "file": "Meerfelder_Maar-Tephra-LANE_et_al_2015-MFM09-A_D",
@@ -2528,7 +2528,7 @@
     "samples": 17,
     "ageSpan": 12211,
     "ageResolution": 1.3921873720416018,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quascirev.2015.05.025",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM09-A/D",
@@ -2539,7 +2539,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:05.970Z"
+    "_lastCheck": "2019-04-21T01:40:46.592Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-BRAUER_et_al_2008",
@@ -2548,7 +2548,7 @@
     "samples": 1950,
     "ageSpan": 2001,
     "ageResolution": 974.5127436281858,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1038/ngeo263",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM2000",
@@ -2556,7 +2556,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.034Z"
+    "_lastCheck": "2019-04-21T01:40:46.647Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-ENGELS_et_al_2015_MFM09",
@@ -2565,7 +2565,7 @@
     "samples": 56,
     "ageSpan": 397,
     "ageResolution": 141.05793450881612,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.revpalbo.2015.06.010",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM09",
@@ -2573,7 +2573,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.067Z"
+    "_lastCheck": "2019-04-21T01:40:46.678Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-LITT_et_al_2009-MFM6",
@@ -2584,7 +2584,7 @@
     "samples": 12,
     "ageSpan": 10021,
     "ageResolution": 1.1974852809100887,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1111/j.1502-3885.2009.00096.x",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM6",
@@ -2593,7 +2593,7 @@
     "@core.waterDepth": 17,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.091Z"
+    "_lastCheck": "2019-04-21T01:40:46.704Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM09A_D",
@@ -2603,7 +2603,7 @@
     "samples": 8739,
     "ageSpan": 9567,
     "ageResolution": 913.4524929444966,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2012.10.023",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM09-A/D",
@@ -2614,7 +2614,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.284Z"
+    "_lastCheck": "2019-04-21T01:40:46.970Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM6",
@@ -2626,7 +2626,7 @@
     "samples": 129,
     "ageSpan": 3773,
     "ageResolution": 34.19029949642194,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2012.10.023",
     "@lake.name": "Meerfelder Maar",
     "@core.label": "MFM-6",
@@ -2637,7 +2637,7 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.364Z"
+    "_lastCheck": "2019-04-21T01:40:47.088Z"
   },
   {
     "file": "Mondsee-14C-Swierczynski_et_al_2013",
@@ -2648,14 +2648,14 @@
     "samples": 12,
     "ageSpan": 3732,
     "ageResolution": 3.215434083601286,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.5194/cp-9-1601-2013",
     "@lake.name": "Mondsee",
     "@core.latitude": 47.816667,
     "@core.longitude": 13.4,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.408Z"
+    "_lastCheck": "2019-04-21T01:40:47.160Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-1A-1K",
@@ -2666,7 +2666,7 @@
     "samples": 4,
     "ageSpan": 3851,
     "ageResolution": 1.038691249026227,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-010-9443-3",
     "@lake.name": "Montcortés",
     "@core.label": "MON04-1A-1K",
@@ -2675,7 +2675,7 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.452Z"
+    "_lastCheck": "2019-04-21T01:40:47.205Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-2A-1K",
@@ -2686,7 +2686,7 @@
     "samples": 4,
     "ageSpan": 4866,
     "ageResolution": 0.8220304151253597,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-010-9443-3",
     "@lake.name": "Montcortés",
     "@core.label": "MON04-2A-1K",
@@ -2695,7 +2695,7 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.501Z"
+    "_lastCheck": "2019-04-21T01:40:47.249Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-4A-1K",
@@ -2706,7 +2706,7 @@
     "samples": 9,
     "ageSpan": 9181,
     "ageResolution": 0.9802853719638384,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-010-9443-3",
     "@lake.name": "Montcortés",
     "@core.label": "MON04-4A-1K",
@@ -2715,7 +2715,7 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.544Z"
+    "_lastCheck": "2019-04-21T01:40:47.293Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HAJDAS_et_al_1997",
@@ -2726,14 +2726,14 @@
     "samples": 8,
     "ageSpan": 15171,
     "ageResolution": 0.5273218640827896,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S0033822200018750",
     "@lake.name": "Monticchio",
     "@core.label": "LGM-B/C/D",
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.594Z"
+    "_lastCheck": "2019-04-21T01:40:47.344Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_LGM94-L",
@@ -2744,7 +2744,7 @@
     "samples": 4,
     "ageSpan": 871,
     "ageResolution": 4.592422502870264,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/S0277-3791(99)00007-4",
     "@lake.name": "Monticchio",
     "@core.label": "LGM94-L",
@@ -2752,7 +2752,7 @@
     "@core.longitude": 15.6049,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.643Z"
+    "_lastCheck": "2019-04-21T01:40:47.393Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_MF93",
@@ -2763,13 +2763,13 @@
     "samples": 3,
     "ageSpan": 3951,
     "ageResolution": 0.7593014426727411,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/S0277-3791(99)00007-4",
     "@lake.name": "Monticchio",
     "@core.label": "MF93",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.692Z"
+    "_lastCheck": "2019-04-21T01:40:47.442Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-WATTS_et_al_1996_LGM-90D",
@@ -2780,7 +2780,7 @@
     "samples": 3,
     "ageSpan": 12681,
     "ageResolution": 0.2365744026496333,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/0277-3791(95)00093-3",
     "@lake.name": "Monticchio",
     "@core.label": "LGM90-D",
@@ -2788,7 +2788,7 @@
     "@core.longitude": 15.605114,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.736Z"
+    "_lastCheck": "2019-04-21T01:40:47.487Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-ZOLITSCHKA_&_NEGENDANK_1996_LGM-B_D",
@@ -2799,7 +2799,7 @@
     "samples": 26,
     "ageSpan": 36541,
     "ageResolution": 0.711529514791604,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/0277-3791(95)00022-4",
     "@lake.name": "Monticchio",
     "@core.label": "LGM-B/D",
@@ -2810,7 +2810,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:06.775Z"
+    "_lastCheck": "2019-04-21T01:40:47.525Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Pollen-SANCHEZ_GOÑi_et_al_2017",
@@ -2818,7 +2818,7 @@
     "depthMax": 67962,
     "samples": 542,
     "ageSpan": 0,
-    "@proxy.name": "Pollen",
+    "@category.name": "Pollen",
     "@publication.doi": "10.1594/PANGAEA.872880",
     "@lake.name": "Monticchio",
     "@core.latitude": 40.9317,
@@ -2826,7 +2826,7 @@
     "@core.coringMethod": "Core drilling (CDRILL)",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:07.354Z"
+    "_lastCheck": "2019-04-21T01:40:48.136Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF93",
@@ -2837,13 +2837,13 @@
     "samples": 3,
     "ageSpan": 79029,
     "ageResolution": 0.037960748585962115,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/S0277-3791(99)00007-4",
     "@lake.name": "Monticchio",
     "@core.label": "MF93",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:07.395Z"
+    "_lastCheck": "2019-04-21T01:40:48.262Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-WULF_et_al_2012_LGM-B-D-E-J-M-O",
@@ -2854,7 +2854,7 @@
     "samples": 40,
     "ageSpan": 26621,
     "ageResolution": 1.5025731565305587,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quascirev.2012.10.020",
     "@lake.name": "Monticchio",
     "@core.label": "LGM-B/D/E/J/M/O",
@@ -2863,7 +2863,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:07.460Z"
+    "_lastCheck": "2019-04-21T01:40:48.368Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014_MON-2014",
@@ -2873,7 +2873,7 @@
     "samples": 33433,
     "ageSpan": 34919,
     "ageResolution": 957.4443712591999,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.837247",
     "@lake.name": "Monticchio",
     "@core.label": "MON-2014",
@@ -2882,7 +2882,7 @@
     "@core.coringMethod": "Core drilling",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.285Z"
+    "_lastCheck": "2019-04-21T01:40:49.180Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014a_MON-07-J-M-O",
@@ -2894,7 +2894,7 @@
     "samples": 1570,
     "ageSpan": 34920,
     "ageResolution": 44.95990836197022,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.837242",
     "@lake.name": "Monticchio",
     "@core.label": "MON-07 (J/M/O)",
@@ -2905,7 +2905,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.323Z"
+    "_lastCheck": "2019-04-21T01:40:49.274Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-WULF_et_al_2012_LGM-B_D_E_J_M_O",
@@ -2916,7 +2916,7 @@
     "samples": 52,
     "ageSpan": 26631,
     "ageResolution": 1.9526116180391275,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2012.10.020",
     "@lake.name": "Monticchio",
     "@core.label": "LGM-B/D/E/J/M/O",
@@ -2925,7 +2925,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.360Z"
+    "_lastCheck": "2019-04-21T01:40:49.313Z"
   },
   {
     "file": "Heimerdalsvanet-14C-Balascio_et_al_2010_NHP-207",
@@ -2936,7 +2936,7 @@
     "samples": 5,
     "ageSpan": 5591,
     "ageResolution": 0.8942944017170452,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.yqres.2010.08.012",
     "@lake.name": "Nedre Heimredalsvatnet",
     "@core.label": "NHP-207",
@@ -2946,7 +2946,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.405Z"
+    "_lastCheck": "2019-04-21T01:40:49.358Z"
   },
   {
     "file": "Nerfloen-14C-Vasskog_et_al_2012-STP_107",
@@ -2957,7 +2957,7 @@
     "samples": 14,
     "ageSpan": 8861,
     "ageResolution": 1.5799571154497234,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.yqres.2011.10.001",
     "@lake.name": "Nedrefloen",
     "@core.label": "STP 107",
@@ -2966,7 +2966,7 @@
     "@core.coringMethod": "modified piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.450Z"
+    "_lastCheck": "2019-04-21T01:40:49.402Z"
   },
   {
     "file": "Oeschinen-14C-Amman_et_al_2015",
@@ -2977,7 +2977,7 @@
     "samples": 8,
     "ageSpan": 1012,
     "ageResolution": 7.905138339920948,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2015.03.002",
     "@lake.name": "Oeschinen",
     "@core.latitude": 46.5,
@@ -2986,7 +2986,7 @@
     "@core.drillDate": 2011,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.500Z"
+    "_lastCheck": "2019-04-21T01:40:49.451Z"
   },
   {
     "file": "Oeschinen-Varves-AMMAN_et_al_2015",
@@ -2998,14 +2998,14 @@
     "samples": 1125,
     "ageSpan": 1125,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2015.03.002",
     "@lake.name": "Oeschinen",
     "@core.latitude": 46.4983,
     "@core.longitude": 7.7269,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.578Z"
+    "_lastCheck": "2019-04-21T01:40:49.525Z"
   },
   {
     "file": "Ogac_Lake-Varves-HUGHEN_2009",
@@ -3018,13 +3018,13 @@
     "ageSpan": 1950,
     "ageResolution": 1000,
     "comments": "Unpublished data",
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@lake.name": "Ogac",
     "@core.latitude": 62.85,
     "@core.longitude": -67.2,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.677Z"
+    "_lastCheck": "2019-04-21T01:40:49.683Z"
   },
   {
     "file": "Ohrid-Vogel_2009-14C",
@@ -3037,7 +3037,7 @@
     "samples": 7,
     "ageSpan": 21311,
     "ageResolution": 0.32846886584393037,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
     "@lake.name": "Ohrid",
     "@core.label": "Co1202",
@@ -3046,7 +3046,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.769Z"
+    "_lastCheck": "2019-04-21T01:40:49.775Z"
   },
   {
     "file": "Ohrid-Vogel_2009-Tephra",
@@ -3059,7 +3059,7 @@
     "samples": 10,
     "ageSpan": 129541,
     "ageResolution": 0.07719563690260227,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
     "@lake.name": "Ohrid",
     "@core.label": "Co1202",
@@ -3068,7 +3068,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.821Z"
+    "_lastCheck": "2019-04-21T01:40:49.824Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV08",
@@ -3081,7 +3081,7 @@
     "samples": 4,
     "ageSpan": 4881,
     "ageResolution": 0.8195041999590248,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2016.03.020",
     "@lake.name": "Pavin",
     "@core.label": "PAV08",
@@ -3090,7 +3090,7 @@
     "@core.coringMethod": "UWITEC, long piston core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.871Z"
+    "_lastCheck": "2019-04-21T01:40:49.875Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-B1",
@@ -3103,7 +3103,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2016.03.020",
     "@lake.name": "Pavin",
     "@core.label": "PAV09-B1",
@@ -3112,7 +3112,7 @@
     "@core.coringMethod": "short gravity core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.927Z"
+    "_lastCheck": "2019-04-21T01:40:49.930Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-C5",
@@ -3125,7 +3125,7 @@
     "samples": 2,
     "ageSpan": 501,
     "ageResolution": 3.992015968063872,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2016.03.020",
     "@lake.name": "Pavin",
     "@core.label": "PAV09-C5",
@@ -3134,7 +3134,7 @@
     "@core.waterDepth": 20,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:08.977Z"
+    "_lastCheck": "2019-04-21T01:40:49.979Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV12",
@@ -3147,7 +3147,7 @@
     "samples": 5,
     "ageSpan": 5031,
     "ageResolution": 0.9938382031405287,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2016.03.020",
     "@lake.name": "Pavin",
     "@core.label": "PAV12",
@@ -3156,7 +3156,7 @@
     "@core.coringMethod": "UWITEC long piston core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.027Z"
+    "_lastCheck": "2019-04-21T01:40:50.029Z"
   },
   {
     "file": "Pettaquamscutt-Hubeny_et_al-2009-14C",
@@ -3169,7 +3169,7 @@
     "samples": 4,
     "ageSpan": 691,
     "ageResolution": 5.788712011577424,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-008-9226-2",
     "@lake.name": "Pettaquamscutt",
     "@core.latitude": 41.503,
@@ -3179,7 +3179,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.077Z"
+    "_lastCheck": "2019-04-21T01:40:50.078Z"
   },
   {
     "file": "Plomo-Varves-Elbert_et_al_2015-PLO2011",
@@ -3190,7 +3190,7 @@
     "samples": 1178,
     "ageSpan": 1493,
     "ageResolution": 789.0154052243805,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quaint.2015.01.004",
     "@lake.name": "Plomo",
     "@core.label": "PLO2011",
@@ -3198,7 +3198,7 @@
     "@core.longitude": -72.8667,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.161Z"
+    "_lastCheck": "2019-04-21T01:40:50.138Z"
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1204",
@@ -3209,7 +3209,7 @@
     "samples": 15,
     "ageSpan": 46636,
     "ageResolution": 0.3216399348143065,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1204",
@@ -3220,7 +3220,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.220Z"
+    "_lastCheck": "2019-04-21T01:40:50.195Z"
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1215",
@@ -3231,7 +3231,7 @@
     "samples": 16,
     "ageSpan": 34266,
     "ageResolution": 0.4669351543804354,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1215",
@@ -3242,7 +3242,7 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.278Z"
+    "_lastCheck": "2019-04-21T01:40:50.251Z"
   },
   {
     "file": "Prespa-14C-Wagner_et_al_2010_Co1204",
@@ -3253,7 +3253,7 @@
     "samples": 15,
     "ageSpan": 46636,
     "ageResolution": 0.3216399348143065,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.5194/bg-7-3187-2010",
     "@lake.name": "Prespa",
     "@core.label": "Co1204",
@@ -3264,7 +3264,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.345Z"
+    "_lastCheck": "2019-04-21T01:40:50.320Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1204",
@@ -3272,7 +3272,7 @@
     "depthMax": 8790,
     "samples": 3,
     "ageSpan": 0,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1204",
@@ -3283,7 +3283,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.385Z"
+    "_lastCheck": "2019-04-21T01:40:50.362Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1215",
@@ -3291,7 +3291,7 @@
     "depthMax": 10786,
     "samples": 11,
     "ageSpan": 0,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1215",
@@ -3302,7 +3302,7 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.430Z"
+    "_lastCheck": "2019-04-21T01:40:50.405Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1216",
@@ -3310,7 +3310,7 @@
     "depthMax": 4390,
     "samples": 2,
     "ageSpan": 0,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1216",
@@ -3321,7 +3321,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.471Z"
+    "_lastCheck": "2019-04-21T01:40:50.448Z"
   },
   {
     "file": "Prespa-Tephra-Wagner_et_al_2010_Co1204",
@@ -3332,7 +3332,7 @@
     "samples": 3,
     "ageSpan": 8611,
     "ageResolution": 0.3483915921495761,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.5194/bg-7-3187-2010",
     "@lake.name": "Prespa",
     "@core.label": "Co1204",
@@ -3343,7 +3343,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.522Z"
+    "_lastCheck": "2019-04-21T01:40:50.498Z"
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-I-P1",
@@ -3354,7 +3354,7 @@
     "samples": 2,
     "ageSpan": 111,
     "ageResolution": 18.01801801801802,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.yqres.2008.06.001",
     "@lake.name": "Puyehue",
     "@core.label": "PU-I-P1",
@@ -3363,7 +3363,7 @@
     "@core.coringMethod": "gravity (pilot) core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.565Z"
+    "_lastCheck": "2019-04-21T01:40:50.541Z"
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-II-P2",
@@ -3374,7 +3374,7 @@
     "samples": 2,
     "ageSpan": 16,
     "ageResolution": 125,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.yqres.2008.06.001",
     "@lake.name": "Puyehue",
     "@core.label": "PU-II-P2",
@@ -3383,7 +3383,7 @@
     "@core.coringMethod": "gravity (pilot) core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.608Z"
+    "_lastCheck": "2019-04-21T01:40:50.584Z"
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09",
@@ -3394,7 +3394,7 @@
     "samples": 1407,
     "ageSpan": 1407,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.772958",
     "@lake.name": "Rehwiese",
     "@core.label": "RW09",
@@ -3402,7 +3402,7 @@
     "@core.longitude": 13.182833,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.678Z"
+    "_lastCheck": "2019-04-21T01:40:50.644Z"
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09-A-B_C-D",
@@ -3413,7 +3413,7 @@
     "samples": 222,
     "ageSpan": 1403,
     "ageResolution": 158.23235923022096,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.12.010",
     "@lake.name": "Rehwiese",
     "@core.label": "RW09-A/B-C/D",
@@ -3421,7 +3421,7 @@
     "@core.longitude": 13.182833,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.721Z"
+    "_lastCheck": "2019-04-21T01:40:50.685Z"
   },
   {
     "file": "RS29-C14-PAULL_et_al_2017",
@@ -3432,7 +3432,7 @@
     "samples": 8,
     "ageSpan": 8851,
     "ageResolution": 0.9038526720144616,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1139/as-2016-0013",
     "@lake.name": "RS29",
     "@core.latitude": 73.14,
@@ -3441,7 +3441,7 @@
     "@core.coringMethod": "5 cm diameter Livingstone corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.771Z"
+    "_lastCheck": "2019-04-21T01:40:50.734Z"
   },
   {
     "file": "Sacrower_See-14C-ENTERS_et_al_2010_SAC05_15",
@@ -3452,7 +3452,7 @@
     "samples": 12,
     "ageSpan": 10621,
     "ageResolution": 1.1298371151492326,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-009-9362-3",
     "@lake.name": "Sacrower See",
     "@core.label": "SAC05/15",
@@ -3462,7 +3462,7 @@
     "@core.drillDate": 2005,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.841Z"
+    "_lastCheck": "2019-04-21T01:40:50.851Z"
   },
   {
     "file": "Sacrower_See-Tephra-ENTERS_et_al_2010_SAC05_15",
@@ -3472,7 +3472,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "Tephra",
+    "@category.name": "Tephra",
     "@publication.doi": "10.1007/s10933-009-9362-3",
     "@lake.name": "Sacrower See",
     "@core.label": "SAC05/15",
@@ -3482,7 +3482,7 @@
     "@core.drillDate": 2005,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.884Z"
+    "_lastCheck": "2019-04-21T01:40:50.930Z"
   },
   {
     "file": "Sawtooth-Varves-FRANCUS_et_al_2002",
@@ -3492,7 +3492,7 @@
     "samples": 390,
     "ageSpan": 400,
     "ageResolution": 975.0000000000001,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1029/2002GL015082",
     "@lake.name": "Sawtooth",
     "@core.latitude": 79.333333,
@@ -3501,7 +3501,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.927Z"
+    "_lastCheck": "2019-04-21T01:40:50.969Z"
   },
   {
     "file": "Soppensee_-14C-GIERGA_et_al_2016",
@@ -3512,7 +3512,7 @@
     "samples": 24,
     "ageSpan": 11511,
     "ageResolution": 2.0849622100599428,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.quascirev.2016.05.011",
     "@lake.name": "Soppensee",
     "@core.label": "So08-01/2",
@@ -3523,7 +3523,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:09.971Z"
+    "_lastCheck": "2019-04-21T01:40:51.015Z"
   },
   {
     "file": "Steel Lake-14C-Tian_et_al_2005",
@@ -3534,7 +3534,7 @@
     "samples": 10,
     "ageSpan": 2581,
     "ageResolution": 3.874467260751646,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1191/0959683605hl828rp",
     "@lake.name": "Steel Lake",
     "@core.latitude": 46.973108,
@@ -3543,7 +3543,7 @@
     "@core.drillDate": 2001,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.017Z"
+    "_lastCheck": "2019-04-21T01:40:51.058Z"
   },
   {
     "file": "Storsjön-14C-Labuhn_et_al_2018_STO14",
@@ -3554,7 +3554,7 @@
     "samples": 7,
     "ageSpan": 6621,
     "ageResolution": 1.0572421084428334,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.3390/quat1010002",
     "@lake.name": "Storsjön",
     "@core.label": "STO14",
@@ -3565,7 +3565,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.060Z"
+    "_lastCheck": "2019-04-21T01:40:51.105Z"
   },
   {
     "file": "Sugan-14C-ZHOU_et_al_2009",
@@ -3576,7 +3576,7 @@
     "samples": 5,
     "ageSpan": 4501,
     "ageResolution": 1.110864252388358,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1017/S0033822200055909",
     "@lake.name": "Sugan Lake",
     "@core.label": "SG03E",
@@ -3587,7 +3587,7 @@
     "@core.drillDate": 2004,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.111Z"
+    "_lastCheck": "2019-04-21T01:40:51.153Z"
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2001-2004",
@@ -3598,7 +3598,7 @@
     "samples": 2,
     "ageSpan": 646,
     "ageResolution": 3.0959752321981426,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.gloplacha.2016.04.002",
     "@lake.name": "Teletskoye",
     "@core.label": "Tel2001-2004",
@@ -3608,7 +3608,7 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.156Z"
+    "_lastCheck": "2019-04-21T01:40:51.197Z"
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2006",
@@ -3619,7 +3619,7 @@
     "samples": 16,
     "ageSpan": 4906,
     "ageResolution": 3.261312678353037,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/j.gloplacha.2016.04.002",
     "@lake.name": "Teletskoye",
     "@core.label": "Tel2006",
@@ -3629,7 +3629,7 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.799Z"
+    "_lastCheck": "2019-04-21T01:40:51.932Z"
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-mholocene",
@@ -3640,7 +3640,7 @@
     "samples": 1432,
     "ageSpan": 1432,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615622549",
     "@lake.name": "Woserin",
     "@core.label": "WOS-A-B-C",
@@ -3651,7 +3651,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.871Z"
+    "_lastCheck": "2019-04-21T01:40:52.002Z"
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-recent",
@@ -3663,7 +3663,7 @@
     "samples": 88,
     "ageSpan": 88,
     "ageResolution": 1000,
-    "@proxy.name": "Varves",
+    "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615622549",
     "@lake.name": "Woserin",
     "@core.label": "WOS-A-B-C",
@@ -3674,7 +3674,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.914Z"
+    "_lastCheck": "2019-04-21T01:40:52.071Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON01-1A",
@@ -3685,7 +3685,7 @@
     "samples": 2,
     "ageSpan": 1179,
     "ageResolution": 1.6963528413910094,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683608093533",
     "@lake.name": "Zoñar",
     "@core.label": "ZON01-1A",
@@ -3694,7 +3694,7 @@
     "@core.waterDepth": 8,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:10.958Z"
+    "_lastCheck": "2019-04-21T01:40:52.114Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-1B",
@@ -3705,7 +3705,7 @@
     "samples": 13,
     "ageSpan": 2451,
     "ageResolution": 5.303957568339453,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683608093533",
     "@lake.name": "Zoñar",
     "@core.label": "ZON04-1B",
@@ -3713,7 +3713,7 @@
     "@core.longitude": -4.689444,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:11.003Z"
+    "_lastCheck": "2019-04-21T01:40:52.157Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-2A",
@@ -3724,7 +3724,7 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1177/0959683608093533",
     "@lake.name": "Zoñar",
     "@core.label": "ZON04-2A",
@@ -3732,7 +3732,7 @@
     "@core.longitude": -4.689444,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:11.047Z"
+    "_lastCheck": "2019-04-21T01:40:52.200Z"
   },
   {
     "file": "Huelmo-Hajdas_et_al-2002-14C",
@@ -3745,7 +3745,7 @@
     "samples": 32,
     "ageSpan": 4756,
     "ageResolution": 6.72834314550042,
-    "@proxy.name": "14C",
+    "@category.name": "14C",
     "@publication.doi": "10.1016/S0033-5894(02)00017-0",
     "@lake.name": "Huelmo mire",
     "@lake.latitude": -41.67,
@@ -3756,6 +3756,6 @@
     ],
     "_fileExists": true,
     "_lakeExists": false,
-    "_lastCheck": "2019-04-04T20:31:11.216Z"
+    "_lastCheck": "2019-04-21T01:40:52.442Z"
   }
 ]

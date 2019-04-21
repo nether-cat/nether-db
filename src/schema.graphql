@@ -1,5 +1,5 @@
-# This schema file is only for integration with plugin features of JS GraphQL v2.x in a JetBrains IDE.
-# Add built-in or custom definitions that are being ignored by JS GraphQL v2.x during introspection below.
+# This schema file is only for integration with tools that enable auto-completion and linting.
+# Built-in and custom scalars cannot be introspected and thus need to be added manually below.
 
 scalar JSON
 
@@ -11,42 +11,39 @@ scalar LocalDateTime
 
 # TODO: This comment and the lines above schould be restored manually after a new schema introspection!
 
-# This file was generated based on ".graphqlconfig" at Fri Mar 15 02:32:45 CET 2019. Do not edit manually.
+# This file was generated based on ".graphqlconfig" at Sun Apr 21 06:02:13 CEST 2019. Do not edit manually.
 
-interface Privileged {
-  privileges: [Privilege]
+interface Authorizable {
+  permissions: [Permission]
   uuid: ID!
 }
 
-interface Resource {
-  restricted: Boolean
+interface Entity {
   uuid: ID!
 }
 
-type Attribute {
+interface Protectable {
+  permissions: [Permission]
+  protected: Boolean
+  uuid: ID!
+}
+
+type Attribute implements Entity {
+  category(first: Int = 1, offset: Int = 0): [Category]
   description: String
   name: String!
-  proxy(first: Int = 1, offset: Int = 0): [Proxy]
   uuid: ID!
 }
 
-type Collection {
-  ageResolution: Float
-  analysisMethod: String
+type Category implements Entity {
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
-  comments: String
-  core(first: Int = 1, offset: Int = 0): [Core]
-  depthResolution: Float
-  file: String!
-  label: String
-  proxy(first: Int = 1, offset: Int = 0): [Proxy]
-  publication(first: Int = 1, offset: Int = 0): [Publication]
-  records(first: Int = 100, offset: Int = 0): [Record]
-  url: String
+  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  description: String
+  name: String!
   uuid: ID!
 }
 
-type Continent {
+type Continent implements Entity {
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
   countries(first: Int = 100, offset: Int = 0): [Country]
@@ -55,12 +52,12 @@ type Continent {
   uuid: ID!
 }
 
-type Core {
+type Core implements Entity {
   ageDepthMethod: String
-  collections(first: Int = 100, offset: Int = 0): [Collection]
   comments: String
   composite: Boolean
   coringMethod: String
+  datasets(first: Int = 100, offset: Int = 0): [Dataset]
   drillDate: Date
   label: String
   lake(first: Int = 1, offset: Int = 0): [Lake]
@@ -70,7 +67,7 @@ type Core {
   waterDepth: Float
 }
 
-type Country {
+type Country implements Entity {
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
   continents(first: Int = 100, offset: Int = 0): [Continent]
@@ -80,14 +77,30 @@ type Country {
   uuid: ID!
 }
 
-type Group implements Privileged {
-  members: [Membership]
-  name: String!
-  privileges: [Privilege]
+type Dataset implements Entity {
+  ageResolution: Float
+  analysisMethod: String
+  attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  category(first: Int = 1, offset: Int = 0): [Category]
+  comments: String
+  core(first: Int = 1, offset: Int = 0): [Core]
+  depthResolution: Float
+  file: String!
+  label: String
+  publication(first: Int = 1, offset: Int = 0): [Publication]
+  records(first: Int = 100, offset: Int = 0): [Record]
+  url: String
   uuid: ID!
 }
 
-type Lake {
+type Group implements Authorizable & Entity {
+  members: [Membership]
+  name: String!
+  permissions: [Permission]
+  uuid: ID!
+}
+
+type Lake implements Entity {
   catchmentArea: Float
   cores(first: Int = 100, offset: Int = 0): [Core]
   countries(first: Int = 100, offset: Int = 0): [Country]
@@ -102,10 +115,10 @@ type Lake {
 }
 
 type Membership {
-  _id: ID!
   from: User!
   moderates: Boolean
   to: Group!
+  uuid: ID!
 }
 
 type Mutation {
@@ -117,37 +130,30 @@ type Mutation {
   UpdateCountry(code: String, name: String, uuid: ID!): Country
 }
 
-type Privilege {
-  _id: ID!
-  from: Privileged!
-  to: Resource!
-  type: PrivilegeType
-}
-
-type Proxy {
-  attributes(first: Int = 100, offset: Int = 0): [Attribute]
-  collections(first: Int = 100, offset: Int = 0): [Collection]
-  description: String
-  name: String!
+type Permission {
+  from: Authorizable!
+  level: AccessLevel
+  to: Protectable!
   uuid: ID!
 }
 
-type Publication {
+type Publication implements Entity {
   abstract: String
   authors: String
-  collections(first: Int = 100, offset: Int = 0): [Collection]
+  datasets(first: Int = 100, offset: Int = 0): [Dataset]
   doi: String
   email: String
   source: String
   title: String!
   url: String
   uuid: ID!
-  year: Float
+  year: Int
 }
 
 type Query {
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
+  RecordsByDataset(uuid: ID): [Record]
   Session: Session!
   Test(_id: ID!): [JSON]
 }
@@ -166,7 +172,7 @@ type Session {
   userRole: UserRole!
 }
 
-type User implements Privileged {
+type User implements Authorizable & Entity {
   department: String
   disabled: Boolean!
   email: String!
@@ -176,22 +182,22 @@ type User implements Privileged {
   lastName: String
   memberships: [Membership]
   password: String!
-  privileges: [Privilege]
+  permissions: [Permission]
   role: String
   userRole: UserRole!
   uuid: ID!
 }
 
-enum CacheControlScope {
-  PRIVATE
-  PUBLIC
-}
-
-enum PrivilegeType {
+enum AccessLevel {
   EDITOR
   NONE
   OWNER
   VIEWER
+}
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
 }
 
 enum SessionState {

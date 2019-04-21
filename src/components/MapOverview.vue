@@ -105,7 +105,7 @@ const methods = {
       let cache, features = cluster.get('features'), size, style;
       if (features.length === 1) {
         cache = featureCache;
-        size = features[0].getProperties().datasets || 0;
+        size = features[0].getProperties().datasetsCount || 0;
       } else {
         cache = clusterCache;
         size = features.length || 0;
@@ -130,11 +130,11 @@ const methods = {
   featureStyleFunc (hasSiblings = false) {
     return function __featureStyleFunc (feature) {
       let props = feature ? feature.getProperties() : {};
-      let zOffset = (props['datasets'] || 0) * 1000 + (props['index'] || 0);
+      let zOffset = (props.datasetsCount || 0) * 1000 + (props.index || 0);
       return [createStyle(Object.assign({
         imageRadius: 5,
         strokeColor: '#ffffff',
-        fillColor: props['datasets']
+        fillColor: props.datasetsCount
           ? '#0099ff'
           : '#94adcc',
         zIndex: hasSiblings ? 0 + zOffset : 50000 + zOffset,
@@ -288,10 +288,10 @@ export default {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                {(feature.properties.datasets || 'No') + ' dataset' + (feature.properties.datasets !== 1 ? 's' : '')} available<br/>
+                {(feature.properties.datasetsCount || 'No') + ' dataset' + (feature.properties.datasetsCount !== 1 ? 's' : '')} available<br/>
                 <router-link
                   to={{ name: 'databaseDetails', params: { id: feature.properties.uuid } }}
-                  domPropsInnerHTML={feature.properties.datasets ? '&#8627; View details' : '&#8627; Show lake info'}
+                  domPropsInnerHTML={feature.properties.datasetsCount ? '&#8627; View details' : '&#8627; Show lake info'}
                 />
               </b-card>
             </vl-overlay>

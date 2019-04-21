@@ -4,7 +4,6 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import gql from 'graphql-tag';
 
 export default {
   name: 'the-database',
@@ -12,38 +11,6 @@ export default {
   },
   data () {
     return {};
-  },
-  apollo: {
-    lakes: {
-      query: gql`
-        query lakes {
-          lakes: Lake(orderBy: "name_asc") {
-            uuid
-            name
-            longitude
-            latitude
-            countries {
-              uuid
-              code
-              name
-            }
-            cores {
-              uuid
-              label
-              collections {
-                uuid
-                label
-                file
-                proxy {
-                  uuid
-                  name
-                }
-              }
-            }
-          }
-        }
-      `,
-    },
   },
   computed: {
     ...mapState('user', [

@@ -14,7 +14,7 @@ directive @cypher(statement: String!) on FIELD_DEFINITION
 
 directive @relation(name: String!, direction: String) on FIELD_DEFINITION | OBJECT
 
-enum PrivilegeType {
+enum AccessLevel {
   OWNER
   EDITOR
   VIEWER
@@ -44,14 +44,19 @@ input Password {
   value: String!
 }
 
-interface Privileged {
+interface Authorizable {
   uuid: ID!
-  privileges: [Privilege]
+  permissions: [Permission]
 }
 
-interface Resource {
+interface Entity {
   uuid: ID!
-  restricted: Boolean
+}
+
+interface Protectable {
+  uuid: ID!
+  protected: Boolean
+  permissions: [Permission]
 }
 
 type Query {
@@ -59,7 +64,7 @@ type Query {
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country] @auth
   Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake] @auth
-  RecordsByCollection(uuid: ID): [Record] @auth
+  RecordsByDataset(uuid: ID): [Record] @auth
 }
 
 type Mutation {
@@ -71,30 +76,22 @@ type Mutation {
   UpdateCountry(code: String, name: String, uuid: ID!): Country @auth
 }
 
-type Attribute {
+type Attribute implements Entity {
   uuid: ID!
   name: String!
   description: String
-  proxy(first: Int = 1, offset: Int = 0): [Proxy] @relation(name: "BELONGS_TO", direction: "OUT")
+  category(first: Int = 1, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
 }
 
-type Collection {
+type Category implements Entity {
   uuid: ID!
-  file: String!
-  label: String
-  analysisMethod: String
-  ageResolution: Float
-  depthResolution: Float
-  comments: String
-  url: String
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "INCLUDES", direction: "OUT")
-  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
-  proxy(first: Int = 1, offset: Int = 0): [Proxy] @relation(name: "BELONGS_TO", direction: "OUT")
-  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")
-  records(first: Int = 100, offset: Int = 0): [Record] @cypher(statement: "MATCH (m:Record)-[:COLLECTED_IN]->(this) RETURN m LIMIT {first}")
+  name: String!
+  description: String
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: "IN")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "BELONGS_TO", direction: "IN")
 }
 
-type Core {
+type Core implements Entity {
   uuid: ID!
   label: String
   latitude: Float
@@ -105,11 +102,11 @@ type Core {
   composite: Boolean
   ageDepthMethod: String
   comments: String
-  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "SAMPLED_FROM", direction: "IN")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "SAMPLED_FROM", direction: "IN")
   lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: "OUT")
 }
 
-type Continent {
+type Continent implements Entity {
   uuid: ID!
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
@@ -118,7 +115,7 @@ type Continent {
   countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: "IN")
 }
 
-type Country {
+type Country implements Entity {
   uuid: ID!
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
@@ -128,14 +125,30 @@ type Country {
   lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: "IN")
 }
 
-type Group implements Privileged {
+type Dataset implements Entity {
+  uuid: ID!
+  file: String!
+  label: String
+  analysisMethod: String
+  ageResolution: Float
+  depthResolution: Float
+  comments: String
+  url: String
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "INCLUDES", direction: "OUT")
+  category(first: Int = 1, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
+  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
+  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")
+  records(first: Int = 100, offset: Int = 0): [Record] @cypher(statement: "MATCH (m:Record)-[:RECORDED_IN]->(this) RETURN m LIMIT {first}")
+}
+
+type Group implements Entity & Authorizable {
   uuid: ID!
   name: String!
   members: [Membership]
-  privileges: [Privilege]
+  permissions: [Permission]
 }
 
-type Lake {
+type Lake implements Entity {
   uuid: ID!
   name: String!
   latitude: Float!
@@ -150,28 +163,20 @@ type Lake {
 }
 
 type Membership @relation(name: "MEMBER_OF") {
-  _id: ID!
+  uuid: ID!
   from: User!
   to: Group!
   moderates: Boolean
 }
 
-type Privilege @relation(name: "HAS_PRIVILEGE") {
-  _id: ID!
-  from: Privileged!
-  to: Resource!
-  type: PrivilegeType
-}
-
-type Proxy {
+type Permission @relation(name: "HAS_PERMISSION") {
   uuid: ID!
-  name: String!
-  description: String
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: "IN")
-  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "BELONGS_TO", direction: "IN")
+  from: Authorizable!
+  to: Protectable!
+  level: AccessLevel
 }
 
-type Publication {
+type Publication implements Entity {
   uuid: ID!
   title: String!
   authors: String
@@ -181,7 +186,7 @@ type Publication {
   url: String
   email: String
   abstract: String
-  collections(first: Int = 100, offset: Int = 0): [Collection] @relation(name: "PUBLISHED_IN", direction: "IN")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: "IN")
 }
 
 type Record {
@@ -198,7 +203,7 @@ type Session {
   state: SessionState!
 }
 
-type User implements Privileged {
+type User implements Entity & Authorizable {
   uuid: ID!
   firstName: String
   lastName: String
@@ -211,5 +216,5 @@ type User implements Privileged {
   disabled: Boolean!
   frozen: Boolean!
   memberships: [Membership]
-  privileges: [Privilege]
+  permissions: [Permission]
 }

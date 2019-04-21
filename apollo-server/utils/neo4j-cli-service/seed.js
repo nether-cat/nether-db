@@ -5,7 +5,6 @@ const path = require('path');
 const util = require('util');
 const https = require('https');
 const ms = require('ms');
-const uuidv5 = require('uuid/v5');
 const xlsx = require('xlsx');
 const latinize = require('latinize');
 const changeCase = require('change-case');
@@ -17,8 +16,6 @@ const fromEntries = require('object.fromentries');
 if (!Object.fromEntries) {
   fromEntries.shim();
 }
-
-// TODO: Respect `process.env.VUE_APP_UUIDV5_ROOT`
 
 // TODO: Instantiate driver with the provided arguments
 
@@ -39,7 +36,7 @@ const mappedProps = {
   'drillDate': '@core.drillDate',
   'waterDepth': '@core.waterDepth',
   'ageDepthMethod': '@core.ageDepthMethod',
-  // collection
+  // dataset
   'nameOfDataset': 'label',
   'analysisMethod': 'analysisMethod',
 };
@@ -49,7 +46,7 @@ const datasetsOrder = (a, b) => {
     (!a['_fileExists'] - !b['_fileExists']) ||
     (!a['_lakeExists'] - !b['_lakeExists']) ||
     a['@lake.name'].localeCompare(b['@lake.name']) ||
-    a['@proxy.name'].localeCompare(b['@proxy.name']) ||
+    a['@category.name'].localeCompare(b['@category.name']) ||
     a['file'].localeCompare(b['file'])
   );
 };
@@ -91,7 +88,6 @@ module.exports = async function taskSeed ({ host, user, password }) {
   /** @type Array */ let continents, countries;
   /** @type Array */ let lakes = require('./seeds/lakes');
   /** @type Array */ let datasets = require('./seeds/datasets');
-  /** @type Array */ let cores, collections, publications;
 
   console.log('Looking for all referenced dataset files...\n');
 
@@ -148,14 +144,14 @@ module.exports = async function taskSeed ({ host, user, password }) {
       if (ref && prop) {
         obj[ref] = Object.assign(obj[ref] || {}, { [prop]: value });
       } else if (!key.match(/^_/g)) {
-        obj['@collection'][key] = value;
+        obj['@dataset'][key] = value;
       }
       return obj;
     }, {
-      '@collection': {},
+      '@dataset': {},
       '@core': {},
       '@lake': {},
-      '@proxy': { name: 'Unknown' },
+      '@category': { name: 'Unknown' },
       '@publication': {},
     });
     Object.keys(dataset).forEach(key => delete dataset[key]);
@@ -167,12 +163,12 @@ module.exports = async function taskSeed ({ host, user, password }) {
     params: { continents, countries },
     statement: cql`
       UNWIND $continents AS data
-      MERGE (n:Continent {code: data.code})
+      MERGE (n:Continent:Entity {code: data.code})
         ON CREATE SET n += data, n.uuid = randomUUID()
         ON MATCH SET n.name = data.name
       WITH n AS n0
       UNWIND $countries AS data
-      MERGE (n:Country {code: data.code})
+      MERGE (n:Country:Entity {code: data.code})
         ON CREATE SET n.name = data.name, n.uuid = randomUUID()
         ON MATCH SET n.name = data.name
       WITH n AS n1, n0, data
@@ -191,11 +187,11 @@ module.exports = async function taskSeed ({ host, user, password }) {
     params: { lakes },
     statement: cql`
       UNWIND $lakes AS data
-      MERGE (n:Lake {name: data.name, latitude: data.latitude, longitude: data.longitude})
+      MERGE (n:Lake:Entity {name: data.name, latitude: data.latitude, longitude: data.longitude})
         ON CREATE SET n += data, n.uuid = randomUUID()
         ON MATCH SET n += data
       WITH n AS n0
-      UNWIND n0.\`@countries\` as ref
+      UNWIND n0.\`@countries\` AS ref
       MATCH (n1:Country {code: ref})
       MERGE (n0)-[:LOCATED_IN]->(n1)
       REMOVE n0.\`@countries\`
@@ -212,17 +208,17 @@ module.exports = async function taskSeed ({ host, user, password }) {
     params: { datasets },
     statement: cql`
       UNWIND $datasets AS data
-      WITH data.\`@collection\` AS d0,
+      WITH data.\`@dataset\` AS d0,
            data.\`@core\` AS d1,
            data.\`@lake\` AS d2,
-           data.\`@proxy\` AS d3,
+           data.\`@category\` AS d3,
            data.\`@publication\` AS d4
-      MERGE (n0:Collection {file: d0.file})
+      MERGE (n0:Dataset:Entity {file: d0.file})
         ON CREATE SET n0 += d0, n0.uuid = randomUUID()
         ON MATCH SET n0 += d0
       WITH n0, d1, d2, d3, d4
       CALL apoc.cypher.run('
-        WITH {d1} AS d1, {d2} as d2
+        WITH {d1} AS d1, {d2} AS d2
         MATCH (n2:Lake {name: d2.name})
         WITH d1, d2, n2, CASE
           WHEN d1.latitude IS NOT NULL AND d1.longitude IS NOT NULL = true
@@ -235,34 +231,34 @@ module.exports = async function taskSeed ({ host, user, password }) {
       {d1: d1, d2: d2}) YIELD value
       WITH n0, d1, value.n2 AS n2, d3, d4
       FOREACH (d1_label IN (CASE d1.label WHEN null THEN [] ELSE [d1.label] END) |
-        MERGE (n1_:Core {label: d1_label})-[:FROM_LAKE]->(n2)
+        MERGE (n1_:Core:Entity {label: d1_label})-[:FROM_LAKE]->(n2)
           ON CREATE SET n1_ += d1, n1_.uuid = randomUUID()
           ON MATCH SET n1_ += d1
         MERGE (n0)-[:SAMPLED_FROM]->(n1_)
       )
       FOREACH (d1_ IN (CASE d1.label WHEN null THEN [d1] ELSE [] END) |
-        MERGE (n0)-[:SAMPLED_FROM]->(n1_:Core)
+        MERGE (n0)-[:SAMPLED_FROM]->(n1_:Core:Entity)
           ON CREATE SET n1_ += d1_, n1_.uuid = randomUUID()
           ON MATCH SET n1_ += d1_
         MERGE (n1_)-[:FROM_LAKE]->(n2)
       )
       WITH n0, n2, d3, d4
       MATCH (n0)-[:SAMPLED_FROM]->(n1:Core)-[:FROM_LAKE]->(n2)
-      MERGE (n3:Proxy {name: d3.name})
+      MERGE (n3:Category:Entity {name: d3.name})
         ON CREATE SET n3.uuid = randomUUID()
       MERGE (n0)-[:BELONGS_TO]->(n3)
       FOREACH (d4_doi IN (CASE d4.doi WHEN null THEN [] ELSE [d4.doi] END) |
-        MERGE (n4_:Publication {doi: d4_doi})
+        MERGE (n4_:Publication:Entity {doi: d4_doi})
           ON CREATE SET n4_.uuid = randomUUID()
         MERGE (n0)-[:PUBLISHED_IN]->(n4_)
       )
       WITH n0, n1, n2, n3
       OPTIONAL MATCH (n0)-[:PUBLISHED_IN]->(n4)
       RETURN collect(DISTINCT {
-        \`@collection\`:  n0,
+        \`@dataset\`:     n0,
         \`@core\`:        n1,
         \`@lake\`:        n2,
-        \`@proxy\`:       n3,
+        \`@category\`:    n3,
         \`@publication\`: n4
       }) AS datasets
     `,
@@ -272,16 +268,16 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   let recordsCountTotal = 0;
 
-  let importRecordsJobs = datasets.map(({ '@collection': collection, '@proxy': proxy }) => async () => {
+  let importRecordsJobs = datasets.map(({ '@dataset': dataset, '@category': category }) => async () => {
     let attributes, records;
-    const file = path.resolve(process.env.SHARED_SHEETS_PATH, collection['file'] + '.xlsx');
-    const sheetName = proxy['name'] === '14C' ? 'Age' : proxy['name'];
+    const file = path.resolve(process.env.SHARED_SHEETS_PATH, dataset['file'] + '.xlsx');
+    const sheetName = category['name'] === '14C' ? 'Age' : category['name'];
     console.log('================================================================\n');
     try {
       ({ header: attributes, values: records } = readFromFile({ file, sheetName, headerStart: 'B8' }));
-      console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records with ${chalk.blueBright(String(attributes.length))} columns for proxy \`${chalk.cyan(proxy['name'])}\` in the file: ${chalk.yellowBright(collection['file'])}\n`);
+      console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records with ${chalk.blueBright(String(attributes.length))} columns for category \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
     } catch (err) {
-      console.log(`${chalk.red('fail')} --> Could not find a sheet named \`${chalk.cyan(proxy['name'])}\` in the file: ${chalk.yellowBright(collection['file'])}\n`);
+      console.log(`${chalk.red('fail')} --> Could not find a sheet named \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
       return;
     }
 
@@ -290,24 +286,24 @@ module.exports = async function taskSeed ({ host, user, password }) {
     await executeQuery({
       check: false,
       dryRun: false,
-      label: 'Import records from file -> ' + collection['file'],
-      params: { collection, proxy, attributes, records },
+      label: 'Import records from file -> ' + dataset['file'],
+      params: { dataset, category, attributes, records },
       statement: cql`
-        MATCH (n0:Collection {file: $collection.file})-[:BELONGS_TO]->(n1:Proxy {name: $proxy.name})
+        MATCH (n0:Dataset {file: $dataset.file})-[:BELONGS_TO]->(n1:Category {name: $category.name})
         WITH n0, n1
-        UNWIND $attributes as attribute
-        MERGE (n2:Attribute {name: attribute})
+        UNWIND $attributes AS attribute
+        MERGE (n2:Attribute:Entity {name: attribute})
           ON CREATE SET n2.uuid = randomUUID()
         MERGE (n0)-[:INCLUDES]->(n2)
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
-        UNWIND $records as record
+        UNWIND $records AS record
         CREATE (n3:Record)
         SET n3 = record
-        MERGE (n3)-[:COLLECTED_IN]->(n0)
+        MERGE (n3)-[:RECORDED_IN]->(n0)
         RETURN
-          n0 as collection,
-          n1 as proxy,
+          n0 AS dataset,
+          n1 AS category,
           attributes,
           collect(DISTINCT n3) AS records
     `,
@@ -375,7 +371,7 @@ function addMoreProps (dataset) {
       if (!value || !prop) {
         return accumulator;
       }
-      let key = rowNumber < 65 ? 'core' : 'collection';
+      let key = rowNumber < 65 ? 'core' : 'dataset';
       prop = normalize(prop);
       if (mappedProps.hasOwnProperty(prop)) {
         prop = mappedProps[prop];
@@ -393,9 +389,9 @@ function addMoreProps (dataset) {
       }
       return accumulator;
     }, {
-      core: {}, collection: {},
+      core: {}, dataset: {},
     });
-  Object.assign(dataset, metadata.collection, metadata.core, props, { _lastCheck: new Date() });
+  Object.assign(dataset, metadata.dataset, metadata.core, props, { _lastCheck: new Date() });
 }
 
 function sortProperties (dataset) {
@@ -411,7 +407,7 @@ function sortProperties (dataset) {
     'ageSpan',
     'ageResolution',
     'comments',
-    '@proxy.name',
+    '@category.name',
     '@publication.doi',
     '@lake.name',
     '@lake.latitude',
@@ -441,7 +437,7 @@ async function executeQuery ({ label, params, statement, dryRun = false, check =
   let query, results, tx = session.beginTransaction();
   try {
     query = tx.run(statement, params);
-    results = (({ records: [r] }) => r.toObject())(await query);
+    results = (({ records: [r] }) => r && r.toObject())(await query);
     let resultMatchesInput = !check ? true : (Object.entries(query['_parameters']).map(([key, values]) => {
       function compareProperties (x) {
         return Object.keys(this).filter(k => !k.match(/^[@|_]/g)).reduce((valid, p) => {

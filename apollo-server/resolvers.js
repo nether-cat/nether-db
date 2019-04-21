@@ -28,11 +28,11 @@ module.exports = {
         return { _id: node.identity.toString(), ...node.properties };
       });
     },
-    async RecordsByCollection(object, params, ctx, resolveInfo) {
+    async RecordsByDataset(object, params, ctx, resolveInfo) {
       debugger;
       /** @type Session */ let session = ctx.driver.session();
       let queryResult = await session.run(
-        'MATCH (n0:Record)-[:COLLECTED_IN]->(:Collection {uuid: $uuid}) RETURN n0 AS node',
+        'MATCH (n0:Record)-[:RECORDED_IN]->(:Dataset {uuid: $uuid}) RETURN n0 AS node',
         { uuid: params.uuid },
       );
       return queryResult.records.map(record => {

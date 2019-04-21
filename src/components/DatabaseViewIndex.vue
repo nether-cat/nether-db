@@ -76,7 +76,7 @@
               <div class="text-right">{{ cell.label }}</div>
             </template>
             <template slot="datasets" slot-scope="cell">
-              <div class="text-monospace text-right">{{ cell.item.datasets }}</div>
+              <div class="text-monospace text-right">{{ cell.item.datasetsCount }}</div>
             </template>
             <template slot="HEAD_actions" slot-scope="cell">
               <div class="text-center">{{ cell.label }}</div>
@@ -183,11 +183,11 @@ export default {
             cores {
               uuid
               label
-              collections {
+              datasets {
                 uuid
                 label
                 file
-                proxy {
+                category {
                   uuid
                   name
                 }
@@ -212,9 +212,9 @@ export default {
     ]),
     getResults () {
       return this.lakes.map(lake => {
-        let datasets = 0;
-        lake.cores.forEach(core => core.collections.forEach(() => datasets++));
-        return Object.assign({}, lake, { id: lake['uuid'], datasets });
+        let datasetsCount = 0;
+        lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
+        return Object.assign({}, lake, { id: lake['uuid'], datasetsCount });
       });
     },
     getFeatures () {

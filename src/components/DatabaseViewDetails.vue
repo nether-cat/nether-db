@@ -61,14 +61,14 @@
                        striped
                        caption-top
                        show-empty
-                       :items="collections"
+                       :items="datasets"
                        :fields="['type', 'ageResolution', 'actions']"
               >
                 <template slot="table-caption">
                   Available datasets:
                 </template>
                 <template slot="type" slot-scope="cell">
-                  {{ cell.item.proxy[0].name.charAt(0).toUpperCase() + cell.item.proxy[0].name.slice(1) }}
+                  {{ cell.item.category[0].name.charAt(0).toUpperCase() + cell.item.category[0].name.slice(1) }}
                 </template>
                 <!-- eslint-disable-next-line vue/no-unused-vars -->
                 <template slot="HEAD_ageResolution" slot-scope="cell">
@@ -78,7 +78,7 @@
                   {{ Number.parseFloat(cell.item.ageResolution).toFixed(3) }}
                 </template>
                 <template slot="actions" slot-scope="cell">
-                  <b-button variant="primary" size="sm" @click="onCollectionClick(cell.item.uuid)">Show records</b-button>
+                  <b-button variant="primary" size="sm" @click="onDatasetClick(cell.item.uuid)">Show records</b-button>
                 </template>
               </b-table>
             </b-card>
@@ -194,7 +194,7 @@ export default {
   data () {
     return {
       showRecords: false,
-      collectionUUID: '',
+      datasetUUID: '',
       lakes: [],
       countries: [],
       records: [],
@@ -225,12 +225,12 @@ export default {
             cores {
               uuid
               label
-              collections {
+              datasets {
                 uuid
                 label
                 ageResolution
                 file
-                proxy {
+                category {
                   uuid
                   name
                 }
@@ -249,7 +249,7 @@ export default {
     records: {
       query: gql`
         query getRecords($uuid: ID!) {
-          records: RecordsByCollection(uuid: $uuid) {
+          records: RecordsByDataset(uuid: $uuid) {
             _id
             data
           }
@@ -258,7 +258,7 @@ export default {
       variables() {
         // Use vue reactive properties here
         return {
-          uuid: this.collectionUUID,
+          uuid: this.datasetUUID,
         };
       },
     },
@@ -271,9 +271,9 @@ export default {
         return undefined;
       }
     },
-    collections () {
+    datasets () {
       if (this.lake) {
-        return this.lake.cores.reduce((collections, core) => collections.concat(core.collections), []);
+        return this.lake.cores.reduce((datasets, core) => datasets.concat(core.datasets), []);
       } else {
         return [];
       }
@@ -293,7 +293,7 @@ export default {
       'reducedResults',
       //'lake',
       //'countries',
-      //'collections',
+      //'datasets',
     ]),
   },
   created () {
@@ -303,9 +303,9 @@ export default {
     ...mapActions('database', [
       'loadCollection',
     ]),
-    onCollectionClick (id) {
+    onDatasetClick (id) {
       this.showRecords = true;
-      this.collectionUUID = id;
+      this.datasetUUID = id;
     },
     onMapMounted () {
       ScaleLineLoad.then(() => {
