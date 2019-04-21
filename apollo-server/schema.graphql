@@ -134,7 +134,7 @@ type Dataset implements Entity {
   depthResolution: Float
   comments: String
   url: String
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "INCLUDES", direction: "OUT")
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__")
   category(first: Int = 1, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
   publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")

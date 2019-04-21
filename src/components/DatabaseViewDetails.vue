@@ -78,7 +78,7 @@
                   {{ Number.parseFloat(cell.item.ageResolution).toFixed(3) }}
                 </template>
                 <template slot="actions" slot-scope="cell">
-                  <b-button variant="primary" size="sm" @click="onDatasetClick(cell.item.uuid)">Show records</b-button>
+                  <b-button variant="primary" size="sm" @click="onDatasetClick(cell.item)">Show records</b-button>
                 </template>
               </b-table>
             </b-card>
@@ -128,7 +128,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row v-if="showRecords && flatRecords && flatRecords.length">
+    <b-row v-if="showRecords && dataset && flatRecords && flatRecords.length">
       <b-col class="mt-4">
         <b-card style="overflow-x: auto;">
           <b-table hover
@@ -136,12 +136,15 @@
                    striped
                    caption-top
                    show-empty
-                   sort-by="rowNum"
+                   sort-by="__rowNum__"
                    :items="flatRecords"
-                   :fields="[{ key: 'rowNum', label: '#' }].concat(Object.keys(flatRecords[0]).filter(k => !['_id', 'rowNum'].includes(k)))"
+                   :fields="[{ key: '__rowNum__', label: '#' }].concat(dataset.attributes.map(a => a.name))"
           >
             <template slot="table-caption">
               Records in the selected dataset:
+            </template>
+            <template slot="__rowNum__" slot-scope="cell">
+              {{ cell.item.__rowNum__ + 1 }}
             </template>
           </b-table>
         </b-card>
@@ -194,6 +197,7 @@ export default {
   data () {
     return {
       showRecords: false,
+      dataset: {},
       datasetUUID: '',
       lakes: [],
       countries: [],
@@ -230,6 +234,10 @@ export default {
                 label
                 ageResolution
                 file
+                attributes {
+                  uuid
+                  name
+                }
                 category {
                   uuid
                   name
@@ -303,9 +311,10 @@ export default {
     ...mapActions('database', [
       'loadCollection',
     ]),
-    onDatasetClick (id) {
+    onDatasetClick (dataset) {
       this.showRecords = true;
-      this.datasetUUID = id;
+      this.datasetUUID = dataset.uuid;
+      this.dataset = dataset;
     },
     onMapMounted () {
       ScaleLineLoad.then(() => {

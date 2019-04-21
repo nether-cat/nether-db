@@ -159,6 +159,16 @@ module.exports = async function taskSeed ({ host, user, password }) {
   });
 
   await executeQuery({
+    check: false,
+    label: 'Add constraints for unique properties',
+    statement: cql`
+      CREATE CONSTRAINT ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
+    `,
+  });
+
+  await (() => new Promise(resolve => setTimeout(() => resolve(), 3000)))();
+
+  await executeQuery({
     label: 'Add continents and countries',
     params: { continents, countries },
     statement: cql`
@@ -281,7 +291,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
       return;
     }
 
-    records = records.map((record, index) => Object.assign({ rowNum: index + 1 }, record));
+    records = records.map((record, index) => ({ ...record, __rowNum__: index }));
 
     await executeQuery({
       check: false,
@@ -290,11 +300,12 @@ module.exports = async function taskSeed ({ host, user, password }) {
       params: { dataset, category, attributes, records },
       statement: cql`
         MATCH (n0:Dataset {file: $dataset.file})-[:BELONGS_TO]->(n1:Category {name: $category.name})
-        WITH n0, n1
-        UNWIND $attributes AS attribute
-        MERGE (n2:Attribute:Entity {name: attribute})
+        WITH n0, n1, range(0, size($attributes) - 1) AS attributeIndices
+        UNWIND attributeIndices AS attributeIndex
+        MERGE (n2:Attribute:Entity {name: $attributes[attributeIndex]})
           ON CREATE SET n2.uuid = randomUUID()
-        MERGE (n0)-[:INCLUDES]->(n2)
+        MERGE (n0)-[r0:INCLUDES]->(n2)
+        SET r0.__colNum__ = attributeIndex
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
         UNWIND $records AS record
@@ -306,7 +317,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
           n1 AS category,
           attributes,
           collect(DISTINCT n3) AS records
-    `,
+      `,
     }).catch(() => status.set(0x4));
 
     if (!status.hasError()) {
@@ -365,13 +376,13 @@ function addMoreProps (dataset) {
   const props = Object.assign({}, { ...dataset });
   const workbook = xlsx.readFile(path.resolve(process.env.SHARED_SHEETS_PATH, dataset['file'] + '.xlsx'));
   const metadata = xlsx.utils.sheet_to_json(workbook.Sheets['Metadata'], { header: 'A', range: 'B1:G81' })
-    .reduce((accumulator, { B: prop, G: value, __rowNum__: rowNumber }) => {
+    .reduce((accumulator, { B: prop, G: value, __rowNum__ }) => {
       prop = typeof prop === 'string' ? prop.trim() : prop;
       value = typeof value === 'string' ? value.trim().replace(/^[-/]$/g, '') : value;
       if (!value || !prop) {
         return accumulator;
       }
-      let key = rowNumber < 65 ? 'core' : 'dataset';
+      let key = __rowNum__ < 65 ? 'core' : 'dataset';
       prop = normalize(prop);
       if (mappedProps.hasOwnProperty(prop)) {
         prop = mappedProps[prop];
