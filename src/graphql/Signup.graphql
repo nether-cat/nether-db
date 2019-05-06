@@ -1,0 +1,3 @@
+mutation signup ($user: UserInput!, $probeOnly: Boolean) {
+  result: Signup(user: $user, probeOnly: $probeOnly)
+}

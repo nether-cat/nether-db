@@ -16,8 +16,15 @@ import bFormRadio from 'bootstrap-vue/es/components/form-radio/form-radio';
 import bFormRadioGroup from 'bootstrap-vue/es/components/form-radio/form-radio-group';
 import bFormRow from 'bootstrap-vue/es/components/layout/form-row';
 import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
+import bFormInvalidFeedback from 'bootstrap-vue/es/components/form/form-invalid-feedback';
+import bFormValidFeedback from 'bootstrap-vue/es/components/form/form-valid-feedback';
+import bImg from 'bootstrap-vue/es/components/image/img';
 import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
+import bInputGroupAddon from 'bootstrap-vue/es/components/input-group/input-group-addon';
 import bInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
+import bInputGroupPrepend from 'bootstrap-vue/es/components/input-group/input-group-prepend';
+import bInputGroupText from 'bootstrap-vue/es/components/input-group/input-group-text';
+import bLink from 'bootstrap-vue/es/components/link/link';
 import bNav from 'bootstrap-vue/es/components/nav/nav';
 import bNavForm from 'bootstrap-vue/es/components/nav/nav-form';
 import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
@@ -33,6 +40,7 @@ bNavItem.options.props.activeClass.default = 'active';
 bNavItem.options.props.exactActiveClass.default = 'exact-active';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+
 import {
   faAlignLeft,
   faArchive,
@@ -53,6 +61,11 @@ import {
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
+import {
+  faEye,
+  faEyeSlash,
+} from '@fortawesome/free-regular-svg-icons';
+
 library.add(
   faAlignLeft,
   faArchive,
@@ -63,6 +76,8 @@ library.add(
   faDatabase,
   faEllipsisH,
   faExternalLinkAlt,
+  faEye,
+  faEyeSlash,
   faHandsHelping,
   faHome,
   faInfoCircle,
@@ -79,24 +94,9 @@ import {
   FontAwesomeLayersText,
 } from '@fortawesome/vue-fontawesome';
 
+import Vuelidate from 'vuelidate';
+
 import noSSR from 'vue-no-ssr';
-
-import vTagsInput from '@johmun/vue-tags-input/publish';
-
-vTagsInput.mounted = function () {
-  this.selectDefaultItem();
-  if (document && 'function' === typeof document['addEventListener']) {
-    document.addEventListener('click', this.blurred);
-    document.addEventListener('focusin', this.blurred);
-  }
-};
-
-vTagsInput.destroyed = function () {
-  if (document && 'function' === typeof document['addEventListener']) {
-    document.removeEventListener('click', this.blurred);
-    document.removeEventListener('focusin', this.blurred);
-  }
-};
 
 import { headMixin } from './mixins/head-mixin';
 
@@ -120,8 +120,15 @@ export function installPlugins (Vue) {
   Vue.component('bFormRadioGroup', bFormRadioGroup);
   Vue.component('bFormRow', bFormRow);
   Vue.component('bFormSelect', bFormSelect);
+  Vue.component('bFormInvalidFeedback', bFormInvalidFeedback);
+  Vue.component('bFormValidFeedback', bFormValidFeedback);
+  Vue.component('bImg', bImg);
   Vue.component('bInputGroup', bInputGroup);
+  Vue.component('bInputGroupAddon', bInputGroupAddon);
   Vue.component('bInputGroupAppend', bInputGroupAppend);
+  Vue.component('bInputGroupPrepend', bInputGroupPrepend);
+  Vue.component('bInputGroupText', bInputGroupText);
+  Vue.component('bLink', bLink);
   Vue.component('bNav', bNav);
   Vue.component('bNavForm', bNavForm);
   Vue.component('bNavItem', bNavItem);
@@ -134,12 +141,12 @@ export function installPlugins (Vue) {
   Vue.component('FontAwesomeIcon', FontAwesomeIcon);
   Vue.component('FontAwesomeLayers', FontAwesomeLayers);
   Vue.component('FontAwesomeLayersText', FontAwesomeLayersText);
-  // add component that prevents SSR inside
+  // add component that skips SSR for its children
   Vue.component('no-ssr', noSSR);
-  // add customized vue-tags-input component
-  Vue.component('vTagsInput', vTagsInput);
   // add directives from from bootstrap-vue
   Vue.directive('bToggle', bToggle);
   // add mixin to modify our head
   Vue.mixin(headMixin);
+  // install vuelidate plugin
+  Vue.use(Vuelidate);
 }

@@ -1,81 +1,40 @@
 <template>
   <b-container fluid class="overlay">
-    <b-row>
+    <b-row align-h="center">
       <b-col cols="12" class="text-center">
         <img class="logo" src="../assets/palim-logo.png" alt="PaLimDB" :class="animation">
       </b-col>
     </b-row>
-    <b-row v-if="messages.length">
-      <b-col/>
-      <b-col cols="12" sm="10" md="7" xl="5">
-        <b-alert class="mt-4" :variant="messages[0]['variant']" show :class="animation">
-          {{ messages[0]['text'] }}
+    <b-row v-if="messages.length" align-h="center">
+      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
+        <b-alert v-for="msg of messages"
+                 :key="msg.id"
+                 :show="true"
+                 :variant="msg.variant"
+                 :class="animation"
+                 class="mt-3"
+                 dismissible
+                 @dismissed="messages = messages.filter(m => m !== msg)"
+        >
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <span v-html="msg.text"/>
         </b-alert>
       </b-col>
-      <b-col/>
     </b-row>
-    <b-row>
-      <b-col/>
-      <b-col cols="12" sm="10" md="7" xl="5">
-        <b-card title="Login" class="container-fluid" :class="animation">
-          <b-row>
-            <b-col>
-              <b-form class="my-4" @submit="doLogin">
-                <div>
-                  <b-form-group id="inputGroupEmail"
-                                label="Email address:"
-                                label-for="emailInput"
-                  >
-                    <b-form-input id="emailInput"
-                                  ref="email"
-                                  v-model="credentials.name"
-                                  :disabled="pending"
-                                  type="email"
-                                  required
-                                  placeholder="Enter your email address"
-                                  autocomplete="username"
-                    />
-                  </b-form-group>
-                  <b-form-group id="inputGroupPassword"
-                                label="Password:"
-                                label-for="passwordInput"
-                  >
-                    <b-form-input id="passwordInput"
-                                  ref="password"
-                                  v-model="credentials.password"
-                                  :disabled="pending"
-                                  type="password"
-                                  required
-                                  placeholder="Enter your password"
-                                  autocomplete="current-password"
-                    />
-                  </b-form-group>
-                </div>
-                <b-button :disabled="pending" type="submit" variant="primary" class="mt-2 w-100">
-                  Login <font-awesome-icon v-if="pending" icon="spinner" spin/>
-                </b-button>
-              </b-form>
-            </b-col>
-          </b-row>
-        </b-card>
+    <b-row align-h="center">
+      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
+        <router-view :class="animation" @message="onMessage"/>
       </b-col>
-      <b-col/>
     </b-row>
-    <b-row>
-      <b-col/>
-      <b-col cols="12" sm="10" md="7" xl="5">
+    <b-row align-h="center">
+      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
         <page-footer class="my-4" wrap-always/>
       </b-col>
-      <b-col/>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import crypto from 'crypto';
-import { onLogin } from '@/vue-apollo';
-import LOGIN from '@/graphql/Login.graphql';
-import SESSION from '@/graphql/Session.graphql';
 import PageFooter from '@/components/PageFooter';
 
 export default {
@@ -85,85 +44,25 @@ export default {
   },
   data () {
     return {
-      session: {
-        state: 'UNAUTHORIZED',
-      },
-      credentials: {
-        name: '',
-        password: '',
-      },
-      redirect: '/',
       messages: [],
       animation: [],
-      pending: false,
     };
   },
-  apollo: {
-    session: SESSION,
-  },
-  computed: {
-    redirectPath () {
-      return this.$route.query['redirect'] || '/';
-    },
-  },
-  created () {
-    if (this.$route.query['d'] === null) {
-      this.messages.push({
-        variant: 'warning',
-        text: 'You need to be logged in to access this resource.',
-      });
-    }
-  },
   methods: {
-    doLogin (evt) {
-      evt.preventDefault();
-      const email = this.credentials.name.toLowerCase();
-      const password = crypto
-        .createHash('sha256')
-        .update(this.credentials.password)
-        .digest('hex');
-      this.pending = true;
-      this.$apollo.mutate({
-        mutation: LOGIN,
-        variables: {
-          email,
-          password,
-          isHash: true,
-        },
-        optimisticResponse: {
-          __typename: 'Mutation',
-          session: {
-            __typename: 'Session',
-            _id: '0',
-            user: 'Guest',
-            userRole: 'NONE',
-            token: null,
-            expires: -1,
-            state: 'AUTH_PENDING',
-          },
-        },
-      }).then(({ data }) => {
-        this.pending = false;
-        if (data['session']['token']) {
-          onLogin(
-            this.$apolloProvider.defaultClient,
-            data['session']['token'],
-          ).then(() => this.$router.replace(this.redirectPath));
-        } else {
-          this.credentials.name = '';
-          this.credentials.password = '';
-          this.messages.splice(0, this.messages.length);
-          this.messages.push({
-            variant: 'danger',
-            text: 'Login failed! Please check your credentials.',
-          });
-          this.animation.push('shake-error');
-          setTimeout(() => this.animation.pop(), 300);
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
+    onMessage (message) {
+      this.messages = this.messages.filter(m => m.subject !== message.subject);
+      this.messages.unshift(message);
+      if (message.animation) {
+        this.animation.push('animate-error');
+        setTimeout(() => this.animation.pop(), 1000);
+      }
     },
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (from.name !== to.name) {
+      this.messages = [];
+    }
+    next();
   },
 };
 </script>
@@ -176,12 +75,42 @@ export default {
     height: 100vh;
     width: 100vw;
     top: 0;
+    .logo {
+      max-height: 74px;
+      margin: 0 0 1.5rem;
+      @media only screen and (min-width: 768px) {
+        max-height: 111px;
+        margin: .5rem 0 2rem;
+      }
+    }
+    > .row > .col-12 {
+      @media screen and (min-width: 1200px) {
+        max-width: 730px;
+      }
+    }
+    .alert {
+      &/deep/span {
+        position: relative;
+        z-index: 2;
+      }
+      &/deep/button {
+        position: absolute;
+        z-index: 2;
+      }
+      &::after {
+        left: -1px;
+        top: -1px;
+        z-index: 1;
+        position: absolute;
+        height: calc(100% + 2px);
+        width: calc(100% + 2px);
+        border: 1px solid rgba(0, 0, 0, .05);
+        border-radius: 0.25rem;
+        content: '';
+      }
+    }
   }
-  .logo {
-    max-height: 111px;
-    margin: 2.5rem 0 2rem;
-  }
-  .shake-error {
+  .animate-error {
     animation: shake 0.3s;
   }
   @keyframes shake {

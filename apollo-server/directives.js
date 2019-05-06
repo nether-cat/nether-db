@@ -73,9 +73,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
           NONE: 0,
         };
 
-        const ctx = args[2];
-
-        const session = await ctx.session;
+        const [,, { session } = {}] = args;
 
         if (!session || roles[session.userRole] < roles[requiredRole]) {
           throw new Error('Forbidden');
@@ -89,7 +87,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
 
 module.exports = {
   // Schema directives
-  // https://www.apollographql.com/docs/graphql-tools/schema-directives.html
+  // https://www.apollographql.com/docs/graphql-tools/schema-directives
   auth: AuthDirective,
   calcUID: UniqueIdDirective,
 };

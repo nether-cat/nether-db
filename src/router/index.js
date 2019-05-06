@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import pick from 'lodash/pick';
 
 Vue.use(VueRouter.install);
 
@@ -52,11 +53,39 @@ function createRoutes () {
       ],
     },
     {
-      path: '/user/login',
-      name: 'auth',
+      path: '/login',
       components: {
         default: () => import('@/views/TheUserAuth'),
       },
+      children: [
+        {
+          path: '',
+          name: 'login',
+          components: {
+            default: () => import('@/components/UserLogin'),
+          },
+          props: {
+            default: route => pick(route.query, ['q', 'redirect']),
+          },
+        },
+        {
+          path: '/signup',
+          name: 'signup',
+          components: {
+            default: () => import('@/components/UserSignup'),
+          },
+        },
+        {
+          path: '/confirm',
+          name: 'confirm',
+          components: {
+            default: () => import('@/components/UserConfirm'),
+          },
+          props: {
+            default: route => pick(route.query, ['token']),
+          },
+        },
+      ],
       meta: {
         hideTemplate: true,
         requiresGuest: true,

@@ -32,7 +32,7 @@ export default {
 <style scoped>
   .footer {
     display: block;
-    padding: 1rem 0 2rem 0;
+    padding: .5rem 0 2rem 0;
     text-align: center;
     font-size: 0.8rem;
   }

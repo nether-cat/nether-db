@@ -1,5 +1,7 @@
 <template>
-  <v-tags-input ref="child"
+  <!-- TODO: Build a new solution for the interactive search tool -->
+  <hr>
+  <!--v-tags-input ref="child"
                 v-model="text"
                 :tags="tagsCopy"
                 :class="classes"
@@ -21,7 +23,7 @@
     >
       <font-awesome-icon :icon="props.item.icon" fixed-width class="mr-1"/>&nbsp;{{ props.item.text }}
     </div>
-  </v-tags-input>
+  </v-tags-input-->
 </template>
 
 <script>

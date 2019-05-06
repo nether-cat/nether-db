@@ -1,17 +1,19 @@
 import { driver, neo4j } from './utils/neo4j';
-const session = require('./utils/session');
+import session from './utils/session';
+import smtp from './utils/smtp';
 
 // Context passed to all resolvers (third argument)
 // req => Query
 // connection => Subscription
-// eslint-disable-next-line no-unused-vars
-export default ({ req, connection }) => {
+export default async ({ req, connection }) => {
+  const transport = await smtp;
   const ctx = {
     driver,
     neo4j,
+    transport,
     req,
     connection,
   };
-  ctx.session = session.load(null, null, ctx);
+  ctx.session = await session.load(null, null, ctx);
   return ctx;
 };

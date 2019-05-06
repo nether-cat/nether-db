@@ -51,20 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~bootstrap/scss/bootstrap';
-  @import '~bootstrap-vue/dist/bootstrap-vue.css';
-  //noinspection CssUnknownTarget
-  @import '~@fortawesome/fontawesome-svg-core/styles.css';
-  //noinspection CssUnknownTarget
-  @import '~@johmun/vue-tags-input/vue-tags-input/vue-tags-input';
-
-  $primary: #00589c;
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background-color: whitesmoke;
-  }
+  @import 'styles';
 
   #app {
     display: block;
@@ -109,11 +96,30 @@ export default {
         }
       }
     }
-    a.disabled:hover {
-      cursor: default;
+    a {
+      &:focus, &.focus {
+        outline-width: 3px;
+        outline-offset: .1em;
+      }
+      &.btn-link:focus,
+      &.btn-link.focus {
+        outline-width: 3px;
+        outline-style: auto;
+        outline-offset: -3px;
+      }
+      &[role="button"]:focus,
+      &[role="button"].focus {
+        outline: 0;
+      }
+      &[role="button"]:not(.disabled) {
+        cursor: pointer;
+      }
+      &.disabled:hover {
+        cursor: default;
+      }
     }
-    .bg-blue {
-      background-color: $primary;
+    .bg-theme-color {
+      background-color: $theme-color;
     }
     button.btn > svg.fa-spin {
       margin-left: .75em;
@@ -126,109 +132,139 @@ export default {
     .comma-separated :not(:last-child)::after {
       content: ', ';
     }
-    .vue-tags-input {
-      max-width: unset;
-      .input {
-        @extend .form-control;
+    .input-group > .form-control {
+      &.is-invalid, &.is-valid {
+        z-index: 3;
       }
-      .input:focus-within {
-        @extend .input:focus;
-      }
-      .new-tag-input-wrapper {
-        margin: 0;
-        padding: 0;
-        @at-root {
-          #app .vue-tags-input.allow {
-            &--enter, &--delete {
-              .new-tag-input-wrapper:focus-within::after {
-                display: none;
-                color: $input-placeholder-color;
-                background-color: $white;
-                margin: 1px 0 0 .5em;
-                padding: 0 .4em 0 .3em;
-                border: 1px solid $input-border-color;
-                border-radius: $input-border-radius;
-              }
-            }
-            &--enter {
-              .new-tag-input-wrapper:focus-within::after {
-                display: inline-block;
-                content: '\23ce';
-              }
-            }
-            &--delete {
-              .deletion-mark ~ .new-tag-input-wrapper:focus-within {
-                input {
-                  min-width: 1em;
-                  max-width: 1em;
-                  &::placeholder {
-                    color: rgba(0, 0, 0, 0);
-                  }
-                }
-                &::after {
-                  display: block;
-                  content: '\232b';
-                  position: absolute;
-                  right: 1em;
-                }
-              }
+    }
+    .form-container {
+      .form-group {
+        position: relative;
+        margin-bottom: .2rem;
+        &.is-filled {
+          &.is-invalid label {
+            color: $danger;
+          }
+          &.is-valid label {
+            color: $success;
+          }
+        }
+        &.is-filled,
+        &.focus-explicit.focus-within,
+        &:focus-within:not(.focus-explicit) {
+          label {
+            transform: scale(0.75) translateY(-150%);
+            &.required::after {
+              color: rgba($input-placeholder-color, 0);
             }
           }
         }
-      }
-      .tag {
-        margin: 2px .5em 1px 0;
-        padding: 0 .3em 0 .5em;
-        transition: background-color .25s;
-        background-color: $primary;
-        &.deletion-mark {
-          background-color: $error !important;
+        &.focus-explicit.focus-within,
+        &:focus-within:not(.focus-explicit) {
+          label {
+            color: $theme-color;
+          }
         }
-        &.group {
-          background-color: $primary;
-          border-radius: 2px 0 0 2px;
-          padding-right: .5em;
-          &.current {
-            border-radius: 2px;
-            padding-right: .3em;
-            .content::after {
-              content: '\2026';
-              margin-bottom: .5em;
-              line-height: 50%;
-              padding: 0 .1em 0 .5em;
+        &.is-invalid.focus-explicit.focus-within label,
+        &.is-invalid:focus-within:not(.focus-explicit) label {
+          color: $danger;
+        }
+        &.is-valid.focus-explicit.focus-within label,
+        &.is-valid:focus-within:not(.focus-explicit) label {
+          color: $success;
+        }
+        label {
+          cursor: text;
+          pointer-events: none;
+          position: absolute;
+          z-index: 5;
+          top: 1.075rem;
+          left: .25rem;
+          width: unset;
+          margin: 0 .3rem .5rem;
+          padding: 0 .25rem;
+          line-height: 1.25em;
+          border-radius: 0.625rem;
+          background: rgb(255,255,255);
+          box-shadow: 0 0 .25em white, 0 0 .25em white,
+          0 0 .25em white, 0 0 .25em white;
+          color: $input-placeholder-color;
+          transform-origin: bottom left;
+          transform: scale(1) translateY(0);
+          transition: transform 100ms linear, color 100ms linear;
+          &.required::after {
+            content: '*';
+            color: $danger;
+            transition: color 100ms linear;
+            position: absolute;
+            bottom: .1em;
+            right: -.3em;
+          }
+          & + div {
+            padding: .5rem 0 .3rem;
+          }
+        }
+        .input-group .input-group-append,
+        .input-group .input-group-prepend {
+          .btn-context-toggle {
+            color: #586169;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            &:hover {
+              color: #494f54;
+              background-color: #e1e4e7;
             }
-            .actions {
-              display: flex;
+            &.active, &.active:hover, &:active:hover {
+              color: #3f454a !important;
+              background-color: #dde0e3 !important;
+            }
+            &:focus {
+              box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, .5);
             }
           }
-          .actions {
-            display: none;
+        }
+        &.is-pending {
+          .spinner-border {
+            display: inline-block;
           }
-          &.duplicate {
-            background-color: $primary;
+        }
+        .spinner-border {
+          color: $input-color;
+          position: absolute;
+          display: none;
+          top: 1.2em;
+          right: .7em;
+        }
+        .is-invalid,
+        .is-valid {
+          padding-right: 2em;
+        }
+        .is-invalid ~ .invalid-feedback ~ .full-feedback {
+          display: none;
+        }
+        .full-feedback {
+          .invalid-feedback,
+          .valid-feedback {
+            display: initial;
+            font-size: 1em;
           }
         }
-        &.option {
-          background-color: cornflowerblue;
-          border-radius: 0 2px 2px 0;
-          margin-left: -.5em;
-        }
-      }
-      .selected-item {
-        background-color: $primary;
-        .group {
-          background-color: $primary;
-        }
-        .option {
-          background-color: cornflowerblue;
-        }
-      }
-      input {
-        font-size: 1rem;
-        line-height: 1.5;
-        color: $input-color;
-        &::placeholder {
-          @extend .form-control::placeholder;
+        .full-feedback,
+        .form-control ~ .invalid-feedback,
+        .form-control ~ .valid-feedback {
+          text-align: justify;
+          font-size: .75em;
+          margin-top: .25em;
+          margin-right: 1em;
+          position: relative;
+          left: .5em;
+          kbd {
+            font-size: .9em;
+            font-weight: 600;
+            margin-right: .1rem;
+            padding-top: .1rem;
+            color: floralwhite;
+          }
         }
       }
     }

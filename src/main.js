@@ -47,8 +47,8 @@ export async function createApp ({
       if (!data || !data.session || data.session.state !== 'AUTHORIZED') {
         router.status = 403;
         next({
-          name: 'auth',
-          query: { d: null, redirect: to.fullPath },
+          name: 'login',
+          query: { q: 'showInfo', redirect: to.fullPath },
         });
       } else {
         next();

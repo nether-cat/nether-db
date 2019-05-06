@@ -11,7 +11,7 @@ scalar LocalDateTime
 
 # TODO: This comment and the lines above schould be restored manually after a new schema introspection!
 
-# This file was generated based on ".graphqlconfig" at Sun Apr 21 06:02:13 CEST 2019. Do not edit manually.
+# This file was generated based on ".graphqlconfig" at Mon May 20 13:14:21 CEST 2019. Do not edit manually.
 
 interface Authorizable {
   permissions: [Permission]
@@ -85,6 +85,7 @@ type Dataset implements Entity {
   comments: String
   core(first: Int = 1, offset: Int = 0): [Core]
   depthResolution: Float
+  distributor: String
   file: String!
   label: String
   publication(first: Int = 1, offset: Int = 0): [Publication]
@@ -122,12 +123,12 @@ type Membership {
 }
 
 type Mutation {
-  CreateCountry(code: String!, name: String!, uuid: ID): Country
-  DeleteCountry(uuid: ID!): Country
+  Confirm(token: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
+  Revoke(token: String!): JSON!
+  Signup(probeOnly: Boolean, user: UserInput!): JSON!
   Test(_id: ID!, payload: JSON!): JSON
-  UpdateCountry(code: String, name: String, uuid: ID!): Country
 }
 
 type Permission {
@@ -151,6 +152,7 @@ type Publication implements Entity {
 }
 
 type Query {
+  Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
   RecordsByDataset(uuid: ID): [Record]
@@ -173,17 +175,20 @@ type Session {
 }
 
 type User implements Authorizable & Entity {
+  deactivated: Boolean!
   department: String
-  disabled: Boolean!
   email: String!
-  firstName: String
+  emailVerified: Boolean!
   frozen: Boolean!
+  fullName: String!
   institution: String
-  lastName: String
   memberships: [Membership]
   password: String!
   permissions: [Permission]
+  reason: String
   role: String
+  shortName: String
+  titlePrefix: String
   userRole: UserRole!
   uuid: ID!
 }
@@ -202,11 +207,12 @@ enum CacheControlScope {
 
 enum SessionState {
   AUTHORIZED
+  AUTH_EMAIL
   AUTH_ERROR
   AUTH_EXPIRED
   AUTH_FROZEN
-  AUTH_MISMATCH
   AUTH_PENDING
+  AUTH_UNKNOWN
   UNAUTHORIZED
 }
 
@@ -221,4 +227,15 @@ enum UserRole {
 input Password {
   isHash: Boolean!
   value: String!
+}
+
+input UserInput {
+  department: String
+  email: String!
+  fullName: String!
+  institution: String
+  password: Password!
+  role: String
+  shortName: String
+  titlePrefix: String
 }

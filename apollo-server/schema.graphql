@@ -23,11 +23,12 @@ enum AccessLevel {
 
 enum SessionState {
   AUTHORIZED
+  AUTH_EMAIL
   AUTH_ERROR
   AUTH_EXPIRED
   AUTH_FROZEN
-  AUTH_MISMATCH
   AUTH_PENDING
+  AUTH_UNKNOWN
   UNAUTHORIZED
 }
 
@@ -42,6 +43,17 @@ enum UserRole {
 input Password {
   isHash: Boolean!
   value: String!
+}
+
+input UserInput {
+  titlePrefix: String
+  fullName: String!
+  shortName: String
+  role: String
+  department: String
+  institution: String
+  email: String!
+  password: Password!
 }
 
 interface Authorizable {
@@ -61,6 +73,7 @@ interface Protectable {
 
 type Query {
   Session: Session!
+  Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country] @auth
   Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake] @auth
@@ -70,10 +83,10 @@ type Query {
 type Mutation {
   Login(email: String!, password: Password!): Session!
   Logout: Session!
+  Signup(user: UserInput!, probeOnly: Boolean): JSON!
+  Confirm(token: String!): JSON!
+  Revoke(token: String!): JSON!
   Test(_id: ID!, payload: JSON!): JSON @auth
-  CreateCountry(code: String!, name: String!, uuid: ID): Country @auth
-  DeleteCountry(uuid: ID!): Country @auth
-  UpdateCountry(code: String, name: String, uuid: ID!): Country @auth
 }
 
 type Attribute implements Entity {
@@ -134,6 +147,7 @@ type Dataset implements Entity {
   depthResolution: Float
   comments: String
   url: String
+  distributor: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__")
   category(first: Int = 1, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
@@ -205,16 +219,19 @@ type Session {
 
 type User implements Entity & Authorizable {
   uuid: ID!
-  firstName: String
-  lastName: String
+  titlePrefix: String
+  fullName: String!
+  shortName: String
   role: String
   department: String
   institution: String
   email: String!
   password: String!
   userRole: UserRole!
-  disabled: Boolean!
+  deactivated: Boolean!
+  emailVerified: Boolean!
   frozen: Boolean!
+  reason: String
   memberships: [Membership]
   permissions: [Permission]
 }

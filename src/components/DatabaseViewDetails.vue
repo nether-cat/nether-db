@@ -5,7 +5,7 @@
         <b-row>
           <b-col>
             <b-card header-tag="header" footer-tag="footer">
-              <h1 slot="header">Lake details</h1>
+              <h4 slot="header">Lake details</h4>
               <b-container fluid class="card-text">
                 <b-row>
                   <b-col>
@@ -88,7 +88,7 @@
       <div class="d-block d-lg-none mt-4 w-100"/>
       <b-col cols="12" lg="6">
         <b-card header-tag="header" footer-tag="footer">
-          <h1 slot="header">Map</h1>
+          <h4 slot="header">Map</h4>
           <b-container fluid class="card-text">
             <transition name="fade-cover">
               <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">

@@ -8,8 +8,11 @@
             <b-row>
               <b-col>
                 <b-form-group label="Search terms:">
-                  <form-input-tags :groups="filters.terms.groups"
-                                   :tags.sync="filters.terms.tags"
+                  <b-form-input id="termsInput"
+                                ref="terms"
+                                :disabled="false"
+                                type="text"
+                                required
                   />
                 </b-form-group>
               </b-col>
@@ -97,7 +100,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import FormInputTags from './FormInputTags';
 import gql from 'graphql-tag';
 
 const noSSR = {};
@@ -139,7 +141,6 @@ export default {
   name: 'database-view-index',
   components: {
     ...noSSR,
-    FormInputTags,
   },
   data () {
     return {
@@ -168,6 +169,9 @@ export default {
   },
   apollo: {
     lakes: {
+      // FIXME: Without this option an error causes another unhandled error to bubble (bug)
+      // FIXME: However we don't get any errors returned at all using this policy (bug)
+      errorPolicy: 'all',
       query: gql`
         query lakes {
           lakes: Lake(orderBy: "name_asc") {
@@ -211,7 +215,7 @@ export default {
       'transformedResults',
     ]),
     getResults () {
-      return this.lakes.map(lake => {
+      return (this.lakes || []).map(lake => {
         let datasetsCount = 0;
         lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
         return Object.assign({}, lake, { id: lake['uuid'], datasetsCount });

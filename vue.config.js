@@ -87,7 +87,7 @@ module.exports = {
 
   pluginOptions: {
     apollo: {
-      enableMocks: true,
+      enableMocks: false,
       enableEngine: true,
       cors: { origin: true, credentials: true },
       serverOptions: { introspection: true },

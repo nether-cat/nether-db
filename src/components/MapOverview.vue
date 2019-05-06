@@ -192,6 +192,18 @@ const methods = {
       }
     }
   },
+  fixZoomButtons () {
+    if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
+      setTimeout(this.fixZoomButtons, 250);
+    } else {
+      this.$el.querySelectorAll('.ol-zoom button').forEach(btn => {
+        let lastFocus = Date.now();
+        btn.addEventListener('focus', () => lastFocus = Date.now());
+        btn.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
+        btn.addEventListener('mouseout', ({ target }) => target.blur());
+      });
+    }
+  },
 };
 
 const vOn = (events) => ({ on: events });
@@ -208,6 +220,9 @@ export default {
         && !this.focusedFeatures.find(b => a.id === b.id)
       ));
     },
+  },
+  mounted () {
+    this.fixZoomButtons();
   },
   methods,
   render () {
@@ -228,6 +243,7 @@ export default {
           zoom={this.zoom}
           center={this.center}
           rotation={this.rotation}
+          constrainRotation={false}
           {...vOn({
             'update:zoom': (evt) => console.log('Zoom level:', evt),
           })}
@@ -306,11 +322,14 @@ export default {
 <style lang="scss">
   .ol-control button {
     &:focus {
-      outline: none !important;
-      background-color: rgba(0, 60, 136, 0.5);
+      outline-width: 0;
+      background-color: rgba(0, 60, 136, 0.7);
+      &:not(:hover) {
+        outline-width: 3px;
+      }
     }
     &:hover {
-      background-color: rgba(0, 60, 136, 0.7) !important;
+      background-color: rgba(0, 60, 136, 0.7);
     }
   }
 </style>

@@ -1,0 +1,3 @@
+mutation confirm ($token: String!) {
+  result: Confirm(token: $token)
+}
