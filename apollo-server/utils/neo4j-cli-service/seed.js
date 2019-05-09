@@ -17,17 +17,6 @@ if (!Object.fromEntries) {
   fromEntries.shim();
 }
 
-// TODO: Instantiate driver with the provided arguments
-
-/** @type {Driver} */ const database = neo4j.driver(
-  process.env.NEO4J_URI || 'bolt://localhost:7687',
-  neo4j.auth.basic(
-    process.env.NEO4J_USER || 'neo4j',
-    process.env.NEO4J_PASSWORD || 'neo4j',
-  ),
-);
-/** @type {Session} */ const session = database.session();
-
 const normalize = s => changeCase.camelCase(latinize(s));
 
 const mappedProps = {
@@ -47,7 +36,7 @@ const datasetsOrder = (a, b) => {
     (!a['_lakeExists'] - !b['_lakeExists']) ||
     a['@lake.name'].localeCompare(b['@lake.name']) ||
     a['@category.name'].localeCompare(b['@category.name']) ||
-    a['file'].localeCompare(b['file'])
+    (!!a['file'] && !!b['file'] && a['file'].localeCompare(b['file'])) || 0
   );
 };
 
@@ -77,8 +66,17 @@ module.exports = async function taskSeed ({ host, user, password }) {
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
   else throw new Error('No password has been provided');
 
+  /** @type {Driver} */ const driver = neo4j.driver(
+    process.env.NEO4J_URI || 'bolt://localhost:7687',
+    neo4j.auth.basic(
+      process.env.NEO4J_USER || 'neo4j',
+      process.env.NEO4J_PASSWORD || 'neo4j',
+    ),
+  );
+  /** @type {Session} */ const db = driver.session();
+
   const onExitTask = () => {
-    session.close();
+    db.close();
     const taskEndTime = Date.now();
     const taskDuration = taskEndTime - taskStartTime;
     console.log(`Finished! Execution time was ${chalk.blueBright(taskDuration / 1000)} seconds.\n`);
@@ -91,6 +89,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   console.log('Looking for all referenced dataset files...\n');
 
+  datasets.forEach(filterNullValues);
   datasets.forEach(checkFileExists);
   datasets.forEach(checkLakeExists, lakes);
   datasets.forEach(addMoreProps);
@@ -159,6 +158,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
   });
 
   await executeQuery({
+    db,
     check: false,
     label: 'Add constraints for unique properties',
     statement: cql`
@@ -169,6 +169,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
   await (() => new Promise(resolve => setTimeout(() => resolve(), 3000)))();
 
   await executeQuery({
+    db,
     label: 'Add continents and countries',
     params: { continents, countries },
     statement: cql`
@@ -193,6 +194,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
   if (status.hasError()) return onExitTask();
 
   await executeQuery({
+    db,
     label: 'Add all known lakes',
     params: { lakes },
     statement: cql`
@@ -214,6 +216,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
   if (status.hasError()) return onExitTask();
 
   await executeQuery({
+    db,
     label: 'Create structured metadata',
     params: { datasets },
     statement: cql`
@@ -285,15 +288,20 @@ module.exports = async function taskSeed ({ host, user, password }) {
     console.log('================================================================\n');
     try {
       ({ header: attributes, values: records } = readFromFile({ file, sheetName, headerStart: 'B8' }));
-      console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records with ${chalk.blueBright(String(attributes.length))} columns for category \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
+      attributes = attributes.filter(attribute => records.some(record => record.hasOwnProperty(attribute)));
+      console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records `
+        + `with ${chalk.blueBright(String(attributes.length))} columns for `
+        + `category \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
     } catch (err) {
-      console.log(`${chalk.red('fail')} --> Could not find a sheet named \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
+      console.log(`${chalk.red('fail')} --> Could not find a sheet named \`${chalk.cyan(category['name'])}\` `
+        + `in the file: ${chalk.yellowBright(dataset['file'])}\n`);
       return;
     }
 
     records = records.map((record, index) => ({ ...record, __rowNum__: index }));
 
     await executeQuery({
+      db,
       check: false,
       dryRun: false,
       label: 'Import records from file -> ' + dataset['file'],
@@ -306,8 +314,12 @@ module.exports = async function taskSeed ({ host, user, password }) {
           ON CREATE SET n2.uuid = randomUUID()
         MERGE (n0)-[r0:INCLUDES]->(n2)
         SET r0.__colNum__ = attributeIndex
+        // TODO: We need more props on these edges, e.g. unit and method
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
+        OPTIONAL MATCH (_n:Record)-[_r:RECORDED_IN]->(n0)
+        DELETE _n, _r
+        WITH DISTINCT n0, n1, attributes
         UNWIND $records AS record
         CREATE (n3:Record)
         SET n3 = record
@@ -342,6 +354,10 @@ module.exports = async function taskSeed ({ host, user, password }) {
   return onExitTask();
 };
 
+function filterNullValues (dataset) {
+  Object.keys(dataset).forEach(key => dataset[key] === null && delete dataset[key]);
+}
+
 function checkFileExists (dataset) {
   let found = false;
   try {
@@ -356,7 +372,12 @@ function checkFileExists (dataset) {
       found = false;
     }
   }
-  console.log(`${ found === true ? chalk.green('okay') : found === 'move' ? chalk.yellow('move') : chalk.red('fail') } --> ${ dataset['file'] }`);
+  console.log(`${ found === true
+    ? chalk.green('okay')
+    : found === 'move'
+      ? chalk.yellow('move')
+      : chalk.red('fail')
+  } --> ${ dataset['file'] }`);
   Object.assign(dataset, { '_fileExists': found === true });
 }
 
@@ -418,6 +439,8 @@ function sortProperties (dataset) {
     'ageSpan',
     'ageResolution',
     'comments',
+    'url',
+    'distributor',
     '@category.name',
     '@publication.doi',
     '@lake.name',
@@ -432,6 +455,7 @@ function sortProperties (dataset) {
     '@core.coringMethod',
     '@core.drillDate',
     '@core.composite',
+    '_file',
     '_fileExists',
     '_lakeExists',
     '_lastCheck',
@@ -444,8 +468,8 @@ function sortProperties (dataset) {
   sortedEntries.forEach(([key, value]) => dataset[key] = value);
 }
 
-async function executeQuery ({ label, params, statement, dryRun = false, check = true }) {
-  let query, results, tx = session.beginTransaction();
+async function executeQuery ({ label, db, params, statement, check = true, dryRun = false }) {
+  let query, results, tx = db.beginTransaction();
   try {
     query = tx.run(statement, params);
     results = (({ records: [r] }) => r && r.toObject())(await query);
@@ -456,12 +480,18 @@ async function executeQuery ({ label, params, statement, dryRun = false, check =
         }, true);
       };
       if (Array.isArray(values)) {
-        return values.reduce((valid, value) => valid && !!results[key].map(x => ({ ...x.properties })).find(compareProperties.bind(value)), true);
+        return values.reduce((valid, value) => valid && (
+          !!results[key]
+            .map(x => ({ ...x.properties }))
+            .find(compareProperties.bind(value))
+        ), true);
       } else if (Object.keys(values)) {
         return !![results[key].properties].find(compareProperties.bind(values));
       }
     }).reduce((total, valid) => valid && total, true));
-    if (!resultMatchesInput) { throw new TaskError('Returned objects don\'t match passed input objects'); }
+    if (!resultMatchesInput) {
+      throw new TaskError('Returned objects don\'t match passed input objects');
+    }
     query.then(r => printQueryStats(label, r));
   } catch(err) {
     await tx.rollback();

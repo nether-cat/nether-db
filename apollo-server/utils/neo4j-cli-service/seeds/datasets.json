@@ -16,7 +16,7 @@
     "@core.longitude": 11.12,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.420Z"
+    "_lastCheck": "2019-05-06T19:09:25.863Z"
   },
   {
     "file": "Ammersee-14C-CZYMZIK_et_al_2013-AS10prox",
@@ -35,7 +35,7 @@
     "@core.longitude": 11.12,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.530Z"
+    "_lastCheck": "2019-05-06T19:09:25.968Z"
   },
   {
     "file": "Aspvatnet-14C_Bakke_et_al_2005_core1",
@@ -57,24 +57,29 @@
     "@core.drillDate": 2000,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.666Z"
+    "_lastCheck": "2019-05-06T19:09:26.095Z"
   },
   {
     "file": "Ayr_Lake-Varves-THOMAS_et_al_2012",
     "label": "Ayr Lake, Baffin Island 570Yr Varve Data",
+    "analysisMethod": "Transparency scanner at 1,600 dpi; Thickness measurement using ImageJ software",
     "ageMin": -54,
     "ageMax": 517,
     "samples": 572,
     "ageSpan": 572,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13114",
+    "distributor": "NOAA",
     "@category.name": "Varves",
-    "@publication.doi": "10.1007/s10933-012-9584-7 ",
+    "@publication.doi": "10.1007/s10933-012-9584-7",
     "@lake.name": "Ayr Lake",
     "@core.latitude": 70.459,
     "@core.longitude": -70.086,
+    "@core.coringMethod": "Universal Coring system",
+    "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.719Z"
+    "_lastCheck": "2019-05-06T19:09:26.220Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_58_78",
@@ -95,7 +100,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.763Z"
+    "_lastCheck": "2019-05-06T19:09:26.294Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_63_78",
@@ -116,7 +121,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.808Z"
+    "_lastCheck": "2019-05-06T19:09:26.347Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_68_78",
@@ -137,7 +142,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.851Z"
+    "_lastCheck": "2019-05-06T19:09:26.396Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_69_78",
@@ -158,7 +163,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.907Z"
+    "_lastCheck": "2019-05-06T19:09:26.453Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_71_78",
@@ -179,7 +184,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:38.954Z"
+    "_lastCheck": "2019-05-06T19:09:26.501Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_1c",
@@ -200,7 +205,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.015Z"
+    "_lastCheck": "2019-05-06T19:09:26.551Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_23A",
@@ -221,7 +226,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.058Z"
+    "_lastCheck": "2019-05-06T19:09:26.597Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_7A",
@@ -242,7 +247,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.104Z"
+    "_lastCheck": "2019-05-06T19:09:26.646Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_9",
@@ -263,7 +268,7 @@
     "@core.drillDate": 1983,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.158Z"
+    "_lastCheck": "2019-05-06T19:09:26.700Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B55_78",
@@ -284,7 +289,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.203Z"
+    "_lastCheck": "2019-05-06T19:09:26.748Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B56_78",
@@ -305,7 +310,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.246Z"
+    "_lastCheck": "2019-05-06T19:09:26.797Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B6",
@@ -326,7 +331,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.289Z"
+    "_lastCheck": "2019-05-06T19:09:26.845Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B75_78",
@@ -347,7 +352,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.336Z"
+    "_lastCheck": "2019-05-06T19:09:26.897Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B779",
@@ -368,7 +373,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.379Z"
+    "_lastCheck": "2019-05-06T19:09:26.942Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B8",
@@ -389,7 +394,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.458Z"
+    "_lastCheck": "2019-05-06T19:09:27.022Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core379",
@@ -410,7 +415,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.526Z"
+    "_lastCheck": "2019-05-06T19:09:27.087Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core479",
@@ -431,7 +436,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.564Z"
+    "_lastCheck": "2019-05-06T19:09:27.127Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core579",
@@ -452,7 +457,7 @@
     "@core.drillDate": 1979,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.608Z"
+    "_lastCheck": "2019-05-06T19:09:27.178Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E1_77",
@@ -473,7 +478,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.652Z"
+    "_lastCheck": "2019-05-06T19:09:27.224Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E2_77",
@@ -494,7 +499,7 @@
     "@core.drillDate": 1977,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.695Z"
+    "_lastCheck": "2019-05-06T19:09:27.272Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E77_78",
@@ -515,7 +520,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.737Z"
+    "_lastCheck": "2019-05-06T19:09:27.319Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E78_78",
@@ -536,7 +541,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.817Z"
+    "_lastCheck": "2019-05-06T19:09:27.398Z"
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E80_78",
@@ -557,7 +562,7 @@
     "@core.drillDate": 1978,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.884Z"
+    "_lastCheck": "2019-05-06T19:09:27.463Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL00-1",
@@ -581,7 +586,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.931Z"
+    "_lastCheck": "2019-05-06T19:09:27.512Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-1",
@@ -602,7 +607,7 @@
     "@core.waterDepth": 9.5,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:39.991Z"
+    "_lastCheck": "2019-05-06T19:09:27.572Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-2",
@@ -624,7 +629,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.039Z"
+    "_lastCheck": "2019-05-06T19:09:27.620Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-3",
@@ -647,7 +652,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.090Z"
+    "_lastCheck": "2019-05-06T19:09:27.668Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-4",
@@ -670,7 +675,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.153Z"
+    "_lastCheck": "2019-05-06T19:09:27.730Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-5",
@@ -692,7 +697,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.198Z"
+    "_lastCheck": "2019-05-06T19:09:27.783Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL2K-3-1",
@@ -712,7 +717,7 @@
     "@core.label": "BL2K-3-1",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.243Z"
+    "_lastCheck": "2019-05-06T19:09:27.831Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-1",
@@ -734,7 +739,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.289Z"
+    "_lastCheck": "2019-05-06T19:09:27.880Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-2",
@@ -756,7 +761,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.339Z"
+    "_lastCheck": "2019-05-06T19:09:27.929Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-3",
@@ -778,7 +783,7 @@
     "@core.coringMethod": "Kullenburg core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.384Z"
+    "_lastCheck": "2019-05-06T19:09:27.978Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL98-9",
@@ -800,7 +805,7 @@
     "@core.coringMethod": "Gravity core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.430Z"
+    "_lastCheck": "2019-05-06T19:09:28.027Z"
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BLR2K-3",
@@ -822,7 +827,7 @@
     "@core.coringMethod": "UWITEC percussion core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.474Z"
+    "_lastCheck": "2019-05-06T19:09:28.074Z"
   },
   {
     "file": "Belau-Dörfler_et_al_2012-14C-P2002",
@@ -845,7 +850,7 @@
     "@core.drillDate": 2002,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.529Z"
+    "_lastCheck": "2019-05-06T19:09:28.129Z"
   },
   {
     "file": "Big_Round_Lake-Varves-THOMAS_BRINER-2008-06BRDP1",
@@ -855,6 +860,8 @@
     "samples": 1033,
     "ageSpan": 1051,
     "ageResolution": 982.8734538534729,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/6203",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9258-7",
     "@lake.name": "Big Round Lake",
@@ -866,7 +873,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.618Z"
+    "_lastCheck": "2019-05-06T19:09:28.233Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_B06",
@@ -884,7 +891,7 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.681Z"
+    "_lastCheck": "2019-05-06T19:09:28.303Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_C06",
@@ -902,7 +909,7 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.718Z"
+    "_lastCheck": "2019-05-06T19:09:28.344Z"
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_I06",
@@ -920,7 +927,23 @@
     "@core.coringMethod": "Percussion",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.756Z"
+    "_lastCheck": "2019-05-06T19:09:28.390Z"
+  },
+  {
+    "file": "Blue_Lake-14C-Bird_et_al_2009-Composite",
+    "ageMin": 300,
+    "ageMax": 3785,
+    "samples": 5,
+    "ageSpan": 3485,
+    "@category.name": "14C",
+    "@publication.doi": "10.1007/s10933-008-9262-y",
+    "@lake.name": "Blue Lake",
+    "@core.label": "B06; C06; I06",
+    "@core.coringMethod": "Percussion",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:28.441Z"
   },
   {
     "file": "Blue_Lake-Varves-BIRD_et_al_2009-A99",
@@ -930,6 +953,8 @@
     "samples": 1997,
     "ageSpan": 1997,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/6192",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9262-y",
     "@lake.name": "Blue Lake",
@@ -942,7 +967,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:40.931Z"
+    "_lastCheck": "2019-05-06T19:09:28.567Z"
   },
   {
     "file": "Bow_Lake-14C-LEONARD_&_REASONER_1999_B84-III",
@@ -962,7 +987,7 @@
     "@core.waterDepth": 7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.018Z"
+    "_lastCheck": "2019-05-06T19:09:28.615Z"
   },
   {
     "file": "Bramant-14C-GUYARD_et_al_2007_BRA-03",
@@ -984,7 +1009,7 @@
     "@core.coringMethod": "modified piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.061Z"
+    "_lastCheck": "2019-05-06T19:09:28.661Z"
   },
   {
     "file": "Butrint-14C-MORELLÓN_et_al_2016_BUT-12-1-2",
@@ -1006,7 +1031,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.110Z"
+    "_lastCheck": "2019-05-06T19:09:28.716Z"
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-81",
@@ -1025,7 +1050,26 @@
     "@core.longitude": -78,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.153Z"
+    "_lastCheck": "2019-05-06T19:09:28.760Z"
+  },
+  {
+    "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-82",
+    "ageMin": 8440,
+    "ageMax": 8440,
+    "depthMin": 1100,
+    "depthMax": 1100,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
+    "@category.name": "14C",
+    "@publication.doi": "10.1007/BF00176939",
+    "@lake.name": "C2",
+    "@core.label": "C2-82",
+    "@core.latitude": 82.826389,
+    "@core.longitude": -78,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:28.852Z"
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-84",
@@ -1044,26 +1088,7 @@
     "@core.longitude": -78,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.195Z"
-  },
-  {
-    "file": "C2-14C-LAMOUREUX_&_BRADLEY_C2-82",
-    "ageMin": 8440,
-    "ageMax": 8440,
-    "depthMin": 1100,
-    "depthMax": 1100,
-    "samples": 1,
-    "ageSpan": 1,
-    "ageResolution": 1000,
-    "@category.name": "14C",
-    "@publication.doi": "10.1007/BF00176939",
-    "@lake.name": "C2",
-    "@core.label": "C2-82",
-    "@core.latitude": 82.826389,
-    "@core.longitude": -78,
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.240Z"
+    "_lastCheck": "2019-05-06T19:09:28.806Z"
   },
   {
     "file": "C2-Varves-LAMOUREUX_&_BRADLEY_1996",
@@ -1073,6 +1098,8 @@
     "samples": 3297,
     "ageSpan": 3297,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/8662",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/BF00176939",
     "@lake.name": "C2",
@@ -1082,7 +1109,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.364Z"
+    "_lastCheck": "2019-05-06T19:09:29.125Z"
   },
   {
     "file": "Chala-Blauuw_et_al-2011-C14",
@@ -1102,7 +1129,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.424Z"
+    "_lastCheck": "2019-05-06T19:09:29.189Z"
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-glacial",
@@ -1114,14 +1141,16 @@
     "samples": 3056,
     "ageSpan": 2554,
     "ageResolution": 1196.554424432263,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/12584",
+    "distributor": "NOAA",
     "@category.name": "Varves",
-    "@publication.doi": "10.1126/science.1203724 ",
+    "@publication.doi": "10.1126/science.1203724",
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.590Z"
+    "_lastCheck": "2019-05-06T19:09:29.375Z"
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-holocene",
@@ -1133,14 +1162,16 @@
     "samples": 260,
     "ageSpan": 3056,
     "ageResolution": 85.07853403141361,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/12584",
+    "distributor": "NOAA",
     "@category.name": "Varves",
-    "@publication.doi": "10.1126/science.1203724 ",
+    "@publication.doi": "10.1126/science.1203724",
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:41.904Z"
+    "_lastCheck": "2019-05-06T19:09:29.689Z"
   },
   {
     "file": "Crevice-Whitlock_et_al-2012-14C",
@@ -1164,7 +1195,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.012Z"
+    "_lastCheck": "2019-05-06T19:09:29.779Z"
   },
   {
     "file": "Dead_Sea_14C_Migowski_et_al_2004_Ein_Gedi",
@@ -1184,7 +1215,7 @@
     "@core.waterDepth": 413,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.056Z"
+    "_lastCheck": "2019-05-06T19:09:29.826Z"
   },
   {
     "file": "Deep_Lake-14C-Hu_et_al_1997",
@@ -1204,7 +1235,7 @@
     "@core.drillDate": 1995,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.100Z"
+    "_lastCheck": "2019-05-06T19:09:29.873Z"
   },
   {
     "file": "Deep_lake-Varves-HU_1999",
@@ -1214,6 +1245,8 @@
     "samples": 2844,
     "ageSpan": 2844,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/5475",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1038/22728",
     "@lake.name": "Deep Lake",
@@ -1221,7 +1254,7 @@
     "@core.longitude": -95.39944,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.174Z"
+    "_lastCheck": "2019-05-06T19:09:29.948Z"
   },
   {
     "file": "Donard-14C_Moore_et_al_2001_95DON-03",
@@ -1241,7 +1274,7 @@
     "@core.coringMethod": "Piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.223Z"
+    "_lastCheck": "2019-05-06T19:09:29.993Z"
   },
   {
     "file": "Donard-14C-Moore_et_al_2001_94DON-01",
@@ -1261,7 +1294,25 @@
     "@core.coringMethod": "Piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.262Z"
+    "_lastCheck": "2019-05-06T19:09:30.037Z"
+  },
+  {
+    "file": "Donard-14C-Moore_et_al_2001-Composite",
+    "ageMin": 935,
+    "ageMax": 12600,
+    "depthMin": 480,
+    "depthMax": 3500,
+    "samples": 5,
+    "ageSpan": 3020,
+    "@category.name": "14C",
+    "@publication.doi": "10.1023/A:1011181301514",
+    "@lake.name": "Donard",
+    "@core.label": "94DON-01; 95DON-03",
+    "@core.coringMethod": "Piston corer",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:30.090Z"
   },
   {
     "file": "Donard-Varves-MOORE_et_al-2001-95DON-B03_05",
@@ -1270,6 +1321,8 @@
     "samples": 1241,
     "ageSpan": 1241,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/5466",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1023/A:1011181301514",
     "@lake.name": "Donard",
@@ -1279,7 +1332,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.439Z"
+    "_lastCheck": "2019-05-06T19:09:30.295Z"
   },
   {
     "file": "DV09-14C-MUSTAPHI_&_GAJEWSKI_2013_Core_T",
@@ -1300,7 +1353,7 @@
     "@core.drillDate": 1996,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.498Z"
+    "_lastCheck": "2019-05-06T19:09:30.349Z"
   },
   {
     "file": "DV09-Varves-MUSTAPHI_&_GAJEWSKI_2013",
@@ -1310,6 +1363,8 @@
     "samples": 1627,
     "ageSpan": 1627,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/18575",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1139/cjes-2012-0143",
     "@lake.name": "DV09",
@@ -1318,7 +1373,7 @@
     "@core.longitude": -89.3153,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.556Z"
+    "_lastCheck": "2019-05-06T19:09:30.417Z"
   },
   {
     "file": "East_Lake-Varves-CUVEN_et_al_2011-CB06EV1",
@@ -1330,6 +1385,8 @@
     "samples": 4198,
     "ageSpan": 4198,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/11936",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.019",
     "@lake.name": "East Lake",
@@ -1340,7 +1397,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.794Z"
+    "_lastCheck": "2019-05-06T19:09:30.666Z"
   },
   {
     "file": "Elk_Lake-14C-Smith_et_al-1997",
@@ -1358,16 +1415,37 @@
     "@core.drillDate": 1994,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:42.946Z"
+    "_lastCheck": "2019-05-06T19:09:30.789Z"
+  },
+  {
+    "file": "Elk_Lake-Varves-ANDERSON_1994-Composite",
+    "label": "Elk Lake, Minnesota Database",
+    "ageMin": 79,
+    "ageMax": 1527,
+    "samples": 1415,
+    "ageSpan": 1415,
+    "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/5473",
+    "distributor": "NOAA",
+    "@category.name": "Varves",
+    "@publication.doi": "10.1130/SPE276-p97",
+    "@lake.name": "Elk Lake",
+    "@core.label": "EL84B; EL83B-1",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:31.388Z"
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL83B-1",
     "label": "Elk Lake, Minnesota Database",
-    "ageMin": 787,
-    "ageMax": 1527,
+    "ageMin": 753,
+    "ageMax": 1493,
     "samples": 741,
     "ageSpan": 741,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/5473",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1130/SPE276-p97",
     "@lake.name": "Elk Lake",
@@ -1376,16 +1454,18 @@
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.118Z"
+    "_lastCheck": "2019-05-06T19:09:31.011Z"
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL84B",
     "label": "Elk Lake, Minnesota Database",
-    "ageMin": 113,
-    "ageMax": 786,
+    "ageMin": 79,
+    "ageMax": 752,
     "samples": 674,
     "ageSpan": 674,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/5473",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1130/SPE276-p97",
     "@lake.name": "Elk Lake",
@@ -1394,7 +1474,7 @@
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.245Z"
+    "_lastCheck": "2019-05-06T19:09:31.172Z"
   },
   {
     "file": "Elk_Lake-Varves-BRADBURY_&_DEAN_1993",
@@ -1411,7 +1491,7 @@
     "@core.longitude": -95.804722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.490Z"
+    "_lastCheck": "2019-05-06T19:09:31.654Z"
   },
   {
     "file": "Frias-14C-Aritzegui_et_al_2007_F94-2",
@@ -1431,10 +1511,31 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.534Z"
+    "_lastCheck": "2019-05-06T19:09:31.703Z"
   },
   {
-    "file": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP1",
+    "file": "Gyltigesjön-Mellström_et_al-2013-14C-Composite",
+    "label": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP1",
+    "analysisMethod": "AMS 14C",
+    "ageMin": 2477,
+    "ageMax": 3209,
+    "depthMin": 4480,
+    "depthMax": 5270,
+    "samples": 15,
+    "ageSpan": 732,
+    "@category.name": "14C",
+    "@publication.doi": "10.1017/S0033822200048086",
+    "@lake.name": "Gyltigesjön",
+    "@core.label": "GP1; GP2",
+    "@core.coringMethod": "modified rodoperated fixed-piston corer, cylindrical PVC tubes",
+    "@core.drillDate": 2010,
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:32.012Z"
+  },
+  {
+    "file": "Gyltigesjön-Mellström_et_al-2013-14C-GP1",
     "label": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP1",
     "analysisMethod": "AMS 14C",
     "ageMin": 2477,
@@ -1452,10 +1553,10 @@
     "@core.drillDate": 2010,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.631Z"
+    "_lastCheck": "2019-05-06T19:09:31.804Z"
   },
   {
-    "file": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP2",
+    "file": "Gyltigesjön-Mellström_et_al-2013-14C-GP2",
     "label": "Gyltigesjön-Mellström_et_al-2013-Varves-14C-GP2",
     "analysisMethod": "AMS 14C",
     "ageMin": 3095,
@@ -1473,7 +1574,7 @@
     "@core.drillDate": 2010,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.731Z"
+    "_lastCheck": "2019-05-06T19:09:31.905Z"
   },
   {
     "file": "Gyltigesjön-Snowball_et_al-2013-14C",
@@ -1493,7 +1594,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.783Z"
+    "_lastCheck": "2019-05-06T19:09:32.066Z"
   },
   {
     "file": "Haemelsee-Tephra-JONES_et_al_2018-HÄM13",
@@ -1512,7 +1613,7 @@
     "@core.drillDate": 2013,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.838Z"
+    "_lastCheck": "2019-05-06T19:09:32.124Z"
   },
   {
     "file": "Haemelsee-Varves-MERKT-1994",
@@ -1525,7 +1626,7 @@
     "@core.coringMethod": "Livingstone Corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.924Z"
+    "_lastCheck": "2019-05-06T19:09:32.213Z"
   },
   {
     "file": "Hancza-LAUTERBACH_et_al-2011-14C",
@@ -1544,7 +1645,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:43.994Z"
+    "_lastCheck": "2019-05-06T19:09:32.286Z"
   },
   {
     "file": "Hector_Lake-14C-LEONARD_&_REASONER_1999_H93-II",
@@ -1563,7 +1664,7 @@
     "@core.longitude": -116.359722,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.041Z"
+    "_lastCheck": "2019-05-06T19:09:32.330Z"
   },
   {
     "file": "Holzmaar-14C-PRASAD_&_BAIER_2014_HZM-BC_(Composite)",
@@ -1582,7 +1683,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.086Z"
+    "_lastCheck": "2019-05-06T19:09:32.425Z"
   },
   {
     "file": "Hoya_Rincon_de_Parangueo-14C-PARK_et_al-2010-RP-1",
@@ -1603,7 +1704,7 @@
     "@core.drillDate": 2001,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.129Z"
+    "_lastCheck": "2019-05-06T19:09:32.473Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-1",
@@ -1613,6 +1714,8 @@
     "samples": 1131,
     "ageSpan": 1131,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/14730",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
@@ -1621,7 +1724,7 @@
     "@core.longitude": -19.840278,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.165Z"
+    "_lastCheck": "2019-05-06T19:09:32.703Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-2",
@@ -1631,6 +1734,8 @@
     "samples": 2984,
     "ageSpan": 2984,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/14730",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
@@ -1639,7 +1744,7 @@
     "@core.longitude": -19.849667,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.235Z"
+    "_lastCheck": "2019-05-06T19:09:32.810Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-3",
@@ -1649,6 +1754,8 @@
     "samples": 898,
     "ageSpan": 898,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/14730",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.05.026",
     "@lake.name": "Hvítárvatn",
@@ -1657,7 +1764,7 @@
     "@core.longitude": -19.8595,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.267Z"
+    "_lastCheck": "2019-05-06T19:09:32.854Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-1",
@@ -1666,6 +1773,8 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1675,7 +1784,7 @@
     "@core.waterDepth": 36.5,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.294Z"
+    "_lastCheck": "2019-05-06T19:09:32.886Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-2",
@@ -1684,6 +1793,8 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1693,7 +1804,7 @@
     "@core.waterDepth": 23.1,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.320Z"
+    "_lastCheck": "2019-05-06T19:09:32.912Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-3",
@@ -1702,6 +1813,8 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1711,7 +1824,7 @@
     "@core.waterDepth": 30.4,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.344Z"
+    "_lastCheck": "2019-05-06T19:09:32.942Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-4",
@@ -1720,6 +1833,8 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1729,7 +1844,7 @@
     "@core.waterDepth": 31.26,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.370Z"
+    "_lastCheck": "2019-05-06T19:09:32.970Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-09-06",
@@ -1738,6 +1853,8 @@
     "samples": 31,
     "ageSpan": 301,
     "ageResolution": 102.99003322259136,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1747,7 +1864,7 @@
     "@core.waterDepth": 58.05,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.392Z"
+    "_lastCheck": "2019-05-06T19:09:32.994Z"
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-10-07",
@@ -1756,6 +1873,8 @@
     "samples": 114,
     "ageSpan": 1131,
     "ageResolution": 100.79575596816977,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/16379",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.epsl.2013.07.028",
     "@lake.name": "Hvítárvatn",
@@ -1765,7 +1884,7 @@
     "@core.waterDepth": 36.11,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.415Z"
+    "_lastCheck": "2019-05-06T19:09:33.022Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D1",
@@ -1776,6 +1895,8 @@
     "samples": 3,
     "ageSpan": 201,
     "ageResolution": 14.925373134328359,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1785,7 +1906,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.454Z"
+    "_lastCheck": "2019-05-06T19:09:33.067Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D2",
@@ -1796,6 +1917,8 @@
     "samples": 3,
     "ageSpan": 333,
     "ageResolution": 9.00900900900901,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1805,7 +1928,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.491Z"
+    "_lastCheck": "2019-05-06T19:09:33.110Z"
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D3",
@@ -1816,6 +1939,8 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1825,27 +1950,26 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.536Z"
+    "_lastCheck": "2019-05-06T19:09:33.158Z"
   },
   {
-    "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_P1",
-    "ageMin": 1950,
-    "ageMax": 1950,
-    "depthMin": 365,
-    "depthMax": 365,
-    "samples": 1,
-    "ageSpan": 1,
-    "ageResolution": 1000,
+    "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012-Composite",
+    "ageMin": 105,
+    "ageMax": 885,
+    "depthMin": 3525,
+    "depthMax": 4205,
+    "samples": 7,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "14C",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
-    "@core.label": "P1",
-    "@core.latitude": 60.783333,
-    "@core.longitude": -142.96,
+    "@core.label": "D1; D2; D3",
     "@core.coringMethod": "vibracore system",
+    "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.575Z"
+    "_lastCheck": "2019-05-06T19:09:33.200Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D1",
@@ -1854,6 +1978,8 @@
     "depthMax": 10348.9,
     "samples": 192,
     "ageSpan": 0,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1863,7 +1989,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.611Z"
+    "_lastCheck": "2019-05-06T19:09:33.226Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D2",
@@ -1872,6 +1998,8 @@
     "depthMax": 2282.6,
     "samples": 113,
     "ageSpan": 0,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1881,7 +2009,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.633Z"
+    "_lastCheck": "2019-05-06T19:09:33.246Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D3",
@@ -1890,6 +2018,8 @@
     "depthMax": 4565.6,
     "samples": 93,
     "ageSpan": 0,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1899,7 +2029,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.650Z"
+    "_lastCheck": "2019-05-06T19:09:33.260Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P1",
@@ -1911,6 +2041,8 @@
     "samples": 171,
     "ageSpan": 137,
     "ageResolution": 1248.1751824817518,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1920,7 +2052,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.672Z"
+    "_lastCheck": "2019-05-06T19:09:33.286Z"
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P2",
@@ -1932,6 +2064,8 @@
     "samples": 435,
     "ageSpan": 527,
     "ageResolution": 825.426944971537,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/13081",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-012-9614-5",
     "@lake.name": "Iceberg Lake",
@@ -1941,7 +2075,7 @@
     "@core.coringMethod": "vibracore system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.714Z"
+    "_lastCheck": "2019-05-06T19:09:33.332Z"
   },
   {
     "file": "Iceberg-Varves-Loso_et_al-2008",
@@ -1951,13 +2085,15 @@
     "samples": 1557,
     "ageSpan": 1557,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/6197",
+    "distributor": "NOAA",
     "@category.name": "Varves",
-    "@publication.doi": "10.1007/s10933-008-9264-9 ",
+    "@publication.doi": "10.1007/s10933-008-9264-9",
     "@lake.name": "Iceberg Lake",
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:44.950Z"
+    "_lastCheck": "2019-05-06T19:09:33.607Z"
   },
   {
     "file": "Kallio_Kourujärvi-Varves-SAARNI_et_al-2015-KKJ-2_3",
@@ -1969,6 +2105,8 @@
     "samples": 2950,
     "ageSpan": 2950,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/22193",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-015-9832-8",
     "@lake.name": "Kallio Kourujärvi",
@@ -1979,7 +2117,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.054Z"
+    "_lastCheck": "2019-05-06T19:09:33.778Z"
   },
   {
     "file": "Kalliojärvi-Varves-SAARNI_et_al-2016",
@@ -1991,6 +2129,8 @@
     "samples": 4083,
     "ageSpan": 4084,
     "ageResolution": 999.7551420176297,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/22194",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615609747",
     "@lake.name": "Kalliojärvi",
@@ -2001,10 +2141,10 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.206Z"
+    "_lastCheck": "2019-05-06T19:09:33.993Z"
   },
   {
-    "file": "Lac_Brule-14C-Lafontaine-Boyer_&_Gajewski_2014_NO_LABEL",
+    "file": "Lac_Brule-14C-Lafontaine-Boyer_Gajewski_2014_NO_LABEL",
     "ageMin": 870,
     "ageMax": 1160,
     "depthMin": 675,
@@ -2020,7 +2160,7 @@
     "@core.coringMethod": "freeze corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.263Z"
+    "_lastCheck": "2019-05-06T19:09:34.051Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core3",
@@ -2030,6 +2170,8 @@
     "samples": 133,
     "ageSpan": 1321,
     "ageResolution": 100.68130204390613,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/19380",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
@@ -2038,7 +2180,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.285Z"
+    "_lastCheck": "2019-05-06T19:09:34.078Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core4",
@@ -2048,6 +2190,8 @@
     "samples": 132,
     "ageSpan": 1311,
     "ageResolution": 100.68649885583524,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/19380",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
@@ -2056,7 +2200,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.312Z"
+    "_lastCheck": "2019-05-06T19:09:34.109Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core5",
@@ -2066,6 +2210,8 @@
     "samples": 142,
     "ageSpan": 1411,
     "ageResolution": 100.63784549964564,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/19380",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
@@ -2074,7 +2220,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.339Z"
+    "_lastCheck": "2019-05-06T19:09:34.143Z"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core7",
@@ -2084,6 +2230,8 @@
     "samples": 121,
     "ageSpan": 1201,
     "ageResolution": 100.74937552039967,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/19380",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683614544054",
     "@lake.name": "Lac Brulé",
@@ -2092,7 +2240,7 @@
     "@core.longitude": -75.4422,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.363Z"
+    "_lastCheck": "2019-05-06T19:09:34.173Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-I",
@@ -2112,7 +2260,7 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.412Z"
+    "_lastCheck": "2019-05-06T19:09:34.234Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-II",
@@ -2132,7 +2280,7 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.460Z"
+    "_lastCheck": "2019-05-06T19:09:34.291Z"
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-III",
@@ -2152,7 +2300,25 @@
     "@core.waterDepth": 57,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.508Z"
+    "_lastCheck": "2019-05-06T19:09:34.347Z"
+  },
+  {
+    "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001-Composite",
+    "ageMin": 3930,
+    "ageMax": 25400,
+    "depthMin": 2100,
+    "depthMax": 38930,
+    "samples": 16,
+    "ageSpan": 21470,
+    "@category.name": "14C",
+    "@publication.doi": "10.1023/A:1008136029735",
+    "@lake.name": "Lac D'Annecy",
+    "@core.label": "AN-I; AN-II; AN-III",
+    "@core.waterDepth": 57,
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:34.412Z"
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1B",
@@ -2173,7 +2339,7 @@
     "@core.coringMethod": "Floating raft (UWITEC)",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.552Z"
+    "_lastCheck": "2019-05-06T19:09:34.462Z"
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1C",
@@ -2193,7 +2359,26 @@
     "@core.waterDepth": 26.7,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.600Z"
+    "_lastCheck": "2019-05-06T19:09:34.519Z"
+  },
+  {
+    "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013-Composite",
+    "ageMin": 355,
+    "ageMax": 20250,
+    "depthMin": 2210,
+    "depthMax": 8600,
+    "samples": 11,
+    "ageSpan": 19895,
+    "@category.name": "14C",
+    "@publication.doi": "10.1016/j.quaint.2012.06.031",
+    "@lake.name": "Lagoon Etoliko",
+    "@core.label": "ETO1B; ETO1C",
+    "@core.waterDepth": 26.7,
+    "@core.coringMethod": "Floating raft (UWITEC)",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:34.576Z"
   },
   {
     "file": "Lagoon-Etoliko-Varves-Koutsodendris_et_al_2017-ETO12_2-3",
@@ -2205,8 +2390,10 @@
     "samples": 572,
     "ageSpan": 572,
     "ageResolution": 1000,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.871182",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
-    "@publication.doi": "10.1594/PANGAEA.871182\t\t\t",
+    "@publication.doi": "10.1594/PANGAEA.871182",
     "@lake.name": "Lagoon Etoliko",
     "@core.label": "ETO12_2-3",
     "@core.latitude": 38.48111,
@@ -2214,7 +2401,7 @@
     "@core.coringMethod": "Composite Core (COMPCORE)",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.649Z"
+    "_lastCheck": "2019-05-06T19:09:34.635Z"
   },
   {
     "file": "Laguna_Potrok_Aike-14C-Haberzettl_et_al_2007_PTA03",
@@ -2235,7 +2422,7 @@
     "@core.coringMethod": "UWITEC piston coring system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.694Z"
+    "_lastCheck": "2019-05-06T19:09:34.690Z"
   },
   {
     "file": "Laguna_Potrok_Aike-Tephra-Haberzettl_et_al_2007_PTA03",
@@ -2255,7 +2442,7 @@
     "@core.coringMethod": "UWITEC piston coring system",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.740Z"
+    "_lastCheck": "2019-05-06T19:09:34.743Z"
   },
   {
     "file": "Lehmilampi-Varves-Haltia-Hovi_et_al_2009",
@@ -2265,15 +2452,18 @@
     "samples": 2004,
     "ageSpan": 2004,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/8661",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2006.11.005",
     "@lake.name": "Lehmilampi",
     "@core.latitude": 63.45,
     "@core.longitude": 29.1,
     "@core.waterDepth": 10,
+    "@core.coringMethod": "Piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.793Z"
+    "_lastCheck": "2019-05-06T19:09:34.851Z"
   },
   {
     "file": "Linne_Lake-Varves-WERNER_et_al_2009",
@@ -2284,6 +2474,8 @@
     "ageSpan": 42,
     "ageResolution": 1000,
     "comments": "Unpublished data",
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/8760",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@lake.name": "Linné",
     "@core.label": "C2-05",
@@ -2291,7 +2483,7 @@
     "@core.longitude": 13.861441,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.866Z"
+    "_lastCheck": "2019-05-06T19:09:34.936Z"
   },
   {
     "file": "Lögurinn-Tephra-STRIEBERGER_et_al_2010",
@@ -2313,7 +2505,7 @@
     "@core.drillDate": 2006,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:45.904Z"
+    "_lastCheck": "2019-05-06T19:09:34.977Z"
   },
   {
     "file": "Lower_Murray_Lake-Varves-COOK_et_al_2008_LML-05",
@@ -2324,6 +2516,8 @@
     "samples": 5221,
     "ageSpan": 5241,
     "ageResolution": 996.1839343636709,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/6195",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1007/s10933-008-9252-0",
     "@lake.name": "Lower Murray Lake",
@@ -2335,10 +2529,10 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.037Z"
+    "_lastCheck": "2019-05-06T19:09:35.127Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_12P",
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_12P",
     "ageMin": 9140,
     "ageMax": 9140,
     "depthMin": 2920,
@@ -2356,14 +2550,14 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.081Z"
+    "_lastCheck": "2019-05-06T19:09:35.177Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_13P",
-    "ageMin": 540,
-    "ageMax": 4000,
-    "depthMin": 1240,
-    "depthMax": 4090,
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_13P",
+    "ageMin": 1240,
+    "ageMax": 4090,
+    "depthMin": 540,
+    "depthMax": 4000,
     "samples": 3,
     "ageSpan": 3461,
     "ageResolution": 0.8668015024559376,
@@ -2377,10 +2571,10 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.124Z"
+    "_lastCheck": "2019-05-06T19:09:35.225Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_16P",
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_16P",
     "ageMin": 3370,
     "ageMax": 9390,
     "depthMin": 1890,
@@ -2398,10 +2592,10 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.168Z"
+    "_lastCheck": "2019-05-06T19:09:35.273Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_22P",
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_22P",
     "ageMin": 1950,
     "ageMax": 7600,
     "depthMin": 760,
@@ -2419,10 +2613,10 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.210Z"
+    "_lastCheck": "2019-05-06T19:09:35.323Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_24P",
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_24P",
     "ageMin": 6400,
     "ageMax": 6400,
     "depthMin": 1970,
@@ -2440,10 +2634,10 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.254Z"
+    "_lastCheck": "2019-05-06T19:09:35.373Z"
   },
   {
-    "file": "Malawi-14C-PILSKALN_&_JOHNSON_1991_4P",
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991_4P",
     "ageMin": 10740,
     "ageMax": 10740,
     "depthMin": 8570,
@@ -2461,7 +2655,26 @@
     "@core.drillDate": 1986,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.296Z"
+    "_lastCheck": "2019-05-06T19:09:35.423Z"
+  },
+  {
+    "file": "Malawi-14C-PILSKALN_JOHNSON_1991-Composite",
+    "ageMin": 1240,
+    "ageMax": 10740,
+    "depthMin": 540,
+    "depthMax": 8970,
+    "samples": 13,
+    "ageSpan": 9500,
+    "@category.name": "14C",
+    "@publication.doi": "10.4319/lo.1991.36.3.0544",
+    "@lake.name": "Malawi",
+    "@core.label": "4P; 12P; 13P; 16P; 22P; 24P",
+    "@core.coringMethod": "Piston corer",
+    "@core.drillDate": 1986,
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:35.486Z"
   },
   {
     "file": "Mascardi-Hajdas_et_al-2002-14C",
@@ -2479,7 +2692,7 @@
     "@lake.name": "Mascardi",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.459Z"
+    "_lastCheck": "2019-05-06T19:09:35.656Z"
   },
   {
     "file": "Meerfelder_Maar-14C-BRAUER_et_al_2000",
@@ -2497,7 +2710,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.494Z"
+    "_lastCheck": "2019-05-06T19:09:35.698Z"
   },
   {
     "file": "Meerfelder_Maar-Tephra-ENGELS_et_al_2015_MFM09",
@@ -2508,6 +2721,8 @@
     "samples": 1,
     "ageSpan": 1,
     "ageResolution": 1000,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.889031",
+    "distributor": "Pangaea",
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.revpalbo.2015.06.010",
     "@lake.name": "Meerfelder Maar",
@@ -2516,7 +2731,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.536Z"
+    "_lastCheck": "2019-05-06T19:09:35.746Z"
   },
   {
     "file": "Meerfelder_Maar-Tephra-LANE_et_al_2015-MFM09-A_D",
@@ -2539,7 +2754,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.592Z"
+    "_lastCheck": "2019-05-06T19:09:35.810Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-BRAUER_et_al_2008",
@@ -2548,6 +2763,8 @@
     "samples": 1950,
     "ageSpan": 2001,
     "ageResolution": 974.5127436281858,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/8656",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1038/ngeo263",
     "@lake.name": "Meerfelder Maar",
@@ -2556,7 +2773,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.647Z"
+    "_lastCheck": "2019-05-06T19:09:35.874Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-ENGELS_et_al_2015_MFM09",
@@ -2565,6 +2782,8 @@
     "samples": 56,
     "ageSpan": 397,
     "ageResolution": 141.05793450881612,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.889031",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.revpalbo.2015.06.010",
     "@lake.name": "Meerfelder Maar",
@@ -2573,7 +2792,7 @@
     "@core.longitude": 6.7575,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.678Z"
+    "_lastCheck": "2019-05-06T19:09:35.907Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-LITT_et_al_2009-MFM6",
@@ -2593,7 +2812,7 @@
     "@core.waterDepth": 17,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.704Z"
+    "_lastCheck": "2019-05-06T19:09:35.933Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM09A_D",
@@ -2603,6 +2822,8 @@
     "samples": 8739,
     "ageSpan": 9567,
     "ageResolution": 913.4524929444966,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.793213",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2012.10.023",
     "@lake.name": "Meerfelder Maar",
@@ -2614,7 +2835,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:46.970Z"
+    "_lastCheck": "2019-05-06T19:09:36.127Z"
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM6",
@@ -2626,6 +2847,8 @@
     "samples": 129,
     "ageSpan": 3773,
     "ageResolution": 34.19029949642194,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.793212",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2012.10.023",
     "@lake.name": "Meerfelder Maar",
@@ -2637,7 +2860,7 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.088Z"
+    "_lastCheck": "2019-05-06T19:09:36.215Z"
   },
   {
     "file": "Mondsee-14C-Swierczynski_et_al_2013",
@@ -2655,7 +2878,7 @@
     "@core.longitude": 13.4,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.160Z"
+    "_lastCheck": "2019-05-06T19:09:36.290Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-1A-1K",
@@ -2675,7 +2898,7 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.205Z"
+    "_lastCheck": "2019-05-06T19:09:36.345Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-2A-1K",
@@ -2695,7 +2918,7 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.249Z"
+    "_lastCheck": "2019-05-06T19:09:36.395Z"
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-4A-1K",
@@ -2715,7 +2938,25 @@
     "@core.coringMethod": "Kullenberg corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.293Z"
+    "_lastCheck": "2019-05-06T19:09:36.443Z"
+  },
+  {
+    "file": "Montcortes-14C-Corella_et_al_2011-Composite",
+    "ageMin": 180,
+    "ageMax": 10470,
+    "depthMin": 290,
+    "depthMax": 5300,
+    "samples": 17,
+    "ageSpan": 5010,
+    "@category.name": "14C",
+    "@publication.doi": "10.1007/s10933-010-9443-3",
+    "@lake.name": "Montcortés",
+    "@core.label": "MON04-1A-1K; MON04-2A-1K; MON04-4A-1K",
+    "@core.coringMethod": "Kullenberg corer",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:36.499Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HAJDAS_et_al_1997",
@@ -2733,7 +2974,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.344Z"
+    "_lastCheck": "2019-05-06T19:09:36.609Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_LGM94-L",
@@ -2752,7 +2993,7 @@
     "@core.longitude": 15.6049,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.393Z"
+    "_lastCheck": "2019-05-06T19:09:36.662Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_MF93",
@@ -2769,7 +3010,7 @@
     "@core.label": "MF93",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.442Z"
+    "_lastCheck": "2019-05-06T19:09:36.715Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-WATTS_et_al_1996_LGM-90D",
@@ -2788,7 +3029,7 @@
     "@core.longitude": 15.605114,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.487Z"
+    "_lastCheck": "2019-05-06T19:09:36.763Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-ZOLITSCHKA_&_NEGENDANK_1996_LGM-B_D",
@@ -2810,23 +3051,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:47.525Z"
-  },
-  {
-    "file": "Lago_Grande_di_Monticchio-Pollen-SANCHEZ_GOÑi_et_al_2017",
-    "depthMin": 6688,
-    "depthMax": 67962,
-    "samples": 542,
-    "ageSpan": 0,
-    "@category.name": "Pollen",
-    "@publication.doi": "10.1594/PANGAEA.872880",
-    "@lake.name": "Monticchio",
-    "@core.latitude": 40.9317,
-    "@core.longitude": 15.6049,
-    "@core.coringMethod": "Core drilling (CDRILL)",
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:48.136Z"
+    "_lastCheck": "2019-05-06T19:09:36.807Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF93",
@@ -2843,7 +3068,7 @@
     "@core.label": "MF93",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:48.262Z"
+    "_lastCheck": "2019-05-06T19:09:36.893Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-WULF_et_al_2012_LGM-B-D-E-J-M-O",
@@ -2854,6 +3079,8 @@
     "samples": 40,
     "ageSpan": 26621,
     "ageResolution": 1.5025731565305587,
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0277379112004167",
+    "distributor": "ScienceDirect",
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quascirev.2012.10.020",
     "@lake.name": "Monticchio",
@@ -2863,7 +3090,29 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:48.368Z"
+    "_lastCheck": "2019-05-06T19:09:36.991Z"
+  },
+  {
+    "file": "Monticchio-Tephra-Wulf_et_al_2004_LGM-B_D_E_J",
+    "label": "Comparison of tephra ages obtained from the varve-supported sedimentation rate chronology of Monticchio sediments (rounded varve ages in yr BP 1950) with historical recorded, radiometric, radioisotopic and interpolated ages of correlated volcanic events referred from literature",
+    "ageMin": 90,
+    "ageMax": 98750,
+    "depthMin": 61,
+    "depthMax": 70198,
+    "samples": 42,
+    "ageSpan": 98660,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quaint.2004.01.028",
+    "@lake.name": "Monticchio",
+    "@core.label": "LGM-B/D/E/J",
+    "@core.latitude": 40.9333333,
+    "@core.longitude": 15.583333,
+    "@core.coringMethod": "Livingston piston corer",
+    "@core.drillDate": 1994,
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:36.557Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014_MON-2014",
@@ -2873,6 +3122,8 @@
     "samples": 33433,
     "ageSpan": 34919,
     "ageResolution": 957.4443712591999,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.837247",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.837247",
     "@lake.name": "Monticchio",
@@ -2882,7 +3133,7 @@
     "@core.coringMethod": "Core drilling",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.180Z"
+    "_lastCheck": "2019-05-06T19:09:37.922Z"
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014a_MON-07-J-M-O",
@@ -2894,6 +3145,8 @@
     "samples": 1570,
     "ageSpan": 34920,
     "ageResolution": 44.95990836197022,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.837248",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.837242",
     "@lake.name": "Monticchio",
@@ -2905,27 +3158,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.274Z"
-  },
-  {
-    "file": "Lago_Grande_di_Monticchio-Varves-WULF_et_al_2012_LGM-B_D_E_J_M_O",
-    "ageMin": 105480,
-    "ageMax": 132110,
-    "depthMin": 7410800,
-    "depthMax": 9768600,
-    "samples": 52,
-    "ageSpan": 26631,
-    "ageResolution": 1.9526116180391275,
-    "@category.name": "Varves",
-    "@publication.doi": "10.1016/j.quascirev.2012.10.020",
-    "@lake.name": "Monticchio",
-    "@core.label": "LGM-B/D/E/J/M/O",
-    "@core.latitude": 40.933333,
-    "@core.longitude": 15.583333,
-    "@core.composite": true,
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.313Z"
+    "_lastCheck": "2019-05-06T19:09:37.962Z"
   },
   {
     "file": "Heimerdalsvanet-14C-Balascio_et_al_2010_NHP-207",
@@ -2946,7 +3179,28 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.358Z"
+    "_lastCheck": "2019-05-06T19:09:32.380Z"
+  },
+  {
+    "file": "Heimerdalsvanet-14C-Balascio_et_al_2010_NHP-207",
+    "ageMin": 1760,
+    "ageMax": 7350,
+    "depthMin": 735,
+    "depthMax": 5700,
+    "samples": 5,
+    "ageSpan": 5591,
+    "ageResolution": 0.8942944017170452,
+    "@category.name": "14C",
+    "@publication.doi": "10.1016/j.yqres.2010.08.012",
+    "@lake.name": "Nedre Heimredalsvatnet",
+    "@core.label": "NHP-207",
+    "@core.latitude": 68.296333,
+    "@core.longitude": 13.656333,
+    "@core.coringMethod": "modified Nesje percussion corer",
+    "@core.drillDate": 2007,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:38.011Z"
   },
   {
     "file": "Nerfloen-14C-Vasskog_et_al_2012-STP_107",
@@ -2966,7 +3220,7 @@
     "@core.coringMethod": "modified piston corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.402Z"
+    "_lastCheck": "2019-05-06T19:09:38.058Z"
   },
   {
     "file": "Oeschinen-14C-Amman_et_al_2015",
@@ -2984,9 +3238,10 @@
     "@core.longitude": 7.733333,
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2011,
+    "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.451Z"
+    "_lastCheck": "2019-05-06T19:09:38.113Z"
   },
   {
     "file": "Oeschinen-Varves-AMMAN_et_al_2015",
@@ -2998,6 +3253,8 @@
     "samples": 1125,
     "ageSpan": 1125,
     "ageResolution": 1000,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/19102",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2015.03.002",
     "@lake.name": "Oeschinen",
@@ -3005,7 +3262,7 @@
     "@core.longitude": 7.7269,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.525Z"
+    "_lastCheck": "2019-05-06T19:09:38.196Z"
   },
   {
     "file": "Ogac_Lake-Varves-HUGHEN_2009",
@@ -3018,13 +3275,15 @@
     "ageSpan": 1950,
     "ageResolution": 1000,
     "comments": "Unpublished data",
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/8759",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@lake.name": "Ogac",
     "@core.latitude": 62.85,
     "@core.longitude": -67.2,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.683Z"
+    "_lastCheck": "2019-05-06T19:09:38.350Z"
   },
   {
     "file": "Ohrid-Vogel_2009-14C",
@@ -3046,7 +3305,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.775Z"
+    "_lastCheck": "2019-05-06T19:09:38.443Z"
   },
   {
     "file": "Ohrid-Vogel_2009-Tephra",
@@ -3068,7 +3327,27 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.824Z"
+    "_lastCheck": "2019-05-06T19:09:38.499Z"
+  },
+  {
+    "file": "Pavin-14C-Chassiot_et_al-2016-Composite",
+    "label": "Pavin-Chassiot_et_al-2016-14C-PAV08",
+    "analysisMethod": "AMS 14C",
+    "ageMin": 150,
+    "ageMax": 6090,
+    "depthMin": 90,
+    "depthMax": 9785,
+    "samples": 8,
+    "ageSpan": 5940,
+    "@category.name": "14C",
+    "@publication.doi": "10.1016/j.quascirev.2016.03.020",
+    "@lake.name": "Pavin",
+    "@core.label": "PAV09-B1; PAV12; PAV08; PAV09-C5",
+    "@core.coringMethod": "UWITEC long piston core; short gravity core",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:38.837Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV08",
@@ -3090,7 +3369,7 @@
     "@core.coringMethod": "UWITEC, long piston core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.875Z"
+    "_lastCheck": "2019-05-06T19:09:38.573Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-B1",
@@ -3112,7 +3391,7 @@
     "@core.coringMethod": "short gravity core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.930Z"
+    "_lastCheck": "2019-05-06T19:09:38.655Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-C5",
@@ -3134,7 +3413,7 @@
     "@core.waterDepth": 20,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:49.979Z"
+    "_lastCheck": "2019-05-06T19:09:38.708Z"
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV12",
@@ -3156,7 +3435,7 @@
     "@core.coringMethod": "UWITEC long piston core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.029Z"
+    "_lastCheck": "2019-05-06T19:09:38.762Z"
   },
   {
     "file": "Pettaquamscutt-Hubeny_et_al-2009-14C",
@@ -3179,7 +3458,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.078Z"
+    "_lastCheck": "2019-05-06T19:09:38.892Z"
   },
   {
     "file": "Plomo-Varves-Elbert_et_al_2015-PLO2011",
@@ -3190,6 +3469,8 @@
     "samples": 1178,
     "ageSpan": 1493,
     "ageResolution": 789.0154052243805,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/18036",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quaint.2015.01.004",
     "@lake.name": "Plomo",
@@ -3198,7 +3479,7 @@
     "@core.longitude": -72.8667,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.138Z"
+    "_lastCheck": "2019-05-06T19:09:38.985Z"
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1204",
@@ -3220,7 +3501,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.195Z"
+    "_lastCheck": "2019-05-06T19:09:39.047Z"
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1215",
@@ -3242,7 +3523,25 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.251Z"
+    "_lastCheck": "2019-05-06T19:09:39.109Z"
+  },
+  {
+    "file": "Prespa_Tem-14C-WAGNER_et_al_2012-Composite",
+    "ageMin": -1190,
+    "ageMax": 45680,
+    "depthMin": 40,
+    "depthMax": 10010,
+    "samples": 31,
+    "ageSpan": 46870,
+    "@category.name": "14C",
+    "@publication.doi": "10.1016/j.quaint.2012.02.016",
+    "@lake.name": "Prespa",
+    "@core.label": "Co1215; Co1204",
+    "@core.coringMethod": "UWITEC percussion piston corer",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:39.180Z"
   },
   {
     "file": "Prespa-14C-Wagner_et_al_2010_Co1204",
@@ -3264,10 +3563,12 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.320Z"
+    "_lastCheck": "2019-05-06T19:09:39.254Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1204",
+    "ageMin": 30670,
+    "ageMax": 39280,
     "depthMin": 6675,
     "depthMax": 8790,
     "samples": 3,
@@ -3283,10 +3584,12 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.362Z"
+    "_lastCheck": "2019-05-06T19:09:39.309Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1215",
+    "ageMin": 1460,
+    "ageMax": 49200,
     "depthMin": 554,
     "depthMax": 10786,
     "samples": 11,
@@ -3302,10 +3605,12 @@
     "@core.drillDate": 2009,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.405Z"
+    "_lastCheck": "2019-05-06T19:09:39.358Z"
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1216",
+    "ageMin": 34500,
+    "ageMax": 39280,
     "depthMin": 4290,
     "depthMax": 4390,
     "samples": 2,
@@ -3321,7 +3626,24 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.448Z"
+    "_lastCheck": "2019-05-06T19:09:39.408Z"
+  },
+  {
+    "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012-Composite",
+    "ageMin": 1460,
+    "ageMax": 49200,
+    "depthMin": 554,
+    "depthMax": 10786,
+    "samples": 16,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quaint.2012.02.016",
+    "@lake.name": "Prespa",
+    "@core.label": "Co1216; Co1204; Co1215",
+    "@core.coringMethod": "UWITEC percussion piston corer",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:39.469Z"
   },
   {
     "file": "Prespa-Tephra-Wagner_et_al_2010_Co1204",
@@ -3343,7 +3665,7 @@
     "@core.drillDate": 2007,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.498Z"
+    "_lastCheck": "2019-05-06T19:09:39.516Z"
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-I-P1",
@@ -3363,7 +3685,7 @@
     "@core.coringMethod": "gravity (pilot) core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.541Z"
+    "_lastCheck": "2019-05-06T19:09:39.572Z"
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-II-P2",
@@ -3383,7 +3705,25 @@
     "@core.coringMethod": "gravity (pilot) core",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.584Z"
+    "_lastCheck": "2019-05-06T19:09:39.626Z"
+  },
+  {
+    "file": "Puyehue-14C-BERTRAND_et_al_2008-Composite",
+    "ageMin": 102,
+    "ageMax": 640,
+    "depthMin": 540,
+    "depthMax": 1160,
+    "samples": 4,
+    "ageSpan": 538,
+    "@category.name": "14C",
+    "@publication.doi": "10.1016/j.yqres.2008.06.001",
+    "@lake.name": "Puyehue",
+    "@core.label": "PU-I-P1; PU-II-P2",
+    "@core.coringMethod": "gravity (pilot) core",
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:39.687Z"
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09",
@@ -3394,6 +3734,8 @@
     "samples": 1407,
     "ageSpan": 1407,
     "ageResolution": 1000,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.772958",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1594/PANGAEA.772958",
     "@lake.name": "Rehwiese",
@@ -3402,7 +3744,7 @@
     "@core.longitude": 13.182833,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.644Z"
+    "_lastCheck": "2019-05-06T19:09:39.759Z"
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09-A-B_C-D",
@@ -3413,6 +3755,8 @@
     "samples": 222,
     "ageSpan": 1403,
     "ageResolution": 158.23235923022096,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.772957",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1016/j.quascirev.2011.12.010",
     "@lake.name": "Rehwiese",
@@ -3421,7 +3765,7 @@
     "@core.longitude": 13.182833,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.685Z"
+    "_lastCheck": "2019-05-06T19:09:39.805Z"
   },
   {
     "file": "RS29-C14-PAULL_et_al_2017",
@@ -3441,7 +3785,7 @@
     "@core.coringMethod": "5 cm diameter Livingstone corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.734Z"
+    "_lastCheck": "2019-05-06T19:09:39.858Z"
   },
   {
     "file": "Sacrower_See-14C-ENTERS_et_al_2010_SAC05_15",
@@ -3462,7 +3806,7 @@
     "@core.drillDate": 2005,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.851Z"
+    "_lastCheck": "2019-05-06T19:09:39.932Z"
   },
   {
     "file": "Sacrower_See-Tephra-ENTERS_et_al_2010_SAC05_15",
@@ -3482,7 +3826,7 @@
     "@core.drillDate": 2005,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.930Z"
+    "_lastCheck": "2019-05-06T19:09:39.976Z"
   },
   {
     "file": "Sawtooth-Varves-FRANCUS_et_al_2002",
@@ -3492,6 +3836,8 @@
     "samples": 390,
     "ageSpan": 400,
     "ageResolution": 975.0000000000001,
+    "url": "https://www.ncdc.noaa.gov/paleo-search/study/6189",
+    "distributor": "NOAA",
     "@category.name": "Varves",
     "@publication.doi": "10.1029/2002GL015082",
     "@lake.name": "Sawtooth",
@@ -3501,7 +3847,26 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:50.969Z"
+    "_lastCheck": "2019-05-06T19:09:40.022Z"
+  },
+  {
+    "file": "Sihailongwan-14C-Schettler_et_al-2006",
+    "ageMin": 335,
+    "ageMax": 13290,
+    "depthMin": 450,
+    "depthMax": 6152,
+    "samples": 36,
+    "ageSpan": 12955,
+    "url": "http://journals.sagepub.com/doi/pdf/10.1177/0959683606069388",
+    "distributor": "SAGE Journals",
+    "@category.name": "14C",
+    "@publication.doi": "10.1177/0959683606069388",
+    "@lake.name": "Sihailongwan",
+    "@core.coringMethod": "UWITEC piston corer",
+    "@core.drillDate": 2001,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:40.080Z"
   },
   {
     "file": "Soppensee_-14C-GIERGA_et_al_2016",
@@ -3523,7 +3888,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.015Z"
+    "_lastCheck": "2019-05-06T19:09:40.137Z"
   },
   {
     "file": "Steel Lake-14C-Tian_et_al_2005",
@@ -3543,7 +3908,7 @@
     "@core.drillDate": 2001,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.058Z"
+    "_lastCheck": "2019-05-06T19:09:40.193Z"
   },
   {
     "file": "Storsjön-14C-Labuhn_et_al_2018_STO14",
@@ -3565,7 +3930,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.105Z"
+    "_lastCheck": "2019-05-06T19:09:40.245Z"
   },
   {
     "file": "Sugan-14C-ZHOU_et_al_2009",
@@ -3587,7 +3952,27 @@
     "@core.drillDate": 2004,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.153Z"
+    "_lastCheck": "2019-05-06T19:09:40.301Z"
+  },
+  {
+    "file": "Suigetsu-Tephra-Smith_et_al-2013-SG06",
+    "ageMin": 7234,
+    "ageMax": 50929,
+    "depthMin": 5879,
+    "depthMax": 39738,
+    "samples": 12,
+    "ageSpan": 43695,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2013.01.026",
+    "@lake.name": "Suigetsu",
+    "@core.label": "SG06",
+    "@core.latitude": 35.585556,
+    "@core.longitude": 135.8825,
+    "@core.coringMethod": "hydro-pressure thin-walled piston sampler",
+    "@core.drillDate": 2006,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:40.367Z"
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2001-2004",
@@ -3608,7 +3993,7 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.197Z"
+    "_lastCheck": "2019-05-06T19:09:40.415Z"
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2006",
@@ -3629,7 +4014,7 @@
     "@core.coringMethod": "gravity corer",
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:51.932Z"
+    "_lastCheck": "2019-05-06T19:09:41.138Z"
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-mholocene",
@@ -3640,6 +4025,8 @@
     "samples": 1432,
     "ageSpan": 1432,
     "ageResolution": 1000,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.863093",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615622549",
     "@lake.name": "Woserin",
@@ -3651,7 +4038,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:52.002Z"
+    "_lastCheck": "2019-05-06T19:09:41.218Z"
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-recent",
@@ -3659,10 +4046,12 @@
     "analysisMethod": "Varve counting",
     "ageMin": -60,
     "ageMax": 27,
-    "depthMin": " ",
+    "depthMin": "",
     "samples": 88,
     "ageSpan": 88,
     "ageResolution": 1000,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.863093",
+    "distributor": "Pangaea",
     "@category.name": "Varves",
     "@publication.doi": "10.1177/0959683615622549",
     "@lake.name": "Woserin",
@@ -3674,7 +4063,7 @@
     "@core.composite": true,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:52.071Z"
+    "_lastCheck": "2019-05-06T19:09:41.266Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON01-1A",
@@ -3694,7 +4083,7 @@
     "@core.waterDepth": 8,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:52.114Z"
+    "_lastCheck": "2019-05-06T19:09:41.313Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-1B",
@@ -3713,7 +4102,7 @@
     "@core.longitude": -4.689444,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:52.157Z"
+    "_lastCheck": "2019-05-06T19:09:41.360Z"
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-2A",
@@ -3732,7 +4121,25 @@
     "@core.longitude": -4.689444,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-04-21T01:40:52.200Z"
+    "_lastCheck": "2019-05-06T19:09:41.405Z"
+  },
+  {
+    "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008-Composite",
+    "ageMin": 330,
+    "ageMax": 3145,
+    "depthMin": 600,
+    "depthMax": 5650,
+    "samples": 16,
+    "ageSpan": 2815,
+    "@category.name": "14C",
+    "@publication.doi": "10.1177/0959683608093533",
+    "@lake.name": "Zoñar",
+    "@core.label": "ZON04-1B; ZON01-1A; ZON04-2A",
+    "@core.waterDepth": 8,
+    "@core.composite": true,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "_lastCheck": "2019-05-06T19:09:41.467Z"
   },
   {
     "file": "Huelmo-Hajdas_et_al-2002-14C",
@@ -3756,6 +4163,22 @@
     ],
     "_fileExists": true,
     "_lakeExists": false,
-    "_lastCheck": "2019-04-21T01:40:52.442Z"
+    "_lastCheck": "2019-05-06T19:09:32.651Z"
+  },
+  {
+    "depthMin": 6688,
+    "depthMax": 67962,
+    "samples": 542,
+    "ageSpan": 0,
+    "@category.name": "Pollen",
+    "@publication.doi": "10.1594/PANGAEA.872880",
+    "@lake.name": "Monticchio",
+    "@core.latitude": 40.9317,
+    "@core.longitude": 15.6049,
+    "@core.coringMethod": "Core drilling (CDRILL)",
+    "_file": "Lago_Grande_di_Monticchio-Pollen-SANCHEZ_GOÑi_et_al_2017",
+    "_fileExists": false,
+    "_lakeExists": true,
+    "_lastCheck": "2019-04-04T20:31:07.354Z"
   }
 ]
