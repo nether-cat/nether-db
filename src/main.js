@@ -5,7 +5,8 @@ import { createRouter } from './router';
 import { createStore } from './store';
 import { createProvider } from './vue-apollo';
 import { sync } from 'vuex-router-sync';
-import SESSION from '@/graphql/Session.graphql';
+import typeDefs from '@/graphql/local-state/schema.graphql';
+import SESSION from '@/graphql/queries/Session.graphql';
 
 Vue.config.productionTip = false;
 
@@ -24,6 +25,29 @@ export async function createApp ({
     inMemoryCacheOptions: {
       dataIdFromObject: object => object['uuid'] || object['_id'] || null,
     },
+    typeDefs,
+    resolvers: {
+      Mutation: {
+        toggleConnection: (root, args, { cache }) => {
+          const query = ESLint$0.gql`
+            query isConnected { 
+              isConnected @client
+            }
+          `;
+          const previous = cache.readQuery({ query });
+          const data = {
+            isConnected: !previous.isConnected,
+          };
+          cache.writeData({ data });
+        },
+      },
+    },
+    onCacheInit: cache => {
+      const data = {
+        isConnected: false,
+      };
+      cache.writeData({ data });
+    },
   };
 
   await beforeProvider(options);
@@ -35,32 +59,19 @@ export async function createApp ({
   sync(store, router);
 
   const checkSession = () => {
-    return apolloProvider.defaultClient.query({
-      query: SESSION,
-      fetchPolicy: process.client ? 'cache-first' : 'network-only',
-    });
+    return apolloProvider.defaultClient.query(Object.assign(
+      { query: SESSION },
+      { fetchPolicy: process.env.VUE_SSR ? 'network-only' : 'cache-first' },
+    ));
   };
 
   router.beforeEach(async (to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
+    let { meta: { beforeEachHook } } = to.matched.find(
+      route => typeof route.meta.beforeEachHook === 'function',
+    ) || { meta: {} };
+    if (beforeEachHook) {
       let { data } = await checkSession();
-      if (!data || !data.session || data.session.state !== 'AUTHORIZED') {
-        router.status = 403;
-        next({
-          name: 'login',
-          query: { q: 'showInfo', redirect: to.fullPath },
-        });
-      } else {
-        next();
-      }
-    } else if (to.matched.some(record => record.meta.requiresGuest)) {
-      let { data } = await checkSession();
-      if (!data || !data.session || data.session.state === 'AUTHORIZED') {
-        router.status = 403;
-        next('/');
-      } else {
-        next();
-      }
+      beforeEachHook({ data, router, from, to, next });
     } else {
       next();
     }

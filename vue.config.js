@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -23,22 +24,37 @@ module.exports = {
   },
 
   chainWebpack: config => {
-    let templateParameters = () => {};
+    let htmlPluginArgs;
     config
       .plugin('html')
       .tap(([args]) => {
+        htmlPluginArgs = args;
         args.filename = 'index.client.html';
         args.template = path.resolve(__dirname, './public/index.client.html');
-        templateParameters = args.templateParameters;
         return [args];
       });
     config
       .plugin('html-ssr')
       .after('html')
       .use(require.resolve('html-webpack-plugin'), [{
+        ...htmlPluginArgs,
         filename: 'index.server.html',
         template: path.resolve(__dirname, './public/index.server.html'),
-        templateParameters,
+      }]);
+    config
+      .plugin('define')
+      .tap(([args]) => {
+        args['process.env'].VUE_SSR = (
+          args['process.server'] && !args['process.client']
+        );
+        return [args];
+      });
+    config
+      .plugin('provide')
+      .after('define')
+      .use(webpack.ProvidePlugin, [{
+        'ESLint$0.gql': 'graphql-tag',
+        'ESLint$1.gql': 'graphql-tag',
       }]);
     config.module
       .rule('eslint')
@@ -70,7 +86,8 @@ module.exports = {
       .rule('vue')
       .use('vue-loader')
       .tap(options => {
-        options.transformAssetUrls = Object.assign({}, options.transformAssetUrls, {
+        options.transformAssetUrls = {
+          ...options.transformAssetUrls,
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
@@ -78,11 +95,13 @@ module.exports = {
           'b-card-img-lazy': ['src', 'blank-src'],
           'b-carousel-slide': 'img-src',
           'b-embed': 'src',
-        });
+        };
         return options;
       });
     config.resolve.alias
-      .set('@seeds', path.resolve(__dirname, 'apollo-server/utils/neo4j-cli-service/seeds'));
+      .set('@seeds', (
+        path.resolve(__dirname, 'apollo-server/utils/neo4j-cli-service/seeds')
+      ));
   },
 
   pluginOptions: {

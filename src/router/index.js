@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import conformsTo from 'lodash/conformsTo';
 import pick from 'lodash/pick';
 
 Vue.use(VueRouter.install);
@@ -21,7 +22,19 @@ function createRoutes () {
       components: {
         default: () => import('@/views/TheDashboard'),
       },
-      meta: { requiresAuth: true },
+      meta: {
+        beforeEachHook: ({ data, router, to, next }) => {
+          if (!data || !conformsTo(data.session, { state: s => s === 'AUTHORIZED' })) {
+            router.status = 403;
+            next({
+              name: 'login',
+              query: { q: 'showInfo', redirect: to.fullPath },
+            });
+          } else {
+            next();
+          }
+        },
+      },
     },
     {
       path: '/app',
@@ -34,7 +47,19 @@ function createRoutes () {
       components: {
         default: () => import('@/views/TheDatabase'),
       },
-      meta: { requiresAuth: true },
+      meta: {
+        beforeEachHook: ({ data, router, to, next }) => {
+          if (!data || !conformsTo(data.session, { state: s => s === 'AUTHORIZED' })) {
+            router.status = 403;
+            next({
+              name: 'login',
+              query: { q: 'showInfo', redirect: to.fullPath },
+            });
+          } else {
+            next();
+          }
+        },
+      },
       children: [
         {
           path: '/',
@@ -88,7 +113,16 @@ function createRoutes () {
       ],
       meta: {
         hideTemplate: true,
-        requiresGuest: true,
+        beforeEachHook: ({ data, router, next }) => {
+          if (!data || !conformsTo(data.session, { state: s => s !== 'AUTHORIZED' })) {
+            router.status = 403;
+            next({
+              name: 'dashboard',
+            });
+          } else {
+            next();
+          }
+        },
       },
     },
     {

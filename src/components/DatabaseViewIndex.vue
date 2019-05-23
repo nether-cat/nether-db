@@ -100,7 +100,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import gql from 'graphql-tag';
+import { log } from '@/plugins';
 
 const noSSR = {};
 
@@ -119,7 +119,7 @@ let lakeToFeature = (lake, index) => {
   };
 };
 
-if (process.client) {
+if (!process.env.VUE_SSR) {
   const handleError = (err) => {
     console.error(err);
     return {
@@ -169,10 +169,8 @@ export default {
   },
   apollo: {
     lakes: {
-      // FIXME: Without this option an error causes another unhandled error to bubble (bug)
-      // FIXME: However we don't get any errors returned at all using this policy (bug)
-      errorPolicy: 'all',
-      query: gql`
+      prefetch: false,
+      query: ESLint$1.gql`
         query lakes {
           lakes: Lake(orderBy: "name_asc") {
             uuid
@@ -200,6 +198,10 @@ export default {
           }
         }
       `,
+      error (err) {
+        log([err.message], 'Query', 2);
+        return false;
+      },
     },
   },
   computed: {

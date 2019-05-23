@@ -76,7 +76,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
         const [,, { session } = {}] = args;
 
         if (!session || roles[session.userRole] < roles[requiredRole]) {
-          throw new Error('Forbidden');
+          throw new Error(`Forbidden (${(Date.now() / 1000).toFixed(3)})`);
         }
 
         return resolve.apply(this, args);

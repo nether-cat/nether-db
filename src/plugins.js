@@ -66,6 +66,10 @@ import {
   faEyeSlash,
 } from '@fortawesome/free-regular-svg-icons';
 
+import {
+  faVuejs,
+} from '@fortawesome/free-brands-svg-icons';
+
 library.add(
   faAlignLeft,
   faArchive,
@@ -86,6 +90,7 @@ library.add(
   faSpinner,
   faTimes,
   faUserCircle,
+  faVuejs,
 );
 
 import {
@@ -150,3 +155,88 @@ export function installPlugins (Vue) {
   // install vuelidate plugin
   Vue.use(Vuelidate);
 }
+
+/**
+ * Print a colored log message
+ *
+ * @param items
+ * @param scope
+ * @param severity
+ */
+export function log (items = [], scope = 'App', severity = 0) {
+  if (false === [0, 1, 2].includes(severity)) {
+    severity = 2;
+  }
+  const options = [
+    { color: 'royalblue', type: 'Message' },
+    { color: 'coral', type: 'Warning' },
+    { color: 'red', type: 'Failure' },
+  ];
+  let { color, type } = options[severity];
+  // eslint-disable-next-line no-console
+  console.log(
+    `%c${(Date.now() / 1000).toFixed(3)}%c|%c${type}%c|%c${scope}`,
+    `
+    background: dimgray;
+    color: white;
+    padding: 1px 1px 1px 4px;
+    border-radius: 3px 0px 0px 3px;
+    `,
+    `
+    background-image: linear-gradient(to right, dimgray, ${color});
+    color: transparent;
+    padding: 1px 0;
+    border-radius: 0;
+    `,
+    `
+    background: ${color};
+    color: white;
+    padding: 1px 1px;
+    border-radius: 0;
+    `,
+    `
+    background-image: linear-gradient(to right, ${color}, mediumpurple);
+    color: transparent;
+    padding: 1px 0;
+    border-radius: 0;
+    `,
+    `
+    background: mediumpurple;
+    color: white;
+    padding: 1px 4px 1px 1px;
+    border-radius: 0px 3px 3px 0px;
+    `,
+    ...items,
+  );
+}
+
+/**
+ * ProvidePlugin will implicitly import `graphql-tag` for the tagged template, **disable** linting with `eslint-plugin-graphql` but still allow for injected syntax highlighting.
+ *
+ * @name ESLint$0.gql
+ * @type function
+ */
+/**
+ * ProvidePlugin will implicitly import `graphql-tag` for the tagged template, **enable** linting with `eslint-plugin-graphql` and still allow for injected syntax highlighting.
+ *
+ * @name ESLint$1.gql
+ * @type function
+ */
+/**
+ * DefinePlugin will replace this expression during build time to inject appropriate constants.
+ *
+ * @name process
+ * @type object
+ */
+/**
+ * DefinePlugin will replace this expression during build time to inject appropriate constants.
+ *
+ * @name process.env
+ * @type object
+ */
+/**
+ * DefinePlugin will replace this expression with `true` or `false` according to the build target.
+ *
+ * @name process.env.VUE_SSR
+ * @type boolean
+ */

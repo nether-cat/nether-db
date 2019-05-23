@@ -155,16 +155,15 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import gql from 'graphql-tag';
 
 const noSSR = {};
 
 let ScaleLine, ScaleLineLoad;
 
-if (process.client) {
+if (!process.env.VUE_SSR) {
   ScaleLineLoad = import('ol/control/ScaleLine')
-      .then(module => ScaleLine = module.default)
-      .catch(e => console.error(e));
+    .then(module => ScaleLine = module.default)
+    .catch(e => console.error(e));
   const fallback = {
     template: `
       <div>
@@ -209,7 +208,8 @@ export default {
   },
   apollo: {
     lakes: {
-      query: gql`
+      prefetch: false,
+      query: ESLint$1.gql`
         query lakeByUUID($uuid: ID!) {
           lakes: Lake(uuid: $uuid, orderBy: "name_asc") {
             uuid
@@ -255,7 +255,8 @@ export default {
       },
     },
     records: {
-      query: gql`
+      prefetch: false,
+      query: ESLint$1.gql`
         query getRecords($uuid: ID!) {
           records: RecordsByDataset(uuid: $uuid) {
             _id

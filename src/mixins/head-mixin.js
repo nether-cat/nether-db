@@ -27,6 +27,6 @@ const headMixinClient = {
   },
 };
 
-export const headMixin = (process.server)
+export const headMixin = (process.env.VUE_SSR)
   ? headMixinServer
   : headMixinClient;

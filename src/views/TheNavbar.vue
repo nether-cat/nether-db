@@ -77,8 +77,8 @@ import { onLogout } from '@/vue-apollo';
 import bNavbar from 'bootstrap-vue/es/components/navbar/navbar';
 import bNavbarNav from 'bootstrap-vue/es/components/navbar/navbar-nav';
 import bNavbarToggle from 'bootstrap-vue/es/components/navbar/navbar-toggle';
-import LOGOUT from '@/graphql/Logout.graphql';
-import SESSION from '@/graphql/Session.graphql';
+import LOGOUT from '@/graphql/mutations/Logout.graphql';
+import SESSION from '@/graphql/queries/Session.graphql';
 
 export default {
   name: 'the-navbar',

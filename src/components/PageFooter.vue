@@ -7,6 +7,13 @@ export default {
       default: false,
     },
   },
+  data () {
+    return {
+      icon: process.env.VUE_SSR
+        ? <font-awesome-icon fixed-width icon="spinner" spin/>
+        : <font-awesome-icon fixed-width icon={['fab', 'vuejs']}/>,
+    };
+  },
   computed: {
     classesDefaultBlock() {
       return { 'd-block': true, 'd-lg-inline': !this.wrapAlways };
@@ -22,7 +29,7 @@ export default {
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
         <a class="font-weight-bold text-muted" href="#">Deutsches GeoForschungsZentrum GFZ</a>
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
-        <span class={this.classesDefaultBlock}>Powered by nether-db v1.0.0</span>
+        <span class={this.classesDefaultBlock}>Provided by nether-db v1.0.0 {this.icon}</span>
       </div>
     );
   },

@@ -5,7 +5,7 @@
         <hr class="mt-1 mb-4">
         <apollo-query
           v-slot="{ result: { loading: preparing, error, data } }"
-          :query="require('@/graphql/Confirmation.graphql')"
+          :query="require('@/graphql/queries/Confirmation.graphql')"
           :variables="{ token }"
           :skip="!token || !token.length"
           :tag="undefined"
@@ -13,7 +13,7 @@
         >
           <apollo-mutation
             v-slot="{ mutate, loading }"
-            :mutation="require('@/graphql/Confirm.graphql')"
+            :mutation="require('@/graphql/mutations/Confirm.graphql')"
             :variables="{ token }"
             class="form-animated"
             @done="onMutated"

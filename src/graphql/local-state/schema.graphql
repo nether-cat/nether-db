@@ -1,0 +1,9 @@
+directive @client on FIELD
+
+extend type Query {
+  isConnected: Boolean!
+}
+
+extend type Mutation {
+  toggleConnection: Boolean!
+}

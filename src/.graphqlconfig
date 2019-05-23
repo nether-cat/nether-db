@@ -4,8 +4,11 @@
       "schemaPath": "./schema.graphql",
       "includes": [
         "./schema.graphql",
-        "./graphql/*.gql",
-        "./graphql/*.graphql"
+        "./graphql/**/*.gql",
+        "./graphql/**/*.graphql"
+      ],
+      "excludes": [
+        "./graphql/.examples/*"
       ],
       "extensions": {
         "endpoints": {

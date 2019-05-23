@@ -4,7 +4,7 @@
       <b-col>
         <hr class="mt-1 mb-4">
         <apollo-mutation
-          :mutation="require('@/graphql/Login.graphql')"
+          :mutation="require('@/graphql/mutations/Login.graphql')"
           :variables="{
             email: form.email,
             password: passwordHash,

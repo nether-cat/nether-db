@@ -27,7 +27,7 @@
 <script>
 import TheNavbar from '@/views/TheNavbar';
 import PageFooter from '@/components/PageFooter';
-import SESSION from '@/graphql/Session.graphql';
+import SESSION from '@/graphql/queries/Session.graphql';
 
 export default {
   name: 'app',
@@ -37,6 +37,11 @@ export default {
   },
   apollo: {
     session: SESSION,
+    isConnected: ESLint$0.gql`
+      query isConnected {
+        isConnected @client
+      }
+    `,
   },
   mounted () {
     this.$nextTick(() => {
@@ -44,6 +49,11 @@ export default {
         this.$apollo.queries.session.setOptions({
           fetchPolicy: 'cache-and-network',
         }).then(() => this.$apollo.queries.session.startPolling(60 * 1000));
+        this.$apollo.mutate({ mutation: ESLint$0.gql`
+          mutation toggleConnection {
+            toggleConnection @client
+          }
+        ` }).catch(console.error);
       }, 100);
     });
   },

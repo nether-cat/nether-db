@@ -1,4 +1,4 @@
-#import "./SessionFragment.graphql"
+#import "../fragments/SessionFragment.graphql"
 
 query session {
   session: Session {

@@ -1,4 +1,4 @@
-#import "./SessionFragment.graphql"
+#import "../fragments/SessionFragment.graphql"
 
 mutation login ($email: String!, $password: String!, $isHash: Boolean = false) {
   session: Login(email: $email, password: { isHash: $isHash, value: $password }

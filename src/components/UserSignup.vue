@@ -4,7 +4,7 @@
       <b-col>
         <hr class="mt-1 mb-4">
         <apollo-mutation
-          :mutation="require('@/graphql/Signup.graphql')"
+          :mutation="require('@/graphql/mutations/Signup.graphql')"
           :variables="{ user }"
           class="form-container"
           @done="onDone"
@@ -200,7 +200,7 @@ import Validation from '@/mixins/validation';
 
 const setupProbe = (vm) => (value) => (!value || !value.length || !email(value)) ||
   vm.$apollo.mutate({
-    mutation: require('@/graphql/Signup.graphql'),
+    mutation: require('@/graphql/mutations/Signup.graphql'),
     variables: {
       user: {
         titlePrefix: '',

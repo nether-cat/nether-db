@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client';
+import { log } from '@/plugins';
 
 // Install the vue plugin
 Vue.use(VueApollo);
@@ -45,9 +46,6 @@ const defaultOptions = {
 
   // Additional ApolloClient options
   // apollo: { ... }
-
-  // Client local data (see apollo-link-state)
-  // clientState: { resolvers: { ... }, defaults: { ... } }
 };
 
 // Call this in the Vue app file
@@ -69,18 +67,7 @@ export function createProvider (options = {}) {
       },
     },
     errorHandler (err) {
-      // eslint-disable-next-line no-console
-      console.log(
-        '%cError',
-        `
-        background: red;
-        color: white;
-        padding: 2px 4px;
-        border-radius: 3px;
-        font-weight: bold;
-        `,
-        err.message,
-      );
+      log([err.message], 'Provider', 2);
     },
   });
 
@@ -96,19 +83,7 @@ export async function onLogin (apolloClient, token) {
   try {
     await apolloClient.resetStore();
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(
-      '%cWarning',
-      `
-      background: orange;
-      color: white;
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-weight: bold;
-      `,
-      'Cache reset failed (login) -> ',
-      err.message,
-    );
+    log(['Cache reset failed (login) -> ', err.message], 'Storage', 1);
   }
 }
 
@@ -121,18 +96,6 @@ export async function onLogout (apolloClient) {
   try {
     await apolloClient.resetStore();
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(
-      '%cWarning',
-      `
-      background: orange;
-      color: white;
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-weight: bold;
-      `,
-      'Cache reset failed (logout) -> ',
-      err.message,
-    );
+    log(['Cache reset failed (logout) -> ', err.message], 'Storage', 1);
   }
 }

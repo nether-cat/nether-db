@@ -1,7 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const schemaFile = path.resolve(__dirname, './apollo-server/schema.graphql');
-const schemaString = fs.readFileSync(schemaFile, 'utf8');
+const serverSchema = path.resolve(__dirname, './apollo-server/schema.graphql');
+const clientSchema = path.resolve(__dirname, './src/graphql/local-state/schema.graphql');
+const schemaString = `
+${fs.readFileSync(serverSchema, 'utf8')}
+${fs.readFileSync(clientSchema, 'utf8')}
+`;
 
 module.exports = {
   root: true,
@@ -10,7 +14,12 @@ module.exports = {
     node: true,
   },
 
-  'extends': [
+  globals: {
+    ESLint$0: 'readonly',
+    ESLint$1: 'readonly',
+  },
+
+  extends: [
     'eslint:recommended',
     'plugin:vue/recommended',
   ],
@@ -29,7 +38,8 @@ module.exports = {
     'graphql/template-strings': [
       'warn',
       { 'env': 'literal', 'projectName': 'app', schemaString },
-      { 'env': 'apollo', 'projectName': 'app', schemaString },
+      { 'env': 'apollo', 'projectName': 'app', tagName: 'gql', schemaString },
+      { 'env': 'apollo', 'projectName': 'app', tagName: 'ESLint$1.gql', schemaString },
     ],
     'no-console': 'off',
     'no-debugger': 'off',
