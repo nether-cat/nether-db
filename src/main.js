@@ -19,6 +19,7 @@ export async function createApp ({
 } = {}) {
   const options = {
     ssr: false,
+    persisting: true,
     httpLinkOptions: {
       credentials: 'include',
     },
