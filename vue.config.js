@@ -95,6 +95,13 @@ module.exports = {
           'b-card-img-lazy': ['src', 'blank-src'],
           'b-carousel-slide': 'img-src',
           'b-embed': 'src',
+          'BImg': 'src',
+          'BImgLazy': ['src', 'blank-src'],
+          'BCard': 'img-src',
+          'BCardImg': 'img-src',
+          'BCardImgLazy': ['src', 'blank-src'],
+          'BCarouselSlide': 'img-src',
+          'BEmbed': 'src',
         };
         return options;
       });
@@ -112,6 +119,7 @@ module.exports = {
       serverOptions: { introspection: true },
     },
     ssr: {
+      defaultTitle: 'nether-db',
       templatePath: path.resolve(__dirname, './dist/index.server.html'),
       extendServer: app => {
         const cookieParser = require('cookie-parser');

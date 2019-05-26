@@ -1,5 +1,5 @@
 <template>
-  <div id="mainChart" ref="chart" class="chart"/>
+  <div ref="chart" class="climate chart"/>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ import eruptionCsvUrl from '@/assets/vulkanausbrueche.csv';
 import lakesCsvUrl from '@/assets/seen-mit-vulkanaschelagen.csv';
 
 export default {
-  name: 'climate-chart',
+  name: 'ChartClimate',
   /**
    * Properties
    */
@@ -188,7 +188,9 @@ export default {
 </script>
 
 <style lang="scss">
-  #mainChart {
+  @import '~c3/c3.min.css';
+
+  .climate.chart {
     .c3-brush > .selection {
       fill: rgb(31, 119, 180);
       fill-opacity: 0.2;
@@ -214,8 +216,4 @@ export default {
       word-wrap: normal;
     }
   }
-</style>
-
-<style lang="scss" scoped>
-  @import '~c3/c3.min.css';
 </style>

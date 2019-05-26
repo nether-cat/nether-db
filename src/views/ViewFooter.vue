@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'page-footer',
+  name: 'ViewFooter',
   props: {
     wrapAlways: {
       type: Boolean,
@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .footer {
     display: block;
     padding: .5rem 0 2rem 0;

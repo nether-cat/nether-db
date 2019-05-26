@@ -1,46 +1,51 @@
 <template>
-  <b-container fluid class="overlay">
-    <b-row align-h="center">
-      <b-col cols="12" class="text-center">
-        <img class="logo" src="../assets/palim-logo.png" alt="PaLimDB" :class="animation">
-      </b-col>
-    </b-row>
-    <b-row v-if="messages.length" align-h="center">
-      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
-        <b-alert v-for="msg of messages"
-                 :key="msg.id"
-                 :show="true"
-                 :variant="msg.variant"
-                 :class="animation"
-                 class="mt-3"
-                 dismissible
-                 @dismissed="messages = messages.filter(m => m !== msg)"
+  <BContainer fluid class="auth">
+    <BRow align-h="center">
+      <BCol cols="12" class="text-center">
+        <BImg class="logo" src="@/assets/palim-logo.png" alt="PaLimDB" :class="animation"/>
+      </BCol>
+    </BRow>
+    <BRow v-if="messages.length" align-h="center">
+      <BCol cols="12" sm="11" md="9" lg="7" xl="6">
+        <BAlert v-for="msg of messages"
+                :key="msg.id"
+                :show="true"
+                :variant="msg.variant"
+                :class="animation"
+                class="mt-3 alert-dismissible"
         >
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msg.text"/>
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row align-h="center">
-      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
-        <router-view :class="animation" @message="onMessage"/>
-      </b-col>
-    </b-row>
-    <b-row align-h="center">
-      <b-col cols="12" sm="11" md="9" lg="7" xl="6">
-        <page-footer class="my-4" wrap-always/>
-      </b-col>
-    </b-row>
-  </b-container>
+          <button type="button"
+                  aria-label="Close"
+                  class="close"
+                  tabindex="1"
+                  @click="messages = messages.filter(m => m !== msg)"
+                  v-text="'×'"
+          />
+        </BAlert>
+      </BCol>
+    </BRow>
+    <BRow align-h="center">
+      <BCol cols="12" sm="11" md="9" lg="7" xl="6">
+        <RouterView :class="animation" @message="onMessage"/>
+      </BCol>
+    </BRow>
+    <BRow align-h="center">
+      <BCol cols="12" sm="11" md="9" lg="7" xl="6">
+        <ViewFooter class="my-4" wrap-always/>
+      </BCol>
+    </BRow>
+  </BContainer>
 </template>
 
 <script>
-import PageFooter from '@/components/PageFooter';
+import ViewFooter from '@/views/ViewFooter';
 
 export default {
-  name: 'the-user-auth',
+  name: 'ViewAuth',
   components: {
-    PageFooter,
+    ViewFooter,
   },
   data () {
     return {
@@ -68,9 +73,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .overlay {
+  .auth {
     background: #f5f5f5;
     position: absolute;
+    padding: 1.5rem;
     z-index: 9999;
     height: 100vh;
     width: 100vw;
@@ -89,11 +95,11 @@ export default {
       }
     }
     .alert {
-      &/deep/span {
+      /deep/span {
         position: relative;
         z-index: 2;
       }
-      &/deep/button {
+      /deep/button {
         position: absolute;
         z-index: 2;
       }

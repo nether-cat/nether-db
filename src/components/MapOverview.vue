@@ -1,4 +1,5 @@
 <script>
+import { pascalCase } from 'change-case';
 import { Map, View } from 'vuelayers/lib/map';
 import { Overlay } from 'vuelayers/lib/overlay';
 import { Layer as TileLayer } from 'vuelayers/lib/tile-layer';
@@ -17,22 +18,22 @@ import { Style as CircleStyle } from 'vuelayers/lib/circle-style';
 import { createStyle } from 'vuelayers/lib/ol-ext';
 
 const components = {
-  [Map.name]: Map,
-  [View.name]: View,
-  [Overlay.name]: Overlay,
-  [TileLayer.name]: TileLayer,
-  [VectorLayer.name]: VectorLayer,
-  [OsmSource.name]: OsmSource,
-  [VectorSource.name]: VectorSource,
-  [ClusterSource.name]: ClusterSource,
-  [Feature.name]: Feature,
-  [PointGeom.name]: PointGeom,
-  [SelectInteraction.name]: SelectInteraction,
-  [StyleFunc.name]: StyleFunc,
-  [StyleBox.name]: StyleBox,
-  [StrokeStyle.name]: StrokeStyle,
-  [FillStyle.name]: FillStyle,
-  [CircleStyle.name]: CircleStyle,
+  [pascalCase(Map.name)]: Map,
+  [pascalCase(View.name)]: View,
+  [pascalCase(Overlay.name)]: Overlay,
+  [pascalCase(TileLayer.name)]: TileLayer,
+  [pascalCase(VectorLayer.name)]: VectorLayer,
+  [pascalCase(OsmSource.name)]: OsmSource,
+  [pascalCase(VectorSource.name)]: VectorSource,
+  [pascalCase(ClusterSource.name)]: ClusterSource,
+  [pascalCase(Feature.name)]: Feature,
+  [pascalCase(PointGeom.name)]: PointGeom,
+  [pascalCase(SelectInteraction.name)]: SelectInteraction,
+  [pascalCase(StyleFunc.name)]: StyleFunc,
+  [pascalCase(StyleBox.name)]: StyleBox,
+  [pascalCase(StrokeStyle.name)]: StrokeStyle,
+  [pascalCase(FillStyle.name)]: FillStyle,
+  [pascalCase(CircleStyle.name)]: CircleStyle,
 };
 
 const props = {
@@ -209,7 +210,7 @@ const methods = {
 const vOn = (events) => ({ on: events });
 
 export default {
-  name: 'map-overview',
+  name: 'MapOverview',
   components,
   props,
   data,
@@ -227,7 +228,7 @@ export default {
   methods,
   render () {
     return (
-      <vl-map load-tiles-while-animating={true}
+      <VlMap load-tiles-while-animating={true}
               load-tiles-while-interacting={true}
               data-projection="EPSG:4326"
               style="height: 485px"
@@ -237,7 +238,7 @@ export default {
               onpointermove="experimentalHandler"
               */ }}
       >
-        <vl-view
+        <VlView
           min-zoom={1}
           max-zoom={18}
           zoom={this.zoom}
@@ -248,20 +249,20 @@ export default {
             'update:zoom': (evt) => console.log('Zoom level:', evt),
           })}
         />
-        <vl-layer-tile id="osm">
-          <vl-source-osm/>
-        </vl-layer-tile>
-        <vl-layer-vector id="cluster-layer">
-          <vl-source-cluster distance={25}>
-            <vl-source-vector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', true)}/>
-            <vl-style-func factory={this.clusterStyleFunc}/>
-          </vl-source-cluster>
-        </vl-layer-vector>
-        <vl-layer-vector id="features-layer">
-          <vl-source-vector ident="features-source" features={this.availableFeatures}/>
-          <vl-style-func factory={this.featureStyleFunc}/>
-        </vl-layer-vector>
-        <vl-interaction-select
+        <VlLayerTile id="osm">
+          <VlSourceOsm/>
+        </VlLayerTile>
+        <VlLayerVector id="cluster-layer">
+          <VlSourceCluster distance={25}>
+            <VlSourceVector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', true)}/>
+            <VlStyleFunc factory={this.clusterStyleFunc}/>
+          </VlSourceCluster>
+        </VlLayerVector>
+        <VlLayerVector id="features-layer">
+          <VlSourceVector ident="features-source" features={this.availableFeatures}/>
+          <VlStyleFunc factory={this.featureStyleFunc}/>
+        </VlLayerVector>
+        <VlInteractionSelect
           features={this.focusedClusters}
           filter={this.filterByCluster}
           condition={(evt) => evt.type === 'pointermove'}
@@ -271,9 +272,9 @@ export default {
             'update:features': this.onFocusClusters,
           })}
         >
-          {() => <vl-style-func factory={this.focusClusterStyleFunc}/>}
-        </vl-interaction-select>
-        <vl-interaction-select
+          {() => <VlStyleFunc factory={this.focusClusterStyleFunc}/>}
+        </VlInteractionSelect>
+        <VlInteractionSelect
           ref="interaction"
           features={this.focusedFeatures}
           filter={this.filterByFeatures}
@@ -282,15 +283,15 @@ export default {
           })}
         >
           {(props) => [
-            <vl-style-func factory={this.focusFeatureStyleFunc}/>,
+            <VlStyleFunc factory={this.focusFeatureStyleFunc}/>,
           ].concat(props.features.map(feature => (
-            <vl-overlay id={feature.id}
+            <VlOverlay id={feature.id}
                         key={feature.id}
                         auto-pan={true}
                         position={[-90, -180]}
                         class="feature-popup feature-popup-lake"
             >
-              <b-card>
+              <BCard>
                 <div slot="header">
                   <span style="float: left; font-size: 1rem; padding: 0 1rem 0 0; max-width: 200px;">
                     {feature.properties.name}
@@ -305,15 +306,15 @@ export default {
                   </button>
                 </div>
                 {(feature.properties.datasetsCount || 'No') + ' dataset' + (feature.properties.datasetsCount !== 1 ? 's' : '')} available<br/>
-                <router-link
+                <RouterLink
                   to={{ name: 'databaseDetails', params: { id: feature.properties.uuid } }}
                   domPropsInnerHTML={feature.properties.datasetsCount ? '&#8627; View details' : '&#8627; Show lake info'}
                 />
-              </b-card>
-            </vl-overlay>
+              </BCard>
+            </VlOverlay>
           )))}
-        </vl-interaction-select>
-      </vl-map>
+        </VlInteractionSelect>
+      </VlMap>
     );
   },
 };

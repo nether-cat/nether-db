@@ -17,7 +17,7 @@
     </div>
 
     <!-- Apollo watched Graphql query -->
-    <apollo-query
+    <ApolloQuery
       :query="require('../graphql/.examples/HelloWorld.graphql')"
       :variables="{ name }"
     >
@@ -54,13 +54,13 @@
           No result :(
         </div>
       </template>
-    </apollo-query>
+    </ApolloQuery>
 
     <!-- Tchat example -->
-    <apollo-query
+    <ApolloQuery
       :query="require('../graphql/.examples/Messages.graphql')"
     >
-      <apollo-subscribe-to-more
+      <ApolloSubscribeToMore
         :document="require('../graphql/.examples/MessageAdded.graphql')"
         :update-query="onMessageAdded"
       />
@@ -76,9 +76,9 @@
           </div>
         </template>
       </div>
-    </apollo-query>
+    </ApolloQuery>
 
-    <apollo-mutation
+    <ApolloMutation
       :mutation="require('../graphql/.examples/AddMessage.graphql')"
       :variables="{
         input: {
@@ -101,7 +101,7 @@
           >
         </form>
       </template>
-    </apollo-mutation>
+    </ApolloMutation>
 
     <div class="images">
       <div

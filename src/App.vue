@@ -1,40 +1,17 @@
 <template>
   <div id="app">
-    <div class="header container-fluid px-0">
-      <b-row class="mx-0">
-        <b-col cols="12" sm="6" class="px-0">
-          <router-link to="/" exact>
-            <img src="./assets/palim-logo.png" alt="PaLimDB">
-          </router-link>
-        </b-col>
-        <b-col cols="12" sm="6" class="px-0">
-          <b-nav class="float-right px-3">
-            <b-nav-item to="/contact" disabled>Contact</b-nav-item>
-            <b-nav-item to="/imprint" disabled>Imprint</b-nav-item>
-            <b-nav-item to="/privacy" disabled>Privacy</b-nav-item>
-          </b-nav>
-        </b-col>
-      </b-row>
-    </div>
-    <the-navbar/>
-    <div class="main">
-      <router-view/>
-    </div>
-    <page-footer/>
+    <RouterView name="header"/>
+    <RouterView name="navigation"/>
+    <RouterView name="default"/>
+    <RouterView name="footer"/>
   </div>
 </template>
 
 <script>
-import TheNavbar from '@/views/TheNavbar';
-import PageFooter from '@/components/PageFooter';
 import SESSION from '@/graphql/queries/Session.graphql';
 
 export default {
-  name: 'app',
-  components: {
-    TheNavbar,
-    PageFooter,
-  },
+  name: 'App',
   apollo: {
     session: SESSION,
     isConnected: ESLint$0.gql`
@@ -66,29 +43,8 @@ export default {
   #app {
     display: block;
     min-height: 100vh;
-    > .header {
-      display: block;
-      background-color: white;
-      img {
-        max-height: 111px;
-        padding: 5px 10px;
-      }
-      .nav {
-        .nav-item::before {
-          content: '|';
-        }
-        .nav-item:first-child::before {
-          content: '';
-        }
-        .nav-link {
-          display: inline-block;
-          padding: 0.5rem 0.5rem;
-        }
-      }
-    }
-    > .main {
-      display: block;
-      > .container, > .container-fluid {
+    > .content {
+      &.container, &.container-fluid {
         padding: 1.5rem;
       }
       .card {

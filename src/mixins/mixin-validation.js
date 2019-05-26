@@ -1,4 +1,4 @@
-export default {
+export const MixinValidation = {
   data: function () {
     return {
       state: {

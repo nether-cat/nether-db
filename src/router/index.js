@@ -15,12 +15,18 @@ export function createRouter () {
 }
 
 function createRoutes () {
+  const layout = {
+    header: () => import('@/views/ViewHeader'),
+    navigation: () => import('@/views/ViewNavigation'),
+    footer: () => import('@/views/ViewFooter'),
+  };
   return [
     {
       path: '/',
       name: 'dashboard',
       components: {
-        default: () => import('@/views/TheDashboard'),
+        ...layout,
+        default: () => import('@/views/ViewDashboard'),
       },
       meta: {
         beforeEachHook: ({ data, router, to, next }) => {
@@ -45,7 +51,8 @@ function createRoutes () {
     {
       path: '/database',
       components: {
-        default: () => import('@/views/TheDatabase'),
+        ...layout,
+        default: () => import('@/views/ViewDatabase'),
       },
       meta: {
         beforeEachHook: ({ data, router, to, next }) => {
@@ -65,14 +72,14 @@ function createRoutes () {
           path: '/',
           name: 'database',
           components: {
-            default: () => import('@/components/DatabaseViewIndex'),
+            default: () => import('@/views/ViewDatabaseIndex'),
           },
         },
         {
           path: 'details/:id',
           name: 'databaseDetails',
           components: {
-            default: () => import('@/components/DatabaseViewDetails'),
+            default: () => import('@/views/ViewDatabaseDetails'),
           },
         },
       ],
@@ -80,14 +87,14 @@ function createRoutes () {
     {
       path: '/login',
       components: {
-        default: () => import('@/views/TheUserAuth'),
+        default: () => import('@/views/ViewAuth'),
       },
       children: [
         {
           path: '',
           name: 'login',
           components: {
-            default: () => import('@/components/UserLogin'),
+            default: () => import('@/views/ViewAuthLogin'),
           },
           props: {
             default: route => pick(route.query, ['q', 'redirect']),
@@ -97,14 +104,14 @@ function createRoutes () {
           path: '/signup',
           name: 'signup',
           components: {
-            default: () => import('@/components/UserSignup'),
+            default: () => import('@/views/ViewAuthSignup'),
           },
         },
         {
           path: '/confirm',
           name: 'confirm',
           components: {
-            default: () => import('@/components/UserConfirm'),
+            default: () => import('@/views/ViewAuthConfirm'),
           },
           props: {
             default: route => pick(route.query, ['token']),
@@ -112,7 +119,6 @@ function createRoutes () {
         },
       ],
       meta: {
-        hideTemplate: true,
         beforeEachHook: ({ data, router, next }) => {
           if (!data || !conformsTo(data.session, { state: s => s !== 'AUTHORIZED' })) {
             router.status = 403;
@@ -129,14 +135,16 @@ function createRoutes () {
       path: '/contact',
       name: 'contact',
       components: {
-        default: () => import('@/views/TheContact'),
+        ...layout,
+        default: () => import('@/views/ViewContact'),
       },
     },
     {
       path: '*',
       name: 'missing',
       components: {
-        default: () => import('@/views/TheMissing'),
+        ...layout,
+        default: () => import('@/views/ViewMissing'),
       },
     },
   ];

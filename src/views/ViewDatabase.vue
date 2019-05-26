@@ -1,12 +1,12 @@
 <template>
-  <router-view/>
+  <RouterView class="content"/>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'the-database',
+  name: 'ViewDatabase',
   components: {
   },
   data () {
@@ -35,8 +35,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .loading-cover {
+<style lang="scss" scoped>
+  @import '~vuelayers/lib/style.css';
+
+  /deep/.loading-cover {
     background-color: rgba(245, 245, 245, .7);
     color: #6c757d;
     text-align: center;
@@ -52,14 +54,10 @@ export default {
       font-size: 1.25rem;
     }
   }
-  .fade-cover-enter-active, .fade-cover-leave-active {
-    transition: opacity .75s;
+  /deep/.fade-cover-enter-active, /deep/.fade-cover-leave-active {
+    transition: opacity 1s ease-in;
   }
-  .fade-cover-enter, .fade-cover-leave-to {
+  /deep/.fade-cover-enter, /deep/.fade-cover-leave-to {
     opacity: 0;
   }
-</style>
-
-<style lang="scss" scoped>
-  @import '~vuelayers/lib/style.css';
 </style>

@@ -1,43 +1,43 @@
-import bAlert from 'bootstrap-vue/es/components/alert/alert';
-import bButton from 'bootstrap-vue/es/components/button/button';
-import bCard from 'bootstrap-vue/es/components/card/card';
-import bCol from 'bootstrap-vue/es/components/layout/col';
-import bCollapse from 'bootstrap-vue/es/components/collapse/collapse';
-import bContainer from 'bootstrap-vue/es/components/layout/container';
-import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
-import bDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
-import bDropdownItemButton from 'bootstrap-vue/es/components/dropdown/dropdown-item-button';
-import bForm from 'bootstrap-vue/src/components/form/form';
-import bFormCheckbox from 'bootstrap-vue/es/components/form-checkbox/form-checkbox';
-import bFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
-import bFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
-import bFormInput from 'bootstrap-vue/es/components/form-input/form-input';
-import bFormRadio from 'bootstrap-vue/es/components/form-radio/form-radio';
-import bFormRadioGroup from 'bootstrap-vue/es/components/form-radio/form-radio-group';
-import bFormRow from 'bootstrap-vue/es/components/layout/form-row';
-import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
-import bFormInvalidFeedback from 'bootstrap-vue/es/components/form/form-invalid-feedback';
-import bFormValidFeedback from 'bootstrap-vue/es/components/form/form-valid-feedback';
-import bImg from 'bootstrap-vue/es/components/image/img';
-import bInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
-import bInputGroupAddon from 'bootstrap-vue/es/components/input-group/input-group-addon';
-import bInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
-import bInputGroupPrepend from 'bootstrap-vue/es/components/input-group/input-group-prepend';
-import bInputGroupText from 'bootstrap-vue/es/components/input-group/input-group-text';
-import bLink from 'bootstrap-vue/es/components/link/link';
-import bNav from 'bootstrap-vue/es/components/nav/nav';
-import bNavForm from 'bootstrap-vue/es/components/nav/nav-form';
-import bNavItem from 'bootstrap-vue/es/components/nav/nav-item';
-import bNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
-import bProgress from 'bootstrap-vue/es/components/progress/progress';
-import bProgressBar from 'bootstrap-vue/es/components/progress/progress-bar';
-import bRow from 'bootstrap-vue/es/components/layout/row';
-import bTable from 'bootstrap-vue/es/components/table/table';
-import bToggle from 'bootstrap-vue/es/directives/toggle/toggle';
+import BAlert from 'bootstrap-vue/es/components/alert/alert';
+import BButton from 'bootstrap-vue/es/components/button/button';
+import BCard from 'bootstrap-vue/es/components/card/card';
+import BCol from 'bootstrap-vue/es/components/layout/col';
+import BCollapse from 'bootstrap-vue/es/components/collapse/collapse';
+import BContainer from 'bootstrap-vue/es/components/layout/container';
+import BDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
+import BDropdownItem from 'bootstrap-vue/es/components/dropdown/dropdown-item';
+import BDropdownItemButton from 'bootstrap-vue/es/components/dropdown/dropdown-item-button';
+import BForm from 'bootstrap-vue/src/components/form/form';
+import BFormCheckbox from 'bootstrap-vue/es/components/form-checkbox/form-checkbox';
+import BFormCheckboxGroup from 'bootstrap-vue/es/components/form-checkbox/form-checkbox-group';
+import BFormGroup from 'bootstrap-vue/es/components/form-group/form-group';
+import BFormInput from 'bootstrap-vue/es/components/form-input/form-input';
+import BFormRadio from 'bootstrap-vue/es/components/form-radio/form-radio';
+import BFormRadioGroup from 'bootstrap-vue/es/components/form-radio/form-radio-group';
+import BFormRow from 'bootstrap-vue/es/components/layout/form-row';
+import BFormSelect from 'bootstrap-vue/es/components/form-select/form-select';
+import BFormInvalidFeedback from 'bootstrap-vue/es/components/form/form-invalid-feedback';
+import BFormValidFeedback from 'bootstrap-vue/es/components/form/form-valid-feedback';
+import BImg from 'bootstrap-vue/es/components/image/img';
+import BInputGroup from 'bootstrap-vue/es/components/input-group/input-group';
+import BInputGroupAddon from 'bootstrap-vue/es/components/input-group/input-group-addon';
+import BInputGroupAppend from 'bootstrap-vue/es/components/input-group/input-group-append';
+import BInputGroupPrepend from 'bootstrap-vue/es/components/input-group/input-group-prepend';
+import BInputGroupText from 'bootstrap-vue/es/components/input-group/input-group-text';
+import BLink from 'bootstrap-vue/es/components/link/link';
+import BNav from 'bootstrap-vue/es/components/nav/nav';
+import BNavForm from 'bootstrap-vue/es/components/nav/nav-form';
+import BNavItem from 'bootstrap-vue/es/components/nav/nav-item';
+import BNavItemDropdown from 'bootstrap-vue/es/components/nav/nav-item-dropdown';
+import BProgress from 'bootstrap-vue/es/components/progress/progress';
+import BProgressBar from 'bootstrap-vue/es/components/progress/progress-bar';
+import BRow from 'bootstrap-vue/es/components/layout/row';
+import BTable from 'bootstrap-vue/es/components/table/table';
+import BToggle from 'bootstrap-vue/es/directives/toggle/toggle';
 
 // fix nav item's defaults for router-link specific props
-bNavItem.options.props.activeClass.default = 'active';
-bNavItem.options.props.exactActiveClass.default = 'exact-active';
+BNavItem.options.props.activeClass.default = 'active';
+BNavItem.options.props.exactActiveClass.default = 'exact-active';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -101,57 +101,57 @@ import {
 
 import Vuelidate from 'vuelidate';
 
-import noSSR from 'vue-no-ssr';
+import SkipServerSide from 'vue-no-ssr';
 
-import { headMixin } from './mixins/head-mixin';
+import { MixinHead } from './mixins/mixin-head';
 
 export function installPlugins (Vue) {
   // add components from bootstrap-vue
-  Vue.component('bAlert', bAlert);
-  Vue.component('bButton', bButton);
-  Vue.component('bCard', bCard);
-  Vue.component('bCol', bCol);
-  Vue.component('bCollapse', bCollapse);
-  Vue.component('bContainer', bContainer);
-  Vue.component('bDropdown', bDropdown);
-  Vue.component('bDropdownItem', bDropdownItem);
-  Vue.component('bDropdownItemButton', bDropdownItemButton);
-  Vue.component('bForm', bForm);
-  Vue.component('bFormCheckbox', bFormCheckbox);
-  Vue.component('bFormCheckboxGroup', bFormCheckboxGroup);
-  Vue.component('bFormGroup', bFormGroup);
-  Vue.component('bFormInput', bFormInput);
-  Vue.component('bFormRadio', bFormRadio);
-  Vue.component('bFormRadioGroup', bFormRadioGroup);
-  Vue.component('bFormRow', bFormRow);
-  Vue.component('bFormSelect', bFormSelect);
-  Vue.component('bFormInvalidFeedback', bFormInvalidFeedback);
-  Vue.component('bFormValidFeedback', bFormValidFeedback);
-  Vue.component('bImg', bImg);
-  Vue.component('bInputGroup', bInputGroup);
-  Vue.component('bInputGroupAddon', bInputGroupAddon);
-  Vue.component('bInputGroupAppend', bInputGroupAppend);
-  Vue.component('bInputGroupPrepend', bInputGroupPrepend);
-  Vue.component('bInputGroupText', bInputGroupText);
-  Vue.component('bLink', bLink);
-  Vue.component('bNav', bNav);
-  Vue.component('bNavForm', bNavForm);
-  Vue.component('bNavItem', bNavItem);
-  Vue.component('bNavItemDropdown', bNavItemDropdown);
-  Vue.component('bProgress', bProgress);
-  Vue.component('bProgressBar', bProgressBar);
-  Vue.component('bRow', bRow);
-  Vue.component('bTable', bTable);
+  Vue.component('BAlert', BAlert);
+  Vue.component('BButton', BButton);
+  Vue.component('BCard', BCard);
+  Vue.component('BCol', BCol);
+  Vue.component('BCollapse', BCollapse);
+  Vue.component('BContainer', BContainer);
+  Vue.component('BDropdown', BDropdown);
+  Vue.component('BDropdownItem', BDropdownItem);
+  Vue.component('BDropdownItemButton', BDropdownItemButton);
+  Vue.component('BForm', BForm);
+  Vue.component('BFormCheckbox', BFormCheckbox);
+  Vue.component('BFormCheckboxGroup', BFormCheckboxGroup);
+  Vue.component('BFormGroup', BFormGroup);
+  Vue.component('BFormInput', BFormInput);
+  Vue.component('BFormRadio', BFormRadio);
+  Vue.component('BFormRadioGroup', BFormRadioGroup);
+  Vue.component('BFormRow', BFormRow);
+  Vue.component('BFormSelect', BFormSelect);
+  Vue.component('BFormInvalidFeedback', BFormInvalidFeedback);
+  Vue.component('BFormValidFeedback', BFormValidFeedback);
+  Vue.component('BImg', BImg);
+  Vue.component('BInputGroup', BInputGroup);
+  Vue.component('BInputGroupAddon', BInputGroupAddon);
+  Vue.component('BInputGroupAppend', BInputGroupAppend);
+  Vue.component('BInputGroupPrepend', BInputGroupPrepend);
+  Vue.component('BInputGroupText', BInputGroupText);
+  Vue.component('BLink', BLink);
+  Vue.component('BNav', BNav);
+  Vue.component('BNavForm', BNavForm);
+  Vue.component('BNavItem', BNavItem);
+  Vue.component('BNavItemDropdown', BNavItemDropdown);
+  Vue.component('BProgress', BProgress);
+  Vue.component('BProgressBar', BProgressBar);
+  Vue.component('BRow', BRow);
+  Vue.component('BTable', BTable);
   // add components from vue-fontawesome
   Vue.component('FontAwesomeIcon', FontAwesomeIcon);
   Vue.component('FontAwesomeLayers', FontAwesomeLayers);
   Vue.component('FontAwesomeLayersText', FontAwesomeLayersText);
-  // add component that skips SSR for its children
-  Vue.component('no-ssr', noSSR);
+  // add higher order component that will be skipped during SSR
+  Vue.component('SkipServerSide', SkipServerSide);
   // add directives from from bootstrap-vue
-  Vue.directive('bToggle', bToggle);
+  Vue.directive('BToggle', BToggle);
   // add mixin to modify our head
-  Vue.mixin(headMixin);
+  Vue.mixin(MixinHead);
   // install vuelidate plugin
   Vue.use(Vuelidate);
 }

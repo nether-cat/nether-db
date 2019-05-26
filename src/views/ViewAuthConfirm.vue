@@ -1,9 +1,9 @@
 <template>
-  <b-card title="Account Verification" class="container-fluid">
-    <b-row>
-      <b-col>
+  <BCard title="Account Verification" class="container-fluid">
+    <BRow>
+      <BCol>
         <hr class="mt-1 mb-4">
-        <apollo-query
+        <ApolloQuery
           v-slot="{ result: { loading: preparing, error, data } }"
           :query="require('@/graphql/queries/Confirmation.graphql')"
           :variables="{ token }"
@@ -11,7 +11,7 @@
           :tag="undefined"
           @result="onQueried"
         >
-          <apollo-mutation
+          <ApolloMutation
             v-slot="{ mutate, loading }"
             :mutation="require('@/graphql/mutations/Confirm.graphql')"
             :variables="{ token }"
@@ -39,8 +39,8 @@
                 Please try to log in or contact us for help.
               </span>
             </p>
-            <b-media v-if="!!payload.user" class="account-info align-items-center flex-wrap">
-              <b-img
+            <BMedia v-if="!!payload.user" class="account-info align-items-center flex-wrap">
+              <BImg
                 slot="aside"
                 blank-color="#aaa"
                 thumbnail
@@ -55,35 +55,35 @@
                 <strong>{{ [payload.user.titlePrefix, payload.user.fullName].filter(s => s).join(' ') }}</strong><br>
                 <small class="text-muted">{{ payload.user.email }}</small>
               </div>
-            </b-media>
-            <b-button :disabled="preparing || loading || done || !!timer"
-                      type="button"
-                      variant="primary"
-                      class="mb-3 mt-1 w-100"
-                      @click="onAction(mutate)"
+            </BMedia>
+            <BButton :disabled="preparing || loading || done || !!timer"
+                     type="button"
+                     variant="primary"
+                     class="mb-3 mt-1 w-100"
+                     @click="onAction(mutate)"
             >
               <span v-if="!token || !token.length || payload.state === 'AUTH_ERROR'">Go to log in</span>
               <span v-else-if="payload.state === 'AUTH_EXPIRED'">Send a new token{{ timer ? ` (${timer})` : '' }}</span>
               <span v-else>Confirm email address</span>
-              <font-awesome-icon v-if="preparing || loading" icon="spinner" spin/>
-            </b-button>
-          </apollo-mutation>
-        </apollo-query>
-      </b-col>
-    </b-row>
-  </b-card>
+              <FontAwesomeIcon v-if="preparing || loading" icon="spinner" spin/>
+            </BButton>
+          </ApolloMutation>
+        </ApolloQuery>
+      </BCol>
+    </BRow>
+  </BCard>
 </template>
 
 <script>
 import crypto from 'crypto';
 import uuidv4 from 'uuid/v4';
 import get from 'lodash/get';
-import bMedia from 'bootstrap-vue/es/components/media/media';
+import BMedia from 'bootstrap-vue/es/components/media/media';
 
 export default {
-  name: 'user-confirm',
+  name: 'ViewAuthConfirm',
   components: {
-    bMedia,
+    BMedia,
   },
   props: {
     token: { type: String, default: '' },
@@ -141,26 +141,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.media.account-info {
-  font-size: 1.225rem;
-  img {
-    height: 64px;
-    width: 64px;
-    &.img-thumbnail {
-      height: calc(64px + .5rem);
-      width: calc(64px + .5rem);
-      border-radius: .5rem;
-      &.rounded-circle {
-        border-radius: 50% !important;
+  .media.account-info {
+    font-size: 1.225rem;
+    img {
+      height: 64px;
+      width: 64px;
+      &.img-thumbnail {
+        height: calc(64px + .5rem);
+        width: calc(64px + .5rem);
+        border-radius: .5rem;
+        &.rounded-circle {
+          border-radius: 50% !important;
+        }
+      }
+    }
+    @media (max-width: 575px) {
+      font-size: calc(2.5vw + .225rem);
+      img {
+        max-height: 15vw;
+        max-width: 15vw;
       }
     }
   }
-  @media (max-width: 575px) {
-    font-size: calc(2.5vw + .225rem);
-    img {
-      max-height: 15vw;
-      max-width: 15vw;
-    }
-  }
-}
 </style>

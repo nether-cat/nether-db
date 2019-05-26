@@ -9,7 +9,7 @@ function getTitle (vm) {
   }
 }
 
-const headMixinServer = {
+const MixinHeadServer = {
   created () {
     const title = getTitle(this);
     if (title) {
@@ -18,7 +18,7 @@ const headMixinServer = {
   },
 };
 
-const headMixinClient = {
+const MixinHeadClient = {
   mounted () {
     const title = getTitle(this);
     if (title) {
@@ -27,6 +27,6 @@ const headMixinClient = {
   },
 };
 
-export const headMixin = (process.env.VUE_SSR)
-  ? headMixinServer
-  : headMixinClient;
+export const MixinHead = (process.env.VUE_SSR)
+  ? MixinHeadServer
+  : MixinHeadClient;

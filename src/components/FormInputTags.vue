@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'form-input-tags',
+  name: 'FormInputTags',
   props: {
     tags: {
       type: Array,

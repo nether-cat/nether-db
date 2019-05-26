@@ -1,69 +1,69 @@
 <template>
-  <b-container fluid>
-    <b-row>
-      <b-col cols="12" lg="6">
-        <b-card header-tag="header" footer-tag="footer">
+  <BContainer fluid>
+    <BRow>
+      <BCol cols="12" lg="6">
+        <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Filter options</h4>
-          <b-form class="card-text container-fluid">
-            <b-row>
-              <b-col>
-                <b-form-group label="Search terms:">
-                  <b-form-input id="termsInput"
-                                ref="terms"
-                                :disabled="false"
-                                type="text"
-                                required
+          <BForm class="card-text container-fluid">
+            <BRow>
+              <BCol>
+                <BFormGroup label="Search terms:">
+                  <BFormInput id="termsInput"
+                              ref="terms"
+                              :disabled="false"
+                              type="text"
+                              required
                   />
-                </b-form-group>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col>
+                </BFormGroup>
+              </BCol>
+            </BRow>
+            <BRow>
+              <BCol>
                 <div style="height: 400px;">
-                  <transition name="fade-cover">
+                  <Transition name="fade-cover">
                     <div v-show="chart.loading" class="loading-cover" style="height: 400px; line-height: 400px;">
-                      <div>Chart loading...<br><font-awesome-icon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/></div>
+                      <div>Chart loading...<br><FontAwesomeIcon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/></div>
                     </div>
-                  </transition>
-                  <no-ssr>
-                    <climate-chart @init="$nextTick(() => chart.loading = false)" @filterLakes="updateLakes"/>
-                  </no-ssr>
+                  </Transition>
+                  <SkipServerSide>
+                    <ChartClimate @init="$nextTick(() => chart.loading = false)" @filterLakes="updateLakes"/>
+                  </SkipServerSide>
                 </div>
-              </b-col>
-            </b-row>
-          </b-form>
-        </b-card>
-      </b-col>
+              </BCol>
+            </BRow>
+          </BForm>
+        </BCard>
+      </BCol>
       <div class="d-block d-lg-none mt-4 w-100"/>
-      <b-col cols="12" lg="6">
-        <b-card header-tag="header" footer-tag="footer">
+      <BCol cols="12" lg="6">
+        <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Map</h4>
-          <b-container fluid class="card-text">
-            <transition name="fade-cover">
+          <BContainer fluid class="card-text">
+            <Transition name="fade-cover">
               <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
-                <div>Map loading...<br><font-awesome-icon icon="circle-notch" size="5x" spin/></div>
+                <div>Map loading...<br><FontAwesomeIcon icon="circle-notch" size="5x" spin/></div>
               </div>
-            </transition>
+            </Transition>
             <div style="height: 485px;">
-              <no-ssr>
-                <map-overview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
-              </no-ssr>
+              <SkipServerSide>
+                <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
+              </SkipServerSide>
             </div>
-          </b-container>
-        </b-card>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col class="mt-4">
-        <b-card style="overflow-x: auto;">
-          <b-table hover
-                   outlined
-                   striped
-                   caption-top
-                   show-empty
-                   sort-by="name"
-                   :items="getResults"
-                   :fields="fields"
+          </BContainer>
+        </BCard>
+      </BCol>
+    </BRow>
+    <BRow>
+      <BCol class="mt-4">
+        <BCard style="overflow-x: auto;">
+          <BTable hover
+                  outlined
+                  striped
+                  caption-top
+                  show-empty
+                  sort-by="name"
+                  :items="getResults"
+                  :fields="fields"
           >
             <template slot="table-caption">Found lakes with datasets:</template>
             <template slot="countries" slot-scope="cell">
@@ -86,23 +86,23 @@
             </template>
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
-                <router-link :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
-                  <font-awesome-icon icon="external-link-alt" alt="View details"/>
-                </router-link>
+                <RouterLink :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
+                  <FontAwesomeIcon icon="external-link-alt" alt="View details"/>
+                </RouterLink>
               </div>
             </template>
-          </b-table>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+          </BTable>
+        </BCard>
+      </BCol>
+    </BRow>
+  </BContainer>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { log } from '@/plugins';
 
-const noSSR = {};
+const SkipSSR = {};
 
 let lakeToFeature = (lake, index) => {
   return {
@@ -131,16 +131,16 @@ if (!process.env.VUE_SSR) {
       </div>`,
     };
   };
-  Object.assign(noSSR, {
-    'climate-chart': () => import('@/components/ClimateChart').then(m => m.default).catch(handleError),
-    'map-overview': () => import('@/components/MapOverview').then(m => m.default).catch(handleError),
+  Object.assign(SkipSSR, {
+    'ChartClimate': () => import('@/components/ChartClimate').then(m => m.default).catch(handleError),
+    'MapOverview': () => import('@/components/MapOverview').then(m => m.default).catch(handleError),
   });
 }
 
 export default {
-  name: 'database-view-index',
+  name: 'ViewDatabaseIndex',
   components: {
-    ...noSSR,
+    ...SkipSSR,
   },
   data () {
     return {

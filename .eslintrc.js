@@ -50,7 +50,7 @@ module.exports = {
     'quotes': ['error', 'single', { 'avoidEscape': true }],
     'semi': ['error', 'always'],
     'semi-style': ['error', 'last'],
-    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     'vue/html-closing-bracket-spacing': ['error', { 'selfClosingTag': 'never' }],
     'vue/max-attributes-per-line': ['error', {
       'singleline': 8,
@@ -59,7 +59,7 @@ module.exports = {
         'allowFirstLine': true,
       },
     }],
-    'vue/name-property-casing': ['error', 'kebab-case'],
+    'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/script-indent': 'warn',
     'vue/singleline-html-element-content-newline': 'off',
   },
