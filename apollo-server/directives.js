@@ -1,6 +1,7 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
 const { GraphQLID, defaultFieldResolver } = require('graphql');
 const uuidv5 = require('uuid/v5');
+const session = require('./utils/session');
 
 class UniqueIdDirective extends SchemaDirectiveVisitor {
   visitObject(type) {
@@ -55,30 +56,15 @@ class AuthDirective extends SchemaDirectiveVisitor {
       const { resolve = defaultFieldResolver || function () {} } = field;
 
       field.resolve = async function (...args) {
-        // Get the required Role from the field first, falling back
-        // to the objectType if no Role is required by the field:
-        const requiredRole =
-          field._requiredAuthRole ||
-          objectType._requiredAuthRole;
-
-        if (!requiredRole) {
-          return resolve.apply(this, args);
-        }
-
-        const roles = {
-          ADMIN: 4,
-          MANAGER: 3,
-          REVIEWER: 2,
-          USER: 1,
-          NONE: 0,
-        };
-
-        const [,, { session } = {}] = args;
-
-        if (!session || roles[session.userRole] < roles[requiredRole]) {
+        // Get the required role from the field first, falling back
+        // to the objectType if no role is required by the field:
+        const needsRole = field._requiredAuthRole || objectType._requiredAuthRole;
+        if (!needsRole) return resolve.apply(this, args);
+        // Get the user's role from the context session
+        const [,, { session: s } = {}] = args;
+        if (!s || session.roles[s.userRole] < session.roles[needsRole]) {
           throw new Error(`Forbidden (${(Date.now() / 1000).toFixed(3)})`);
         }
-
         return resolve.apply(this, args);
       };
     });

@@ -168,11 +168,25 @@ export default {
   },
   methods: {
     onDone ({ data }) {
-      if (data['session']['token']) {
+      if (data.session && data.session.token) {
         onLogin(
           this.$apolloProvider.defaultClient,
-          data['session']['token'],
+          data.session.token,
         ).then(() => this.$router.replace(this.$props.redirect || '/'));
+      } else if (data.session && ['AUTH_APPROVAL', 'AUTH_EMAIL'].includes(data.session.state)) {
+        this.$v.form.password.$model = '';
+        this.$v.form.password.$reset();
+        this.$emit('message', {
+          id: uuidv4(),
+          variant: 'warning',
+          subject: 'account',
+          text: data.session.state === 'AUTH_APPROVAL'
+            ? '<strong>Account not enabled.</strong> '
+              + 'Please wait for a moderator to approve your account. '
+              + 'You will receive an email as soon as this has happened.'
+            : '<strong>Account not verified.</strong> '
+              + 'Please check your emails and click our confirmation link.',
+        });
       } else {
         this.$emit('message', {
           id: uuidv4(),

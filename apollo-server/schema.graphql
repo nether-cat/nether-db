@@ -23,6 +23,7 @@ enum AccessLevel {
 
 enum SessionState {
   AUTHORIZED
+  AUTH_APPROVAL
   AUTH_EMAIL
   AUTH_ERROR
   AUTH_EXPIRED

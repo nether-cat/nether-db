@@ -75,6 +75,24 @@ const sessionCache = {
     return session;
   },
 };
+const sessionStates = {
+  AUTHORIZED: 'AUTHORIZED',
+  AUTH_APPROVAL: 'AUTH_APPROVAL',
+  AUTH_EMAIL: 'AUTH_EMAIL',
+  AUTH_ERROR: 'AUTH_ERROR',
+  AUTH_EXPIRED: 'AUTH_EXPIRED',
+  AUTH_FROZEN: 'AUTH_FROZEN',
+  AUTH_PENDING: 'AUTH_PENDING',
+  AUTH_UNKNOWN: 'AUTH_UNKNOWN',
+  UNAUTHORIZED: 'UNAUTHORIZED',
+};
+const userRoles = {
+  ADMIN: 4,
+  MANAGER: 3,
+  REVIEWER: 2,
+  USER: 1,
+  NONE: 0,
+};
 
 Object.defineProperty(signOptions, 'jwtid', {
   enumerable: true,
@@ -99,6 +117,8 @@ function sendConfirmation (user, transport) {
 }
 
 module.exports = {
+  roles: userRoles,
+  states: sessionStates,
   async flush() {
     return sessionCache.flush();
   },
@@ -120,14 +140,14 @@ module.exports = {
       ({ sub: email, scope, exp } = jwt.verify(token, secret, verifyOptions));
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        return { ...defaultSession, state: 'AUTH_EXPIRED' };
+        return { ...defaultSession, state: sessionStates.AUTH_EXPIRED };
       } else {
         console.error(error);
-        return { ...defaultSession, state: 'AUTH_ERROR' };
+        return { ...defaultSession, state: sessionStates.AUTH_ERROR };
       }
     }
     if (scope !== 'session' && !Array.isArray(scope) || !scope.includes('session')) {
-      return { ...defaultSession, state: 'AUTH_ERROR' };
+      return { ...defaultSession, state: sessionStates.AUTH_ERROR };
     }
     try {
       /** @type Session */ const db = ctx.driver.session();
@@ -138,15 +158,15 @@ module.exports = {
       user = record.toObject()['user']['properties'];
     } catch (error) {
       console.error(new Error(`User "${email}" could not be found`));
-      return { ...defaultSession, state: 'AUTH_ERROR' };
+      return { ...defaultSession, state: sessionStates.AUTH_ERROR };
     }
     return sessionCache.write({
-      _id: 'SESSION_INFO',
+      _id: defaultSession._id,
       user: user.email,
       userRole: user.userRole,
       token,
       expires: exp * 1000,
-      state: 'AUTHORIZED',
+      state: sessionStates.AUTHORIZED,
     });
   },
   async login($0, params, ctx) {
@@ -154,7 +174,7 @@ module.exports = {
     const { isHash, value } = params.password;
     if (typeof isHash !== 'boolean' || !email || !value) {
       ctx.req.res.clearCookie('apollo-token');
-      return { ...defaultSession, state: 'AUTH_ERROR' };
+      return { ...defaultSession, state: sessionStates.AUTH_ERROR };
     }
     const input = isHash && /[0-9a-f]{64}/.test(value) ? value
       : crypto.createHash('sha256').update(value).digest('hex');
@@ -177,7 +197,7 @@ module.exports = {
     hash = hash ? hash : substitute;
     const isMatch = await argon2.verify(hash, input);
     if (isMatch && user) {
-      if (!user.frozen && user.emailVerified) {
+      if (!user.frozen && user.emailVerified && userRoles[user.userRole]) {
         let scope = ['session'];
         let payload = { sub: user.email, scope };
         let token = jwt.sign(payload, secret, { ...signOptions });
@@ -187,23 +207,26 @@ module.exports = {
           secure: false,
         });
         return sessionCache.write({
-          _id: 'SESSION_INFO',
+          _id: defaultSession._id,
           user: user.email,
           userRole: user.userRole,
           token,
           expires: payload.exp * 1000,
-          state: 'AUTHORIZED',
+          state: sessionStates.AUTHORIZED,
         });
       } else if (user.frozen) {
         ctx.req.res.clearCookie('apollo-token');
-        return { ...defaultSession, state: 'AUTH_FROZEN' };
+        return { ...defaultSession, state: sessionStates.AUTH_FROZEN };
       } else if (!user.emailVerified) {
         ctx.req.res.clearCookie('apollo-token');
-        return { ...defaultSession, state: 'AUTH_EMAIL' };
+        return { ...defaultSession, state: sessionStates.AUTH_EMAIL };
+      } else if (!userRoles[user.userRole]) {
+        ctx.req.res.clearCookie('apollo-token');
+        return { ...defaultSession, state: sessionStates.AUTH_APPROVAL };
       }
     } else {
       ctx.req.res.clearCookie('apollo-token');
-      return { ...defaultSession, state: 'AUTH_UNKNOWN' };
+      return { ...defaultSession, state: sessionStates.AUTH_UNKNOWN };
     }
   },
   async logout($0, $1, ctx) {
@@ -264,53 +287,55 @@ module.exports = {
       if (error instanceof jwt.TokenExpiredError) {
         try {
           ({ sub: email, scope } = jwt.verify(token, secret, { ...verifyOptions, ignoreExpiration: true }));
-          result = { success: false, state: 'AUTH_EXPIRED' };
+          result = { success: false, state: sessionStates.AUTH_EXPIRED };
         } catch (error) {
           console.error(error);
-          return { success: false, state: 'AUTH_ERROR' };
+          return { success: false, state: sessionStates.AUTH_ERROR };
         }
       } else {
         console.error(error);
-        return { success: false, state: 'AUTH_ERROR' };
+        return { success: false, state: sessionStates.AUTH_ERROR };
       }
     }
     if (scope !== 'validation' && !Array.isArray(scope) || !scope.includes('validation')) {
-      return { success: false, state: 'AUTH_ERROR' };
+      return { success: false, state: sessionStates.AUTH_ERROR };
     }
     const touchUser = async (confirm = false) => {
       /** @type Session */ const db = ctx.driver.session();
       const { records: [record] } = await db.run(`
           OPTIONAL MATCH (n:User {email: $email, frozen: false})
           SET n.emailVerified = (n.emailVerified OR $confirm)
-          RETURN {success: count(n) = 1, user: n {.email, .fullName, .titlePrefix}} as result
+          RETURN {success: count(n) = 1, user: n {.email, .fullName, .titlePrefix, .userRole}} as result
         `, { email, confirm });
       return record.toObject().result;
     };
     try {
-      result = { state: 'AUTH_EMAIL', ...(await touchUser(false)), ...result };
+      result = { state: sessionStates.AUTH_EMAIL, ...(await touchUser(false)), ...result };
       if (!result.user) {
-        return { success: false, state: 'AUTH_ERROR' };
+        return { success: false, state: sessionStates.AUTH_ERROR };
       } else if (operation === 'query') {
         return result;
       }
     } catch (error) {
       console.error(new Error(`Lookup with "${email}" failed`));
-      return { success: false, state: 'AUTH_ERROR' };
+      return { success: false, state: sessionStates.AUTH_ERROR };
     }
-    if (result.state === 'AUTH_EXPIRED') {
+    if (result.state === sessionStates.AUTH_EXPIRED) {
       sendConfirmation(result.user, ctx.transport);
       return { ...result, success: true };
     }
     try {
-      result = { state: 'AUTH_EMAIL', ...(await touchUser(true)) };
+      result = { state: sessionStates.AUTH_PENDING, ...(await touchUser(true)) };
       if (!result.user) {
-        return { success: false, state: 'AUTH_ERROR' };
+        return { success: false, state: sessionStates.AUTH_ERROR };
+      } else if (!userRoles[result.user.userRole]) {
+        return { ...result, state: sessionStates.AUTH_APPROVAL };
       } else {
         return result;
       }
     } catch (error) {
       console.error(new Error(`Confirmation with "${email}" failed`));
-      return { success: false, state: 'AUTH_ERROR' };
+      return { success: false, state: sessionStates.AUTH_ERROR };
     }
   },
   async revoke($0, params, ctx) {

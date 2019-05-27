@@ -80,6 +80,9 @@
                       <BFormInvalidFeedback v-if="$v.form.fullName.$dirty && !$v.form.fullName.required" tag="span">
                         Please enter your name.
                       </BFormInvalidFeedback>
+                      <BFormInvalidFeedback v-else-if="$v.form.fullName.$dirty && !$v.form.fullName.name" tag="span">
+                        Contains disallowed symbols: {{ nameIllegalPortions }}.
+                      </BFormInvalidFeedback>
                       <BFormInvalidFeedback v-else-if="$v.form.fullName.$dirty && !$v.form.fullName.min" tag="span">
                         The provided name is too short.
                       </BFormInvalidFeedback>
@@ -212,6 +215,7 @@ const setupProbe = (vm) => (value) => (!value || !value.length || !email(value))
     },
   }).then(({ data: { result } }) => result && result.success === true).catch(() => false);
 const titleCheck = helpers.regex('title', /^[A-Z]+[ .\-A-Za-z]*[.A-Za-z]$/);
+const nameCheck = helpers.regex('name', /^[^@$%<>#\\[\]{}]*$/);
 const passwordChecks = {
   digit: helpers.regex('lower', /[0-9]+/),
   lower: helpers.regex('lower', /[a-z]+/),
@@ -259,6 +263,7 @@ export default {
         fullName: {
           required,
           min: minLength(4),
+          name: nameCheck,
         },
         email: {
           required,
@@ -280,6 +285,17 @@ export default {
         .update(this.form.password)
         .digest('hex') } };
     },
+    nameIllegalPortions () {
+      const re = /[@$%<>#\\[\]{}]+/g;
+      let illegalPortions = '';
+      if (this.form.fullName) {
+        let illegalPortion = undefined;
+        while (([illegalPortion] = re.exec(this.form.fullName) || []) && illegalPortion) {
+          illegalPortions += illegalPortion;
+        }
+      }
+      return illegalPortions;
+    },
   },
   methods: {
     onDone ({ data }) {
@@ -289,7 +305,7 @@ export default {
           variant: 'success',
           subject: 'account',
           text: '<strong>Signed up!</strong> '
-            + 'Please check your email inbox and click our link to verify your account.',
+            + 'Please check your emails and click our link to verify your account.',
         }));
       } else {
         this.$emit('message', {

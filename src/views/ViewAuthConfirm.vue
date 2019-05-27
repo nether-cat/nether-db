@@ -125,7 +125,16 @@ export default {
           text: '<strong>Email sent!</strong> '
             + 'Go to your inbox and click the link inside to verify your account.',
         });
-      } else if (result.state === 'AUTH_EMAIL') {
+      } else if (result.state === 'AUTH_APPROVAL') {
+        this.done = true;
+        let message = {
+          id: uuidv4(),
+          variant: 'info',
+          subject: 'account',
+          text: '<strong>Confirmation successful!</strong> Please wait for an approval by our moderators.',
+        };
+        this.$router.replace({ name: 'login' }, () => this.$emit('message', message));
+      } else if (result.state === 'AUTH_PENDING') {
         this.done = true;
         let message = {
           id: uuidv4(),
