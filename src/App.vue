@@ -234,5 +234,8 @@ export default {
         }
       }
     }
+    .ol-scale-line-inner {
+      border-top: 1px solid rgba(238, 238, 238, 0.5);
+    }
   }
 </style>

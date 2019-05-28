@@ -19,10 +19,16 @@
             </BRow>
             <BRow>
               <BCol>
-                <div style="height: 400px;">
+                <div class="rounded overflow-hidden" style="height: 400px;">
                   <Transition name="fade-cover">
-                    <div v-show="chart.loading" class="loading-cover" style="height: 400px; line-height: 400px;">
-                      <div>Chart loading...<br><FontAwesomeIcon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/></div>
+                    <div v-show="chart.loading"
+                         class="loading-cover rounded overflow-hidden"
+                         style="height: 400px; line-height: 400px;"
+                    >
+                      <div>
+                        Chart loading...<br>
+                        <FontAwesomeIcon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/>
+                      </div>
                     </div>
                   </Transition>
                   <SkipServerSide>
@@ -42,10 +48,16 @@
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Map</h4>
-          <BContainer fluid class="card-text">
+          <BContainer fluid class="card-text rounded overflow-hidden">
             <Transition name="fade-cover">
-              <div v-show="map.loading" class="loading-cover" style="height: 485px; line-height: 485px;">
-                <div>Map loading...<br><FontAwesomeIcon icon="circle-notch" size="5x" spin/></div>
+              <div v-show="map.loading"
+                   class="loading-cover rounded overflow-hidden"
+                   style="height: 485px; line-height: 485px;"
+              >
+                <div>
+                  Map loading...<br>
+                  <FontAwesomeIcon icon="circle-notch" size="5x" spin/>
+                </div>
               </div>
             </Transition>
             <div style="height: 485px;">
