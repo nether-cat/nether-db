@@ -306,6 +306,14 @@ export default {
   created () {
     this.$store.commit('database/DETAILS_ID_SET', this.$route.params['id']);
   },
+  activated () {
+    this.$apollo.queries.lakes.skip = false;
+    this.$apollo.queries.records.skip = false;
+  },
+  deactivated () {
+    this.$apollo.queries.lakes.skip = true;
+    this.$apollo.queries.records.skip = true;
+  },
   methods: {
     ...mapActions('database', [
       'loadCollection',

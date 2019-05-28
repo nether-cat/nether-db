@@ -26,7 +26,11 @@
                     </div>
                   </Transition>
                   <SkipServerSide>
-                    <ChartClimate @init="$nextTick(() => chart.loading = false)" @filterLakes="updateLakes"/>
+                    <ChartClimate
+                      @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
+                      @domain="(domain) => chart.active && !chart.loading && (chart.domain = domain)"
+                      @filterLakes="updateLakes"
+                    />
                   </SkipServerSide>
                 </div>
               </BCol>
@@ -153,6 +157,9 @@ export default {
         location: '',
       },
       chart: {
+        domain: undefined,
+        flush: () => {},
+        active: true,
         loading: true,
       },
       map: {
@@ -242,6 +249,16 @@ export default {
       get () { return this.$store.state.database.map.features; },
       set (value) { this.$store.commit('database/MAP_FEATURES_SET', value); },
     },
+  },
+  activated () {
+    /* FIXME: This is a dirty hack, but when this component has been inactive
+              too long, the c3 component starts acting weird without this.
+    */
+    this.chart.flush(this.chart.domain);
+    this.chart.active = true;
+  },
+  deactivated () {
+    this.chart.active = false;
   },
   methods: {
     // eslint-disable-next-line no-unused-vars

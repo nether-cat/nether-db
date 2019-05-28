@@ -97,7 +97,7 @@ import {
   FontAwesomeIcon,
   FontAwesomeLayers,
   FontAwesomeLayersText,
-} from '@fortawesome/vue-fontawesome';
+} from '@fortawesome/vue-fontawesome/index.es';
 
 import Vuelidate from 'vuelidate';
 

@@ -166,19 +166,24 @@ export default {
         // Subchart aktivieren
         subchart: {
           show: true,
-          onbrush: domain => console.log('onBrush:', domain),
+          onbrush: domain => { this.$emit('domain', domain); console.log('onBrush:', domain); },
         },
         // Zoom aktivieren
         zoom: {
           enabled: true,
-          onzoom: domain => console.log('onZoom:', domain),
+          onzoom: domain => { this.$emit('domain', domain); console.log('onZoom:', domain); },
         },
         oninit: () => {
-          this.$emit('init');
           this.$nextTick(() => {
             let padding = 1.2295;
             let { min: { x: min }, max: { x: max } } = this.chart.axis.range();
-            this.chart.zoom([min - padding, max + padding]);
+            let defaultDomain = [min - padding, max + padding];
+            this.chart.zoom(defaultDomain);
+            this.$emit('init', (domain) => {
+              this.chart.flush();
+              this.chart.zoom(domain || defaultDomain);
+              this.chart.flush();
+            });
           });
         },
       });

@@ -1,5 +1,7 @@
 <template>
-  <RouterView class="content"/>
+  <KeepAlive>
+    <RouterView :key="$route.fullPath" class="content"/>
+  </KeepAlive>
 </template>
 
 <script>
