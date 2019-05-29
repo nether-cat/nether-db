@@ -101,6 +101,8 @@ import {
 
 import Vuelidate from 'vuelidate';
 
+import VueScrollTo from 'vue-scrollto';
+
 import SkipServerSide from 'vue-no-ssr';
 
 import { MixinHead } from './mixins/mixin-head';
@@ -154,6 +156,8 @@ export function installPlugins (Vue) {
   Vue.mixin(MixinHead);
   // install vuelidate plugin
   Vue.use(Vuelidate);
+  // install vue-scrollto plugin
+  Vue.use(VueScrollTo);
 }
 
 /**

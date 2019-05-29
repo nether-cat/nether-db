@@ -77,7 +77,14 @@
                   {{ Number.parseFloat(cell.item.ageResolution).toFixed(3) }}
                 </template>
                 <template slot="actions" slot-scope="cell">
-                  <BButton variant="primary" size="sm" @click="onDatasetClick(cell.item)">Show records</BButton>
+                  <BButton
+                    size="sm"
+                    variant="primary"
+                    :disabled="showRecords && dataset === cell.item"
+                    @click="onDatasetClick(cell.item)"
+                  >
+                    Show records
+                  </BButton>
                 </template>
               </BTable>
             </BCard>
@@ -136,7 +143,8 @@
     <BRow v-if="showRecords && getRecords && getRecords.length">
       <BCol class="mt-4">
         <BCard style="overflow-x: auto;">
-          <BTable hover
+          <BTable id="records"
+                  hover
                   outlined
                   striped
                   caption-top
@@ -144,6 +152,7 @@
                   sort-by="__rowNum__"
                   :items="getRecords"
                   :fields="getFields"
+                  @input="onTableData"
           >
             <template slot="table-caption">
               Records in the selected dataset:
@@ -164,6 +173,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 import { sentenceCase } from 'change-case';
 
 const SkipSSR = {};
@@ -196,6 +206,8 @@ if (!process.env.VUE_SSR) {
     VlStyleCircle: () => VueLayers.then(module => module.CircleStyle['Style']).catch(() => fallback),
   });
 }
+
+const scrollToTable = debounce((vm) => vm.$scrollTo('#records', 750, { offset: -100 }), 250);
 
 export default {
   name: 'ViewDatabaseDetails',
@@ -340,6 +352,9 @@ export default {
     },
     onSourceOsmMounted () {
       this.map.loading = false;
+    },
+    onTableData () {
+      scrollToTable(this);
     },
   },
 };

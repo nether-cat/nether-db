@@ -125,11 +125,12 @@ let lakeToFeature = (lake, index) => {
     id: lake['uuid'],
     geometry: {
       type: 'Point',
-      coordinates: [lake['longitude'], lake['latitude']],
+      coordinates: [lake.longitude, lake.latitude],
     },
     properties: {
       ...lake,
       index,
+      coordinates: [lake.longitude, lake.latitude],
     },
   };
 };
