@@ -5,35 +5,8 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
-
 export default {
   name: 'ViewDatabase',
-  components: {
-  },
-  data () {
-    return {};
-  },
-  computed: {
-    ...mapState('user', [
-      'user',
-    ]),
-    ...mapState('database', [
-      'proxies',
-      'results',
-    ]),
-    ...mapGetters('database', [
-      'countProxies',
-      'transformedResults',
-    ]),
-  },
-  methods: {
-    ...mapActions('database', [
-      'loadProxies',
-      'loadProxyAttributes',
-      'loadResultData',
-    ]),
-  },
 };
 </script>
 

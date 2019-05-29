@@ -133,7 +133,7 @@
         </BCard>
       </BCol>
     </BRow>
-    <BRow v-if="showRecords && dataset && flatRecords && flatRecords.length">
+    <BRow v-if="showRecords && getRecords && getRecords.length">
       <BCol class="mt-4">
         <BCard style="overflow-x: auto;">
           <BTable hover
@@ -142,14 +142,19 @@
                   caption-top
                   show-empty
                   sort-by="__rowNum__"
-                  :items="flatRecords"
-                  :fields="[{ key: '__rowNum__', label: '#' }].concat(dataset.attributes.map(a => a.name))"
+                  :items="getRecords"
+                  :fields="getFields"
           >
             <template slot="table-caption">
               Records in the selected dataset:
             </template>
             <template slot="__rowNum__" slot-scope="cell">
               {{ cell.item.__rowNum__ + 1 }}
+            </template>
+            <template v-for="{ key } in getFields.slice(1)" :slot="key" slot-scope="cell">
+              <span :key="key">
+                {{ cell.item[key] }}<i v-if="!cell.item[key]" class="long-dash"/>
+              </span>
             </template>
           </BTable>
         </BCard>
@@ -159,7 +164,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { sentenceCase } from 'change-case';
 
 const SkipSSR = {};
 
@@ -201,7 +206,6 @@ export default {
     return {
       showRecords: false,
       dataset: {},
-      datasetUUID: '',
       lakes: [],
       countries: [],
       records: [],
@@ -271,7 +275,7 @@ export default {
       variables() {
         // Use vue reactive properties here
         return {
-          uuid: this.datasetUUID,
+          uuid: this.dataset.uuid || '',
         };
       },
     },
@@ -291,26 +295,27 @@ export default {
         return [];
       }
     },
-    flatRecords () {
-      if (this.records) {
-        return this.records.map(r => Object.assign({ _id: r['_id'] }, r['data']));
+    getRecords () {
+      if (this.dataset && this.dataset.uuid && this.records && this.records.length) {
+        return this.records.map(record => Object.assign({ _id: record._id }, record.data));
       } else {
         return [];
       }
     },
-    ...mapState('database', [
-      'results',
-      //'records',
-    ]),
-    ...mapGetters('database', [
-      'reducedResults',
-      //'lake',
-      //'countries',
-      //'datasets',
-    ]),
-  },
-  created () {
-    this.$store.commit('database/DETAILS_ID_SET', this.$route.params['id']);
+    getFields () {
+      if (this.dataset && this.dataset.uuid) {
+        return [{ key: '__rowNum__', label: '#' }].concat(
+          this.dataset.attributes.map((attribute, column) => {
+            return {
+              key: `__${column}__`,
+              label: sentenceCase(attribute.name),
+            };
+          }),
+        );
+      } else {
+        return [];
+      }
+    },
   },
   activated () {
     this.$apollo.queries.lakes.skip = false;
@@ -321,12 +326,8 @@ export default {
     this.$apollo.queries.records.skip = true;
   },
   methods: {
-    ...mapActions('database', [
-      'loadCollection',
-    ]),
     onDatasetClick (dataset) {
       this.showRecords = true;
-      this.datasetUUID = dataset.uuid;
       this.dataset = dataset;
     },
     onMapMounted () {

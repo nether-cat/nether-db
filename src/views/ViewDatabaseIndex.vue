@@ -115,7 +115,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
 import { log } from '@/plugins';
 
 const SkipSSR = {};
@@ -224,17 +223,6 @@ export default {
     },
   },
   computed: {
-    ...mapState('user', [
-      'user',
-    ]),
-    ...mapState('database', [
-      'proxies',
-      'results',
-    ]),
-    ...mapGetters('database', [
-      'countProxies',
-      'transformedResults',
-    ]),
     getResults () {
       return (this.lakes || []).map(lake => {
         let datasetsCount = 0;

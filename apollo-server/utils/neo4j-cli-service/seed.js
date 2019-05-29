@@ -298,7 +298,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
       return;
     }
 
-    records = records.map((record, index) => ({ ...record, __rowNum__: index }));
+    records = records.map(record => Object.fromEntries(Object.entries(record).map(
+      ([key, value]) => [`__${attributes.findIndex(attribute => attribute === key)}__`, value],
+    )));
 
     await executeQuery({
       db,
@@ -308,22 +310,23 @@ module.exports = async function taskSeed ({ host, user, password }) {
       params: { dataset, category, attributes, records },
       statement: cql`
         MATCH (n0:Dataset {file: $dataset.file})-[:BELONGS_TO]->(n1:Category {name: $category.name})
-        WITH n0, n1, range(0, size($attributes) - 1) AS attributeIndices
-        UNWIND attributeIndices AS attributeIndex
-        MERGE (n2:Attribute:Entity {name: $attributes[attributeIndex]})
+        WITH n0, n1, range(0, size($attributes) - 1) AS indices
+        UNWIND indices AS column
+        MERGE (n2:Attribute:Entity {name: $attributes[column]})
           ON CREATE SET n2.uuid = randomUUID()
         MERGE (n0)-[r0:INCLUDES]->(n2)
-        SET r0.__colNum__ = attributeIndex
+        SET r0.__colNum__ = column
         // TODO: We need more props on these edges, e.g. unit and method
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
         OPTIONAL MATCH (_n:Record)-[_r:RECORDED_IN]->(n0)
         DELETE _n, _r
-        WITH DISTINCT n0, n1, attributes
-        UNWIND $records AS record
+        WITH DISTINCT n0, n1, attributes, range(0, size($records) - 1) AS indices
+        UNWIND indices AS row
         CREATE (n3:Record)
-        SET n3 = record
-        MERGE (n3)-[:RECORDED_IN]->(n0)
+        SET n3 = $records[row]
+        MERGE (n3)-[r1:RECORDED_IN]->(n0)
+        SET r1.__rowNum__ = row
         RETURN
           n0 AS dataset,
           n1 AS category,

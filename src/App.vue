@@ -234,6 +234,12 @@ export default {
         }
       }
     }
+    .long-dash {
+      display: inline-block;
+      border-top: 1px solid currentColor;
+      height: .4em;
+      width: 1.2em;
+    }
     .ol-scale-line-inner {
       border-top: 1px solid rgba(238, 238, 238, 0.5);
     }
