@@ -7,10 +7,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import SESSION from '@/graphql/queries/Session.graphql';
 
-export default {
+export default Vue.extend({
   name: 'App',
   apollo: {
     session: SESSION,
@@ -34,7 +35,7 @@ export default {
       }, 100);
     });
   },
-};
+});
 </script>
 
 <style lang="scss">

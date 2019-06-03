@@ -1,23 +1,27 @@
 import Vue from 'vue';
-import App from './App';
-import { installPlugins } from './plugins';
-import { createRouter } from './router';
-import { createStore } from './store';
-import { createProvider } from './vue-apollo';
+import App from '@/App.vue';
+
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+import { installPlugins } from '@/plugins';
+import { createRouter } from '@/router';
+import { createStore } from '@/store';
+import { createProvider } from '@/vue-apollo';
 import { sync } from 'vuex-router-sync';
+
 import typeDefs from '@/graphql/local-state/schema.graphql';
 import SESSION from '@/graphql/queries/Session.graphql';
 
-Vue.prototype.$log = (...args) => console.log(...args);
+Vue.prototype.$log = (...args: any[]) => console.log(...args);
 
 Vue.config.productionTip = false;
 
 Vue.use(installPlugins);
 
 export async function createApp ({
-  beforeProvider = () => {},
-  beforeApp = () => {},
-  afterApp = () => {},
+  beforeProvider = (options?: any) => {},
+  beforeApp = (setup?: any) => {},
+  afterApp = (setup?: any) => {},
 } = {}) {
   const options = {
     ssr: false,
@@ -26,18 +30,23 @@ export async function createApp ({
       credentials: 'include',
     },
     inMemoryCacheOptions: {
-      dataIdFromObject: object => object['uuid'] || object['_id'] || null,
+      dataIdFromObject: (object: any) => object['uuid'] || object['_id'] || null,
     },
     typeDefs,
     resolvers: {
       Mutation: {
-        toggleConnection: (root, args, { cache }) => {
+        toggleConnection: (
+          root: any,
+          args: any,
+          { cache }: { cache: InMemoryCache },
+        ) => {
           const query = ESLint$0.gql`
-            query isConnected { 
+            query isConnected {
               isConnected @client
             }
           `;
-          const previous = cache.readQuery({ query });
+          const previous: { isConnected: boolean } = cache
+            .readQuery({ query }) || { isConnected: false };
           const data = {
             isConnected: !previous.isConnected,
           };
@@ -45,7 +54,7 @@ export async function createApp ({
         },
       },
     },
-    onCacheInit: cache => {
+    onCacheInit: (cache: InMemoryCache) => {
       const data = {
         isConnected: false,
       };
@@ -62,16 +71,16 @@ export async function createApp ({
   sync(store, router);
 
   const checkSession = () => {
-    return apolloProvider.defaultClient.query(Object.assign(
-      { query: SESSION },
-      { fetchPolicy: process.env.VUE_SSR ? 'network-only' : 'cache-first' },
-    ));
+    return apolloProvider.defaultClient.query({
+      query: SESSION,
+      fetchPolicy: process.env.VUE_SSR ? 'network-only' : 'cache-first',
+    });
   };
 
   router.beforeEach(async (to, from, next) => {
     let { meta: { beforeEachHook } } = to.matched.find(
       route => typeof route.meta.beforeEachHook === 'function',
-    ) || { meta: {} };
+    ) || { meta: { beforeEachHook: undefined } };
     if (beforeEachHook) {
       let { data } = await checkSession();
       beforeEachHook({ data, router, from, to, next });

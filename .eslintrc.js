@@ -22,6 +22,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:vue/recommended',
+    '@vue/typescript',
   ],
 
   rules: {
@@ -65,7 +66,7 @@ module.exports = {
   },
 
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
   },
 
   plugins: [

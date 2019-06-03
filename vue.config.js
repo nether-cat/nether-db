@@ -119,6 +119,7 @@ module.exports = {
       serverOptions: { introspection: true },
     },
     ssr: {
+      entry: target => `./src/entry-${target}.js`,
       defaultTitle: 'nether-db',
       templatePath: path.resolve(__dirname, './dist/index.server.html'),
       extendServer: app => {
