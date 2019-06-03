@@ -8,6 +8,8 @@ import { sync } from 'vuex-router-sync';
 import typeDefs from '@/graphql/local-state/schema.graphql';
 import SESSION from '@/graphql/queries/Session.graphql';
 
+Vue.prototype.$log = (...args) => console.log(...args);
+
 Vue.config.productionTip = false;
 
 Vue.use(installPlugins);

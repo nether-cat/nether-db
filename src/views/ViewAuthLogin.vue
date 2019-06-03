@@ -81,6 +81,7 @@
                           @mouseup.stop.prevent
                   >
                     <FontAwesomeIcon
+                      fixed-width
                       :icon="['far', passwordHidden ? 'eye-slash' : 'eye']"
                       :flip="passwordHidden ? 'horizontal' : undefined"
                     />

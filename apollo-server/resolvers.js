@@ -30,18 +30,10 @@ module.exports = {
         return { _id: node.identity.toString(), ...node.properties };
       });
     },
-    async RecordsByDataset(object, params, ctx) {
-      /** @type Session */ let db = ctx.driver.session();
-      let queryResult = await db.run(
-        'MATCH (n0:Record)-[r0:RECORDED_IN]->(:Dataset {uuid: $uuid}) RETURN n0 AS record ORDER BY r0.__rowNum__ ASC',
-        { uuid: params.uuid },
-      );
-      return queryResult.records.map((row, __rowNum__) => {
-        let { record } = row.toObject();
-        return { _id: record.identity.toString(), data: { ...record.properties, __rowNum__ } };
-      });
-    },
     Country(object, params, ctx, resolveInfo) {
+      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
+    Dataset(object, params, ctx, resolveInfo) {
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },
     Lake(object, params, ctx, resolveInfo) {

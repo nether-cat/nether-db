@@ -82,6 +82,7 @@
     "vue": "^2.6.10",
     "vue-apollo": "^3.0.0-beta.30",
     "vue-no-ssr": "^1.1.1",
+    "vue-observe-visibility": "^0.4.4",
     "vue-router": "^3.0.4",
     "vue-scrollto": "^2.15.0",
     "vue-server-renderer": "^2.6.10",

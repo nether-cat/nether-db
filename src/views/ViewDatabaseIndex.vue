@@ -4,7 +4,7 @@
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Filter options</h4>
-          <BForm class="card-text container-fluid">
+          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid">
             <BRow>
               <BCol>
                 <BFormGroup label="Search terms:">
@@ -20,7 +20,7 @@
             <BRow>
               <BCol>
                 <div class="rounded overflow-hidden" style="height: 400px;">
-                  <Transition name="fade-cover">
+                  <Transition name="fade-opacity">
                     <div v-show="chart.loading"
                          class="loading-cover rounded overflow-hidden"
                          style="height: 400px; line-height: 400px;"
@@ -49,7 +49,7 @@
         <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Map</h4>
           <BContainer fluid class="card-text rounded overflow-hidden">
-            <Transition name="fade-cover">
+            <Transition name="fade-opacity">
               <div v-show="map.loading"
                    class="loading-cover rounded overflow-hidden"
                    style="height: 485px; line-height: 485px;"
@@ -102,7 +102,7 @@
             </template>
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
-                <RouterLink :to="{ name: 'databaseDetails', params: { id: cell.item.id } }" title="View details">
+                <RouterLink :to="{ name: 'databaseDetails', params: { lakeId: cell.item.id } }" title="View details">
                   <FontAwesomeIcon icon="external-link-alt" alt="View details"/>
                 </RouterLink>
               </div>
@@ -111,6 +111,13 @@
         </BCard>
       </BCol>
     </BRow>
+    <Transition name="fade-opacity">
+      <div v-if="showJumpButton" class="btn-overlay">
+        <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
+          <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
+        </BButton>
+      </div>
+    </Transition>
   </BContainer>
 </template>
 
@@ -184,6 +191,11 @@ export default {
         'datasets',
         { key: 'actions', label: 'Details' },
       ],
+      showJumpButton: false,
+      scrollEvents: {
+        onStart: () => (this.showJumpButton = false),
+        onCancel: () => (this.showJumpButton = true),
+      },
     };
   },
   apollo: {
@@ -280,6 +292,9 @@ export default {
         longitude = '&nbsp;' + longitude;
       }
       return [latitude, longitude].join(', ');
+    },
+    toggleJumpButton (disable = true) {
+      this.showJumpButton = !disable;
     },
   },
 };

@@ -1,0 +1,36 @@
+query lookupLake($uuid: ID!) {
+  lakes: Lake(uuid: $uuid, orderBy: "name_asc") {
+    uuid
+    name
+    longitude
+    latitude
+    maxDepth
+    surfaceLevel
+    surfaceArea
+    catchmentArea
+    waterBodyVolume
+    countries {
+      uuid
+      code
+      name
+    }
+    cores {
+      uuid
+      label
+      datasets {
+        uuid
+        label
+        ageResolution
+        file
+        attributes {
+          uuid
+          name
+        }
+        category {
+          uuid
+          name
+        }
+      }
+    }
+  }
+}

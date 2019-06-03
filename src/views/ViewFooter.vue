@@ -10,8 +10,8 @@ export default {
   data () {
     return {
       icon: process.env.VUE_SSR
-        ? <font-awesome-icon fixed-width icon="spinner" spin/>
-        : <font-awesome-icon fixed-width icon={['fab', 'vuejs']}/>,
+        ? <FontAwesomeIcon fixed-width icon="spinner" spin/>
+        : <FontAwesomeIcon fixed-width icon={['fab', 'vuejs']}/>,
     };
   },
   computed: {

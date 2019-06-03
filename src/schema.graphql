@@ -1,17 +1,9 @@
-# This schema file is only for integration with tools that enable auto-completion and linting.
-# Built-in and custom scalars cannot be introspected and thus need to be added manually below.
+# This file was generated based on ".graphqlconfig". Do not edit manually.
 
-scalar JSON
-
-scalar Date
-
-scalar DateTime
-
-scalar LocalDateTime
-
-# TODO: This comment and the lines above schould be restored manually after a new schema introspection!
-
-# This file was generated based on ".graphqlconfig" at Mon May 20 13:14:21 CEST 2019. Do not edit manually.
+schema {
+  query: Query
+  mutation: Mutation
+}
 
 interface Authorizable {
   permissions: [Permission]
@@ -89,7 +81,7 @@ type Dataset implements Entity {
   file: String!
   label: String
   publication(first: Int = 1, offset: Int = 0): [Publication]
-  records(first: Int = 100, offset: Int = 0): [Record]
+  records(first: Int = 100, offset: Int = 0): [JSON]
   url: String
   uuid: ID!
 }
@@ -154,15 +146,10 @@ type Publication implements Entity {
 type Query {
   Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
-  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake]
-  RecordsByDataset(uuid: ID): [Record]
+  Dataset(_id: String, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
-}
-
-type Record {
-  _id: ID!
-  data: JSON!
 }
 
 type Session {
@@ -207,6 +194,7 @@ enum CacheControlScope {
 
 enum SessionState {
   AUTHORIZED
+  AUTH_APPROVAL
   AUTH_EMAIL
   AUTH_ERROR
   AUTH_EXPIRED
@@ -239,3 +227,16 @@ input UserInput {
   shortName: String
   titlePrefix: String
 }
+
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+scalar Date
+
+scalar DateTime
+
+scalar LocalDateTime
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload

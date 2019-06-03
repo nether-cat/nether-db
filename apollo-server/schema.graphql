@@ -76,9 +76,9 @@ type Query {
   Session: Session!
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
-  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country] @auth
-  Lake(_id: String, catchmentArea: Float, first: Int, latitude: Float, longitude: Float, maxDepth: Float, name: String, offset: Int, orderBy: String, surfaceArea: Float, surfaceLevel: Float, uuid: ID, waterBodyVolume: Float): [Lake] @auth
-  RecordsByDataset(uuid: ID): [Record] @auth
+  Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
+  Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String): [Dataset] @auth
+  Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String): [Lake] @auth
 }
 
 type Mutation {
@@ -149,11 +149,11 @@ type Dataset implements Entity {
   comments: String
   url: String
   distributor: String
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__")
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP {offset} LIMIT {first}")
   category(first: Int = 1, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
   publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")
-  records(first: Int = 100, offset: Int = 0): [Record] @cypher(statement: "MATCH (m:Record)-[:RECORDED_IN]->(this) RETURN m LIMIT {first}")
+  records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP {offset} LIMIT {first} RETURN collect(m { .* })")
 }
 
 type Group implements Entity & Authorizable {
@@ -202,11 +202,6 @@ type Publication implements Entity {
   email: String
   abstract: String
   datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: "IN")
-}
-
-type Record {
-  _id: ID!
-  data: JSON!
 }
 
 type Session {

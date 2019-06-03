@@ -76,10 +76,13 @@ function createRoutes () {
           },
         },
         {
-          path: 'details/:id',
+          path: 'details/:lakeId',
           name: 'databaseDetails',
           components: {
             default: () => import('@/views/ViewDatabaseDetails'),
+          },
+          props: {
+            default: route => pick({ ...route.query, ...route.params }, ['lakeId', 'datasetId']),
           },
         },
       ],

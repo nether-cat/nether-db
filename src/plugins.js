@@ -62,6 +62,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
+  faArrowAltCircleUp,
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-regular-svg-icons';
@@ -73,6 +74,7 @@ import {
 library.add(
   faAlignLeft,
   faArchive,
+  faArrowAltCircleUp,
   faBook,
   faCog,
   faChartArea,
@@ -100,6 +102,8 @@ import {
 } from '@fortawesome/vue-fontawesome/index.es';
 
 import Vuelidate from 'vuelidate';
+
+import VueObserveVisibility from 'vue-observe-visibility';
 
 import VueScrollTo from 'vue-scrollto';
 
@@ -156,6 +160,8 @@ export function installPlugins (Vue) {
   Vue.mixin(MixinHead);
   // install vuelidate plugin
   Vue.use(Vuelidate);
+  // install vue-observe-visibility plugin
+  Vue.use(VueObserveVisibility);
   // install vue-scrollto plugin
   Vue.use(VueScrollTo);
 }

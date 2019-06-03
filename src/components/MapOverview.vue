@@ -307,7 +307,7 @@ export default {
                 </div>
                 {(feature.properties.datasetsCount || 'No') + ' dataset' + (feature.properties.datasetsCount !== 1 ? 's' : '')} available<br/>
                 <RouterLink
-                  to={{ name: 'databaseDetails', params: { id: feature.properties.uuid } }}
+                  to={{ name: 'databaseDetails', params: { lakeId: feature.properties.uuid } }}
                   domPropsInnerHTML={feature.properties.datasetsCount ? '&#8627; View details' : '&#8627; Show lake info'}
                 />
               </BCard>
