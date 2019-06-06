@@ -26,7 +26,7 @@ query lookupLake($uuid: ID!) {
           uuid
           name
         }
-        category {
+        categories {
           uuid
           name
         }

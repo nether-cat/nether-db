@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from '@/App.vue';
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 
 import { installPlugins } from '@/plugins';
 import { createRouter } from '@/router';
@@ -30,7 +30,7 @@ export async function createApp ({
       credentials: 'include',
     },
     inMemoryCacheOptions: {
-      dataIdFromObject: (object: any) => object['uuid'] || object['_id'] || null,
+      dataIdFromObject: (object: any) => object['uuid'] || defaultDataIdFromObject(object),
     },
     typeDefs,
     resolvers: {

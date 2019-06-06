@@ -34,7 +34,7 @@
                   <SkipServerSide>
                     <ChartClimate
                       @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
-                      @domain="(domain) => chart.active && !chart.loading && (chart.domain = domain)"
+                      @domain="(domain) => !isDeactivated && !chart.loading && (chart.domain = domain)"
                       @filterLakes="updateLakes"
                     />
                   </SkipServerSide>
@@ -63,6 +63,7 @@
             <div style="height: 485px;">
               <SkipServerSide>
                 <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
+                <!-- TODO: Call updateSize() of referenced ol/Map in correlating situations -->
               </SkipServerSide>
             </div>
           </BContainer>
@@ -102,7 +103,7 @@
             </template>
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
-                <RouterLink :to="{ name: 'databaseDetails', params: { lakeId: cell.item.id } }" title="View details">
+                <RouterLink :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }" title="View details">
                   <FontAwesomeIcon icon="external-link-alt" alt="View details"/>
                 </RouterLink>
               </div>
@@ -178,7 +179,6 @@ export default {
       chart: {
         domain: undefined,
         flush: () => {},
-        active: true,
         loading: true,
       },
       map: {
@@ -191,6 +191,7 @@ export default {
         'datasets',
         { key: 'actions', label: 'Details' },
       ],
+      isDeactivated: false,
       showJumpButton: false,
       scrollEvents: {
         onStart: () => (this.showJumpButton = false),
@@ -220,7 +221,7 @@ export default {
                 uuid
                 label
                 file
-                category {
+                categories {
                   uuid
                   name
                 }
@@ -240,7 +241,7 @@ export default {
       return (this.lakes || []).map(lake => {
         let datasetsCount = 0;
         lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
-        return Object.assign({}, lake, { id: lake['uuid'], datasetsCount });
+        return Object.assign({}, lake, { datasetsCount });
       });
     },
     getFeatures () {
@@ -268,10 +269,10 @@ export default {
               too long, the c3 component starts acting weird without this.
     */
     this.chart.flush(this.chart.domain);
-    this.chart.active = true;
+    this.isDeactivated = false;
   },
   deactivated () {
-    this.chart.active = false;
+    this.isDeactivated = true;
   },
   methods: {
     // eslint-disable-next-line no-unused-vars

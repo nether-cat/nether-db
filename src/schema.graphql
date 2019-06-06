@@ -21,7 +21,7 @@ interface Protectable {
 }
 
 type Attribute implements Entity {
-  category(first: Int = 1, offset: Int = 0): [Category]
+  categories(first: Int = 100, offset: Int = 0): [Category]
   description: String
   name: String!
   uuid: ID!
@@ -73,7 +73,7 @@ type Dataset implements Entity {
   ageResolution: Float
   analysisMethod: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
-  category(first: Int = 1, offset: Int = 0): [Category]
+  categories(first: Int = 100, offset: Int = 0): [Category]
   comments: String
   core(first: Int = 1, offset: Int = 0): [Core]
   depthResolution: Float

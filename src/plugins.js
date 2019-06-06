@@ -75,9 +75,15 @@ import VueScrollTo from 'vue-scrollto';
 
 import SkipServerSide from 'vue-no-ssr';
 
+import * as changeCase from 'change-case';
+
 import { MixinHead } from './mixins/mixin-head';
 
 export function installPlugins (Vue) {
+  // add filter functions from change-case
+  Object.entries(changeCase).forEach(([name, func]) => {
+    Vue.filter(name, func);
+  });
   // add components from vue-fontawesome
   Vue.component('FontAwesomeIcon', FontAwesomeIcon);
   Vue.component('FontAwesomeLayers', FontAwesomeLayers);

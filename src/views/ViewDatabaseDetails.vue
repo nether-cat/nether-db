@@ -76,7 +76,7 @@
                     Available datasets:
                   </template>
                   <template slot="type" slot-scope="cell">
-                    {{ cell.item.category[0].name.charAt(0).toUpperCase() + cell.item.category[0].name.slice(1) }}
+                    {{ cell.item.categories[0].name | upperCaseFirst }}
                   </template>
                   <template slot="HEAD_ageResolution">
                     Samples per 1000 years
@@ -193,6 +193,11 @@
                   <template slot="__rowNum__" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
                   </template>
+                  <template v-for="{ key } in getFields(dataset).slice(1)" :slot="'HEAD_' + key" slot-scope="{ label }">
+                    <span :key="'HEAD_' + key">
+                      {{ label | sentenceCase }}
+                    </span>
+                  </template>
                   <template v-for="{ key } in getFields(dataset).slice(1)" :slot="key" slot-scope="cell">
                     <span :key="key">
                       {{ cell.item[key] }}<i v-if="!cell.item[key]" class="long-dash"/>
@@ -230,7 +235,6 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import { sentenceCase } from 'change-case';
 
 const SkipSSR = {};
 
@@ -306,7 +310,7 @@ export default {
           dataset.attributes.map((attribute, column) => {
             return {
               key: `__${column}__`,
-              label: sentenceCase(attribute.name),
+              label: attribute.name,
             };
           }),
         );
