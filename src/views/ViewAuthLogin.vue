@@ -88,7 +88,7 @@
                   </button>
                 </BInputGroup>
                 <div class="full-feedback">
-                  Please enter your current password.
+                  Please enter your password.
                   <BFormInvalidFeedback v-if="$v.form.password.$dirty && !$v.form.password.required">
                     Should not be empty.
                   </BFormInvalidFeedback>

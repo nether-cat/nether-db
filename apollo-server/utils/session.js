@@ -1,6 +1,6 @@
 const secret = process.env.SHARED_TOKEN_SECRET;
-const baseUrl = 'http://localhost:8000';
-const graphqlUrl = 'http://localhost:4000/graphql';
+const baseUrl = process.env.VUE_APP_BASE_URI || 'http://localhost:8000';
+const graphqlUrl = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:4000/graphql';
 
 if (!secret || typeof secret !== 'string' || secret.length < 32) {
   throw new Error('SHARED_TOKEN_SECRET must be set and have at least 32 chars');
@@ -11,6 +11,8 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const argon2 = require('argon2');
 const ms = require('ms');
+
+const { generateEmail } = require('./email-html');
 
 const timers = {
   cache: '1m',
@@ -104,15 +106,27 @@ Object.defineProperty(signOptions, 'jwtid', {
 function sendConfirmation (user, transport) {
   let scope = ['validation'];
   let token = jwt.sign({ sub: user.email, scope }, secret, { ...signOptions });
+  let href = `${baseUrl}/confirm?token=${token}`;
+  let subject = 'Account Verification';
+  let paragraphs = [
+    `Hello ${user.fullName}!`,
+    'Your email address was linked with an account for this service.'
+    + ' Click below to confirm that the email address is yours.'
+    + ' Please let us know, if that is not your account.',
+  ];
   transport.sendMail({
     to: `"${user.fullName}" <${user.email}>`,
-    subject: 'Account Verification',
-    text: `Hi ${user.fullName}! \n\n`
-      + 'Please click the following link to confirm your email address: \n\n'
-      + `http://localhost:8000/confirm?token=${token} \n\n`,
-    html: `<h4>Hi ${user.fullName}!</h4> Please click `
-      + `<a href="http://localhost:8000/confirm?token=${token}">this link</a> `
-      + 'to confirm your email address.',
+    subject,
+    text: paragraphs.concat(href).join('\n\n'),
+    html: generateEmail({
+      subject,
+      paragraphs,
+      buttons: [{
+        title: 'Go to confirmation',
+        variant: 'primary',
+        href,
+      }],
+    }),
   }).catch(console.error);
 }
 

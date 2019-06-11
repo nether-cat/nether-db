@@ -9,6 +9,8 @@ export default {
   },
   data () {
     return {
+      name: process.env.BUNDLE_NAME,
+      version: process.env.BUNDLE_VERSION,
       icon: process.env.VUE_SSR
         ? <FontAwesomeIcon fixed-width icon="spinner" spin/>
         : <FontAwesomeIcon fixed-width icon={['fab', 'vuejs']}/>,
@@ -29,7 +31,7 @@ export default {
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
         <a class="font-weight-bold text-muted" href="#">Deutsches GeoForschungsZentrum GFZ</a>
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
-        <span class={this.classesDefaultBlock}>Provided by nether-db v1.0.0 {this.icon}</span>
+        <span class={this.classesDefaultBlock}>Provided with {this.name} v{this.version} {this.icon}</span>
       </div>
     );
   },

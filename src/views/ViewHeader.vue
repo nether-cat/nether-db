@@ -7,7 +7,7 @@ export default {
         <BRow class="mx-0">
           <BCol cols="12" sm="6" class="px-0">
             <RouterLink to="/" exact>
-              <BImg src={require('@/assets/palim-logo.png')} alt="PaLimDB"/>
+              <BImg src={require('@/assets/varda-logo.svg')} alt="Home"/>
             </RouterLink>
           </BCol>
           <BCol cols="12" sm="6" class="px-0">
@@ -28,9 +28,9 @@ export default {
   .header {
     display: block;
     background-color: white;
-    img {
+    img[alt='Home'] {
       max-height: 111px;
-      padding: 5px 10px;
+      padding: 1rem;
     }
     .nav {
       .nav-item::before {

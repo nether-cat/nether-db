@@ -2,7 +2,7 @@
   <BContainer fluid class="auth">
     <BRow align-h="center">
       <BCol cols="12" class="text-center">
-        <BImg class="logo" src="@/assets/palim-logo.png" alt="PaLimDB" :class="animation"/>
+        <BImg src="@/assets/varda-logo.svg" alt="Logo" :class="animation"/>
       </BCol>
     </BRow>
     <BRow v-if="messages.length" align-h="center">
@@ -81,12 +81,13 @@ export default {
     height: 100vh;
     width: 100vw;
     top: 0;
-    .logo {
+    img[alt='Logo'] {
       max-height: 74px;
       margin: 0 0 1.5rem;
       @media only screen and (min-width: 768px) {
         max-height: 111px;
         margin: .5rem 0 2rem;
+        padding: 0.5rem;
       }
     }
     > .row > .col-12 {

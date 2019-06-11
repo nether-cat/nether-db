@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const bundle = require('./package.json');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -20,7 +21,8 @@ module.exports = {
   },
 
   pwa: {
-    name: 'nether-db',
+    name: bundle.name,
+    assetsVersion: bundle.version,
   },
 
   chainWebpack: config => {
@@ -44,8 +46,10 @@ module.exports = {
     config
       .plugin('define')
       .tap(([args]) => {
-        args['process.env'].VUE_SSR = (
-          args['process.server'] && !args['process.client']
+        args['process.env'].BUNDLE_NAME = JSON.stringify(bundle.name);
+        args['process.env'].BUNDLE_VERSION = JSON.stringify(bundle.version);
+        args['process.env'].VUE_SSR = JSON.stringify(
+          args['process.server'] && !args['process.client'],
         );
         return [args];
       });

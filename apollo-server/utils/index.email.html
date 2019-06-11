@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T">
+    <style lang="css">
+      body {
+        background-color: whitesmoke;
+      }
+      @media (prefers-dark-interface) {
+        body {
+          -apple-color-filter: none !important;
+        }
+      }
+      .email {
+        padding: 1.5rem;
+      }
+      .email img[alt='Logo'] {
+        max-height: 74px;
+        margin: 0 0 1.5rem;
+      }
+      @media only screen and (min-width: 768px) {
+        .email img[alt='Logo'] {
+          max-height: 111px;
+          margin: .5rem 0 2rem;
+          /*padding: 0.5rem;*/
+        }
+      }
+      @media screen and (min-width: 1200px) {
+        .email > .row > .col-12 {
+          max-width: 730px;
+        }
+      }
+      .card {
+        background-color: #fefefe;
+      }
+      .footer {
+        display: block;
+        padding: .5rem 0 2rem 0;
+        text-align: center;
+        font-size: 0.8rem;
+      }
+      svg:not(:root).svg-inline--fa {
+        overflow: visible;
+      }
+      .svg-inline--fa.fa-fw {
+        text-align: center;
+        width: 1.25em;
+      }
+      .svg-inline--fa.fa-w-14 {
+        width: 0.875em;
+      }
+      .svg-inline--fa {
+        display: inline-block;
+        font-size: inherit;
+        height: 1em;
+        overflow: visible;
+        vertical-align: -.125em;
+      }
+    </style>
+    <title><%= email.subject %></title>
+  </head>
+  <body>
+  <div class="email container-fluid">
+    <div class="row justify-content-center">
+      <div class="text-center col-12">
+        <%= email.logo %>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-sm-11 col-md-9 col-lg-7 col-xl-6 col-12">
+        <div class="card container-fluid">
+          <div class="card-body">
+            <h4 class="card-title"><%= email.subject %></h4>
+            <div class="row">
+              <div class="col">
+                <hr class="mt-1 mb-4">
+                <div>
+                  <%= email.body %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-sm-11 col-md-9 col-lg-7 col-xl-6 col-12">
+        <div class="my-4 footer container-fluid text-muted">
+          <span class="d-block">© Helmholtz-Zentrum Potsdam</span
+          ><span class="d-none">&nbsp;·&nbsp;</span
+          ><a href="#" class="font-weight-bold text-muted">Deutsches GeoForschungsZentrum GFZ</a
+          ><span class="d-none">&nbsp;·&nbsp;</span
+          ><span class="d-block">Provided with <%= email.credits %>
+          <svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false"
+               aria-hidden="true" data-prefix="fab" data-icon="vuejs"
+               viewBox="0 0 448 512" class="svg-inline--fa fa-vuejs fa-w-14 fa-fw">
+            <path fill="currentColor" d="
+              M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3h-91.1z
+              m-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5 55.7 96.3z
+            "/>
+          </svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

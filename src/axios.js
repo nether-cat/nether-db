@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_JSON_API_URL,
+  baseURL: process.env.VUE_APP_JSON_API_HTTP,
 });
 
 instance.interceptors.request.use(function (config) {
