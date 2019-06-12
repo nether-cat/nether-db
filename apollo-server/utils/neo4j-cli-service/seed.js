@@ -6,6 +6,7 @@ const util = require('util');
 const https = require('https');
 const ms = require('ms');
 const xlsx = require('xlsx');
+const unorm = require('unorm');
 const latinize = require('latinize');
 const changeCase = require('change-case');
 const { default: chalk } = require('chalk');
@@ -61,6 +62,8 @@ const status = {
     return this._status !== 0;
   },
 };
+
+const filenameFixes = new Map();
 
 module.exports = async function taskSeed ({ host, user, password }) {
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
@@ -283,7 +286,12 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   let importRecordsJobs = datasets.map(({ '@dataset': dataset, '@category': category }) => async () => {
     let attributes, records;
-    const file = path.resolve(process.env.SHARED_SHEETS_PATH, dataset['file'] + '.xlsx');
+    const file = path.resolve(
+      process.env.SHARED_SHEETS_PATH,
+      filenameFixes.has(dataset['file'])
+        ? filenameFixes.get(dataset['file'])
+        : (dataset['file'] + '.xlsx'),
+    );
     const sheetName = category['name'] === '14C' ? 'Age' : category['name'];
     console.log('================================================================\n');
     try {
@@ -362,26 +370,34 @@ function filterNullValues (dataset) {
 }
 
 function checkFileExists (dataset) {
-  let found = false;
-  try {
-    found = !!fs.statSync(path.resolve(process.env.SHARED_SHEETS_PATH, dataset['file'] + '.xlsx'));
-  } catch (err) {
-    found = false;
-  }
-  if (!found) {
+  let state = { folder: 0, needsFix: false };
+  let checkWith = (filename => {
     try {
-      found = !!fs.statSync(path.resolve(process.env.SHARED_DRAFTS_PATH, dataset['file'] + '.xlsx')) && 'move';
+      state.folder = !!fs.statSync(path.resolve(process.env.SHARED_SHEETS_PATH, filename)) && 1;
+      if (state.folder && state.needsFix) {
+        filenameFixes.has(dataset.file) || filenameFixes.set(dataset.file, filename);
+      }
     } catch (err) {
-      found = false;
+      state.folder = 0;
     }
-  }
-  console.log(`${ found === true
+    if (!state.folder) {
+      try {
+        state.folder= !!fs.statSync(path.resolve(process.env.SHARED_DRAFTS_PATH, filename)) && 2;
+      } catch (err) {
+        state.folder = 0;
+        state.needsFix = true;
+      }
+    }
+    return state.folder;
+  });
+  checkWith(dataset.file + '.xlsx') || checkWith(unorm.nfc(dataset.file) + '.xlsx');
+  console.log(`${ state.folder === 1
     ? chalk.green('okay')
-    : found === 'move'
+    : state.folder === 2
       ? chalk.yellow('move')
       : chalk.red('fail')
   } --> ${ dataset['file'] }`);
-  Object.assign(dataset, { '_fileExists': found === true });
+  Object.assign(dataset, { '_fileExists': state.folder === 1, '_fileFixName': state.folder === 1 && state.needsFix });
 }
 
 function checkLakeExists (dataset) {
@@ -398,7 +414,14 @@ function addMoreProps (dataset) {
     return;
   }
   const props = Object.assign({}, { ...dataset });
-  const workbook = xlsx.readFile(path.resolve(process.env.SHARED_SHEETS_PATH, dataset['file'] + '.xlsx'));
+  const workbook = xlsx.readFile(
+    path.resolve(
+      process.env.SHARED_SHEETS_PATH,
+      filenameFixes.has(dataset['file'])
+        ? filenameFixes.get(dataset['file'])
+        : (dataset['file'] + '.xlsx'),
+    ),
+  );
   const metadata = xlsx.utils.sheet_to_json(workbook.Sheets['Metadata'], { header: 'A', range: 'B1:G81' })
     .reduce((accumulator, { B: prop, G: value, __rowNum__ }) => {
       prop = typeof prop === 'string' ? prop.trim() : prop;

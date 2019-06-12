@@ -34,6 +34,9 @@ const envFiles = [
 const load = path => {
   try {
     const result = dotenv.config({ path }).parsed;
+    if (!result) {
+      return;
+    }
     Object.keys(result).forEach(key => {
       if (environment[key] === undefined) {
         environment[key] = result[key];
