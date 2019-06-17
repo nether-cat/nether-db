@@ -84,14 +84,14 @@ export default {
     img[alt='Logo'] {
       max-height: 74px;
       margin: 0 0 1.5rem;
-      @media only screen and (min-width: 768px) {
+      @media (min-width: 768px) {
         max-height: 111px;
         margin: .5rem 0 2rem;
         padding: 0.5rem;
       }
     }
     > .row > .col-12 {
-      @media screen and (min-width: 1200px) {
+      @media (min-width: 1200px) {
         max-width: 730px;
       }
     }

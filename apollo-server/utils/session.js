@@ -12,7 +12,7 @@ const crypto = require('crypto');
 const argon2 = require('argon2');
 const ms = require('ms');
 
-const { generateEmail } = require('./email-html');
+const { generateEmail } = require('./template');
 
 const timers = {
   cache: '1m',

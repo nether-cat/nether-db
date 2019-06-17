@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const bundle = require('../../package.json');
+
+module.exports = {};
 
 const variants = [
   'primary',
@@ -13,20 +14,38 @@ const variants = [
   'dark',
   'link',
 ];
-const logoFile = path.resolve(__dirname, '../../src/assets/varda-logo.svg');
-const templateFile = path.resolve(__dirname, 'index.email.html');
-const emailTemplate = fs.readFileSync(templateFile, 'utf8');
-const logoSource = Buffer.from(
-  fs.readFileSync(logoFile, 'utf8').replace('/* INJECT_INLINE_CSS */', `
-            svg.app-logo {
-                background: whitesmoke;
-            }
-            svg g#brand-logo {
-                transform: translate(6.25%, 6.25%) scale(0.875, 0.875);
-            }`),
-).toString('base64');
 
-const logo = `<img src="data:image/svg+xml;base64,${logoSource}" alt="Logo"/>`;
+if (process.env.NODE_ENV === 'production') {
+  const templateFile = path.resolve(__dirname, '../../dist/index.email.html');
+  const makeEmailContext = ({ subject, body }) => ({
+    email: {
+      subject,
+      body,
+    },
+  });
+  module.exports.makeContext = makeEmailContext;
+  module.exports.template = fs.readFileSync(templateFile, 'utf8');
+} else {
+  const bundle = require('../../package');
+  const logoFile = path.resolve(__dirname, '../../src/assets/varda-logo.svg');
+  const logoSource = fs.readFileSync(logoFile, 'utf8');
+  const logoBase64 = Buffer.from(logoSource).toString('base64');
+  const templateFile = path.resolve(__dirname, '../../templates/index.static.html');
+  const makeStaticContext = ({ subject, body }) => ({
+    params: {
+      generator: {
+        name: bundle.name,
+        version: bundle.version,
+      },
+      logo: `<img src="data:image/svg+xml;base64,${logoBase64}" alt="Logo"/>`,
+      credits: `${bundle.name} v${bundle.version}`,
+      title: subject,
+      content: body,
+    },
+  });
+  module.exports.makeContext = makeStaticContext;
+  module.exports.template = fs.readFileSync(templateFile, 'utf8');
+}
 
 const htmlEntities = function (str) {
   return String(str)
@@ -56,7 +75,10 @@ const parseParam = function (param, fallback = '') {
   return param;
 };
 
-const parseTemplate = function (context = {}, template = emailTemplate) {
+const parseTemplate = function (
+  context = {},
+  template = module.exports.template,
+) {
   let match;
   let tokens = new Set();
   const re = /<%=\s*([a-zA-Z_][a-zA-Z0-9_]*([.][a-zA-Z_][a-zA-Z0-9_]*)*)\s*%>/g;
@@ -99,17 +121,12 @@ const generateEmail = function ({ subject, paragraphs, buttons }) {
     + `<span>${b.title}</span>`
     + '</button>',
   );
-  return parseTemplate({
-    email: {
-      logo: logo,
-      subject: subject,
+  return parseTemplate(module.exports.makeContext({
       body: paragraphs.join('\n') + buttons.join('\n'),
-      credits: `${bundle.name} v${bundle.version}`,
-    },
-  });
+      subject,
+    }),
+  );
 };
 
-module.exports = {
-  generateEmail,
-  parseTemplate,
-};
+module.exports.generateEmail = generateEmail;
+module.exports.parseTemplate = parseTemplate;
