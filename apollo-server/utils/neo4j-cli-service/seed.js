@@ -203,13 +203,12 @@ module.exports = async function taskSeed ({ host, user, password }) {
     statement: cql`
       UNWIND $lakes AS data
       MERGE (n:Lake:Entity {name: data.name, latitude: data.latitude, longitude: data.longitude})
-        ON CREATE SET n += data, n.uuid = randomUUID()
-        ON MATCH SET n += data
-      WITH n AS n0
-      UNWIND n0.\`@countries\` AS ref
+        ON CREATE SET n += data {.*, \`@countries\`: null}, n.uuid = randomUUID()
+        ON MATCH SET n += data {.*, \`@countries\`: null}
+      WITH n as n0, data
+      UNWIND data.\`@countries\` as ref
       MATCH (n1:Country {code: ref})
       MERGE (n0)-[:LOCATED_IN]->(n1)
-      REMOVE n0.\`@countries\`
       RETURN
         collect(DISTINCT n0) AS lakes,
         collect(DISTINCT n1) AS countries
