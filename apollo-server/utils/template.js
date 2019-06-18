@@ -117,9 +117,9 @@ const generateEmail = function ({ subject, paragraphs, buttons }) {
     variant: b && variants.includes(b.variant) ? b.variant : 'primary',
   })).filter(b => b.href.length && b.title.length);
   buttons = buttons.map(b => ''
-    + `<button type="button" class="btn btn-${b.variant} mb-3 mt-1 w-100">`
+    + `<a role="button" class="btn btn-${b.variant} mb-3 mt-1 w-100" href="${b.href}">`
     + `<span>${b.title}</span>`
-    + '</button>',
+    + '</a>',
   );
   return parseTemplate(module.exports.makeContext({
       body: paragraphs.join('\n') + buttons.join('\n'),
