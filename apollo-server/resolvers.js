@@ -39,6 +39,9 @@ module.exports = {
     Lake(object, params, ctx, resolveInfo) {
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },
+    User(object, params, ctx, resolveInfo) {
+      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
   },
   Mutation: {
     Login(...args) {
@@ -55,6 +58,21 @@ module.exports = {
     },
     Revoke(...args) {
       return session.revoke(...args);
+    },
+    UpdateUser(object, params, ctx, resolveInfo) {
+      let next = () => {};
+      if (params.emailVerified === false) {
+        params = { uuid: params.uuid, emailVerified: false };
+        next = user => session.sendConfirmation(user, ctx.transport);
+      } else {
+        params = { ...params, updated: { formatted: new Date().toISOString() } };
+        if (params.userRole !== 'NONE') {
+          next = user => session.sendNotification(user, ctx.transport);
+        }
+      }
+      let user = neo4jgraphql(object, params, ctx, resolveInfo, true);
+      user.then(next);
+      return user;
     },
     // eslint-disable-next-line no-unused-vars
     async Test(object, params, ctx, resolveInfo) {

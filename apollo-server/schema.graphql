@@ -1,18 +1,15 @@
 scalar JSON
 
-scalar Date
-
-scalar DateTime
-
-scalar LocalDateTime
-
 directive @auth(role: UserRole = USER) on OBJECT | FIELD_DEFINITION
-
-directive @calcUID(name: String = "uid", from: [String] = ["_id"]) on OBJECT
 
 directive @cypher(statement: String!) on FIELD_DEFINITION
 
-directive @relation(name: String!, direction: String) on FIELD_DEFINITION | OBJECT
+directive @relation(
+  name: String!,
+  direction: _RelationDirections,
+  from: String,
+  to: String
+) on FIELD_DEFINITION | OBJECT
 
 enum AccessLevel {
   OWNER
@@ -64,6 +61,8 @@ interface Authorizable {
 
 interface Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
 }
 
 interface Protectable {
@@ -79,6 +78,7 @@ type Query {
   Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
   Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String): [Dataset] @auth
   Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String): [Lake] @auth
+  User(_id: String, uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
 }
 
 type Mutation {
@@ -87,60 +87,73 @@ type Mutation {
   Signup(user: UserInput!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!
+  UpdateUser(uuid: ID!, emailVerified: Boolean, frozen: Boolean, userRole: UserRole, updated: _Neo4jDateTimeInput): User! @auth(role: ADMIN)
   Test(_id: ID!, payload: JSON!): JSON @auth
 }
 
 type Attribute implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   name: String!
   description: String
-  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
+  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
 }
 
 type Category implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   name: String!
   description: String
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: "IN")
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "BELONGS_TO", direction: "IN")
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: IN)
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "BELONGS_TO", direction: IN)
 }
 
 type Core implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   label: String
   latitude: Float
   longitude: Float
   coringMethod: String
-  drillDate: Date
+  drillDate: _Neo4jDate
   waterDepth: Float
   composite: Boolean
   ageDepthMethod: String
   comments: String
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "SAMPLED_FROM", direction: "IN")
-  lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: "OUT")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "SAMPLED_FROM", direction: IN)
+  lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: OUT)
 }
 
 type Continent implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
-  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: "IN")
+  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: IN)
 }
 
 type Country implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
-  continents(first: Int = 100, offset: Int = 0): [Continent] @relation(name: "LOCATED_IN", direction: "OUT")
-  lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: "IN")
+  continents(first: Int = 100, offset: Int = 0): [Continent] @relation(name: "LOCATED_IN", direction: OUT)
+  lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: IN)
 }
 
 type Dataset implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   file: String!
   label: String
   analysisMethod: String
@@ -150,14 +163,16 @@ type Dataset implements Entity {
   url: String
   distributor: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP {offset} LIMIT {first}")
-  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: "OUT")
-  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: "OUT")
-  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: "OUT")
+  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
+  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: OUT)
+  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
   records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP {offset} LIMIT {first} RETURN collect(m { .* })")
 }
 
 type Group implements Entity & Authorizable {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   name: String!
   members: [Membership]
   permissions: [Permission]
@@ -165,6 +180,8 @@ type Group implements Entity & Authorizable {
 
 type Lake implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   name: String!
   latitude: Float!
   longitude: Float!
@@ -173,8 +190,8 @@ type Lake implements Entity {
   surfaceArea: Float
   catchmentArea: Float
   waterBodyVolume: Float
-  cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: "IN")
-  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: "OUT")
+  cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: IN)
+  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
 }
 
 type Membership @relation(name: "MEMBER_OF") {
@@ -193,6 +210,8 @@ type Permission @relation(name: "HAS_PERMISSION") {
 
 type Publication implements Entity {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   title: String!
   authors: String
   year: Int
@@ -201,7 +220,7 @@ type Publication implements Entity {
   url: String
   email: String
   abstract: String
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: "IN")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: IN)
 }
 
 type Session {
@@ -215,6 +234,8 @@ type Session {
 
 type User implements Entity & Authorizable {
   uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   titlePrefix: String
   fullName: String!
   shortName: String
@@ -230,4 +251,75 @@ type User implements Entity & Authorizable {
   reason: String
   memberships: [Membership]
   permissions: [Permission]
+}
+
+# The following types are implemented by Neo4j
+
+type _Neo4jDate {
+  year: Int
+  month: Int
+  day: Int
+  formatted: String
+}
+
+input _Neo4jDateInput {
+  year: Int
+  month: Int
+  day: Int
+  formatted: String
+}
+
+type _Neo4jDateTime {
+  year: Int
+  month: Int
+  day: Int
+  hour: Int
+  minute: Int
+  second: Int
+  millisecond: Int
+  microsecond: Int
+  nanosecond: Int
+  timezone: String
+  formatted: String
+}
+
+input _Neo4jDateTimeInput {
+  year: Int
+  month: Int
+  day: Int
+  hour: Int
+  minute: Int
+  second: Int
+  millisecond: Int
+  microsecond: Int
+  nanosecond: Int
+  timezone: String
+  formatted: String
+}
+
+type _Neo4jTime {
+  hour: Int
+  minute: Int
+  second: Int
+  millisecond: Int
+  microsecond: Int
+  nanosecond: Int
+  timezone: String
+  formatted: String
+}
+
+input _Neo4jTimeInput {
+  hour: Int
+  minute: Int
+  second: Int
+  nanosecond: Int
+  millisecond: Int
+  microsecond: Int
+  timezone: String
+  formatted: String
+}
+
+enum _RelationDirections {
+  IN
+  OUT
 }

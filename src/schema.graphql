@@ -11,6 +11,8 @@ interface Authorizable {
 }
 
 interface Entity {
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -22,16 +24,20 @@ interface Protectable {
 
 type Attribute implements Entity {
   categories(first: Int = 100, offset: Int = 0): [Category]
+  created: _Neo4jDateTime!
   description: String
   name: String!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
 type Category implements Entity {
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   description: String
   name: String!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -39,8 +45,10 @@ type Continent implements Entity {
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
   countries(first: Int = 100, offset: Int = 0): [Country]
+  created: _Neo4jDateTime!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -49,12 +57,14 @@ type Core implements Entity {
   comments: String
   composite: Boolean
   coringMethod: String
+  created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
-  drillDate: Date
+  drillDate: _Neo4jDate
   label: String
   lake(first: Int = 1, offset: Int = 0): [Lake]
   latitude: Float
   longitude: Float
+  updated: _Neo4jDateTime!
   uuid: ID!
   waterDepth: Float
 }
@@ -63,9 +73,11 @@ type Country implements Entity {
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
   continents(first: Int = 100, offset: Int = 0): [Continent]
+  created: _Neo4jDateTime!
   lakes(first: Int = 100, offset: Int = 0): [Lake]
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -76,20 +88,24 @@ type Dataset implements Entity {
   categories(first: Int = 100, offset: Int = 0): [Category]
   comments: String
   core(first: Int = 1, offset: Int = 0): [Core]
+  created: _Neo4jDateTime!
   depthResolution: Float
   distributor: String
   file: String!
   label: String
   publication(first: Int = 1, offset: Int = 0): [Publication]
   records(first: Int = 100, offset: Int = 0): [JSON]
+  updated: _Neo4jDateTime!
   url: String
   uuid: ID!
 }
 
 type Group implements Authorizable & Entity {
+  created: _Neo4jDateTime!
   members: [Membership]
   name: String!
   permissions: [Permission]
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -97,12 +113,14 @@ type Lake implements Entity {
   catchmentArea: Float
   cores(first: Int = 100, offset: Int = 0): [Core]
   countries(first: Int = 100, offset: Int = 0): [Country]
+  created: _Neo4jDateTime!
   latitude: Float!
   longitude: Float!
   maxDepth: Float
   name: String!
   surfaceArea: Float
   surfaceLevel: Float
+  updated: _Neo4jDateTime!
   uuid: ID!
   waterBodyVolume: Float
 }
@@ -121,6 +139,7 @@ type Mutation {
   Revoke(token: String!): JSON!
   Signup(probeOnly: Boolean, user: UserInput!): JSON!
   Test(_id: ID!, payload: JSON!): JSON
+  UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
 
 type Permission {
@@ -133,11 +152,13 @@ type Permission {
 type Publication implements Entity {
   abstract: String
   authors: String
+  created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   doi: String
   email: String
   source: String
   title: String!
+  updated: _Neo4jDateTime!
   url: String
   uuid: ID!
   year: Int
@@ -150,6 +171,7 @@ type Query {
   Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
+  User(_id: String, email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
 }
 
 type Session {
@@ -162,6 +184,7 @@ type Session {
 }
 
 type User implements Authorizable & Entity {
+  created: _Neo4jDateTime!
   deactivated: Boolean!
   department: String
   email: String!
@@ -176,8 +199,41 @@ type User implements Authorizable & Entity {
   role: String
   shortName: String
   titlePrefix: String
+  updated: _Neo4jDateTime!
   userRole: UserRole!
   uuid: ID!
+}
+
+type _Neo4jDate {
+  day: Int
+  formatted: String
+  month: Int
+  year: Int
+}
+
+type _Neo4jDateTime {
+  day: Int
+  formatted: String
+  hour: Int
+  microsecond: Int
+  millisecond: Int
+  minute: Int
+  month: Int
+  nanosecond: Int
+  second: Int
+  timezone: String
+  year: Int
+}
+
+type _Neo4jTime {
+  formatted: String
+  hour: Int
+  microsecond: Int
+  millisecond: Int
+  minute: Int
+  nanosecond: Int
+  second: Int
+  timezone: String
 }
 
 enum AccessLevel {
@@ -212,6 +268,11 @@ enum UserRole {
   USER
 }
 
+enum _RelationDirections {
+  IN
+  OUT
+}
+
 input Password {
   isHash: Boolean!
   value: String!
@@ -228,15 +289,41 @@ input UserInput {
   titlePrefix: String
 }
 
+input _Neo4jDateInput {
+  day: Int
+  formatted: String
+  month: Int
+  year: Int
+}
+
+input _Neo4jDateTimeInput {
+  day: Int
+  formatted: String
+  hour: Int
+  microsecond: Int
+  millisecond: Int
+  minute: Int
+  month: Int
+  nanosecond: Int
+  second: Int
+  timezone: String
+  year: Int
+}
+
+input _Neo4jTimeInput {
+  formatted: String
+  hour: Int
+  microsecond: Int
+  millisecond: Int
+  minute: Int
+  nanosecond: Int
+  second: Int
+  timezone: String
+}
+
 
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
-
-scalar Date
-
-scalar DateTime
-
-scalar LocalDateTime
 
 "The `Upload` scalar type represents a file upload."
 scalar Upload

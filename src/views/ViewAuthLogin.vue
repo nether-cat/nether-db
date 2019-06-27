@@ -96,7 +96,7 @@
                 </div>
               </BFormGroup>
               <BButton :disabled="loading" variant="primary" class="my-3 w-100" tabindex="3" type="submit">
-                Log in <FontAwesomeIcon v-if="loading" icon="spinner" spin/>
+                <span>Log in</span><FontAwesomeIcon v-if="loading" icon="spinner" spin/>
               </BButton>
               <BButton :disabled="loading" variant="link" class="w-100" tabindex="6" :to="{ name: 'signup' }">
                 Create new account
@@ -169,24 +169,29 @@ export default {
   },
   methods: {
     onDone ({ data }) {
+      const warnings = {
+        'AUTH_APPROVAL': '<strong>Account not enabled.</strong> '
+          + 'Please wait for a moderator to approve your account. '
+          + 'You will receive an email as soon as this has happened.',
+        'AUTH_EMAIL': '<strong>Account not verified.</strong> '
+          + 'Please check your emails and click our confirmation link.',
+        'AUTH_FROZEN': '<strong>Account is on hold.</strong> '
+          + 'A moderator might have disabled your account for now. '
+          + 'Please check your emails for feedback or contact us.',
+      };
       if (data.session && data.session.token) {
         onLogin(
           this.$apolloProvider.defaultClient,
           data.session.token,
         ).then(() => this.$router.replace(this.$props.redirect || '/'));
-      } else if (data.session && ['AUTH_APPROVAL', 'AUTH_EMAIL'].includes(data.session.state)) {
+      } else if (data.session && Object.keys(warnings).includes(data.session.state)) {
         this.$v.form.password.$model = '';
         this.$v.form.password.$reset();
         this.$emit('message', {
           id: uuidv4(),
           variant: 'warning',
           subject: 'account',
-          text: data.session.state === 'AUTH_APPROVAL'
-            ? '<strong>Account not enabled.</strong> '
-              + 'Please wait for a moderator to approve your account. '
-              + 'You will receive an email as soon as this has happened.'
-            : '<strong>Account not verified.</strong> '
-              + 'Please check your emails and click our confirmation link.',
+          text: warnings[data.session.state],
         });
       } else {
         this.$emit('message', {

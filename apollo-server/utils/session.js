@@ -1,6 +1,7 @@
 const secret = process.env.SHARED_TOKEN_SECRET;
 const baseUrl = process.env.VUE_APP_BASE_URI || 'http://localhost:8000';
 const graphqlUrl = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:4000/graphql';
+const needVerification = JSON.parse(process.env.VUE_APP_AUTH_NEED_VERIFICATION || true);
 
 if (!secret || typeof secret !== 'string' || secret.length < 32) {
   throw new Error('SHARED_TOKEN_SECRET must be set and have at least 32 chars');
@@ -104,9 +105,9 @@ Object.defineProperty(signOptions, 'jwtid', {
 });
 
 function sendConfirmation (user, transport) {
-  let scope = ['validation'];
-  let token = jwt.sign({ sub: user.email, scope }, secret, { ...signOptions });
-  let href = `${baseUrl}/confirm?token=${token}`;
+  let href = `${baseUrl}/confirm?token=${
+    jwt.sign({ sub: user.email, scope: ['verification'] }, secret, { ...signOptions })
+  }`;
   let subject = 'Account Verification';
   let paragraphs = [
     `Hello ${user.fullName}!`,
@@ -123,6 +124,38 @@ function sendConfirmation (user, transport) {
       paragraphs,
       buttons: [{
         title: 'Go to confirmation',
+        variant: 'primary',
+        href,
+      }],
+    }),
+  }).catch(console.error);
+}
+
+function sendNotification (user, transport) {
+  let href = user.emailVerified || !needVerification ? `${baseUrl}/login` : `${baseUrl}/confirm?token=${
+    jwt.sign({ sub: user.email, scope: ['verification'] }, secret, { ...signOptions })
+  }`;
+  let subject = 'Account Approval';
+  let paragraphs = user.emailVerified || !needVerification ? [
+    `Hello ${user.fullName}!`,
+    'Your account for this service has been approved by a moderator.'
+    + ' Use your email address and password for authentication.'
+    + ' Click below to visit the website and log in.',
+  ] : [
+    `Hello ${user.fullName}!`,
+    'Your account for this service has been approved by a moderator.'
+    + ' However you have not verified your email address yet.'
+    + ' Please click below to confirm that it is yours.',
+  ];
+  transport.sendMail({
+    to: `"${user.fullName}" <${user.email}>`,
+    subject,
+    text: paragraphs.concat(href).join('\n\n'),
+    html: generateEmail({
+      subject,
+      paragraphs,
+      buttons: [{
+        title: user.emailVerified || !needVerification ? 'Go to login' : 'Go to confirmation',
         variant: 'primary',
         href,
       }],
@@ -211,7 +244,7 @@ module.exports = {
     hash = hash ? hash : substitute;
     const isMatch = await argon2.verify(hash, input);
     if (isMatch && user) {
-      if (!user.frozen && user.emailVerified && userRoles[user.userRole]) {
+      if (!user.frozen && userRoles[user.userRole] && (!needVerification || user.emailVerified)) {
         let scope = ['session'];
         let payload = { sub: user.email, scope };
         let token = jwt.sign(payload, secret, { ...signOptions });
@@ -231,7 +264,7 @@ module.exports = {
       } else if (user.frozen) {
         ctx.req.res.clearCookie('apollo-token');
         return { ...defaultSession, state: sessionStates.AUTH_FROZEN };
-      } else if (!user.emailVerified) {
+      } else if (needVerification && !user.emailVerified) {
         ctx.req.res.clearCookie('apollo-token');
         return { ...defaultSession, state: sessionStates.AUTH_EMAIL };
       } else if (!userRoles[user.userRole]) {
@@ -279,7 +312,9 @@ module.exports = {
             user.userRole = 'NONE',
             user.deactivated = false,
             user.emailVerified = false,
-            user.frozen = false
+            user.frozen = false,
+            user.updated = datetime(),
+            user.created = user.updated
           RETURN count(user) = 1 AS success
         `, { user });
         let result = record.toObject();
@@ -311,14 +346,15 @@ module.exports = {
         return { success: false, state: sessionStates.AUTH_ERROR };
       }
     }
-    if (scope !== 'validation' && !Array.isArray(scope) || !scope.includes('validation')) {
+    if (scope !== 'verification' && !Array.isArray(scope) || !scope.includes('verification')) {
       return { success: false, state: sessionStates.AUTH_ERROR };
     }
     const touchUser = async (confirm = false) => {
       /** @type Session */ const db = ctx.driver.session();
       const { records: [record] } = await db.run(`
           OPTIONAL MATCH (n:User {email: $email, frozen: false})
-          SET n.emailVerified = (n.emailVerified OR $confirm)
+          SET n.emailVerified = (n.emailVerified OR $confirm),
+            n.updated = (CASE $confirm WHEN true THEN datetime() ELSE n.updated END)
           RETURN {success: count(n) = 1, user: n {.email, .fullName, .titlePrefix, .userRole}} as result
         `, { email, confirm });
       return record.toObject().result;
@@ -355,4 +391,6 @@ module.exports = {
   async revoke($0, params, ctx) {
     return { success: false };
   },
+  sendConfirmation,
+  sendNotification,
 };

@@ -1,0 +1,21 @@
+fragment user on User {
+  uuid
+  created {
+    formatted
+  }
+  updated {
+    formatted
+  }
+  titlePrefix
+  fullName
+  shortName
+  role
+  department
+  institution
+  email
+  userRole
+  deactivated
+  emailVerified
+  frozen
+  reason
+}

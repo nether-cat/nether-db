@@ -88,13 +88,15 @@ export default Vue.extend({
     .bg-theme-color {
       background-color: $theme-color;
     }
-    button.btn > svg.fa-spin {
+    button.btn > svg.fa-spin:not(:only-child) {
       margin-left: .75em;
     }
     button.btn.w-100 > svg.fa-spin,
     button.btn.btn-block > svg.fa-spin {
-      position: absolute;
-      margin-top: .25em;
+      &:not(:only-child) {
+        position: absolute;
+        margin-top: .25em;
+      }
     }
     .comma-separated :not(:last-child)::after {
       content: ', ';

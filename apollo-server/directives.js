@@ -1,34 +1,6 @@
 const { SchemaDirectiveVisitor } = require('graphql-tools');
-const { GraphQLID, defaultFieldResolver } = require('graphql');
-const uuidv5 = require('uuid/v5');
+const { defaultFieldResolver } = require('graphql');
 const session = require('./utils/session');
-
-class UniqueIdDirective extends SchemaDirectiveVisitor {
-  visitObject(type) {
-    const { name, from } = this.args;
-    const fields = type.getFields();
-    if (name in fields) {
-      throw new Error(`Conflicting field name ${name}`);
-    }
-    fields[name] = {
-      astNode: {
-        directives: [],
-      },
-      name,
-      type: GraphQLID,
-      description: 'Unique ID',
-      isDeprecated: false,
-      args: [],
-      resolve(object) {
-        let uuid = uuidv5(type.name, process.env.VUE_APP_UUIDV5_ROOT);
-        from.forEach(fieldName => {
-          uuid = uuidv5(String(object[fieldName]), uuid);
-        });
-        return uuid;
-      },
-    };
-  }
-}
 
 class AuthDirective extends SchemaDirectiveVisitor {
   visitObject(type) {
@@ -75,5 +47,4 @@ module.exports = {
   // Schema directives
   // https://www.apollographql.com/docs/graphql-tools/schema-directives
   auth: AuthDirective,
-  calcUID: UniqueIdDirective,
 };

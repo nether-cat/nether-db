@@ -177,7 +177,7 @@
                 </Scoped>
               </BFormGroup>
               <BButton :disabled="$v.form.$invalid || state.waiting || loading" type="submit" variant="primary" class="my-3 w-100">
-                Create my account <FontAwesomeIcon v-if="loading" icon="spinner" spin/>
+                <span>Create my account</span><FontAwesomeIcon v-if="loading" icon="spinner" spin/>
               </BButton>
               <BButton :disabled="loading" variant="link" class="w-100" :to="{ name: 'login' }">
                 Already have an account?

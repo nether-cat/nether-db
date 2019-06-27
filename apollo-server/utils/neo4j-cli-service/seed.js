@@ -178,13 +178,13 @@ module.exports = async function taskSeed ({ host, user, password }) {
     statement: cql`
       UNWIND $continents AS data
       MERGE (n:Continent:Entity {code: data.code})
-        ON CREATE SET n += data, n.uuid = randomUUID()
-        ON MATCH SET n.name = data.name
+        ON CREATE SET n += data, n.uuid = randomUUID(), n.updated = datetime(), n.created = n.updated
+        ON MATCH SET n.name = data.name, n.updated = datetime()
       WITH n AS n0
       UNWIND $countries AS data
       MERGE (n:Country:Entity {code: data.code})
-        ON CREATE SET n.name = data.name, n.uuid = randomUUID()
-        ON MATCH SET n.name = data.name
+        ON CREATE SET n.name = data.name, n.uuid = randomUUID(), n.updated = datetime(), n.created = n.updated
+        ON MATCH SET n.name = data.name, n.updated = datetime()
       WITH n AS n1, n0, data
       MATCH (n2:Continent {code: data.\`@continent.code\`})
       MERGE (n1)-[:LOCATED_IN]->(n2)
@@ -203,8 +203,8 @@ module.exports = async function taskSeed ({ host, user, password }) {
     statement: cql`
       UNWIND $lakes AS data
       MERGE (n:Lake:Entity {name: data.name, latitude: data.latitude, longitude: data.longitude})
-        ON CREATE SET n += data {.*, \`@countries\`: null}, n.uuid = randomUUID()
-        ON MATCH SET n += data {.*, \`@countries\`: null}
+        ON CREATE SET n += data {.*, \`@countries\`: null}, n.uuid = randomUUID(), n.updated = datetime(), n.created = n.updated
+        ON MATCH SET n += data {.*, \`@countries\`: null}, n.updated = datetime()
       WITH n as n0, data
       UNWIND data.\`@countries\` as ref
       MATCH (n1:Country {code: ref})
@@ -229,8 +229,8 @@ module.exports = async function taskSeed ({ host, user, password }) {
            data.\`@category\` AS d3,
            data.\`@publication\` AS d4
       MERGE (n0:Dataset:Entity {file: d0.file})
-        ON CREATE SET n0 += d0, n0.uuid = randomUUID()
-        ON MATCH SET n0 += d0
+        ON CREATE SET n0 += d0, n0.uuid = randomUUID(), n0.updated = datetime(), n0.created = n0.updated
+        ON MATCH SET n0 += d0, n0.updated = datetime()
       WITH n0, d1, d2, d3, d4
       CALL apoc.cypher.run('
         WITH {d1} AS d1, {d2} AS d2
@@ -247,24 +247,25 @@ module.exports = async function taskSeed ({ host, user, password }) {
       WITH n0, d1, value.n2 AS n2, d3, d4
       FOREACH (d1_label IN (CASE d1.label WHEN null THEN [] ELSE [d1.label] END) |
         MERGE (n1_:Core:Entity {label: d1_label})-[:FROM_LAKE]->(n2)
-          ON CREATE SET n1_ += d1, n1_.uuid = randomUUID()
-          ON MATCH SET n1_ += d1
+          ON CREATE SET n1_ += d1, n1_.uuid = randomUUID(), n1_.updated = datetime(), n1_.created = n1_.updated
+          ON MATCH SET n1_ += d1, n1_.updated = datetime()
         MERGE (n0)-[:SAMPLED_FROM]->(n1_)
       )
       FOREACH (d1_ IN (CASE d1.label WHEN null THEN [d1] ELSE [] END) |
         MERGE (n0)-[:SAMPLED_FROM]->(n1_:Core:Entity)
-          ON CREATE SET n1_ += d1_, n1_.uuid = randomUUID()
-          ON MATCH SET n1_ += d1_
+          ON CREATE SET n1_ += d1_, n1_.uuid = randomUUID(), n1_.updated = datetime(), n1_.created = n1_.updated
+          ON MATCH SET n1_ += d1_, n1_.updated = datetime()
         MERGE (n1_)-[:FROM_LAKE]->(n2)
       )
       WITH n0, n2, d3, d4
       MATCH (n0)-[:SAMPLED_FROM]->(n1:Core)-[:FROM_LAKE]->(n2)
       MERGE (n3:Category:Entity {name: d3.name})
-        ON CREATE SET n3.uuid = randomUUID()
+        ON CREATE SET n3.uuid = randomUUID(), n3.updated = datetime(), n3.created = n3.updated
       MERGE (n0)-[:BELONGS_TO]->(n3)
       FOREACH (d4_doi IN (CASE d4.doi WHEN null THEN [] ELSE [d4.doi] END) |
         MERGE (n4_:Publication:Entity {doi: d4_doi})
-          ON CREATE SET n4_.uuid = randomUUID()
+          ON CREATE SET n4_.uuid = randomUUID(), n4_.updated = datetime(), n4_.created = n4_.updated
+          ON MATCH SET n4_.updated = datetime()
         MERGE (n0)-[:PUBLISHED_IN]->(n4_)
       )
       WITH n0, n1, n2, n3
@@ -320,7 +321,8 @@ module.exports = async function taskSeed ({ host, user, password }) {
         WITH n0, n1, range(0, size($attributes) - 1) AS indices
         UNWIND indices AS column
         MERGE (n2:Attribute:Entity {name: $attributes[column]})
-          ON CREATE SET n2.uuid = randomUUID()
+          ON CREATE SET n2.uuid = randomUUID(), n2.updated = datetime(), n2.created = n2.updated
+          ON MATCH SET n2.updated = datetime()
         MERGE (n0)-[r0:INCLUDES]->(n2)
         SET r0.__colNum__ = column
         // TODO: We need more props on these edges, e.g. unit and method
