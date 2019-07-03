@@ -63,7 +63,6 @@
             <div style="height: 485px;">
               <SkipServerSide>
                 <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
-                <!-- TODO: Call updateSize() of referenced ol/Map in correlating situations -->
               </SkipServerSide>
             </div>
           </BContainer>
