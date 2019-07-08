@@ -215,7 +215,9 @@ type Publication implements Entity {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
-  title: String!
+  resolved: _Neo4jDateTime
+  citation: String
+  title: String
   authors: String
   year: Int
   doi: String

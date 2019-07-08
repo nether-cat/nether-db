@@ -155,12 +155,14 @@ type Permission {
 type Publication implements Entity {
   abstract: String
   authors: String
+  citation: String
   created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   doi: String
   email: String
+  resolved: _Neo4jDateTime
   source: String
-  title: String!
+  title: String
   updated: _Neo4jDateTime!
   url: String
   uuid: ID!
