@@ -156,9 +156,12 @@ type Dataset implements Entity {
   updated: _Neo4jDateTime!
   file: String!
   label: String
-  analysisMethod: String
+  ageMax: Float
+  ageMin: Float
+  ageSpan: Float
   ageResolution: Float
   depthResolution: Float
+  analysisMethod: String
   comments: String
   url: String
   distributor: String

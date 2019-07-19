@@ -3,18 +3,12 @@
     <BRow>
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filter options</h4>
-          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid">
+          <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
+          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <BFormGroup label="Search terms:">
-                  <BFormInput id="termsInput"
-                              ref="terms"
-                              :disabled="false"
-                              type="text"
-                              required
-                  />
-                </BFormGroup>
+                <FormFilters :source="getResults" :result.sync="filteredLakes" :use="filters"/>
+                <hr>
               </BCol>
             </BRow>
             <BRow>
@@ -79,10 +73,16 @@
                   caption-top
                   show-empty
                   sort-by="name"
-                  :items="getResults"
+                  :items="filteredLakes"
                   :fields="fields"
           >
-            <template slot="table-caption">Found lakes with datasets:</template>
+            <template slot="table-caption">
+              {{
+                filteredLakes.length && filteredLakes.length !== getResults.length
+                  ? 'Lakes matching your criteria:'
+                  : 'All lakes currently in the database:'
+              }}
+            </template>
             <template slot="countries" slot-scope="cell">
               <div class="text-monospace">
                 {{ cell.item['countries'].map(c => c['code']).join(', ') }}
@@ -124,6 +124,11 @@
 
 <script>
 import { log } from '@/plugins';
+import {
+  FFCountryFilter,
+} from '@/components/FormFiltersLibrary';
+import FormFilters from '@/components/FormFilters';
+import GET_LAKES from '@/graphql/queries/GetLakes.graphql';
 
 const SkipSSR = {};
 
@@ -165,17 +170,13 @@ export default {
   name: 'ViewDatabaseIndex',
   components: {
     ...SkipSSR,
+    FormFilters,
   },
   data () {
     return {
       lakes: [],
-      filters: {
-        terms: {
-          tags: [],
-          groups: [],
-        },
-        location: '',
-      },
+      filters: [FFCountryFilter.factory(this)],
+      filteredLakes: [],
       chart: {
         domain: undefined,
         flush: () => {},
@@ -202,34 +203,7 @@ export default {
   apollo: {
     lakes: {
       prefetch: false,
-      query: ESLint$1.gql`
-        query lakes {
-          lakes: Lake(orderBy: "name_asc") {
-            uuid
-            name
-            longitude
-            latitude
-            countries {
-              uuid
-              code
-              name
-            }
-            cores {
-              uuid
-              label
-              datasets {
-                uuid
-                label
-                file
-                categories {
-                  uuid
-                  name
-                }
-              }
-            }
-          }
-        }
-      `,
+      query: GET_LAKES,
       error (err) {
         log([err.message], 'Query', 2);
         return false;

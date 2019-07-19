@@ -1,4 +1,4 @@
-$theme-color: #00589c;
+$theme-color: hsl(206, 100%, 31%);
 
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index';
@@ -6,7 +6,7 @@ $theme-color: #00589c;
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&subset=latin-ext');
 
 :root {
-  --theme-color: $theme-color;
+  --theme-color: #{$theme-color};
 }
 
 html, body {
@@ -14,4 +14,19 @@ html, body {
   padding: 0;
   background-color: whitesmoke;
   font-family: 'Roboto', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.form-control {
+  cursor: text;
+  &:focus-within {
+    @extend .form-control:focus;
+    > input, textarea {
+      outline: 0 !important;
+    }
+  }
+  > input, textarea {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
 }
