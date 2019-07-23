@@ -4,7 +4,7 @@
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Filter options</h4>
-          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid">
+          <BForm class="card-text container-fluid">
             <BRow>
               <BCol>
                 <BFormGroup label="Search terms:">
@@ -111,13 +111,6 @@
         </BCard>
       </BCol>
     </BRow>
-    <Transition name="fade-opacity">
-      <div v-if="showJumpButton" class="btn-overlay">
-        <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
-          <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
-        </BButton>
-      </div>
-    </Transition>
   </BContainer>
 </template>
 
@@ -191,11 +184,6 @@ export default {
         { key: 'actions', label: 'Details' },
       ],
       isDeactivated: false,
-      showJumpButton: false,
-      scrollEvents: {
-        onStart: () => (this.showJumpButton = false),
-        onCancel: () => (this.showJumpButton = true),
-      },
     };
   },
   apollo: {
@@ -292,9 +280,6 @@ export default {
         longitude = '&nbsp;' + longitude;
       }
       return [latitude, longitude].join(', ');
-    },
-    toggleJumpButton (disable = true) {
-      this.showJumpButton = !disable;
     },
   },
 };

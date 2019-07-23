@@ -14,7 +14,7 @@
             <BCol>
               <BCard header-tag="header" footer-tag="footer">
                 <h4 slot="header">Lake details</h4>
-                <BContainer v-observe-visibility="toggleJumpButton" fluid class="card-text">
+                <BContainer fluid class="card-text">
                   <BRow>
                     <BCol>
                       <h5 class="font-weight-normal text-left">
@@ -222,13 +222,6 @@
           </BRow>
         </template>
       </ApolloQuery>
-      <Transition name="fade-opacity">
-        <div v-if="showJumpButton" class="btn-overlay">
-          <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
-            <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
-          </BButton>
-        </div>
-      </Transition>
     </template>
   </ApolloQuery>
 </template>
@@ -284,11 +277,6 @@ export default {
       isDeactivated: false,
       isInitializing: true,
       shouldFetchMore: true,
-      showJumpButton: false,
-      scrollEvents: {
-        onStart: () => (this.showJumpButton = false),
-        onCancel: () => (this.showJumpButton = true),
-      },
     };
   },
   watch: {
@@ -352,9 +340,6 @@ export default {
           new ScaleLine(),
         ]);
       });
-    },
-    toggleJumpButton (disable = true) {
-      this.showJumpButton = !disable;
     },
   },
 };
