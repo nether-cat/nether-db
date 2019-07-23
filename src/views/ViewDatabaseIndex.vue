@@ -4,7 +4,7 @@
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
           <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
-          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid form-container" @submit.prevent.stop>
+          <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
                 <FormFilters :source="getResults" :result.sync="filteredLakes" :use="filters"/>
@@ -57,7 +57,6 @@
             <div style="height: 485px;">
               <SkipServerSide>
                 <MapOverview :features="map.features" @loaded="$nextTick(() => map.loading = false)"/>
-                <!-- TODO: Call updateSize() of referenced ol/Map in correlating situations -->
               </SkipServerSide>
             </div>
           </BContainer>
@@ -112,13 +111,6 @@
         </BCard>
       </BCol>
     </BRow>
-    <Transition name="fade-opacity">
-      <div v-if="showJumpButton" class="btn-overlay">
-        <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
-          <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
-        </BButton>
-      </div>
-    </Transition>
   </BContainer>
 </template>
 
@@ -194,11 +186,6 @@ export default {
         { key: 'actions', label: 'Details' },
       ],
       isDeactivated: false,
-      showJumpButton: false,
-      scrollEvents: {
-        onStart: () => (this.showJumpButton = false),
-        onCancel: () => (this.showJumpButton = true),
-      },
     };
   },
   apollo: {
@@ -300,9 +287,6 @@ export default {
         longitude = '&nbsp;' + longitude;
       }
       return [latitude, longitude].join(', ');
-    },
-    toggleJumpButton (disable = true) {
-      this.showJumpButton = !disable;
     },
   },
 };

@@ -92,7 +92,7 @@
                   <BFormInvalidFeedback v-if="$v.form.password.$dirty && !$v.form.password.required">
                     Should not be empty.
                   </BFormInvalidFeedback>
-                  &rarr;&nbsp;<a class="forgot-password" tabindex="5" href="#">Forgot password?</a>
+                  <span class="d-none">&rarr;&nbsp;<a class="forgot-password" tabindex="5" href="#">Forgot password?</a></span>
                 </div>
               </BFormGroup>
               <BButton :disabled="loading" variant="primary" class="my-3 w-100" tabindex="3" type="submit">
