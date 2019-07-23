@@ -117,7 +117,7 @@
               </Transition>
               <div style="height: 485px;">
                 <SkipServerSide>
-                  <VlMap ref="map"
+                  <VlMap ref="mapComponent"
                          :load-tiles-while-animating="true"
                          :load-tiles-while-interacting="true"
                          data-projection="EPSG:4326"
@@ -299,6 +299,9 @@ export default {
   },
   activated () {
     this.isDeactivated = false;
+    let comp = this.$refs.mapComponent;
+    comp = comp && comp.length ? comp[0] : comp;
+    comp && comp.$map && comp.$map.updateSize();
   },
   deactivated () {
     this.isDeactivated = true;
@@ -343,9 +346,9 @@ export default {
     },
     onMapMounted () {
       ScaleLineLoad.then(() => {
-        let map = this.$refs.map;
-        map = map.length ? map[0] : map;
-        map.$map.getControls().extend([
+        let comp = this.$refs.mapComponent;
+        comp = comp.length ? comp[0] : comp;
+        comp.$map.getControls().extend([
           new ScaleLine(),
         ]);
       });
