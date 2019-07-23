@@ -56,7 +56,7 @@
             </Transition>
             <div style="height: 485px;">
               <SkipServerSide>
-                <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
+                <MapOverview :features="map.features" @loaded="$nextTick(() => map.loading = false)"/>
                 <!-- TODO: Call updateSize() of referenced ol/Map in correlating situations -->
               </SkipServerSide>
             </div>
@@ -183,6 +183,7 @@ export default {
         loading: true,
       },
       map: {
+        features: [],
         loading: true,
       },
       fields: [
@@ -218,9 +219,6 @@ export default {
         return Object.assign({}, lake, { datasetsCount });
       });
     },
-    getFeatures () {
-      return this.getResults.map(lakeToFeature);
-    },
     mapZoom: {
       get () { return this.$store.state.database.map.zoom; },
       set (value) { this.$store.commit('database/MAP_ZOOM_SET', value); },
@@ -236,6 +234,41 @@ export default {
     mapFeatures: {
       get () { return this.$store.state.database.map.features; },
       set (value) { this.$store.commit('database/MAP_FEATURES_SET', value); },
+    },
+  },
+  watch: {
+    async filteredLakes (newVal, oldVal) {
+      let jobs = [], batchSize = 15;
+      console.log('[APP] Started updating the map features...');
+      let hiddenBefore = newVal.filter(lake => !oldVal.includes(lake));
+      let hiddenNow = oldVal.filter(lake => !newVal.includes(lake));
+      for (let i = 0; i < hiddenNow.length; i += batchSize) {
+        let j = i + batchSize < hiddenNow.length ? i + batchSize : hiddenNow.length;
+        let batch = hiddenNow.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.filter(f => !batch.find(l => f.id === l.uuid));
+        });
+      }
+      hiddenBefore = hiddenBefore.filter(l => !this.map.features.find(f => l.uuid === f.id));
+      for (let i = 0; i < hiddenBefore.length; i += batchSize) {
+        let j = i + batchSize < hiddenBefore.length ? i + batchSize : hiddenBefore.length;
+        let batch = hiddenBefore.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.concat(batch.map(lakeToFeature));
+        });
+      }
+      let start, step = 0;
+      let runSequence = (timestamp) => {
+        if (!start) start = timestamp;
+        let runtime = timestamp - start;
+        if (jobs[step]) {
+          jobs[step](); step++;
+          requestAnimationFrame(runSequence);
+        } else {
+          console.log(`[APP] Updated the map features in ${runtime}ms`);
+        }
+      };
+      requestAnimationFrame(runSequence);
     },
   },
   activated () {
