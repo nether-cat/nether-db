@@ -3,18 +3,12 @@
     <BRow>
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filter options</h4>
-          <BForm class="card-text container-fluid">
+          <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
+          <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <BFormGroup label="Search terms:">
-                  <BFormInput id="termsInput"
-                              ref="terms"
-                              :disabled="false"
-                              type="text"
-                              required
-                  />
-                </BFormGroup>
+                <FormFilters :source="getResults" :result.sync="filteredLakes" :use="filters"/>
+                <hr>
               </BCol>
             </BRow>
             <BRow>
@@ -62,7 +56,7 @@
             </Transition>
             <div style="height: 485px;">
               <SkipServerSide>
-                <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
+                <MapOverview :features="map.features" @loaded="$nextTick(() => map.loading = false)"/>
               </SkipServerSide>
             </div>
           </BContainer>
@@ -78,10 +72,16 @@
                   caption-top
                   show-empty
                   sort-by="name"
-                  :items="getResults"
+                  :items="filteredLakes"
                   :fields="fields"
           >
-            <template slot="table-caption">Found lakes with datasets:</template>
+            <template slot="table-caption">
+              {{
+                filteredLakes.length && filteredLakes.length !== getResults.length
+                  ? 'Lakes matching your criteria:'
+                  : 'All lakes currently in the database:'
+              }}
+            </template>
             <template slot="countries" slot-scope="cell">
               <div class="text-monospace">
                 {{ cell.item['countries'].map(c => c['code']).join(', ') }}
@@ -116,6 +116,11 @@
 
 <script>
 import { log } from '@/plugins';
+import {
+  FFCountryFilter,
+} from '@/components/FormFiltersLibrary';
+import FormFilters from '@/components/FormFilters';
+import GET_LAKES from '@/graphql/queries/GetLakes.graphql';
 
 const SkipSSR = {};
 
@@ -157,23 +162,20 @@ export default {
   name: 'ViewDatabaseIndex',
   components: {
     ...SkipSSR,
+    FormFilters,
   },
   data () {
     return {
       lakes: [],
-      filters: {
-        terms: {
-          tags: [],
-          groups: [],
-        },
-        location: '',
-      },
+      filters: [FFCountryFilter.factory(this)],
+      filteredLakes: [],
       chart: {
         domain: undefined,
         flush: () => {},
         loading: true,
       },
       map: {
+        features: [],
         loading: true,
       },
       fields: [
@@ -189,34 +191,7 @@ export default {
   apollo: {
     lakes: {
       prefetch: false,
-      query: ESLint$1.gql`
-        query lakes {
-          lakes: Lake(orderBy: "name_asc") {
-            uuid
-            name
-            longitude
-            latitude
-            countries {
-              uuid
-              code
-              name
-            }
-            cores {
-              uuid
-              label
-              datasets {
-                uuid
-                label
-                file
-                categories {
-                  uuid
-                  name
-                }
-              }
-            }
-          }
-        }
-      `,
+      query: GET_LAKES,
       error (err) {
         log([err.message], 'Query', 2);
         return false;
@@ -230,9 +205,6 @@ export default {
         lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
         return Object.assign({}, lake, { datasetsCount });
       });
-    },
-    getFeatures () {
-      return this.getResults.map(lakeToFeature);
     },
     mapZoom: {
       get () { return this.$store.state.database.map.zoom; },
@@ -249,6 +221,41 @@ export default {
     mapFeatures: {
       get () { return this.$store.state.database.map.features; },
       set (value) { this.$store.commit('database/MAP_FEATURES_SET', value); },
+    },
+  },
+  watch: {
+    async filteredLakes (newVal, oldVal) {
+      let jobs = [], batchSize = 15;
+      console.log('[APP] Started updating the map features...');
+      let hiddenBefore = newVal.filter(lake => !oldVal.includes(lake));
+      let hiddenNow = oldVal.filter(lake => !newVal.includes(lake));
+      for (let i = 0; i < hiddenNow.length; i += batchSize) {
+        let j = i + batchSize < hiddenNow.length ? i + batchSize : hiddenNow.length;
+        let batch = hiddenNow.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.filter(f => !batch.find(l => f.id === l.uuid));
+        });
+      }
+      hiddenBefore = hiddenBefore.filter(l => !this.map.features.find(f => l.uuid === f.id));
+      for (let i = 0; i < hiddenBefore.length; i += batchSize) {
+        let j = i + batchSize < hiddenBefore.length ? i + batchSize : hiddenBefore.length;
+        let batch = hiddenBefore.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.concat(batch.map(lakeToFeature));
+        });
+      }
+      let start, step = 0;
+      let runSequence = (timestamp) => {
+        if (!start) start = timestamp;
+        let runtime = timestamp - start;
+        if (jobs[step]) {
+          jobs[step](); step++;
+          requestAnimationFrame(runSequence);
+        } else {
+          console.log(`[APP] Updated the map features in ${runtime}ms`);
+        }
+      };
+      requestAnimationFrame(runSequence);
     },
   },
   activated () {

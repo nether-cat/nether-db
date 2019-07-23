@@ -82,7 +82,10 @@ type Country implements Entity {
 }
 
 type Dataset implements Entity {
+  ageMax: Float
+  ageMin: Float
   ageResolution: Float
+  ageSpan: Float
   analysisMethod: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
   categories(first: Int = 100, offset: Int = 0): [Category]

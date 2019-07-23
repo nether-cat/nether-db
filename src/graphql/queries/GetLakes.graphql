@@ -1,0 +1,30 @@
+query getLakes {
+  lakes: Lake(orderBy: "name_asc") {
+    uuid
+    name
+    longitude
+    latitude
+    countries {
+      uuid
+      code
+      name
+    }
+    cores {
+      uuid
+      label
+      datasets {
+        uuid
+        label
+        file
+        attributes {
+          uuid
+          name
+          categories {
+            uuid
+            name
+          }
+        }
+      }
+    }
+  }
+}
