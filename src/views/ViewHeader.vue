@@ -16,9 +16,7 @@ export default {
       }} class="header container-fluid px-0">
         <BRow class="mx-0">
           <BCol cols="12" sm="6" class="px-0">
-            <RouterLink to="/" exact>
-              <BImg src={require('@/assets/varda-logo.svg')} alt="Home"/>
-            </RouterLink>
+            <object class="app-logo" name="Logo" role="img" aria-label="Logo" data={require('@/assets/varda-logo.svg')}/>
           </BCol>
           <BCol cols="12" sm="6" class="px-0">
             <BNav class="float-right px-3">
@@ -43,7 +41,9 @@ export default {
   .header {
     display: block;
     background-color: white;
-    img[alt='Home'] {
+    .app-logo {
+      border-style: none;
+      vertical-align: middle;
       max-height: 111px;
       padding: 1rem;
     }

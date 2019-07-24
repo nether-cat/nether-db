@@ -3,7 +3,7 @@ $theme-color: hsl(206, 100%, 31%);
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index';
 @import '~\@fortawesome/fontawesome-svg-core/styles';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400i,500,700&display=swap&subset=latin-ext');
 
 :root {
   --theme-color: #{$theme-color};
@@ -13,7 +13,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: whitesmoke;
-  font-family: 'Roboto', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Fira Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .form-control {
