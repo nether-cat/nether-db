@@ -19,8 +19,8 @@ async function fetchPublications () {
   return publications;
 }
 
-function updatePublications (publications) {
-  let total = 0, successful = 0;
+async function updatePublications (publications) {
+  let total = 0, successful = 0, updated = 0;
   publications = publications.map(pub => Object.fromEntries(
     Object.entries(pub).map(([key, value]) => [camelCase(key), value]),
   ));
@@ -41,7 +41,27 @@ function updatePublications (publications) {
   } else {
     console.log(`However ${chalk.red('0')} of the performed queries were successful :-/`);
   }
-  // TODO: Update database contents with the retrieved citations
+  /** @type Session */ let db = driver.session();
+  let result = await db.run(`
+    UNWIND $publications AS data
+    MATCH (n0:Publication)
+      WHERE n0.doi = data.doi
+    SET n0.resolved = datetime(),
+    n0.updated = n0.resolved,
+    n0.citation = data.formattedCitation
+    RETURN n0 AS publication
+  `, { publications });
+  publications = result.records.map(record => (
+    { ...record.toObject()['publication']['properties'] }
+  ));
+  // eslint-disable-next-line no-cond-assign
+  if (updated = publications.length) {
+    if (updated < successful) {
+      console.log(`${chalk.red('Warning:')} Only ${chalk.yellow(updated)} of the DOIs could be updated in the DB!`);
+    } else {
+      console.log(chalk.green('All of the queried DOIs have been updated in the DB!'));
+    }
+  }
 }
 
 fetchPublications().then(updatePublications);
