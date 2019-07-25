@@ -63,7 +63,9 @@ const status = {
   },
 };
 
-const filenameFixes = new Map();
+const filenameFixes = new Map(), filenameRefs = new Map();
+
+let storage = {};
 
 module.exports = async function taskSeed ({ host, user, password }) {
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
@@ -85,6 +87,14 @@ module.exports = async function taskSeed ({ host, user, password }) {
     console.log(`Finished! Execution time was ${chalk.blueBright(taskDuration / 1000)} seconds.\n`);
     return status.get();
   };
+
+  let storageFile = path.resolve(process.env.SHARED_SHEETS_PATH, 'records.json');
+
+  if (fs.statSync(storageFile)) {
+    storage = require(storageFile);
+  } else {
+    storage = {};
+  }
 
   /** @type Array */ let continents, countries;
   /** @type Array */ let lakes = require('./seeds/lakes');
@@ -116,7 +126,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
   console.log(`Indexed ${chalk.blueBright(String(lakes.length - lakesWithData.length))} lakes without datasets.\n`);
   console.log(`Processed datasets covering ${chalk.blueBright(String(lakesWithData.length))} lakes.\n`);
   console.log(`The total number of datasets is ${chalk.blueBright(String(datasets.length))} now.\n`);
-  console.log(`That results in ${chalk.blueBright('~' + average.toFixed(2))} datasets per covered lake.\n`);
+  console.log(`That results in ${chalk.blueBright('~' + average.toFixed(2))} datasets per lake.\n`);
 
   const actualFile = path.resolve(__dirname, './seeds/datasets.json');
   const backupFile = path.resolve(__dirname, './seeds/datasets.bak.json');
@@ -286,17 +296,23 @@ module.exports = async function taskSeed ({ host, user, password }) {
 
   let importRecordsJobs = datasets.map(({ '@dataset': dataset, '@category': category }) => async () => {
     let attributes, records;
-    const file = path.resolve(
-      process.env.SHARED_SHEETS_PATH,
-      filenameFixes.has(dataset['file'])
-        ? filenameFixes.get(dataset['file'])
-        : (dataset['file'] + '.xlsx'),
+    const file = filenameRefs.has(dataset['file'])
+      ? filenameRefs.get(dataset['file'])
+      : path.resolve(
+        process.env.SHARED_SHEETS_PATH,
+        filenameFixes.has(dataset['file'])
+          ? filenameFixes.get(dataset['file'])
+          : (dataset['file'] + '.xlsx'),
     );
     const sheetName = category['name'] === '14C' ? 'Age' : category['name'];
     console.log('================================================================\n');
     try {
-      ({ header: attributes, values: records } = readFromFile({ file, sheetName, headerStart: 'B8' }));
-      attributes = attributes.filter(attribute => records.some(record => record.hasOwnProperty(attribute)));
+      if ('string' === typeof file) {
+        ({ header: attributes, values: records } = readFromFile({ file, sheetName, headerStart: 'B8' }));
+        attributes = attributes.filter(attribute => records.some(record => record.hasOwnProperty(attribute)));
+      } else {
+        ({ header: attributes, values: records } = readFromStorage({ file, sheetName }));
+      }
       console.log(`${chalk.green('okay')} --> Found ${chalk.blueBright(String(records.length))} records `
         + `with ${chalk.blueBright(String(attributes.length))} columns for `
         + `category \`${chalk.cyan(category['name'])}\` in the file: ${chalk.yellowBright(dataset['file'])}\n`);
@@ -371,7 +387,7 @@ function filterNullValues (dataset) {
 }
 
 function checkFileExists (dataset) {
-  let state = { folder: 0, needsFix: false };
+  let state = { storage: false, folder: 0, needsFix: false };
   let checkWith = (filename => {
     try {
       state.folder = !!fs.statSync(path.resolve(process.env.SHARED_SHEETS_PATH, filename)) && 1;
@@ -391,14 +407,27 @@ function checkFileExists (dataset) {
     }
     return state.folder;
   });
-  checkWith(dataset.file + '.xlsx') || checkWith(unorm.nfc(dataset.file) + '.xlsx');
-  console.log(`${ state.folder === 1
-    ? chalk.green('okay')
-    : state.folder === 2
-      ? chalk.yellow('move')
-      : chalk.red('fail')
+  let testStorage = (() => {
+    if (Array.isArray(storage[dataset.file]) && storage[dataset.file].length) {
+      state.storage = true;
+      filenameRefs.has(dataset.file) || filenameRefs.set(dataset.file, storage[dataset.file]);
+    }
+    return state.storage;
+  });
+  testStorage() || checkWith(dataset.file + '.xlsx') || checkWith(unorm.nfc(dataset.file) + '.xlsx');
+  console.log(`${ state.storage
+    ? chalk.green('json')
+    : state.folder === 1
+      ? chalk.green('okay')
+      : state.folder === 2
+        ? chalk.yellow('warn')
+        : chalk.red('fail')
   } --> ${ dataset['file'] }`);
-  Object.assign(dataset, { '_fileExists': state.folder === 1, '_fileFixName': state.folder === 1 && state.needsFix });
+  Object.assign(dataset, {
+    '_json': !!state.storage,
+    '_fileExists': state.folder === 1 || state.storage,
+    '_fileWarn': state.folder === 1 && state.needsFix,
+  });
 }
 
 function checkLakeExists (dataset) {
@@ -411,7 +440,7 @@ function checkLakeExists (dataset) {
 }
 
 function addMoreProps (dataset) {
-  if (!dataset['_fileExists'] || ( Date.now() - Date.parse(dataset['_lastCheck']) < ms('7 days') )) {
+  if (dataset['_json'] || !dataset['_fileExists'] || (Date.now() - Date.parse(dataset['_lastCheck']) < ms('7 days'))) {
     return;
   }
   const props = Object.assign({}, { ...dataset });
@@ -482,13 +511,17 @@ function sortProperties (dataset) {
     '@core.coringMethod',
     '@core.drillDate',
     '@core.composite',
+    '_json',
     '_file',
+    '_fileWarn',
     '_fileExists',
     '_lakeExists',
     '_lastCheck',
   ];
   const propertyOrder = (a, b) => {
-    return props.findIndex(k => k === a[0]) - props.findIndex(k => k === b[0]);
+    let left = props.findIndex(k => k === a[0]);
+    let right = props.findIndex(k => k === b[0]);
+    return (left === -1 ? props.length : left) - (right === -1 ? props.length : right);
   };
   const sortedEntries = Object.entries(dataset).sort(propertyOrder);
   Object.keys(dataset).forEach(key => delete dataset[key]);
@@ -552,6 +585,11 @@ function printQueryError (queryLabel, err) {
   console.log(chalk.red(`Failure running the query \`${chalk.cyan(queryLabel)}\`:\n`));
   console.error(chalk.red(err.stack));
   console.log('');
+}
+
+function readFromStorage ({ file: records }) {
+  let header = Object.keys(records.reduce((propModel, record) => propModel = { ...propModel, ...record }, {}));
+  return { header, values: [...records] };
 }
 
 function readFromFile ({ file, sheetName, headerStart, valuesStart, endColumn, endRow }) {
