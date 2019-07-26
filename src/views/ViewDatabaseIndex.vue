@@ -7,7 +7,7 @@
           <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <FormFilters :source="getResults" :result.sync="filteredLakes" :use="filters"/>
+                <FormFilters :source="getLakes" :result.sync="filteredLakes" :use="filters"/>
                 <hr>
               </BCol>
             </BRow>
@@ -27,9 +27,10 @@
                   </Transition>
                   <SkipServerSide>
                     <ChartClimate
+                      :events="getEvents"
                       @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
-                      @domain="(domain) => !isDeactivated && !chart.loading && (chart.domain = domain)"
-                      @filterLakes="updateLakes"
+                      @selectDomain="selectDomain"
+                      @selectEvent="selectEvent"
                     />
                   </SkipServerSide>
                 </div>
@@ -77,7 +78,7 @@
           >
             <template slot="table-caption">
               {{
-                filteredLakes.length && filteredLakes.length !== getResults.length
+                filteredLakes.length && filteredLakes.length !== getLakes.length
                   ? 'Lakes matching your criteria:'
                   : 'All lakes currently in the database:'
               }}
@@ -120,6 +121,7 @@ import {
   FFCountryFilter,
 } from '@/components/FormFiltersLibrary';
 import FormFilters from '@/components/FormFilters';
+import GET_EVENTS from '@/graphql/queries/GetEvents.graphql';
 import GET_LAKES from '@/graphql/queries/GetLakes.graphql';
 
 const SkipSSR = {};
@@ -166,6 +168,7 @@ export default {
   },
   data () {
     return {
+      events: [],
       lakes: [],
       filters: [FFCountryFilter.factory(this)],
       filteredLakes: [],
@@ -189,6 +192,14 @@ export default {
     };
   },
   apollo: {
+    events: {
+      prefetch: false,
+      query: GET_EVENTS,
+      error (err) {
+        log([err.message], 'Query', 2);
+        return false;
+      },
+    },
     lakes: {
       prefetch: false,
       query: GET_LAKES,
@@ -199,7 +210,10 @@ export default {
     },
   },
   computed: {
-    getResults () {
+    getEvents () {
+      return this.events.filter(e => e.lakes.length > 1);
+    },
+    getLakes () {
       return (this.lakes || []).map(lake => {
         let datasetsCount = 0;
         lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
@@ -269,9 +283,11 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    updateLakes (filteredLakes) {
-      // this.lakes = filteredLakes;
+    selectDomain (domain) {
+      return !this.isDeactivated && !this.chart.loading && (this.chart.domain = domain);
+    },
+    selectEvent (event) {
+      console.log('Selected event', event);
     },
     formatCoordinates({ latitude, longitude }) {
       latitude = Number.parseFloat(latitude);

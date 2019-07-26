@@ -344,8 +344,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
         // TODO: We need more props on these edges, e.g. unit and method
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
-        OPTIONAL MATCH (_n:Record)-[_r:RECORDED_IN]->(n0)
-        DELETE _n, _r
+        OPTIONAL MATCH (_n0:Record)-[_r0:RECORDED_IN]->(n0)
+        OPTIONAL MATCH (_n0)-[_r1:CORRELATES]->(_n1:Event)
+        DETACH DELETE _n0, _r0, _n1, _r1
         WITH DISTINCT n0, n1, attributes, range(0, size($records) - 1) AS indices
         UNWIND indices AS row
         CREATE (n3:Record)
@@ -374,6 +375,37 @@ module.exports = async function taskSeed ({ host, user, password }) {
   await runJobsSequence(importRecordsJobs);
 
   console.log(`The total number of records is ${chalk.blueBright(String(recordsCountTotal))} now.\n`);
+
+  if (status.hasError()) return onExitTask();
+
+  await executeQuery({
+    db,
+    check: false,
+    label: 'Create all events',
+    statement: cql`
+      MATCH (n0:Category { name: 'Tephra' })--(n1:Attribute)<-[r1:INCLUDES]-(n2:Dataset)--(n0),
+          (n2)--(s:Core)--(l:Lake)--(c:Country)--(ct:Continent)
+      WHERE n1.name IN ['age', 'correlatedToEvent', 'datedInCore', 'ageTransferReference']
+      WITH c, l, s, n2 as ds, apoc.map.fromPairs(
+      collect([n1.name, '__' + r1.__colNum__ + '__'])
+      ) as props, [(n2)--(r:Record) | r] as records
+      UNWIND records as record
+      WITH c, l, s, ds, record, {
+        age: apoc.map.get(record, props.age, null, false),
+        correlatedToEvent: apoc.map.get(record, props.correlatedToEvent, null, false)
+      } as data
+      WHERE data.age IS NOT NULL AND data.correlatedToEvent IS NOT NULL
+      MERGE (evt:Event:Entity {name: data.correlatedToEvent})
+        ON CREATE SET evt.uuid = randomUUID(), evt.updated = datetime(), evt.created = evt.updated
+        ON MATCH SET evt.updated = datetime()
+      MERGE (record)-[link:CORRELATES { age: data.age }]->(evt)
+      WITH c, l, s, ds, record, evt
+      MATCH (evt)-[links]-()
+      WITH c, l, s, ds, record, evt, count(links) as priority
+      WHERE priority > 1
+      RETURN c, l, s, ds, record, evt
+    `,
+  }).catch(() => status.set(0x4));
 
   if (status.hasError()) return onExitTask();
 
