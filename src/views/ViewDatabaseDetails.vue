@@ -189,6 +189,12 @@
                 >
                   <template slot="table-caption">
                     Records in the selected dataset:
+                    <span id="csv-button">
+                      <BButton @click="getCsv(dataset)">
+                        <FontAwesomeIcon :icon="['fas', 'download']" size="1x"/>
+                        <span> CSV</span>
+                      </BButton>
+                    </span>
                   </template>
                   <template slot="__rowNum__" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
@@ -353,6 +359,92 @@ export default {
     toggleJumpButton (disable = true) {
       this.showJumpButton = !disable;
     },
+    objectToCsv (data) {
+      const csvRows = [];
+      const headers = [];
+      for (let i = 0; i < data[1].length; i++) {
+        headers.push((data[0][i][0]));
+      }
+      console.log(headers);
+      csvRows.push(headers.join(','));
+      for (let row = 0; row < data.length - 1; row++) {
+        let newRow = [row + 1];
+        for (let i = 1; i < data[1].length; i++) {
+          newRow.push((data[row][i][1]));
+        }
+        csvRows.push(newRow);
+      }
+      return csvRows.join('\n');
+    },
+    download (data, name) {
+      const blob = new Blob([data], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('hidden', '');
+      a.setAttribute('href', url);
+      a.setAttribute('download', `${name}.csv`);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    getCsv (dataset) {
+      const data = [];
+      const LakeName = 'Dataset';
+      const attributes = [{ label: '#' }].concat(
+        dataset.attributes.map((attribute) => {
+          return {
+            label: attribute.name,
+          };
+        }),
+      );
+      for (let i = 0; i < dataset.records.length; i++) {
+        let newRow = [['#', i + 1]];
+        for (let f = 0; f < attributes.length - 1; f++) {
+          newRow.push(['' + Object.values(attributes[f + 1]), dataset.records[i][`__${f}__`]]);
+        }
+        data.push(newRow);
+      };
+      console.log(data);
+      const csvData = this.objectToCsv(data);
+      this.download(csvData, LakeName);
+      console.log(csvData);
+
+    },
   },
 };
 </script>
+
+<style>
+  #csv-button button {
+    float: right;
+    padding: 0;
+    width: 80px;
+    height: 35px;
+    border: 2px solid #00589c;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #00589c;
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 1px #999;
+    -webkit-transition: background-color 0.2s, color 0.2s, width 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, width 0.2s, border-color 0.2s;
+  }
+
+  #csv-button button:hover {
+    background: #00589c;
+    color: #fff;
+  }
+
+  #csv-button button:focus {
+    outline: none;
+  }
+
+  #csv-button button:active {
+    background-color: #00589c;
+    color: #fff;
+    box-shadow: 0 0.5px #666;
+    transform: translateY(2px);
+  }
+</style>
