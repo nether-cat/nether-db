@@ -105,9 +105,10 @@ export class FFCountryFilter extends FFProcessor {
     super(parent, props);
     this.ui.actions.push(
       FFListItem.factory({ label: 'Browse countries...', icon: 'globe-africa', enter: () => this.activate() }),
-      FFListItem.factory({ label: 'Browse proxies...', icon: 'microscope', enter: () => this.activate() }),
-      FFListItem.factory({ label: 'Search citations...', icon: 'quote-right', enter: () => this.activate() }),
+      //FFListItem.factory({ label: 'Browse proxies...', icon: 'microscope', enter: () => this.activate() }),
+      //FFListItem.factory({ label: 'Search citations...', icon: 'quote-right', enter: () => this.activate() }),
     );
+    this.inputDelay = undefined;
     this.localMemory = [];
     this.previousSelection = -1;
     this.searchTokens = [];
@@ -155,7 +156,7 @@ export class FFCountryFilter extends FFProcessor {
       this.suggestionsBack,
       ...this.suggestions.filter(
         s => !this.ui.tags.find(t => t.opts.params && s.opts.params && t.opts.params.value === s.opts.params.value),
-      ),
+      ).filter(s => !this.searchTokens.length || this.searchTokens.some(t => s.opts.label.indexOf(t) > -1)),
     ];
     if (this.vm.state.selected >= this.vm.dropdown.length - 1) {
       this.vm.state.selected = this.vm.dropdown.length - 1;
@@ -182,7 +183,11 @@ export class FFCountryFilter extends FFProcessor {
             this.refreshCache();
           };
           this.ui.tags.push(thisTag);
-          this.refreshSuggestions();
+          if (this.vm.userInput !== '') {
+            this.vm.userInput = '';
+          } else {
+            this.refreshSuggestions();
+          }
           this.refreshCache();
         },
       }));
@@ -194,6 +199,8 @@ export class FFCountryFilter extends FFProcessor {
     if (!this.ui.active) return this;
     this.searchTokens = this.vm.userInput.trim().split(' ').filter(s => !!s);
     console.log('User input:', this.searchTokens);
+    clearTimeout(this.inputDelay);
+    this.inputDelay = setTimeout(() => this.refreshSuggestions(), 250);
     return this;
   }
   static factory (parent, props) {

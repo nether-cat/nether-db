@@ -77,6 +77,17 @@ type Query {
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
   Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String): [Dataset] @auth
+  Event: [Event] @cypher(statement: """
+    MATCH (e:Event)-[ref]-(r:Record)
+    WITH e {
+      .*,
+      ageMean: avg(ref.age),
+      ageMin: min(ref.age),
+      ageMax: max(ref.age)
+    }
+    RETURN e
+    ORDER BY e.ageMean
+  """)
   Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String): [Lake] @auth
   User(_id: String, uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
 }
@@ -170,6 +181,18 @@ type Dataset implements Entity {
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: OUT)
   publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
   records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP {offset} LIMIT {first} RETURN collect(m { .* })")
+}
+
+type Event implements Entity {
+  uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
+  name: String!
+  ageMax: Float
+  ageMean: Float
+  ageMin: Float
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset) WITH DISTINCT d SKIP {offset} LIMIT {first} RETURN d")
+  lakes(first: Int = 100, offset: Int = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP {offset} LIMIT {first} RETURN l")
 }
 
 type Group implements Entity & Authorizable {

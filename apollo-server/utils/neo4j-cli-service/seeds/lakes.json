@@ -177,6 +177,17 @@
     ]
   },
   {
+    "name": "Bled",
+    "latitude": 46.361618,
+    "longitude": 14.095287,
+    "@countries": [
+      "SI"
+    ],
+    "surfaceLevel": 475,
+    "maxDepth": 29.5,
+    "surfaceArea": 1450000
+  },
+  {
     "name": "Blue Lake",
     "latitude": 68.0870134782,
     "longitude": -150.465176157999,
@@ -299,6 +310,17 @@
     "@countries": [
       "US"
     ]
+  },
+  {
+    "name": "Czechowskie",
+    "latitude": 53.874,
+    "longitude": 18.237,
+    "@countries": [
+      "PL"
+    ],
+    "surfaceLevel": 109,
+    "maxDepth": 32,
+    "surfaceArea": 730000
   },
   {
     "name": "Dead Sea",
@@ -457,6 +479,15 @@
     "@countries": [
       "US"
     ]
+  },
+  {
+    "name": "Gölcük",
+    "latitude": 40.65466,
+    "longitude": 31.626984,
+    "@countries": [
+      "TR"
+    ],
+    "surfaceLevel": 1050
   },
   {
     "name": "Gosciaz",
@@ -747,6 +778,14 @@
     ]
   },
   {
+    "name": "Lago Buenos Aires",
+    "latitude": -46.49,
+    "longitude": -72.0129,
+    "@countries": [
+      "AR"
+    ]
+  },
+  {
     "name": "Lagoon Etoliko",
     "latitude": 38.473228,
     "longitude": 21.324779,
@@ -781,6 +820,18 @@
     "@countries": [
       "FI"
     ]
+  },
+  {
+    "name": "Längsee",
+    "latitude": 46.789444,
+    "longitude": 14.424167,
+    "@countries": [
+      "AT"
+    ],
+    "surfaceLevel": 548,
+    "maxDepth": 21.4,
+    "surfaceArea": 750000,
+    "catchmentArea": 6200000
   },
   {
     "name": "Laukunlampi",
@@ -964,6 +1015,17 @@
     ]
   },
   {
+    "name": "Mötterudstjärnet",
+    "latitude": 59.6341492,
+    "longitude": 12.6669224,
+    "@countries": [
+      "SE"
+    ],
+    "surfaceLevel": 89,
+    "maxDepth": 9.4,
+    "surfaceArea": 130000
+  },
+  {
     "name": "Mötterutstjärnet",
     "latitude": 59.639434,
     "longitude": 12.667512,
@@ -1016,6 +1078,17 @@
     "@countries": [
       "NO"
     ]
+  },
+  {
+    "name": "Ni-no-Megata",
+    "latitude": 39.9524,
+    "longitude": 139.728435,
+    "@countries": [
+      "JP"
+    ],
+    "surfaceLevel": 40,
+    "maxDepth": 11.8,
+    "surfaceArea": 74.25
   },
   {
     "name": "Nicolay Lake",
@@ -1468,8 +1541,8 @@
   },
   {
     "name": "Tougou-ike",
-    "latitude": 35.4775384611999,
-    "longitude": 133.892473075,
+    "latitude": 35.4775,
+    "longitude": 133.8925,
     "@countries": [
       "JP"
     ]
@@ -1529,6 +1602,18 @@
     "@countries": [
       "FI"
     ]
+  },
+  {
+    "name": "Victoria",
+    "latitude": -1.231667,
+    "longitude": 33.198333,
+    "@countries": [
+      "UG",
+      "TZ",
+      "KE"
+    ],
+    "surfaceLevel": 1135,
+    "maxDepth": 79
   },
   {
     "name": "Vuolep Njakajaure",

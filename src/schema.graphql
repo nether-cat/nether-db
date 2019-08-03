@@ -103,6 +103,18 @@ type Dataset implements Entity {
   uuid: ID!
 }
 
+type Event implements Entity {
+  ageMax: Float
+  ageMean: Float
+  ageMin: Float
+  created: _Neo4jDateTime!
+  datasets: [Dataset]
+  lakes: [Lake]
+  name: String!
+  updated: _Neo4jDateTime!
+  uuid: ID!
+}
+
 type Group implements Authorizable & Entity {
   created: _Neo4jDateTime!
   members: [Membership]
@@ -173,6 +185,7 @@ type Query {
   Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Dataset(_id: String, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Event: [Event]
   Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]

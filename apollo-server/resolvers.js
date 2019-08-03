@@ -36,6 +36,9 @@ module.exports = {
     Dataset(object, params, ctx, resolveInfo) {
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },
+    Event(object, params, ctx, resolveInfo) {
+      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+    },
     Lake(object, params, ctx, resolveInfo) {
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },

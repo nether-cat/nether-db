@@ -1,0 +1,12 @@
+query getEvents {
+  events: Event {
+    uuid
+    name
+    ageMin
+    ageMax
+    ageMean
+    lakes {
+      uuid
+    }
+  }
+}
