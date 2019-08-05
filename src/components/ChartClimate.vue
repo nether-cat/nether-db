@@ -1,40 +1,29 @@
 <template>
-  <div ref="chart" class="climate chart"/>
+  <div ref="chart" class="c3 climate chart" :class="{ 'has-events': events.length }"/>
 </template>
 
 <script>
-  /**
-   * ACHTUNG:
-   * Dirty Code!
-   * Nur für die Präsentation!
-   *
-   * Die CSV-Daten sollten besser als JSON über die API (REST o.ä.) ausgeliefert werden.
-   * Auch das Filtern der Seen sollte via API laufen und nicht im Client (Siehe Zeile 84).
-   */
+/*
+ * --------------------------------------------------------------------------------
+ * TODO: This is a rough implementation and it should be replaced with a better one
+ * --------------------------------------------------------------------------------
+ */
 import * as d3 from 'd3';
 import * as c3 from 'c3';
 
-import climateCsvUrl from '@/assets/klimadaten.csv';
-import eruptionCsvUrl from '@/assets/vulkanausbrueche.csv';
-import lakesCsvUrl from '@/assets/seen-mit-vulkanaschelagen.csv';
+import ngripDataUrl from '@/assets/ngrip-d13o.csv';
+
+const dataLabels = {
+  data1: '𝛿18O (NGRIP)',
+  data2: 'Tephra events (global)',
+};
 
 export default {
   name: 'ChartClimate',
-  /**
-   * Properties
-   */
   props: {
-    climateCsvUrl: {
-      type: String,
-      default: climateCsvUrl,
-    },
-    eruptionCsvUrl: {
-      type: String,
-      default: eruptionCsvUrl,
-    },
-    lakesCsvUrl: {
-      type: String,
-      default: lakesCsvUrl,
+    events: {
+      type: Array,
+      default: () => [],
     },
   },
   data () {
@@ -42,53 +31,55 @@ export default {
       chart: {},
     };
   },
-  /**
-   * Mounted Hook
-   */
+  watch: {
+    events () {
+      console.log('Events updated with count', this.events.length, 'in', this.chart);
+      this.chart.load({
+        columns: [
+          ['x2', ...this.events.map(e => e.ageMean / 1000)],
+          [dataLabels.data2, ...this.events.map(e => -52)],
+        ],
+        done: () => this.chart.show(dataLabels.data2),
+      });
+    },
+  },
   mounted () {
     Promise.all([
-      d3.csv(String(this.climateCsvUrl)),
-      d3.csv(String(this.eruptionCsvUrl)),
-      d3.csv(String(this.lakesCsvUrl)),
-    ]).then(([climateData, eruptions, lakes]) => {
-      // Daten-Bezeichnungen
-      const dataLabel = {
-        data1: '𝛿18O (NGRIP)',
-        data2: 'Tephra events (global)',
-      };
-      const dataRows = climateData
-        // Daten ausdünnen (SVG hat Kackperformance mit vielen Elementen => wechselt am besten zu Chart.js bzw. ner canvas-basierten Library)
+      d3.csv(String(ngripDataUrl)),
+    ]).then(([chronology]) => {
+      const dataRows = chronology
+        // Reduce amount of data points for better SVG performance
         .filter((val, i) => i % 4 === 0)
-        // in C3.js-Form umwandeln
+        // Transform data into rows for C3.js
         .map((val, i) => {
-          if (eruptions[i]) {
-            return [val['age'], val['d18o'], eruptions[i].Date / 1000, -52];
+          if (this.events[i]) {
+            return [val['age'], val['d18o'], this.events[i].ageMean / 1000, -52];
           } else {
             return [val['age'], val['d18o']];
           }
         });
-      // Chart generieren
+      // Generate chart
       this.chart = c3.generate({
         bindto: this.$refs.chart,
         data: {
           xs: {
-            [dataLabel.data1]: 'x1', // Klima-Daten
-            [dataLabel.data2]: 'x2', // Vulkanausbrueche
+            [dataLabels.data1]: 'x1', // NGRIP
+            [dataLabels.data2]: 'x2', // Events
           },
           axes: {
             age: 'x',
             d18o: 'y',
           },
+          hide: this.events.length ? [] : [dataLabels.data2],
           types: {
-            [dataLabel.data2]: 'scatter', // Bubbles für 'data2' (Vulkanausbrueche)
+            // Render circles for x2 (events)
+            [dataLabels.data2]: 'scatter',
           },
-          rows: [['x1', dataLabel.data1, 'x2', dataLabel.data2], ...dataRows], // Spalten-Bezeichnung + x-Achsen vorne anhängen
-          // Filtert die Seen nach dem "Klima-Event" und wirft dann das "filterLakes"-Event (siehe: DatabaseViewIndex.vue)
+          // Prepend column labels and x-axes
+          rows: [['x1', dataLabels.data1, 'x2', dataLabels.data2], ...dataRows],
           onclick: (data) => {
-            if (data.id === dataLabel.data2 && eruptions[data.index]) {
-              const event = eruptions[data.index].Event;
-              const filteredLakes = lakes.filter(lake => lake.Event === event);
-              this.$emit('filterLakes', filteredLakes, event);
+            if (data.id === dataLabels.data2 && this.events[data.index]) {
+              this.$emit('selectEvent', this.events[data.index]);
             }
           },
         },
@@ -117,30 +108,35 @@ export default {
         size: {
           height: 400,
         },
-        // Tooltips ausgeben (ultra schlecht hingehackt - bitte nicht nachmachen! Besser durch Vue.js rendern)
+        // Callback to emit tooltips
         tooltip: {
           // eslint-disable-next-line no-unused-vars
           contents: (d, defaultTitleFormat, defaultValueFormat, color) => {
             const data = d[0];
-            let climate, eruption, content = '';
+            let step, event, ageString, content = '';
             switch (data.id) {
-            // Klimadaten
-            case dataLabel.data1:
-              climate = climateData[data.index * 4];
+            // NGRIP
+            case dataLabels.data1:
+              step = chronology[data.index * 4];
+              ageString = step.age < 10
+                ? Math.round(step.age * 1000) + ' a BP'
+                : Number.parseFloat(step.age).toFixed(2) + ' ka BP';
               content = `
-                    <p class="card-text">Date:&nbsp;${climate.age}&nbsp;ka&nbsp;BP</p>
-                    <p class="card-text">Value:&nbsp;${climate.d18o}&nbsp;𝛿<sup>18</sup>O</p>
+                    <h6 class="card-title">NGRIP Data</h6>
+                    <p class="card-text">When:&nbsp;${ageString}</p>
+                    <p class="card-text">Value:&nbsp;${step.d18o}&nbsp;𝛿<sup>18</sup>O</p>
                   `;
               break;
-            // Vulkanausbrüche
-            case dataLabel.data2:
-              eruption = eruptions[data.index];
+            // Events
+            case dataLabels.data2:
+              event = this.events[data.index];
+              ageString = event.ageMean < 10000
+                ? Math.round(event.ageMean) + ' a BP'
+                : (event.ageMean / 1000).toFixed(2) + ' ka BP';
               content = `
-                    <h6 class="card-title">${eruption.Event}</h6>
-                    <p class="card-text">Region: ${eruption.region}</p>
-                    <p class="card-text">Date: ${eruption.Date} a BP</p>
-                    <p class="card-text">Uncertainty: ${eruption.Uncertainty}</p>
-                    <p class="card-text">Reference: ${eruption.Reference}</p>
+                    <h6 class="card-title">Event Layer</h6>
+                    <p class="card-text">When: ${ageString}</p>
+                    <p class="card-text">Name: ${event.name}</p>
                   `;
               break;
             default:
@@ -155,7 +151,7 @@ export default {
               `;
           },
         },
-        // Line-Punkte ausblenden (sieht kacke aus)
+        // Hide line dots (they don't look good)
         point: {
           r: 16,
           show: false,
@@ -163,15 +159,15 @@ export default {
         regions: [
           { axis: 'y', end: -48, class: 'events' },
         ],
-        // Subchart aktivieren
+        // Enable the sub-chart
         subchart: {
           show: true,
-          onbrush: domain => { this.$emit('domain', domain); console.log('onBrush:', domain); },
+          onbrush: domain => { this.$emit('selectDomain', domain); console.log('onBrush:', domain); },
         },
-        // Zoom aktivieren
+        // Enable zoom feature
         zoom: {
           enabled: true,
-          onzoom: domain => { this.$emit('domain', domain); console.log('onZoom:', domain); },
+          onzoom: domain => { this.$emit('selectDomain', domain); console.log('onZoom:', domain); },
         },
         oninit: () => {
           this.$nextTick(() => {
@@ -203,6 +199,12 @@ export default {
       stroke-opacity: 0.125;
       stroke-width: 1px;
     }
+    .c3-axis-y > .tick:first-of-type {
+      display: none;
+    }
+    &.has-events .c3-axis-y > .tick:first-of-type {
+      display: inline;
+    }
     .c3-axis-y > .tick:first-of-type > text {
       transform: rotate(-90deg) translate(24px, -14px);
     }
@@ -211,7 +213,12 @@ export default {
       font-weight: bolder;
     }
     .c3-region.events {
+      fill: gray;
+    }
+    &.has-events .c3-region.events {
       fill: none;
+    }
+    .c3-region.events {
       stroke: black;
       stroke-width: 1;
       stroke-dasharray: 8, 2;

@@ -14,9 +14,10 @@
     "@core.label": "AS10dist",
     "@core.latitude": 48,
     "@core.longitude": 11.12,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.343Z"
+    "_lakeExists": true
   },
   {
     "file": "Ammersee-14C-CZYMZIK_et_al_2013-AS10prox",
@@ -33,9 +34,10 @@
     "@core.label": "AS10prox",
     "@core.latitude": 48,
     "@core.longitude": 11.12,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.444Z"
+    "_lakeExists": true
   },
   {
     "file": "Aspvatnet-14C_Bakke_et_al_2005_core1",
@@ -55,9 +57,39 @@
     "@core.waterDepth": 8,
     "@core.coringMethod": "modified piston corer",
     "@core.drillDate": 2000,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Ayr_Lake-Chronology-THOMAS_et_al_2012",
+    "label": "Ayr Lake, Baffin Island 570Yr Varve Data",
+    "analysisMethod": "Transparency scanner at 1,600 dpi; Thickness measurement using ImageJ software",
+    "ageMin": -54,
+    "ageMax": 517,
+    "depthMin": 2.7873,
+    "depthMax": 1210.5515,
+    "ageSpan": 572,
+    "comments": "counting error: 2,5 %",
+    "url": "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/paleolimnology/northamerica/canada/baffin/ayr2012.xls",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-012-9584-7",
+    "@lake.name": "Ayr Lake",
+    "@core.label": "09AYR2; 09AYR5; 09AYR6",
+    "@core.latitude": 70.459,
+    "@core.longitude": -70.086,
+    "@core.coringMethod": "Universal Coring system",
+    "@core.drillDate": "05/2009",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.562Z"
+    "hasErrorEstimate": true,
+    "depthType": "cum_sum",
+    "errorMean": 2.5,
+    "errorRaw": false
   },
   {
     "file": "Ayr_Lake-Varves-THOMAS_et_al_2012",
@@ -77,9 +109,10 @@
     "@core.longitude": -70.086,
     "@core.coringMethod": "Universal Coring system",
     "@core.drillDate": 2009,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.685Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_58_78",
@@ -98,9 +131,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.755Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_63_78",
@@ -119,9 +153,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.804Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_68_78",
@@ -140,9 +175,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.853Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_69_78",
@@ -161,9 +197,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.911Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_71_78",
@@ -182,9 +219,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:51.958Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_1c",
@@ -203,9 +241,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1983,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.010Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_23A",
@@ -224,9 +263,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1983,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.054Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_7A",
@@ -245,9 +285,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1983,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.101Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_83_9",
@@ -266,9 +307,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1983,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.156Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B55_78",
@@ -287,9 +329,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.205Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B56_78",
@@ -308,9 +351,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.251Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B6",
@@ -329,9 +373,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.296Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B75_78",
@@ -350,9 +395,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.349Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B779",
@@ -371,9 +417,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1979,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.400Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_B8",
@@ -392,9 +439,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1977,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.480Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core379",
@@ -413,9 +461,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1979,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.548Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core479",
@@ -434,9 +483,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1979,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.611Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_Core579",
@@ -455,9 +505,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1979,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.663Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E1_77",
@@ -476,9 +527,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1977,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.711Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E2_77",
@@ -497,9 +549,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1977,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.756Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E77_78",
@@ -518,9 +571,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.802Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E78_78",
@@ -539,9 +593,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.878Z"
+    "_lakeExists": true
   },
   {
     "file": "Barrine-14C-HEAD_et_al_1994_E80_78",
@@ -560,9 +615,10 @@
     "@core.longitude": 145.633333,
     "@core.coringMethod": "Mackereth sampler",
     "@core.drillDate": 1978,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.944Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL00-1",
@@ -584,9 +640,10 @@
     "@core.coringMethod": "GLAD800 drill core",
     "@core.drillDate": 2000,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:52.991Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-1",
@@ -605,9 +662,10 @@
     "@core.latitude": 42.1016,
     "@core.longitude": -111.2912,
     "@core.waterDepth": 9.5,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.057Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-2",
@@ -627,9 +685,10 @@
     "@core.longitude": -111.2975,
     "@core.waterDepth": 18,
     "@core.coringMethod": "UWITEC percussion core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.113Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-3",
@@ -650,9 +709,10 @@
     "@core.waterDepth": 42.9,
     "@core.coringMethod": "Gravity core, UWITEC percussion core",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.160Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-4",
@@ -673,9 +733,10 @@
     "@core.waterDepth": 34.5,
     "@core.coringMethod": "Gravity core, UWITEC percussion core",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.224Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL02-5",
@@ -695,9 +756,10 @@
     "@core.longitude": -111.3046,
     "@core.waterDepth": 26.8,
     "@core.coringMethod": "UWITEC percussion core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.270Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL2K-3-1",
@@ -715,9 +777,10 @@
     "@lake.latitude": 41.995015,
     "@lake.longitude": -111.338239,
     "@core.label": "BL2K-3-1",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.315Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-1",
@@ -737,9 +800,10 @@
     "@core.longitude": -111.316,
     "@core.waterDepth": 50,
     "@core.coringMethod": "Kullenburg core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.361Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-2",
@@ -759,9 +823,10 @@
     "@core.longitude": -111.3333,
     "@core.waterDepth": 43,
     "@core.coringMethod": "Kullenburg core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.408Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL96-3",
@@ -781,9 +846,10 @@
     "@core.longitude": -111.3613,
     "@core.waterDepth": 33,
     "@core.coringMethod": "Kullenburg core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.455Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BL98-9",
@@ -803,9 +869,10 @@
     "@core.longitude": -111.3384,
     "@core.waterDepth": 44.4,
     "@core.coringMethod": "Gravity core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.500Z"
+    "_lakeExists": true
   },
   {
     "file": "Bear_lake-Utah-Colman_et_al-2009-C14-BLR2K-3",
@@ -825,9 +892,31 @@
     "@core.longitude": -111.3038,
     "@core.waterDepth": 0.6,
     "@core.coringMethod": "UWITEC percussion core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.547Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Bear_Lake-Tephra-Colman_et_al_2006-BL00_1",
+    "ageMin": 75000,
+    "ageMax": 261000,
+    "samples": 8,
+    "ageSpan": 186001,
+    "ageResolution": 0.34,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1177/0959683612449756",
+    "@lake.name": "Bear Lake",
+    "@core.label": "BL00-1",
+    "@core.latitude": 41.966389,
+    "@core.longitude": -111.383056,
+    "@core.waterDepth": 51.12,
+    "@core.coringMethod": "GLAD800 (Global Lake Drilling to 800 m) drilling system",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Belau-Dörfler_et_al_2012-14C-P2002",
@@ -848,9 +937,59 @@
     "@core.waterDepth": 28.3,
     "@core.coringMethod": "Usinger piston corer",
     "@core.drillDate": 2002,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Belau_Lake-Tephra-Dörfler_et_al_2012-P2002",
+    "ageMin": 3095,
+    "ageMax": 6848,
+    "samples": 3,
+    "ageSpan": 3754,
+    "ageResolution": 2.4,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1177/0959683612449756",
+    "@lake.name": "Belau",
+    "@core.label": "P2002",
+    "@core.waterDepth": 28.3,
+    "@core.coringMethod": "Usinger Piston Corer",
+    "@core.drillDate": 2002,
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Big_Round_Lake-Chronology-THOMAS_BRINER-2008-06BRDP1",
+    "label": "Big Round Lake, Baffin Island Varve Thickness Data",
+    "ageMin": -53,
+    "ageMax": 979,
+    "depthMin": 1.35,
+    "depthMax": 603.2095,
+    "ageSpan": 1033,
+    "comments": "Coordinates added by editor, counting error: 2%",
+    "url": "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/paleolimnology/northamerica/canada/baffin/big-round2008.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-008-9258-7",
+    "@lake.name": "Big Round Lake",
+    "@core.label": "06BRDP1",
+    "@core.latitude": 69.866667,
+    "@core.longitude": -68.833333,
+    "@core.waterDepth": 36.3,
+    "@core.coringMethod": "sled-mounted percussion coring system",
+    "@core.drillDate": "05/2006",
+    "@core.composite": "FALSE",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.599Z"
+    "depthType": "cum_sum",
+    "errorMean": 2,
+    "hasErrorEstimate": true,
+    "errorRaw": false
   },
   {
     "file": "Big_Round_Lake-Varves-THOMAS_BRINER-2008-06BRDP1",
@@ -871,9 +1010,27 @@
     "@core.waterDepth": 36.3,
     "@core.coringMethod": "sled-mounted percussion coring system",
     "@core.drillDate": 2006,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.703Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Bled-Tephra-Lane_et_al_2011-Bld_T",
+    "ageMin": 12121,
+    "ageMax": 14110,
+    "samples": 3,
+    "ageSpan": 1990,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2011.02.014",
+    "@lake.name": "Bled",
+    "@core.label": "Bld_T",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_B06",
@@ -889,9 +1046,10 @@
     "@core.latitude": 68.0869,
     "@core.longitude": -150.465,
     "@core.coringMethod": "Percussion",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.768Z"
+    "_lakeExists": true
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_C06",
@@ -907,9 +1065,10 @@
     "@core.latitude": 68.0869,
     "@core.longitude": -150.465,
     "@core.coringMethod": "Percussion",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.807Z"
+    "_lakeExists": true
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009_I06",
@@ -925,9 +1084,10 @@
     "@core.latitude": 68.0869,
     "@core.longitude": -150.465,
     "@core.coringMethod": "Percussion",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.851Z"
+    "_lakeExists": true
   },
   {
     "file": "Blue_Lake-14C-Bird_et_al_2009-Composite",
@@ -941,9 +1101,39 @@
     "@core.label": "B06; C06; I06",
     "@core.coringMethod": "Percussion",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Blue_Lake-Chronology-BIRD_et_al_2009-A99",
+    "label": "Blue Lake Varve Chronology produced by Broxton W. Bird",
+    "ageMin": -55,
+    "ageMax": 1941,
+    "depthMin": 1.72,
+    "depthMax": 2342.65,
+    "ageSpan": 1997,
+    "comments": "counting error: +-2%",
+    "url": "https://link.springer.com/article/10.1007/s10933-008-9262-y",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-008-9262-y",
+    "@lake.name": "Blue Lake",
+    "@core.label": "A-99",
+    "@core.latitude": 68.0869,
+    "@core.longitude": -150.465,
+    "@core.waterDepth": 4,
+    "@core.coringMethod": "Livingstone square rod corer",
+    "@core.drillDate": 1999,
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:53.898Z"
+    "errorMean": 2,
+    "hasErrorEstimate": true,
+    "depthType": "cum_sum",
+    "errorRaw": false
   },
   {
     "file": "Blue_Lake-Varves-BIRD_et_al_2009-A99",
@@ -965,9 +1155,10 @@
     "@core.coringMethod": "Livingstone / Percussion",
     "@core.drillDate": 1999,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.023Z"
+    "_lakeExists": true
   },
   {
     "file": "Bow_Lake-14C-LEONARD_&_REASONER_1999_B84-III",
@@ -985,9 +1176,10 @@
     "@core.latitude": 51.664444,
     "@core.longitude": -116.448611,
     "@core.waterDepth": 7,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.072Z"
+    "_lakeExists": true
   },
   {
     "file": "Bramant-14C-GUYARD_et_al_2007_BRA-03",
@@ -1007,9 +1199,10 @@
     "@core.longitude": 6.17622,
     "@core.waterDepth": 38.5,
     "@core.coringMethod": "modified piston corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.130Z"
+    "_lakeExists": true
   },
   {
     "file": "Butrint-14C-MORELLÓN_et_al_2016_BUT-12-1-2",
@@ -1029,9 +1222,10 @@
     "@core.longitude": 20.033333,
     "@core.coringMethod": "Uwitec percussion corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.200Z"
+    "_lakeExists": true
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-81",
@@ -1048,9 +1242,10 @@
     "@core.label": "C2-81",
     "@core.latitude": 82.826389,
     "@core.longitude": -78,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.245Z"
+    "_lakeExists": true
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-82",
@@ -1067,9 +1262,10 @@
     "@core.label": "C2-82",
     "@core.latitude": 82.826389,
     "@core.longitude": -78,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.288Z"
+    "_lakeExists": true
   },
   {
     "file": "C2-14C-LAMOUREUX_&_BRADLEY_1996_C2-84",
@@ -1086,9 +1282,10 @@
     "@core.label": "C2-84",
     "@core.latitude": 82.826389,
     "@core.longitude": -78,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.332Z"
+    "_lakeExists": true
   },
   {
     "file": "C2-Varves-LAMOUREUX_&_BRADLEY_1996",
@@ -1107,9 +1304,10 @@
     "@core.latitude": 82.826389,
     "@core.longitude": -78,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.558Z"
+    "_lakeExists": true
   },
   {
     "file": "Chala-Blauuw_et_al-2011-C14",
@@ -1127,9 +1325,10 @@
     "@core.label": "CH99-1G/03-2K, CH05-1G/05-4P",
     "@core.coringMethod": "mini-Kullenberg core, gravity core",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.658Z"
+    "_lakeExists": true
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-glacial",
@@ -1148,9 +1347,10 @@
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:54.836Z"
+    "_lakeExists": true
   },
   {
     "file": "Chala-Varves-WOLFF_et_al_2012-holocene",
@@ -1169,9 +1369,10 @@
     "@lake.name": "Chala",
     "@core.latitude": -3.316667,
     "@core.longitude": 37.7,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.126Z"
+    "_lakeExists": true
   },
   {
     "file": "Crevice-Whitlock_et_al-2012-14C",
@@ -1193,9 +1394,48 @@
     "@core.coringMethod": "modified square-rod Livingstone piston corer, larger diameter (8-cm) UWITECH® percussion piston corer, freeze-box corer",
     "@core.drillDate": 2001,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.214Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Czechowskie-Tephra-Wulf_et_al_2016-JC",
+    "ageMin": 75,
+    "ageMax": 11380,
+    "samples": 5,
+    "ageSpan": 11306,
+    "ageResolution": 2.21,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2015.11.007",
+    "@lake.name": "Czechowskie",
+    "@core.label": "JC",
+    "@core.latitude": 53.87,
+    "@core.longitude": 18.235,
+    "@core.coringMethod": "UWITEC piston corer / Ghilardi Gravity Corer (KGH 94)",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Trzechowskie-Tephra-Wulf_et_al_2013-TRZ_2a",
+    "ageMin": 12677,
+    "ageMax": 12677,
+    "samples": 2,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2013.07.010",
+    "@lake.name": "Czechowskie",
+    "@core.label": "TRZ-2a",
+    "@core.coringMethod": "Livingstone piston corer, modified by Wieckowski (1959)",
+    "@core.drillDate": 2011,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Dead_Sea_14C_Migowski_et_al_2004_Ein_Gedi",
@@ -1213,9 +1453,10 @@
     "@core.latitude": 31.496531,
     "@core.longitude": 35.474682,
     "@core.waterDepth": 413,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.260Z"
+    "_lakeExists": true
   },
   {
     "file": "Deep_Lake-14C-Hu_et_al_1997",
@@ -1233,9 +1474,10 @@
     "@core.longitude": -95.4,
     "@core.coringMethod": "square rod piston corer",
     "@core.drillDate": 1995,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.304Z"
+    "_lakeExists": true
   },
   {
     "file": "Deep_lake-Varves-HU_1999",
@@ -1252,9 +1494,10 @@
     "@lake.name": "Deep Lake",
     "@core.latitude": 47.68389,
     "@core.longitude": -95.39944,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.376Z"
+    "_lakeExists": true
   },
   {
     "file": "Donard-14C_Moore_et_al_2001_95DON-03",
@@ -1272,9 +1515,10 @@
     "@core.latitude": 66.663734,
     "@core.longitude": -61.787951,
     "@core.coringMethod": "Piston corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.419Z"
+    "_lakeExists": true
   },
   {
     "file": "Donard-14C-Moore_et_al_2001_94DON-01",
@@ -1292,9 +1536,10 @@
     "@core.latitude": 66.663734,
     "@core.longitude": -61.787951,
     "@core.coringMethod": "Piston corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.462Z"
+    "_lakeExists": true
   },
   {
     "file": "Donard-14C-Moore_et_al_2001-Composite",
@@ -1310,9 +1555,10 @@
     "@core.label": "94DON-01; 95DON-03",
     "@core.coringMethod": "Piston corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.514Z"
+    "_lakeExists": true
   },
   {
     "file": "Donard-Varves-MOORE_et_al-2001-95DON-B03_05",
@@ -1330,9 +1576,10 @@
     "@core.latitude": 66.666667,
     "@core.longitude": -61.35,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.710Z"
+    "_lakeExists": true
   },
   {
     "file": "DV09-14C-MUSTAPHI_&_GAJEWSKI_2013_Core_T",
@@ -1351,9 +1598,37 @@
     "@core.longitude": -89.311276,
     "@core.coringMethod": "Livingstone piston corer",
     "@core.drillDate": 1996,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_DV09-Chronology-MUSTAPHI_GAJEWSKI_2013",
+    "label": "Lake DV09, Devon Island 7,500 Year Physical Properties Data",
+    "ageMin": -46,
+    "ageMax": 1580,
+    "depthMin": 4.135,
+    "depthMax": 1364.619,
+    "ageSpan": 1627,
+    "comments": "Error estimates given as raw data /see DV09-Varves",
+    "url": "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/paleolimnology/northamerica/canada/devon/dv09-2013.xls",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1139/cjes-2012-0143",
+    "@lake.name": "DV09",
+    "@core.label": "CoreB",
+    "@core.latitude": 75.5761,
+    "@core.longitude": -89.3153,
+    "@core.coringMethod": "Livingstone square-rod piston corer with the aid of a hand crank driver",
+    "@core.drillDate": "06/1996",
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.762Z"
+    "errorRaw": true,
+    "hasErrorEstimate": true,
+    "depthType": "raw"
   },
   {
     "file": "DV09-Varves-MUSTAPHI_&_GAJEWSKI_2013",
@@ -1371,9 +1646,38 @@
     "@core.label": "Core B",
     "@core.latitude": 75.5761,
     "@core.longitude": -89.3153,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_East_Lake-Chronology-CUVEN_et_al_2011-CB06EV1",
+    "label": "East Lake, Melville Island, Canada 4200 Year Varve Thickness Data",
+    "ageMin": -55,
+    "ageMax": 4142,
+    "depthMin": 0.529,
+    "depthMax": 4234.199,
+    "ageSpan": 4198,
+    "comments": "Error given as 4027 +-232 -> calculated error estimate: 5.76",
+    "url": "https://www1.ncdc.noaa.gov/pub/data/paleo/paleolimnology/northamerica/canada/nu/east2011varve.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quascirev.2011.05.019",
+    "@lake.name": "East Lake",
+    "@core.label": "CB06EV1",
+    "@core.latitude": 74.883333,
+    "@core.longitude": -109.533333,
+    "@core.coringMethod": "gravity core",
+    "@core.drillDate": 2006,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:55.824Z"
+    "errorRaw": false,
+    "errorMean": 5.76,
+    "hasErrorEstimate": false,
+    "depthType": "raw"
   },
   {
     "file": "East_Lake-Varves-CUVEN_et_al_2011-CB06EV1",
@@ -1395,9 +1699,29 @@
     "@core.longitude": -109.533333,
     "@core.coringMethod": "gravity core",
     "@core.drillDate": 2006,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:56.111Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Eklutna-Tephra-Fortin_et_al_2018_EK14",
+    "ageMin": 455,
+    "ageMax": 1750,
+    "samples": 4,
+    "ageSpan": 1296,
+    "ageResolution": 12.35,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2018.10.018",
+    "@lake.name": "Eklutna",
+    "@core.label": "Site 2",
+    "@core.waterDepth": 48,
+    "@core.coringMethod": "UWITEC piston coring system",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Elk_Lake-14C-Smith_et_al-1997",
@@ -1413,9 +1737,10 @@
     "@lake.name": "Elk Lake",
     "@core.waterDepth": 9.1,
     "@core.drillDate": 1994,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:56.235Z"
+    "_lakeExists": true
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-Composite",
@@ -1432,9 +1757,10 @@
     "@lake.name": "Elk Lake",
     "@core.label": "EL84B; EL83B-1",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:56.480Z"
+    "_lakeExists": true
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL83B-1",
@@ -1452,9 +1778,10 @@
     "@core.label": "EL83B-1",
     "@core.latitude": 45.867222,
     "@core.longitude": -95.804722,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:56.637Z"
+    "_lakeExists": true
   },
   {
     "file": "Elk_Lake-Varves-ANDERSON_1994-EL84B",
@@ -1472,9 +1799,10 @@
     "@core.label": "EL84B",
     "@core.latitude": 45.867222,
     "@core.longitude": -95.804722,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:56.792Z"
+    "_lakeExists": true
   },
   {
     "file": "Elk_Lake-Varves-BRADBURY_&_DEAN_1993",
@@ -1489,9 +1817,27 @@
     "@lake.name": "Elk Lake",
     "@core.latitude": 45.867222,
     "@core.longitude": -95.804722,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.061Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Foy Lake-Tephra-Shuman_et_al_2009_C",
+    "ageMin": 7600,
+    "ageMax": 13100,
+    "samples": 2,
+    "ageSpan": 5501,
+    "ageResolution": 0.73,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2009.03.003",
+    "@lake.name": "Foy Lake",
+    "@core.label": "C",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Frias-14C-Aritzegui_et_al_2007_F94-2",
@@ -1509,9 +1855,58 @@
     "@core.latitude": -41.062968,
     "@core.longitude": -71.799521,
     "@core.coringMethod": "gravity corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.107Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Furskogstjärnet-Tephra-Zillén_et_al_2002-LuA",
+    "ageMin": 3295,
+    "ageMax": 12121,
+    "samples": 6,
+    "ageSpan": 8827,
+    "ageResolution": 4.08,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(02)00036-7",
+    "@lake.name": "Furskogstjärnet",
+    "@core.coringMethod": "‘‘frozen-finger’’ cores",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Gölcük-Tephra-Sullivan-1988",
+    "ageMin": 3110,
+    "ageMax": 3110,
+    "samples": 1,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1038/333552a0",
+    "@lake.name": "Gölcük",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Gropviken-Tephra-Macleod_et_al-2014",
+    "ageMin": 12121,
+    "ageMax": 12121,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1002/jqs.2738",
+    "@lake.name": "Gropviken",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Gyltigesjön-Mellström_et_al-2013-14C-Composite",
@@ -1530,9 +1925,10 @@
     "@core.coringMethod": "modified rodoperated fixed-piston corer, cylindrical PVC tubes",
     "@core.drillDate": 2010,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.210Z"
+    "_lakeExists": true
   },
   {
     "file": "Gyltigesjön-Mellström_et_al-2013-14C-GP1",
@@ -1551,9 +1947,10 @@
     "@core.label": "GP1",
     "@core.coringMethod": "modified rodoperated fixed-piston corer, cylindrical PVC tubes",
     "@core.drillDate": 2010,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.307Z"
+    "_lakeExists": true
   },
   {
     "file": "Gyltigesjön-Mellström_et_al-2013-14C-GP2",
@@ -1572,9 +1969,10 @@
     "@core.label": "GP2",
     "@core.coringMethod": "modified rodoperated fixed-piston corer, cylindrical PVC tubes",
     "@core.drillDate": 2010,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.402Z"
+    "_lakeExists": true
   },
   {
     "file": "Gyltigesjön-Snowball_et_al-2013-14C",
@@ -1592,9 +1990,10 @@
     "@lake.name": "Gyltigesjön",
     "@core.coringMethod": "rod-operated piston cores",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.457Z"
+    "_lakeExists": true
   },
   {
     "file": "Haemelsee-Tephra-JONES_et_al_2018-HÄM13",
@@ -1602,18 +2001,21 @@
     "ageMax": 12937,
     "samples": 7,
     "ageSpan": 2728,
-    "ageResolution": 2.565982404692082,
+    "ageResolution": 2.565982,
     "@category.name": "Tephra",
     "@publication.doi": "10.1111/bor.12250",
     "@lake.name": "Hämelsee",
+    "@core.label": "HÄM13",
     "@core.latitude": 52.759444,
     "@core.longitude": 9.311111,
     "@core.waterDepth": 3.3,
-    "@core.coringMethod": "Uwitec piston-corer",
+    "@core.coringMethod": "UWITEC piston-corer",
     "@core.drillDate": 2013,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.512Z"
+    "_lakeExists": true
   },
   {
     "file": "Haemelsee-Varves-MERKT-1994",
@@ -1624,9 +2026,10 @@
     "@core.latitude": 52.759444,
     "@core.longitude": 9.311111,
     "@core.coringMethod": "Livingstone Corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.599Z"
+    "_lakeExists": true
   },
   {
     "file": "Hancza-LAUTERBACH_et_al-2011-14C",
@@ -1643,9 +2046,10 @@
     "@lake.name": "Hancza",
     "@core.label": "JH 05_01/02, JH 05_03/04, JH 05_05",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.672Z"
+    "_lakeExists": true
   },
   {
     "file": "Hector_Lake-14C-LEONARD_&_REASONER_1999_H93-II",
@@ -1662,9 +2066,29 @@
     "@core.label": "H93-II",
     "@core.latitude": 51.585556,
     "@core.longitude": -116.359722,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.742Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Hector_Lake-Tephra-Leonard_Reasoner-1999-H93_II",
+    "ageMin": 2350,
+    "ageMax": 6800,
+    "samples": 2,
+    "ageSpan": 4451,
+    "ageResolution": 0.9,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1006/qres.1998.2009",
+    "@lake.name": "Hector Lake",
+    "@core.label": "H93-II",
+    "@core.waterDepth": 26,
+    "@core.coringMethod": "Percussion core",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Holzmaar-14C-PRASAD_&_BAIER_2014_HZM-BC_(Composite)",
@@ -1681,9 +2105,27 @@
     "@core.label": "HZM-B/C",
     "@core.coringMethod": "modified Livingstone Piston-Corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.794Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Holzmaar-Tephra-Hajdas_et_al_1995-HZM-B_C",
+    "ageMin": 9650,
+    "ageMax": 11210,
+    "samples": 2,
+    "ageSpan": 1561,
+    "ageResolution": 2.56,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.gloplacha.2014.08.020",
+    "@lake.name": "Holzmaar",
+    "@core.label": "HZM-B/C",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Hoya_Rincon_de_Parangueo-14C-PARK_et_al-2010-RP-1",
@@ -1702,9 +2144,85 @@
     "@core.longitude": -101.2473,
     "@core.coringMethod": "Livingstone corer",
     "@core.drillDate": 2001,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Hvitarvatn-Chronology-LARSEN_et_al-2011-HVT03-1",
+    "label": "HVT03-1varvethickness",
+    "ageMin": -52,
+    "ageMax": 1078,
+    "depthMin": 9.48,
+    "depthMax": 6259.799,
+    "ageSpan": 1131,
+    "comments": "counting error: ~4%, see Larsen et al. 2011",
+    "url": "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/paleolimnology/europe/iceland/hvitarvatn2011-1varvethickness.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quascirev.2011.05.026",
+    "@lake.name": "Hvítárvatn",
+    "@core.label": "HVT03-2",
+    "@core.latitude": 64.641944,
+    "@core.longitude": -19.840278,
+    "@core.waterDepth": 36.5,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.838Z"
+    "hasErrorEstimate": true,
+    "errorMean": 4,
+    "errorRaw": false,
+    "depthType": "cum_sum"
+  },
+  {
+    "file": "1_Hvitarvatn-Chronology-LARSEN_et_al-2011-HVT03-2",
+    "label": "HVT03-2varvethickness",
+    "ageMin": -52,
+    "ageMax": 2931,
+    "depthMin": 5.64,
+    "depthMax": 9596.514,
+    "ageSpan": 2984,
+    "comments": "counting error: 10%",
+    "url": "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/paleolimnology/europe/iceland/hvitarvatn2011-2varvethickness.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quascirev.2011.05.026",
+    "@lake.name": "Hvítárvatn",
+    "@core.label": "HVT03-2",
+    "@core.latitude": 64.643333,
+    "@core.longitude": -19.849667,
+    "@core.waterDepth": 23.1,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "hasErrorEstimate": true,
+    "errorMean": 10,
+    "errorRaw": false,
+    "depthType": "cum_sum"
+  },
+  {
+    "file": "Hvitarvatn_Tephra_Larsen_et_al_2011_HVT-01_2_3",
+    "ageMin": 184,
+    "ageMax": 1080,
+    "samples": 8,
+    "ageSpan": 897,
+    "ageResolution": 71.35,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2011.05.026",
+    "@lake.name": "Hvítárvatn",
+    "@core.label": "HVT03",
+    "@core.latitude": 64.642,
+    "@core.longitude": -19.840333,
+    "@core.waterDepth": 36.5,
+    "@core.coringMethod": "DOSECC GLAD-200 core rig",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-1",
@@ -1722,9 +2240,10 @@
     "@core.label": "HVT031",
     "@core.latitude": 64.641944,
     "@core.longitude": -19.840278,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:57.886Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-2",
@@ -1742,9 +2261,10 @@
     "@core.label": "HVT032",
     "@core.latitude": 64.643333,
     "@core.longitude": -19.849667,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.008Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN_et_al-2013-HVT03-3",
@@ -1762,9 +2282,10 @@
     "@core.label": "HVT033",
     "@core.latitude": 64.638167,
     "@core.longitude": -19.8595,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.051Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-1",
@@ -1782,9 +2303,10 @@
     "@core.latitude": 64.64172,
     "@core.longitude": -19.83995,
     "@core.waterDepth": 36.5,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.074Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-2",
@@ -1802,9 +2324,10 @@
     "@core.latitude": 64.64305,
     "@core.longitude": -19.84928,
     "@core.waterDepth": 23.1,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.096Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-3",
@@ -1822,9 +2345,10 @@
     "@core.latitude": 64.63805,
     "@core.longitude": -19.85912,
     "@core.waterDepth": 30.4,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.119Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-03-4",
@@ -1842,9 +2366,10 @@
     "@core.latitude": 64.64588,
     "@core.longitude": -19.83328,
     "@core.waterDepth": 31.26,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.142Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-09-06",
@@ -1862,9 +2387,10 @@
     "@core.latitude": 64.63483,
     "@core.longitude": -19.84962,
     "@core.waterDepth": 58.05,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.162Z"
+    "_lakeExists": true
   },
   {
     "file": "Hvitarvatn-Varves-LARSEN-et_al_2013-hvitarvatn2013-10-07",
@@ -1882,9 +2408,10 @@
     "@core.latitude": 64.61897,
     "@core.longitude": -19.83943,
     "@core.waterDepth": 36.11,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.185Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D1",
@@ -1904,9 +2431,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.226Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D2",
@@ -1926,9 +2454,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.265Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012_D3",
@@ -1948,9 +2477,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.305Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-14C-Diedrich_&_Loso_2012-Composite",
@@ -1967,9 +2497,88 @@
     "@core.label": "D1; D2; D3",
     "@core.coringMethod": "vibracore system",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Iceberg_Lake-Chronology-Diedrich_Loso_2012_P1",
+    "label": "Iceberg Lake, Alaska 1500 Year Varve Thickness Data",
+    "ageMin": 53,
+    "ageMax": 189,
+    "depthMin": 1786.4,
+    "depthMax": 2433.1,
+    "ageSpan": 137,
+    "comments": "maximum counting error: 4%",
+    "url": "https://link.springer.com/article/10.1007%2Fs10933-012-9614-5",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-012-9614-5",
+    "@lake.name": "Iceberg Lake",
+    "@core.label": "P1",
+    "@core.latitude": 60.783333,
+    "@core.longitude": -142.96,
+    "@core.coringMethod": "vibracore system",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.345Z"
+    "hasErrorEstimate": true,
+    "errorMax": 4,
+    "errorRaw": false,
+    "depthType": "raw"
+  },
+  {
+    "file": "1_Iceberg_Lake-Chronology-Diedrich_Loso_2012_P2",
+    "label": "Iceberg Lake, Alaska 1500 Year Varve Thickness Data",
+    "ageMin": 74,
+    "ageMax": 600,
+    "depthMin": 1127.9,
+    "depthMax": 3670.4,
+    "ageSpan": 527,
+    "comments": "maximum counting error: 4%",
+    "url": "https://link.springer.com/article/10.1007%2Fs10933-012-9614-5",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-012-9614-5",
+    "@lake.name": "Iceberg Lake",
+    "@core.label": "P2",
+    "@core.latitude": 60.783333,
+    "@core.longitude": -142.96,
+    "@core.coringMethod": "vibracore system",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "hasErrorEstimate": true,
+    "errorMax": 4,
+    "errorRaw": false,
+    "depthType": "raw"
+  },
+  {
+    "file": "1_Iceberg-Chronology-Loso_et_al-2008",
+    "label": "Iceberg Lake, Alaska Varve Thickness Data and Temperature Reconstruction",
+    "ageMin": -48,
+    "ageMax": 1508,
+    "depthMin": 5.7,
+    "depthMax": 5741.4933,
+    "ageSpan": 1557,
+    "comments": "estimated overall age uncertainty: 4%",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-008-9264-9",
+    "@lake.name": "Iceberg Lake",
+    "@core.latitude": 48.812222,
+    "@core.longitude": -113.749722,
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "depthType": "cum_sum",
+    "errorRaw": false,
+    "errorMean": 4,
+    "hasErrorEstimate": true
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D1",
@@ -1987,9 +2596,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.361Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D2",
@@ -2007,9 +2617,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.376Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_D3",
@@ -2027,9 +2638,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.390Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P1",
@@ -2050,9 +2662,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.410Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg_Lake-Varves-Diedrich_&_Loso_2012_P2",
@@ -2073,9 +2686,10 @@
     "@core.latitude": 60.783333,
     "@core.longitude": -142.96,
     "@core.coringMethod": "vibracore system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.448Z"
+    "_lakeExists": true
   },
   {
     "file": "Iceberg-Varves-Loso_et_al-2008",
@@ -2091,9 +2705,54 @@
     "@publication.doi": "10.1007/s10933-008-9264-9",
     "@lake.name": "Iceberg Lake",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Kallio_Kourujärvi-Chronology-SAARNI_et_al-2015-KKJ-2_3",
+    "label": "Lake Kallio-Kourujärvi, Central Finland 3,000 Year Varve Thickness",
+    "ageMin": 0,
+    "ageMax": 2950,
+    "depthMin": 0.7,
+    "depthMax": 1346,
+    "ageSpan": 2951,
+    "comments": "counting error: -5,6%, +5,9% (350-450 aBP), elsewhere: -2,5%, + 2,3%",
+    "url": "https://www1.ncdc.noaa.gov/pub/data/paleo/paleolimnology/europe/finland/kallio-kourujarvi2015varve.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-015-9832-8",
+    "@lake.name": "Kallio Kourujärvi",
+    "@core.label": "KKJ-2/3",
+    "@core.latitude": 62.561,
+    "@core.longitude": 27.003,
+    "@core.coringMethod": "rodoperated piston-corer",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.641Z"
+    "depthType": "cum_sum",
+    "errorRaw": false,
+    "errorMax": 5.9,
+    "errorMin": 2.3,
+    "hasErrorEstimate": true
+  },
+  {
+    "file": "Kallio_Kourujärvi-Tephra-Kalliokoski_et_al-2018",
+    "ageMin": 75,
+    "ageMax": 75,
+    "samples": 1,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1002/jqs.3078",
+    "@lake.name": "Kallio Kourujärvi",
+    "@core.coringMethod": "Piston corer",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Kallio_Kourujärvi-Varves-SAARNI_et_al-2015-KKJ-2_3",
@@ -2115,9 +2774,38 @@
     "@core.longitude": 27.003,
     "@core.coringMethod": "rodoperated piston-corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Kalliojärvi-Chronology-SAARNI_et_al-2016",
+    "label": "Lake Kalliojärvi, Finland 4,000 Year Varve Thickness Data",
+    "ageMin": 50,
+    "ageMax": 4133,
+    "depthMin": 0.8382,
+    "depthMax": 2144.4966,
+    "ageSpan": 4084,
+    "comments": "counting error: -2,2%, +2,1%",
+    "url": "https://www1.ncdc.noaa.gov/pub/data/paleo/paleolimnology/europe/finland/kalliojarvi2016varve.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683615609747",
+    "@lake.name": "Kalliojärvi",
+    "@core.label": "KAL-1; KAL-2",
+    "@core.latitude": 62.561,
+    "@core.longitude": 27.003,
+    "@core.coringMethod": "PVC tubes",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:58.807Z"
+    "depthType": "raw",
+    "errorRaw": false,
+    "errorMax": 2.2,
+    "errorMin": 2.1,
+    "hasErrorEstimate": true
   },
   {
     "file": "Kalliojärvi-Varves-SAARNI_et_al-2016",
@@ -2139,9 +2827,10 @@
     "@core.longitude": 27.003,
     "@core.coringMethod": "PVC tubes",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.041Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_Brule-14C-Lafontaine-Boyer_Gajewski_2014_NO_LABEL",
@@ -2158,9 +2847,114 @@
     "@core.latitude": 45.719167,
     "@core.longitude": -75.442222,
     "@core.coringMethod": "freeze corer",
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Lac_Brule-Chronology-LAFONTAINE-BOYER_GAJEWSKI_2014-Core3",
+    "label": "Varve thickness data from Lac Brulé (Core 3), Québec for the past 1400 years",
+    "ageMin": -50,
+    "ageMax": 1270,
+    "depthMin": 0,
+    "depthMax": 705.87,
+    "ageSpan": 1321,
+    "comments": "estimated error: 1 %",
+    "url": "http://journals.sagepub.com/doi/pdf/10.1177/0959683614544054",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683614544054",
+    "@lake.name": "Lac Brulé",
+    "@core.label": "Core 3",
+    "@core.latitude": 45.7192,
+    "@core.longitude": -75.4422,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.098Z"
+    "errorMean": 1,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "cum_sum"
+  },
+  {
+    "file": "1_Lac_Brule-Chronology-LAFONTAINE-BOYER_GAJEWSKI_2014-Core4",
+    "label": "Varve thickness data from Lac Brulé (Core 4), Québec for the past 1400 years",
+    "ageMin": -50,
+    "ageMax": 1260,
+    "depthMin": 19.07,
+    "depthMax": 880.29,
+    "ageSpan": 1311,
+    "comments": "estimated error: 1%",
+    "url": "http://journals.sagepub.com/doi/pdf/10.1177/0959683614544054",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683614544054",
+    "@lake.name": "Lac Brulé",
+    "@core.label": "Core 4",
+    "@core.latitude": 45.7192,
+    "@core.longitude": -75.4422,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "errorMean": 1,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "cum_sum"
+  },
+  {
+    "file": "1_Lac_Brule-Chronology-LAFONTAINE-BOYER_GAJEWSKI_2014-Core5",
+    "label": "Varve thickness data from Lac Brulé (Core 5), Québec for the past 1400 years",
+    "ageMin": -50,
+    "ageMax": 1360,
+    "depthMin": 26.47,
+    "depthMax": 923.31,
+    "ageSpan": 1411,
+    "comments": "estimated error: 1 %",
+    "url": "http://journals.sagepub.com/doi/pdf/10.1177/0959683614544054",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683614544054",
+    "@lake.name": "Lac Brulé",
+    "@core.label": "Core 5",
+    "@core.latitude": 45.7192,
+    "@core.longitude": -75.4422,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "errorMean": 1,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "cum_sum"
+  },
+  {
+    "file": "1_Lac_Brule-Chronology-LAFONTAINE-BOYER_GAJEWSKI_2014-Core7",
+    "label": "Varve thickness data from Lac Brulé (Core 7), Québec for the past 1400 years",
+    "ageMin": 20,
+    "ageMax": 1220,
+    "depthMin": 15.36,
+    "depthMax": 721.98,
+    "ageSpan": 1201,
+    "comments": "estimated error: 1 %",
+    "url": "http://journals.sagepub.com/doi/pdf/10.1177/0959683614544054",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683614544054",
+    "@lake.name": "Lac Brulé",
+    "@core.label": "Core 7",
+    "@core.latitude": 45.7192,
+    "@core.longitude": -75.4422,
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "errorMean": 1,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "cum_sum"
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core3",
@@ -2178,9 +2972,10 @@
     "@core.label": "Core 3",
     "@core.latitude": 45.7192,
     "@core.longitude": -75.4422,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.123Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core4",
@@ -2198,9 +2993,10 @@
     "@core.label": "Core 4",
     "@core.latitude": 45.7192,
     "@core.longitude": -75.4422,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.151Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core5",
@@ -2218,9 +3014,10 @@
     "@core.label": "Core 5",
     "@core.latitude": 45.7192,
     "@core.longitude": -75.4422,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.179Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_Brule-Varves-LAFONTAINE-BOYER_GAJEWSKI_2014-Core7",
@@ -2238,9 +3035,10 @@
     "@core.label": "Core 7",
     "@core.latitude": 45.7192,
     "@core.longitude": -75.4422,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.207Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-I",
@@ -2258,9 +3056,10 @@
     "@core.latitude": 45.849608,
     "@core.longitude": 6.176376,
     "@core.waterDepth": 57,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.262Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-II",
@@ -2278,9 +3077,10 @@
     "@core.latitude": 45.849608,
     "@core.longitude": 6.176376,
     "@core.waterDepth": 57,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.315Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001_AN-III",
@@ -2298,9 +3098,10 @@
     "@core.latitude": 45.849608,
     "@core.longitude": 6.176376,
     "@core.waterDepth": 57,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.367Z"
+    "_lakeExists": true
   },
   {
     "file": "Lac_d_Annecy_14C-Brauer_&_Casanova_2001-Composite",
@@ -2316,9 +3117,27 @@
     "@core.label": "AN-I; AN-II; AN-III",
     "@core.waterDepth": 57,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.426Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Buenos_Aires-Tephra-Bendle_et_al-2017-FC_E",
+    "ageMin": 17340,
+    "ageMax": 17340,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2017.10.013",
+    "@lake.name": "Lago Buenos Aires",
+    "@core.label": "FC-E",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1B",
@@ -2337,9 +3156,10 @@
     "@core.longitude": 21.312633,
     "@core.waterDepth": 26.7,
     "@core.coringMethod": "Floating raft (UWITEC)",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.473Z"
+    "_lakeExists": true
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013_ETO1C",
@@ -2357,9 +3177,10 @@
     "@core.latitude": 38.485467,
     "@core.longitude": 21.312633,
     "@core.waterDepth": 26.7,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.527Z"
+    "_lakeExists": true
   },
   {
     "file": "Lagoon_etoliko-14C-HAENSSLER_et_al_2013-Composite",
@@ -2376,9 +3197,10 @@
     "@core.waterDepth": 26.7,
     "@core.coringMethod": "Floating raft (UWITEC)",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.580Z"
+    "_lakeExists": true
   },
   {
     "file": "Lagoon-Etoliko-Varves-Koutsodendris_et_al_2017-ETO12_2-3",
@@ -2399,9 +3221,10 @@
     "@core.latitude": 38.48111,
     "@core.longitude": 21.31556,
     "@core.coringMethod": "Composite Core (COMPCORE)",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.641Z"
+    "_lakeExists": true
   },
   {
     "file": "Laguna_Potrok_Aike-14C-Haberzettl_et_al_2007_PTA03",
@@ -2420,19 +3243,19 @@
     "@core.latitude": -51.960833,
     "@core.longitude": -70.379444,
     "@core.coringMethod": "UWITEC piston coring system",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.687Z"
+    "_lakeExists": true
   },
   {
     "file": "Laguna_Potrok_Aike-Tephra-Haberzettl_et_al_2007_PTA03",
+    "label": "Laguna Potrok Aike, Argentina Late Glacial and Holocene Sediment Data",
     "ageMin": 6915,
     "ageMax": 12638,
-    "depthMin": 6915,
-    "depthMax": 12638,
-    "samples": 3,
+    "samples": 6,
     "ageSpan": 5724,
-    "ageResolution": 0.5241090146750524,
+    "ageResolution": 1.0482180294,
     "@category.name": "Tephra",
     "@publication.doi": "10.1177/0959683607076437",
     "@lake.name": "Laguna Potrok Aike",
@@ -2440,9 +3263,59 @@
     "@core.latitude": -51.960833,
     "@core.longitude": -70.379444,
     "@core.coringMethod": "UWITEC piston coring system",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Längsee-Tephra-Schmidt_et_al_2002-LG99",
+    "ageMin": 14120,
+    "ageMax": 14120,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S1040-6182(01)00072-6",
+    "@lake.name": "Längsee",
+    "@core.label": "LG99",
+    "@core.waterDepth": 21,
+    "@core.coringMethod": "modified Kullenberg piston sampler",
+    "@core.drillDate": 1999,
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Lehmilampi-Chronology-Haltia-Hovi_et_al_2007",
+    "label": "Lake Lehmilampi, Finland 2000 Year Varved Sediment Data",
+    "ageMin": -54,
+    "ageMax": 1949,
+    "depthMin": 3.05,
+    "depthMax": 1628.73,
+    "ageSpan": 2004,
+    "comments": "Cumulative counting error: -2.2% (44 varve years) and +2.3% (46 varve years) for the last 2000 years. (maximum error = 7.6) => Request raw error data from author!",
+    "url": "https://www1.ncdc.noaa.gov/pub/data/paleo/paleolimnology/europe/finland/lehmilampi2007.txt",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quascirev.2006.11.005",
+    "@lake.name": "Lehmilampi",
+    "@core.latitude": 63.45,
+    "@core.longitude": 29.1,
+    "@core.waterDepth": 10,
+    "@core.coringMethod": "Piston corer",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.735Z"
+    "errorMax": 7.6,
+    "errorMin": 2.2,
+    "hasErrorEstimate": true,
+    "depthType": "cum_sum",
+    "errorRaw": false
   },
   {
     "file": "Lehmilampi-Varves-Haltia-Hovi_et_al_2009",
@@ -2461,9 +3334,10 @@
     "@core.longitude": 29.1,
     "@core.waterDepth": 10,
     "@core.coringMethod": "Piston corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.850Z"
+    "_lakeExists": true
   },
   {
     "file": "Linne_Lake-Varves-WERNER_et_al_2009",
@@ -2481,16 +3355,15 @@
     "@core.label": "C2-05",
     "@core.latitude": 78.031875,
     "@core.longitude": 13.861441,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.927Z"
+    "_lakeExists": true
   },
   {
     "file": "Lögurinn-Tephra-STRIEBERGER_et_al_2010",
     "ageMin": 75,
     "ageMax": 688,
-    "depthMin": 860,
-    "depthMax": 3810,
     "samples": 8,
     "ageSpan": 614,
     "ageResolution": 13.029315960912053,
@@ -2503,9 +3376,37 @@
     "@core.waterDepth": 38,
     "@core.coringMethod": "cable-operated Uwitec ‘Niederreiter 60’ pistoncorer (ø 60 mm)",
     "@core.drillDate": 2006,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Lower_Murray_Lake-Chronology-COOK_et_al_2008_LML-05",
+    "ageMin": -54,
+    "ageMax": 5186,
+    "depthMin": 0,
+    "depthMax": 2380.139,
+    "ageSpan": 5241,
+    "comments": "counting error: 2%",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1007/s10933-008-9252-0",
+    "@lake.name": "Lower Murray Lake",
+    "@core.label": "LML-05",
+    "@core.latitude": 81.35,
+    "@core.longitude": -69.533333,
+    "@core.coringMethod": "Uwitec piston corer",
+    "@core.drillDate": "06/2005",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:55:59.964Z"
+    "depthType": "raw",
+    "errorRaw": false,
+    "errorMean": 2,
+    "hasErrorEstimate": true
   },
   {
     "file": "Lower_Murray_Lake-Varves-COOK_et_al_2008_LML-05",
@@ -2527,9 +3428,10 @@
     "@core.coringMethod": "Uwitec piston corer",
     "@core.drillDate": 2005,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.127Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_12P",
@@ -2548,9 +3450,10 @@
     "@core.longitude": 34.15,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.208Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_13P",
@@ -2569,9 +3472,10 @@
     "@core.longitude": 34.366667,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.256Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_16P",
@@ -2590,9 +3494,10 @@
     "@core.longitude": 34.333333,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.304Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_22P",
@@ -2611,9 +3516,10 @@
     "@core.longitude": 34.516667,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.350Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_24P",
@@ -2632,9 +3538,10 @@
     "@core.longitude": 34.65,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.397Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991_4P",
@@ -2653,9 +3560,10 @@
     "@core.longitude": 34.833333,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.442Z"
+    "_lakeExists": true
   },
   {
     "file": "Malawi-14C-PILSKALN_JOHNSON_1991-Composite",
@@ -2672,9 +3580,10 @@
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 1986,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.500Z"
+    "_lakeExists": true
   },
   {
     "file": "Mascardi-Hajdas_et_al-2002-14C",
@@ -2690,9 +3599,10 @@
     "@category.name": "14C",
     "@publication.doi": "10.1016/S0033-5894(02)00017-0",
     "@lake.name": "Mascardi",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.663Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-14C-BRAUER_et_al_2000",
@@ -2708,9 +3618,10 @@
     "@lake.name": "Meerfelder Maar",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.700Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Tephra-ENGELS_et_al_2015_MFM09",
@@ -2729,32 +3640,35 @@
     "@core.label": "MFM09",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.748Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Tephra-LANE_et_al_2015-MFM09-A_D",
     "label": "The Late Quaternary tephrostratigraphy of annually laminated sediments from Meerfelder Maar, Germany",
-    "ageMin": 2020,
+    "ageMin": 11000,
     "ageMax": 14230,
-    "depthMin": 2380,
-    "depthMax": 11370,
-    "samples": 17,
-    "ageSpan": 12211,
-    "ageResolution": 1.3921873720416018,
+    "depthMin": 7110,
+    "depthMax": 10720,
+    "samples": 4,
+    "ageSpan": 3231,
+    "ageResolution": 1.238006809,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quascirev.2015.05.025",
     "@lake.name": "Meerfelder Maar",
-    "@core.label": "MFM09-A/D",
+    "@core.label": "MFM09",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2009,
     "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.806Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Varves-BRAUER_et_al_2008",
@@ -2771,9 +3685,10 @@
     "@core.label": "MFM2000",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.900Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Varves-ENGELS_et_al_2015_MFM09",
@@ -2790,9 +3705,10 @@
     "@core.label": "MFM09",
     "@core.latitude": 50.1008,
     "@core.longitude": 6.7575,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.932Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Varves-LITT_et_al_2009-MFM6",
@@ -2810,9 +3726,10 @@
     "@core.latitude": 50.1,
     "@core.longitude": 6.75,
     "@core.waterDepth": 17,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:00.957Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM09A_D",
@@ -2833,9 +3750,10 @@
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 2009,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.144Z"
+    "_lakeExists": true
   },
   {
     "file": "Meerfelder_Maar-Varves-MARTIN-PUERTAS-et_al_2012_MFM6",
@@ -2858,9 +3776,10 @@
     "@core.waterDepth": 17,
     "@core.coringMethod": "Piston corer",
     "@core.drillDate": 2009,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.226Z"
+    "_lakeExists": true
   },
   {
     "file": "Mondsee-14C-Swierczynski_et_al_2013",
@@ -2876,9 +3795,10 @@
     "@lake.name": "Mondsee",
     "@core.latitude": 47.816667,
     "@core.longitude": 13.4,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.271Z"
+    "_lakeExists": true
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-1A-1K",
@@ -2896,9 +3816,10 @@
     "@core.latitude": 42.33,
     "@core.longitude": 0.995,
     "@core.coringMethod": "Kullenberg corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.323Z"
+    "_lakeExists": true
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-2A-1K",
@@ -2916,9 +3837,10 @@
     "@core.latitude": 42.33,
     "@core.longitude": 0.995,
     "@core.coringMethod": "Kullenberg corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.368Z"
+    "_lakeExists": true
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011_MON04-4A-1K",
@@ -2936,9 +3858,10 @@
     "@core.latitude": 42.33,
     "@core.longitude": 0.995,
     "@core.coringMethod": "Kullenberg corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.415Z"
+    "_lakeExists": true
   },
   {
     "file": "Montcortes-14C-Corella_et_al_2011-Composite",
@@ -2954,9 +3877,10 @@
     "@core.label": "MON04-1A-1K; MON04-2A-1K; MON04-4A-1K",
     "@core.coringMethod": "Kullenberg corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.468Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HAJDAS_et_al_1997",
@@ -2972,9 +3896,10 @@
     "@lake.name": "Monticchio",
     "@core.label": "LGM-B/C/D",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.517Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_LGM94-L",
@@ -2991,9 +3916,10 @@
     "@core.label": "LGM94-L",
     "@core.latitude": 40.9317,
     "@core.longitude": 15.6049,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.568Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-HUNTLEY_et_al_1999_MF93",
@@ -3008,9 +3934,10 @@
     "@publication.doi": "10.1016/S0277-3791(99)00007-4",
     "@lake.name": "Monticchio",
     "@core.label": "MF93",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.618Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-WATTS_et_al_1996_LGM-90D",
@@ -3027,9 +3954,10 @@
     "@core.label": "LGM90-D",
     "@core.latitude": 40.931315,
     "@core.longitude": 15.605114,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.662Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-14C-ZOLITSCHKA_&_NEGENDANK_1996_LGM-B_D",
@@ -3049,36 +3977,156 @@
     "@core.coringMethod": "modified Livingstone piston corer",
     "@core.drillDate": 1990,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.702Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_Core-D",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "Core D",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_Core-L",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "Core L",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF93",
-    "ageMin": 17650,
-    "ageMax": 96678,
-    "depthMin": 3300,
-    "depthMax": 7650,
-    "samples": 3,
-    "ageSpan": 79029,
-    "ageResolution": 0.037960748585962115,
+    "ageMin": 9678,
+    "ageMax": 9678,
+    "depthMin": 3360,
+    "depthMax": 3360,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/S0277-3791(99)00007-4",
     "@lake.name": "Monticchio",
     "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.783Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF94",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF95",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF96",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF97",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Lago_Grande_di_Monticchio-Tephra-HUNTLEY_et_al_1999_MF98",
+    "ageMin": 9678,
+    "ageMax": 17650,
+    "samples": 6,
+    "ageSpan": 7973,
+    "ageResolution": 4.52,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(99)00007-4",
+    "@lake.name": "Monticchio",
+    "@core.label": "MF93",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-Tephra-WULF_et_al_2012_LGM-B-D-E-J-M-O",
     "ageMin": 105480,
-    "ageMax": 132100,
-    "depthMin": 7410800,
-    "depthMax": 9768600,
-    "samples": 40,
-    "ageSpan": 26621,
-    "ageResolution": 1.5025731565305587,
+    "ageMax": 132110,
+    "samples": 52,
+    "ageSpan": 26631,
+    "ageResolution": 1.952611618,
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0277379112004167",
     "distributor": "ScienceDirect",
     "@category.name": "Tephra",
@@ -3088,19 +4136,19 @@
     "@core.latitude": 40.933333,
     "@core.longitude": 15.583333,
     "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.878Z"
+    "_lakeExists": true
   },
   {
     "file": "Monticchio-Tephra-Wulf_et_al_2004_LGM-B_D_E_J",
     "label": "Comparison of tephra ages obtained from the varve-supported sedimentation rate chronology of Monticchio sediments (rounded varve ages in yr BP 1950) with historical recorded, radiometric, radioisotopic and interpolated ages of correlated volcanic events referred from literature",
     "ageMin": 90,
     "ageMax": 98750,
-    "depthMin": 61,
-    "depthMax": 70198,
     "samples": 42,
-    "ageSpan": 98660,
+    "ageSpan": 98661,
+    "ageResolution": 0.4257001247,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2004.01.028",
     "@lake.name": "Monticchio",
@@ -3110,9 +4158,10 @@
     "@core.coringMethod": "Livingston piston corer",
     "@core.drillDate": 1994,
     "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:01.935Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014_MON-2014",
@@ -3131,9 +4180,10 @@
     "@core.latitude": 40.9317,
     "@core.longitude": 15.6049,
     "@core.coringMethod": "Core drilling",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:02.765Z"
+    "_lakeExists": true
   },
   {
     "file": "Lago_Grande_di_Monticchio-Varves-MARTIN-PUERTAS_et_al_2014a_MON-07-J-M-O",
@@ -3156,9 +4206,26 @@
     "@core.waterDepth": 13.5,
     "@core.coringMethod": "USINGER piston corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:02.811Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Mötterutsjärnet-Tephra-Zillén_et_al_2002-LuA",
+    "ageMin": 2800,
+    "ageMax": 12121,
+    "samples": 3,
+    "ageSpan": 9322,
+    "ageResolution": 0.97,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0277-3791(02)00036-7",
+    "@lake.name": "Mötterudstjärnet",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Heimerdalsvanet-14C-Balascio_et_al_2010_NHP-207",
@@ -3177,30 +4244,10 @@
     "@core.longitude": 13.656333,
     "@core.coringMethod": "modified Nesje percussion corer",
     "@core.drillDate": 2007,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:02.885Z"
-  },
-  {
-    "file": "Heimerdalsvanet-14C-Balascio_et_al_2010_NHP-207",
-    "ageMin": 1760,
-    "ageMax": 7350,
-    "depthMin": 735,
-    "depthMax": 5700,
-    "samples": 5,
-    "ageSpan": 5591,
-    "ageResolution": 0.8942944017170452,
-    "@category.name": "14C",
-    "@publication.doi": "10.1016/j.yqres.2010.08.012",
-    "@lake.name": "Nedre Heimredalsvatnet",
-    "@core.label": "NHP-207",
-    "@core.latitude": 68.296333,
-    "@core.longitude": 13.656333,
-    "@core.coringMethod": "modified Nesje percussion corer",
-    "@core.drillDate": 2007,
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:02.931Z"
+    "_lakeExists": true
   },
   {
     "file": "Nerfloen-14C-Vasskog_et_al_2012-STP_107",
@@ -3218,9 +4265,29 @@
     "@core.latitude": 61.929905,
     "@core.longitude": 6.866455,
     "@core.coringMethod": "modified piston corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:02.978Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Ni_no_Megata-Tephra-Yamada_et_al-2010-NMG07-1",
+    "ageMin": 1020,
+    "ageMax": 1035,
+    "samples": 3,
+    "ageSpan": 16,
+    "ageResolution": 562.5,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quaint.2009.09.006",
+    "@lake.name": "Ni-no-Megata",
+    "@core.label": "NMG07-1",
+    "@core.coringMethod": "Mackeleth piston core sampler",
+    "@core.drillDate": 2007,
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Oeschinen-14C-Amman_et_al_2015",
@@ -3239,9 +4306,34 @@
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2011,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Oeschinen-Chronology-AMMAN_et_al_2015_new",
+    "ageMin": -58,
+    "ageMax": 1066,
+    "depthMin": 18.5,
+    "depthMax": 5643.09,
+    "ageSpan": 1125,
+    "comments": "uncertainty given as 2.5% in text, raw uncertainty data must be requested by author",
+    "url": "www.ncdc.noaa.gov/paleo/study/19102",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quascirev.2015.03.002",
+    "@lake.name": "Oeschinen",
+    "@core.latitude": 46.4983,
+    "@core.longitude": 7.7269,
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.026Z"
+    "depthType": "raw",
+    "errorRaw": false,
+    "errorMean": 2.5,
+    "hasErrorEstimate": true
   },
   {
     "file": "Oeschinen-Varves-AMMAN_et_al_2015",
@@ -3260,9 +4352,10 @@
     "@lake.name": "Oeschinen",
     "@core.latitude": 46.4983,
     "@core.longitude": 7.7269,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.136Z"
+    "_lakeExists": true
   },
   {
     "file": "Ogac_Lake-Varves-HUGHEN_2009",
@@ -3281,9 +4374,10 @@
     "@lake.name": "Ogac",
     "@core.latitude": 62.85,
     "@core.longitude": -67.2,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.292Z"
+    "_lakeExists": true
   },
   {
     "file": "Ohrid-Vogel_2009-14C",
@@ -3296,38 +4390,65 @@
     "samples": 7,
     "ageSpan": 21311,
     "ageResolution": 0.32846886584393037,
+    "url": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "distributor": "University of Cologne",
     "@category.name": "14C",
-    "@publication.doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "@publication.doi": "10.23689/fidgeo-236",
     "@lake.name": "Ohrid",
     "@core.label": "Co1202",
     "@core.waterDepth": 145,
     "@core.coringMethod": "UWITEC long percussion piston corer",
     "@core.drillDate": 2007,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.387Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Ohrid-Tephra-LEICHER_et_al_2015-DEEP",
+    "label": "Depths and ages of tephra layers in the DEEP site succession",
+    "ageMin": 8530,
+    "ageMax": 527000,
+    "samples": 14,
+    "ageSpan": 518471,
+    "ageResolution": 0.38,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.5194/bg-13-2151-2016",
+    "@lake.name": "Ohrid",
+    "@core.label": "DEEP",
+    "@core.latitude": 41.049167,
+    "@core.longitude": 20.715,
+    "@core.waterDepth": 243,
+    "@core.coringMethod": "ICDP deep drilling",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Ohrid-Vogel_2009-Tephra",
-    "label": "Ohrid-Vogel_2009-Tephra",
-    "analysisMethod": "AMS 14C",
     "ageMin": 1460,
     "ageMax": 131000,
     "depthMin": 745,
     "depthMax": 14470,
     "samples": 10,
     "ageSpan": 129541,
-    "ageResolution": 0.07719563690260227,
+    "ageResolution": 0.0771956369,
+    "url": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "distributor": "University of Cologne",
     "@category.name": "Tephra",
-    "@publication.doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "@publication.doi": "10.23689/fidgeo-236",
     "@lake.name": "Ohrid",
     "@core.label": "Co1202",
     "@core.waterDepth": 145,
     "@core.coringMethod": "UWITEC long percussion piston corer",
     "@core.drillDate": 2007,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.438Z"
+    "_lakeExists": true
   },
   {
     "file": "Pavin-14C-Chassiot_et_al-2016-Composite",
@@ -3345,9 +4466,10 @@
     "@core.label": "PAV09-B1; PAV12; PAV08; PAV09-C5",
     "@core.coringMethod": "UWITEC long piston core; short gravity core",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.496Z"
+    "_lakeExists": true
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV08",
@@ -3367,9 +4489,10 @@
     "@core.latitude": 45.497667,
     "@core.longitude": 2.887333,
     "@core.coringMethod": "UWITEC, long piston core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.547Z"
+    "_lakeExists": true
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-B1",
@@ -3389,9 +4512,10 @@
     "@core.latitude": 45.495556,
     "@core.longitude": 2.888333,
     "@core.coringMethod": "short gravity core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.604Z"
+    "_lakeExists": true
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV09-C5",
@@ -3411,9 +4535,10 @@
     "@core.latitude": 45.408833,
     "@core.longitude": 2.888667,
     "@core.waterDepth": 20,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.656Z"
+    "_lakeExists": true
   },
   {
     "file": "Pavin-Chassiot_et_al-2016-14C-PAV12",
@@ -3433,9 +4558,10 @@
     "@core.latitude": 45.495556,
     "@core.longitude": 2.888333,
     "@core.coringMethod": "UWITEC long piston core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.706Z"
+    "_lakeExists": true
   },
   {
     "file": "Pettaquamscutt-Hubeny_et_al-2009-14C",
@@ -3456,9 +4582,40 @@
     "@core.waterDepth": 19.5,
     "@core.coringMethod": "Freeze cores",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Plomo-Chronology-Elbert_et_al_2015-PLO-11",
+    "label": "Lago Plomo 600 Year Sediment Brightness and Summer Temperature Reconstruction",
+    "analysisMethod": "non-destructive reflectance spectrometry (VIS-RS 380-730 nm) at 2 mm resolution with Gretag McBeth spectro- photometer; measured with WinGeol Lamination tool",
+    "ageMin": -10,
+    "ageMax": 1482,
+    "depthMin": 155.12,
+    "depthMax": 2811.47,
+    "ageSpan": 1493,
+    "comments": "maximum counting error: 4%",
+    "url": "http://ncdc.noaa.gov/paleo/study/18036",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1016/j.quaint.2015.01.004",
+    "@lake.name": "Plomo",
+    "@core.label": "PLO-11",
+    "@core.latitude": -46.9833,
+    "@core.longitude": -72.8667,
+    "@core.waterDepth": 31,
+    "@core.coringMethod": "hammer-driven UWITEC system",
+    "@core.drillDate": "01/2011",
+    "@core.composite": false,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.759Z"
+    "errorMax": 4,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "raw"
   },
   {
     "file": "Plomo-Varves-Elbert_et_al_2015-PLO2011",
@@ -3477,9 +4634,10 @@
     "@core.label": "PLO2011",
     "@core.latitude": -46.9833,
     "@core.longitude": -72.8667,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.845Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1204",
@@ -3499,9 +4657,10 @@
     "@core.waterDepth": 14,
     "@core.coringMethod": "UWITEC percussion piston corer",
     "@core.drillDate": 2007,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.905Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012_Co1215",
@@ -3521,9 +4680,10 @@
     "@core.waterDepth": 14.5,
     "@core.coringMethod": "UWITEC percussion piston corer",
     "@core.drillDate": 2009,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:03.963Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-14C-WAGNER_et_al_2012-Composite",
@@ -3539,9 +4699,10 @@
     "@core.label": "Co1215; Co1204",
     "@core.coringMethod": "UWITEC percussion piston corer",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.026Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa-14C-Wagner_et_al_2010_Co1204",
@@ -3561,20 +4722,20 @@
     "@core.waterDepth": 14,
     "@core.coringMethod": "UWITEC gravity and piston corers",
     "@core.drillDate": 2007,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.096Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1204",
     "ageMin": 30670,
     "ageMax": 39280,
-    "depthMin": 6675,
-    "depthMax": 8790,
     "samples": 3,
-    "ageSpan": 0,
+    "ageSpan": 8611,
+    "ageResolution": 0.3483915921,
     "@category.name": "Tephra",
-    "@publication.doi": "10.1016/j.quaint.2012.02.016",
+    "@publication.doi": "10.5194/bg-7-3187-2010",
     "@lake.name": "Prespa",
     "@core.label": "Co1204",
     "@core.latitude": 40.950556,
@@ -3582,18 +4743,19 @@
     "@core.waterDepth": 14,
     "@core.coringMethod": "UWITEC percussion piston corer",
     "@core.drillDate": 2007,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.147Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1215",
     "ageMin": 1460,
     "ageMax": 49200,
-    "depthMin": 554,
-    "depthMax": 10786,
     "samples": 11,
-    "ageSpan": 0,
+    "ageSpan": 47741,
+    "ageResolution": 0.23041,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
@@ -3603,69 +4765,33 @@
     "@core.waterDepth": 14.5,
     "@core.coringMethod": "UWITEC percussion piston corer",
     "@core.drillDate": 2009,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.195Z"
+    "_lakeExists": true
   },
   {
     "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012_Co1216",
     "ageMin": 34500,
     "ageMax": 39280,
-    "depthMin": 4290,
-    "depthMax": 4390,
     "samples": 2,
-    "ageSpan": 0,
+    "ageSpan": 4781,
+    "ageResolution": 0.418323,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quaint.2012.02.016",
     "@lake.name": "Prespa",
     "@core.label": "Co1216",
     "@core.latitude": 40.939444,
     "@core.longitude": 20.949167,
-    "@core.waterDepth": 14,
+    "@core.waterDepth": 32.3,
     "@core.coringMethod": "UWITEC percussion piston corer",
-    "@core.drillDate": 2007,
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.241Z"
-  },
-  {
-    "file": "Prespa_Tem-Tephra-WAGNER_et_al_2012-Composite",
-    "ageMin": 1460,
-    "ageMax": 49200,
-    "depthMin": 554,
-    "depthMax": 10786,
-    "samples": 16,
-    "@category.name": "Tephra",
-    "@publication.doi": "10.1016/j.quaint.2012.02.016",
-    "@lake.name": "Prespa",
-    "@core.label": "Co1216; Co1204; Co1215",
-    "@core.coringMethod": "UWITEC percussion piston corer",
+    "@core.drillDate": 2009,
     "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.301Z"
-  },
-  {
-    "file": "Prespa-Tephra-Wagner_et_al_2010_Co1204",
-    "ageMin": 30670,
-    "ageMax": 39280,
-    "depthMin": 672.5,
-    "depthMax": 879.3,
-    "samples": 3,
-    "ageSpan": 8611,
-    "ageResolution": 0.3483915921495761,
-    "@category.name": "Tephra",
-    "@publication.doi": "10.5194/bg-7-3187-2010",
-    "@lake.name": "Prespa",
-    "@core.label": "Co1204",
-    "@core.latitude": 40.950556,
-    "@core.longitude": 20.931667,
-    "@core.waterDepth": 14,
-    "@core.coringMethod": "UWITEC gravity and piston corers",
-    "@core.drillDate": 2007,
-    "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.347Z"
+    "_lakeExists": true
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-I-P1",
@@ -3683,9 +4809,10 @@
     "@core.latitude": -40.7,
     "@core.longitude": -72.45,
     "@core.coringMethod": "gravity (pilot) core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.401Z"
+    "_lakeExists": true
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008_PU-II-P2",
@@ -3703,9 +4830,10 @@
     "@core.latitude": -40.7,
     "@core.longitude": -72.45,
     "@core.coringMethod": "gravity (pilot) core",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.452Z"
+    "_lakeExists": true
   },
   {
     "file": "Puyehue-14C-BERTRAND_et_al_2008-Composite",
@@ -3721,9 +4849,55 @@
     "@core.label": "PU-I-P1; PU-II-P2",
     "@core.coringMethod": "gravity (pilot) core",
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Rehwiese-Chronology-NEUGEBAUER_et_al-2011-RS09",
+    "label": "Micro-facies of lake profile Rehwiese",
+    "analysisMethod": "Geological profile sampling (GEOPRO)",
+    "ageMin": 11473,
+    "ageMax": 12879,
+    "depthMin": 8043.88,
+    "depthMax": 10256.9,
+    "ageSpan": 1407,
+    "comments": "overall age uncertainty: 1 %",
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.772961",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1594/PANGAEA.772958",
+    "@lake.name": "Rehwiese",
+    "@core.label": "RW09",
+    "@core.latitude": 52.41388,
+    "@core.longitude": 13.182833,
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.512Z"
+    "errorMean": 1,
+    "hasErrorEstimate": true,
+    "errorRaw": false,
+    "depthType": "raw"
+  },
+  {
+    "file": "Rehwiese-Tephra-Neugebauer_et_al_2012-RW",
+    "ageMin": 12880,
+    "ageMax": 12880,
+    "samples": 2,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2011.12.010",
+    "@lake.name": "Rehwiese",
+    "@core.label": "RW",
+    "@core.coringMethod": "Usinger piston corer",
+    "@core.drillDate": 2009,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09",
@@ -3742,9 +4916,10 @@
     "@core.label": "RW09",
     "@core.latitude": 52.41388,
     "@core.longitude": 13.182833,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.580Z"
+    "_lakeExists": true
   },
   {
     "file": "Rehwiese-Varves-NEUGEBAUER_et_al-2011-RS09-A-B_C-D",
@@ -3763,9 +4938,10 @@
     "@core.label": "RW09-A/B-C/D",
     "@core.latitude": 52.41388,
     "@core.longitude": 13.182833,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.622Z"
+    "_lakeExists": true
   },
   {
     "file": "RS29-C14-PAULL_et_al_2017",
@@ -3783,9 +4959,10 @@
     "@core.longitude": -95.278,
     "@core.waterDepth": 14.5,
     "@core.coringMethod": "5 cm diameter Livingstone corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.672Z"
+    "_lakeExists": true
   },
   {
     "file": "Sacrower_See-14C-ENTERS_et_al_2010_SAC05_15",
@@ -3804,9 +4981,10 @@
     "@core.longitude": 13.1,
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2005,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.741Z"
+    "_lakeExists": true
   },
   {
     "file": "Sacrower_See-Tephra-ENTERS_et_al_2010_SAC05_15",
@@ -3824,9 +5002,11 @@
     "@core.longitude": 13.1,
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2005,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.784Z"
+    "_lakeExists": true
   },
   {
     "file": "Sawtooth-Varves-FRANCUS_et_al_2002",
@@ -3845,9 +5025,28 @@
     "@core.longitude": -83.849722,
     "@core.waterDepth": 80,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.830Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Schleinsee-Tephra-Clark_et_al_1989",
+    "ageMin": 11000,
+    "ageMax": 11000,
+    "samples": 1,
+    "ageSpan": 1,
+    "ageResolution": 1000,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.2307/2260813",
+    "@lake.name": "Schleinsee",
+    "@core.label": "R/C",
+    "@core.coringMethod": "modified Livingstone piston corer",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Sihailongwan-14C-Schettler_et_al-2006",
@@ -3864,9 +5063,30 @@
     "@lake.name": "Sihailongwan",
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2001,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.877Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Sihailongwan-Tephra-Mingram_et_al-2018-SHL",
+    "ageMin": 29627,
+    "ageMax": 29627,
+    "samples": 1,
+    "ageSpan": 1,
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.885907",
+    "distributor": "Pangaea",
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quascirev.2018.09.023",
+    "@lake.name": "Sihailongwan",
+    "@core.label": "SHL",
+    "@core.waterDepth": 50,
+    "@core.coringMethod": "Usinger piston coring system",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Soppensee_-14C-GIERGA_et_al_2016",
@@ -3886,9 +5106,27 @@
     "@core.coringMethod": "piston corer",
     "@core.drillDate": 2008,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.923Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Soppensee-Tephra-Hajdas_Michczynski-2010-S089_17",
+    "ageMin": 9351.5,
+    "ageMax": 12803,
+    "samples": 2,
+    "ageSpan": 3452.5,
+    "ageResolution": 1.16,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1017/S0033822200046117",
+    "@lake.name": "Soppensee",
+    "@core.label": "S089-17",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Steel Lake-14C-Tian_et_al_2005",
@@ -3906,9 +5144,10 @@
     "@core.longitude": -94.683266,
     "@core.coringMethod": "modified piston corer; freeze corer",
     "@core.drillDate": 2001,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:04.967Z"
+    "_lakeExists": true
   },
   {
     "file": "Storsjön-14C-Labuhn_et_al_2018_STO14",
@@ -3928,9 +5167,10 @@
     "@core.coringMethod": "UWITEC piston corer",
     "@core.drillDate": 2014,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.011Z"
+    "_lakeExists": true
   },
   {
     "file": "Sugan-14C-ZHOU_et_al_2009",
@@ -3950,18 +5190,18 @@
     "@core.waterDepth": 4.5,
     "@core.coringMethod": "piston corer",
     "@core.drillDate": 2004,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.060Z"
+    "_lakeExists": true
   },
   {
     "file": "Suigetsu-Tephra-Smith_et_al-2013-SG06",
     "ageMin": 7234,
     "ageMax": 50929,
-    "depthMin": 5879,
-    "depthMax": 39738,
-    "samples": 12,
-    "ageSpan": 43695,
+    "samples": 30,
+    "ageSpan": 43696,
+    "ageResolution": 0.68656,
     "@category.name": "Tephra",
     "@publication.doi": "10.1016/j.quascirev.2013.01.026",
     "@lake.name": "Suigetsu",
@@ -3970,9 +5210,29 @@
     "@core.longitude": 135.8825,
     "@core.coringMethod": "hydro-pressure thin-walled piston sampler",
     "@core.drillDate": 2006,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.122Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Tanganyika-Tephra-Williamson_et_al_1991-MPU",
+    "ageMin": 12340,
+    "ageMax": 12340,
+    "samples": 2,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/0277-3791(91)90036-T",
+    "@lake.name": "Tanganyika",
+    "@core.label": "MPU12",
+    "@core.waterDepth": 422,
+    "@core.coringMethod": "Kullenberg piston core",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2001-2004",
@@ -3991,9 +5251,10 @@
     "@core.longitude": 87.65,
     "@core.waterDepth": 330,
     "@core.coringMethod": "gravity corer",
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.167Z"
+    "_lakeExists": true
   },
   {
     "file": "Teletskoye-14C-RUDAYA_et_al_2016_Tel2006",
@@ -4012,9 +5273,179 @@
     "@core.longitude": 87.623567,
     "@core.waterDepth": 90,
     "@core.coringMethod": "gravity corer",
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Tiefer_See-Chronology-Dräger_et_al-2016",
+    "label": "Varve age model of Lake Tiefer See sediments",
+    "ageMin": -60,
+    "ageMax": 6030,
+    "depthMin": 0,
+    "depthMax": 7697.5,
+    "ageSpan": 6091,
+    "comments": "error given as +- absolute varve years",
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.862117",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683616660173",
+    "@lake.name": "Tiefer See",
+    "@core.label": "TSK",
+    "@core.coringMethod": "UWITEC piston corer",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
     "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.790Z"
+    "depthType": "raw",
+    "errorMax": 8.03,
+    "errorMin": 0,
+    "hasErrorEstimate": true,
+    "errorMean": 3.5,
+    "errorRaw": true
+  },
+  {
+    "file": "Tiefer_See-Tephra-Dräger_2016",
+    "ageMin": 75,
+    "ageMax": 11380,
+    "samples": 8,
+    "ageSpan": 11306,
+    "ageResolution": 5.66,
+    "url": "https://publishup.uni-potsdam.de/frontdoor/index/index/docId/10303",
+    "distributor": "University of Potsdam",
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1177/0959683616660173",
+    "@lake.name": "Tiefer See",
+    "@core.label": "TSK13",
+    "@core.waterDepth": 62.5,
+    "@core.coringMethod": "UWITEC piston corer",
+    "@core.drillDate": 2011,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Togou_ike-Tephra-Kato_et_al_2002",
+    "ageMin": 7300,
+    "ageMax": 7300,
+    "samples": 1,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S1040-6182(02)00148-9",
+    "@lake.name": "Tougou-ike",
+    "@core.latitude": 35.4775,
+    "@core.longitude": 133.8925,
+    "@core.waterDepth": 2,
+    "@core.coringMethod": "Piston corer",
+    "@core.drillDate": 1992,
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Tutira-Tephra-Eden_Page-1998-LT15",
+    "ageMin": 295,
+    "ageMax": 2120,
+    "samples": 4,
+    "ageSpan": 1826,
+    "ageResolution": 8.76,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/S0031-0182(97)00136-3",
+    "@lake.name": "Tutira",
+    "@core.label": "LT15",
+    "@core.coringMethod": "Mackereth core",
+    "@core.composite": false,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "Victoria_tephra_Lane_et_al_2018_V95-1P",
+    "ageMin": 1684,
+    "ageMax": 2844,
+    "samples": 6,
+    "ageSpan": 1161,
+    "ageResolution": 21.53,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1177/0959683618798163",
+    "@lake.name": "Victoria",
+    "@core.label": "V95-1P",
+    "@core.latitude": -1.231667,
+    "@core.longitude": 33.198333,
+    "@core.waterDepth": 68,
+    "@core.coringMethod": "Kullenberg piston corer",
+    "@core.drillDate": 1995,
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
+  },
+  {
+    "file": "1_Woserin_Lake-Chronology-CZYMZIK_et_al_2016-WOS-A-B-C-mholocene",
+    "label": "Varve profile from Lake Woserin (Mid-Holocene)",
+    "analysisMethod": "Varve counting",
+    "ageMin": 4946,
+    "ageMax": 6377,
+    "depthMin": 11051.93,
+    "depthMax": 13398.76,
+    "ageSpan": 1432,
+    "comments": "composite depth = sediment interval from 11.05m + cum sum of varve thickness; varve counting uncertainties between 1% and 4%, with a mean of 2%",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683615622549",
+    "@lake.name": "Woserin",
+    "@core.label": "WOS-A/B/C",
+    "@core.latitude": 53.6695,
+    "@core.longitude": 12.0314,
+    "@core.coringMethod": "Usinger piston corer",
+    "@core.drillDate": "08/2012",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "errorMax": 4,
+    "errorMin": 1,
+    "hasErrorEstimate": true,
+    "errorMean": 2,
+    "depthType": "cum_sum",
+    "errorRaw": false
+  },
+  {
+    "file": "1_Woserin_Lake-Chronology-CZYMZIK_et_al_2016-WOS-A-B-C-recent",
+    "label": "Varve profile from Lake Woserin (recent)",
+    "analysisMethod": "Varve counting",
+    "ageMin": -60,
+    "ageMax": 27,
+    "depthMin": 5.38,
+    "depthMax": 507.37,
+    "ageSpan": 88,
+    "comments": "varve counting uncertainties between 1% and 4%, with a mean of 2%",
+    "@category.name": "Chronology",
+    "@publication.doi": "10.1177/0959683615622549",
+    "@lake.name": "Woserin",
+    "@core.label": "WOS-A/B/C",
+    "@core.latitude": 53.6695,
+    "@core.longitude": 12.0314,
+    "@core.coringMethod": "Usinger piston corer",
+    "@core.drillDate": "08/2012",
+    "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true,
+    "errorMax": 4,
+    "errorMin": 1,
+    "hasErrorEstimate": true,
+    "errorMean": 2,
+    "depthType": "cum_sum",
+    "errorRaw": false
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-mholocene",
@@ -4036,9 +5467,10 @@
     "@core.coringMethod": "Usinger piston corer",
     "@core.drillDate": 2012,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.866Z"
+    "_lakeExists": true
   },
   {
     "file": "Woserin_Lake-Varves-CZYMZIK_et_al_2016-WOS-A-B-C-recent",
@@ -4061,9 +5493,26 @@
     "@core.coringMethod": "Usinger piston corer",
     "@core.drillDate": 2012,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.912Z"
+    "_lakeExists": true
+  },
+  {
+    "file": "Zabrinskie-Tephra-Zarczyski_et_al_2018-ZAB_11",
+    "ageMin": 75,
+    "ageMax": 75,
+    "samples": 1,
+    "ageSpan": 1,
+    "@category.name": "Tephra",
+    "@publication.doi": "10.1016/j.quageo.2018.06.001",
+    "@lake.name": "Żabińskie",
+    "@core.label": "ZAB-11/3",
+    "@core.composite": true,
+    "_json": true,
+    "_fileWarn": false,
+    "_fileExists": true,
+    "_lakeExists": true
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON01-1A",
@@ -4081,9 +5530,10 @@
     "@core.latitude": 37.483455,
     "@core.longitude": -4.689444,
     "@core.waterDepth": 8,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:05.955Z"
+    "_lakeExists": true
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-1B",
@@ -4100,9 +5550,10 @@
     "@core.label": "ZON04-1B",
     "@core.latitude": 37.483455,
     "@core.longitude": -4.689444,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:06.001Z"
+    "_lakeExists": true
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008_ZON04-2A",
@@ -4119,9 +5570,10 @@
     "@core.label": "ZON04-2A",
     "@core.latitude": 37.483455,
     "@core.longitude": -4.689444,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:06.044Z"
+    "_lakeExists": true
   },
   {
     "file": "Zoñar-14C-MARTIN-PUERTAS_et_al_2008-Composite",
@@ -4137,9 +5589,10 @@
     "@core.label": "ZON04-1B; ZON01-1A; ZON04-2A",
     "@core.waterDepth": 8,
     "@core.composite": true,
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": true,
-    "_lastCheck": "2019-05-28T22:56:06.102Z"
+    "_lakeExists": true
   },
   {
     "file": "Huelmo-Hajdas_et_al-2002-14C",
@@ -4161,9 +5614,10 @@
     "@lake.@countries": [
       "CL"
     ],
+    "_json": false,
+    "_fileWarn": false,
     "_fileExists": true,
-    "_lakeExists": false,
-    "_lastCheck": "2019-05-28T22:56:06.271Z"
+    "_lakeExists": false
   },
   {
     "depthMin": 6688,
@@ -4176,9 +5630,10 @@
     "@core.latitude": 40.9317,
     "@core.longitude": 15.6049,
     "@core.coringMethod": "Core drilling (CDRILL)",
+    "_json": false,
     "_file": "Lago_Grande_di_Monticchio-Pollen-SANCHEZ_GOÑi_et_al_2017",
+    "_fileWarn": false,
     "_fileExists": false,
-    "_lakeExists": true,
-    "_lastCheck": "2019-04-04T20:31:07.354Z"
+    "_lakeExists": true
   }
 ]

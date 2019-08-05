@@ -29,7 +29,6 @@ if (process.env.NODE_ENV === 'production') {
   const bundle = require('../../package');
   const logoFile = path.resolve(__dirname, '../../src/assets/varda-logo.svg');
   const logoSource = fs.readFileSync(logoFile, 'utf8');
-  const logoBase64 = Buffer.from(logoSource).toString('base64');
   const templateFile = path.resolve(__dirname, '../../templates/index.static.html');
   const makeStaticContext = ({ subject, body }) => ({
     params: {
@@ -37,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
         name: bundle.name,
         version: bundle.version,
       },
-      logo: `<img src="data:image/svg+xml;base64,${logoBase64}" alt="Logo"/>`,
+      logo: `<div role="img" aria-label="Logo">${logoSource}</div>`,
       credits: `${bundle.name} v${bundle.version}`,
       title: subject,
       content: body,

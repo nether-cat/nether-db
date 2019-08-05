@@ -82,7 +82,10 @@ type Country implements Entity {
 }
 
 type Dataset implements Entity {
+  ageMax: Float
+  ageMin: Float
   ageResolution: Float
+  ageSpan: Float
   analysisMethod: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
   categories(first: Int = 100, offset: Int = 0): [Category]
@@ -97,6 +100,18 @@ type Dataset implements Entity {
   records(first: Int = 100, offset: Int = 0): [JSON]
   updated: _Neo4jDateTime!
   url: String
+  uuid: ID!
+}
+
+type Event implements Entity {
+  ageMax: Float
+  ageMean: Float
+  ageMin: Float
+  created: _Neo4jDateTime!
+  datasets: [Dataset]
+  lakes: [Lake]
+  name: String!
+  updated: _Neo4jDateTime!
   uuid: ID!
 }
 
@@ -152,12 +167,14 @@ type Permission {
 type Publication implements Entity {
   abstract: String
   authors: String
+  citation: String
   created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   doi: String
   email: String
+  resolved: _Neo4jDateTime
   source: String
-  title: String!
+  title: String
   updated: _Neo4jDateTime!
   url: String
   uuid: ID!
@@ -168,6 +185,7 @@ type Query {
   Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Dataset(_id: String, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Event: [Event]
   Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]

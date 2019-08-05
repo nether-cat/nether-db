@@ -125,6 +125,7 @@ module.exports = {
       .tap(options => Object.assign({}, options, {
         transformAssetUrls: {
           ...options.transformAssetUrls,
+          'object': 'data',
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
@@ -182,7 +183,6 @@ function extendParameters () {
   const fs = require('fs');
   const logoFile = path.resolve(__dirname, './src/assets/varda-logo.svg');
   const logoSource = fs.readFileSync(logoFile, 'utf8');
-  const logoBase64 = Buffer.from(logoSource).toString('base64');
   const offlineInfoFile = path.resolve(__dirname, './templates/index.offline.0.html');
   const offlineInfoSource = fs.readFileSync(offlineInfoFile, 'utf8');
 
@@ -192,7 +192,7 @@ function extendParameters () {
         name: 'webpack',
         version: require('webpack/package').version,
       },
-      logo: `<img src="data:image/svg+xml;base64,${logoBase64}" alt="Logo"/>`,
+      logo: `<div role="img" aria-label="Logo">${logoSource}</div>`,
       credits: `${bundle.name} v${bundle.version}`,
       title: '<%= email.subject %>',
       content: '<%= email.body %>',

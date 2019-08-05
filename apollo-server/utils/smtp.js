@@ -2,13 +2,14 @@ const chalk = require('chalk').default;
 const nodemailer = require('nodemailer');
 
 async function setup () {
-  if (!process.env.SMTP_DEFAULT_HOST) {
+  if (!process.env.SMTP_DEFAULT_HOST || /^##\s/.test(process.env.SMTP_DEFAULT_HOST)) {
     let account = await nodemailer.createTestAccount();
     return {
       previews: true,
       connection: {
-        secure: false,
-        host: 'smtp.ethereal.email',
+        host: account.smtp.host,
+        port: account.smtp.port,
+        secure: account.smtp.secure,
         auth: {
           user: account.user, // generated ethereal user
           pass: account.pass, // generated ethereal password

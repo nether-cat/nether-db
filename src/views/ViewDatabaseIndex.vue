@@ -3,18 +3,12 @@
     <BRow>
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filter options</h4>
-          <BForm v-observe-visibility="toggleJumpButton" class="card-text container-fluid">
+          <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
+          <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <BFormGroup label="Search terms:">
-                  <BFormInput id="termsInput"
-                              ref="terms"
-                              :disabled="false"
-                              type="text"
-                              required
-                  />
-                </BFormGroup>
+                <FormFilters :source="getLakes" :result.sync="filteredLakes" :use="filters"/>
+                <hr>
               </BCol>
             </BRow>
             <BRow>
@@ -33,9 +27,10 @@
                   </Transition>
                   <SkipServerSide>
                     <ChartClimate
+                      :events="getEvents"
                       @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
-                      @domain="(domain) => !isDeactivated && !chart.loading && (chart.domain = domain)"
-                      @filterLakes="updateLakes"
+                      @selectDomain="selectDomain"
+                      @selectEvent="selectEvent"
                     />
                   </SkipServerSide>
                 </div>
@@ -62,8 +57,7 @@
             </Transition>
             <div style="height: 485px;">
               <SkipServerSide>
-                <MapOverview :features="getFeatures" @loaded="$nextTick(() => map.loading = false)"/>
-                <!-- TODO: Call updateSize() of referenced ol/Map in correlating situations -->
+                <MapOverview :features="map.features" @loaded="$nextTick(() => map.loading = false)"/>
               </SkipServerSide>
             </div>
           </BContainer>
@@ -79,10 +73,16 @@
                   caption-top
                   show-empty
                   sort-by="name"
-                  :items="getResults"
+                  :items="filteredLakes"
                   :fields="fields"
           >
-            <template slot="table-caption">Found lakes with datasets:</template>
+            <template slot="table-caption">
+              {{
+                filteredLakes.length && filteredLakes.length !== getLakes.length
+                  ? 'Lakes matching your criteria:'
+                  : 'All lakes currently in the database:'
+              }}
+            </template>
             <template slot="countries" slot-scope="cell">
               <div class="text-monospace">
                 {{ cell.item['countries'].map(c => c['code']).join(', ') }}
@@ -112,18 +112,17 @@
         </BCard>
       </BCol>
     </BRow>
-    <Transition name="fade-opacity">
-      <div v-if="showJumpButton" class="btn-overlay">
-        <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
-          <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
-        </BButton>
-      </div>
-    </Transition>
   </BContainer>
 </template>
 
 <script>
 import { log } from '@/plugins';
+import {
+  FFCountryFilter,
+} from '@/components/FormFiltersLibrary';
+import FormFilters from '@/components/FormFilters';
+import GET_EVENTS from '@/graphql/queries/GetEvents.graphql';
+import GET_LAKES from '@/graphql/queries/GetLakes.graphql';
 
 const SkipSSR = {};
 
@@ -165,23 +164,21 @@ export default {
   name: 'ViewDatabaseIndex',
   components: {
     ...SkipSSR,
+    FormFilters,
   },
   data () {
     return {
+      events: [],
       lakes: [],
-      filters: {
-        terms: {
-          tags: [],
-          groups: [],
-        },
-        location: '',
-      },
+      filters: [FFCountryFilter.factory(this)],
+      filteredLakes: [],
       chart: {
         domain: undefined,
         flush: () => {},
         loading: true,
       },
       map: {
+        features: [],
         loading: true,
       },
       fields: [
@@ -192,44 +189,20 @@ export default {
         { key: 'actions', label: 'Details' },
       ],
       isDeactivated: false,
-      showJumpButton: false,
-      scrollEvents: {
-        onStart: () => (this.showJumpButton = false),
-        onCancel: () => (this.showJumpButton = true),
-      },
     };
   },
   apollo: {
+    events: {
+      prefetch: false,
+      query: GET_EVENTS,
+      error (err) {
+        log([err.message], 'Query', 2);
+        return false;
+      },
+    },
     lakes: {
       prefetch: false,
-      query: ESLint$1.gql`
-        query lakes {
-          lakes: Lake(orderBy: "name_asc") {
-            uuid
-            name
-            longitude
-            latitude
-            countries {
-              uuid
-              code
-              name
-            }
-            cores {
-              uuid
-              label
-              datasets {
-                uuid
-                label
-                file
-                categories {
-                  uuid
-                  name
-                }
-              }
-            }
-          }
-        }
-      `,
+      query: GET_LAKES,
       error (err) {
         log([err.message], 'Query', 2);
         return false;
@@ -237,15 +210,15 @@ export default {
     },
   },
   computed: {
-    getResults () {
+    getEvents () {
+      return this.events.filter(e => e.lakes.length > 1);
+    },
+    getLakes () {
       return (this.lakes || []).map(lake => {
         let datasetsCount = 0;
         lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
         return Object.assign({}, lake, { datasetsCount });
       });
-    },
-    getFeatures () {
-      return this.getResults.map(lakeToFeature);
     },
     mapZoom: {
       get () { return this.$store.state.database.map.zoom; },
@@ -264,6 +237,41 @@ export default {
       set (value) { this.$store.commit('database/MAP_FEATURES_SET', value); },
     },
   },
+  watch: {
+    async filteredLakes (newVal, oldVal) {
+      let jobs = [], batchSize = 15;
+      console.log('[APP] Started updating the map features...');
+      let hiddenBefore = newVal.filter(lake => !oldVal.includes(lake));
+      let hiddenNow = oldVal.filter(lake => !newVal.includes(lake));
+      for (let i = 0; i < hiddenNow.length; i += batchSize) {
+        let j = i + batchSize < hiddenNow.length ? i + batchSize : hiddenNow.length;
+        let batch = hiddenNow.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.filter(f => !batch.find(l => f.id === l.uuid));
+        });
+      }
+      hiddenBefore = hiddenBefore.filter(l => !this.map.features.find(f => l.uuid === f.id));
+      for (let i = 0; i < hiddenBefore.length; i += batchSize) {
+        let j = i + batchSize < hiddenBefore.length ? i + batchSize : hiddenBefore.length;
+        let batch = hiddenBefore.slice(i, i + batchSize);
+        jobs.push(async () => {
+          this.map.features = this.map.features.concat(batch.map(lakeToFeature));
+        });
+      }
+      let start, step = 0;
+      let runSequence = (timestamp) => {
+        if (!start) start = timestamp;
+        let runtime = timestamp - start;
+        if (jobs[step]) {
+          jobs[step](); step++;
+          requestAnimationFrame(runSequence);
+        } else {
+          console.log(`[APP] Updated the map features in ${runtime}ms`);
+        }
+      };
+      requestAnimationFrame(runSequence);
+    },
+  },
   activated () {
     /* FIXME: This is a dirty hack, but when this component has been inactive
               too long, the c3 component starts acting weird without this.
@@ -275,9 +283,11 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    updateLakes (filteredLakes) {
-      // this.lakes = filteredLakes;
+    selectDomain (domain) {
+      return !this.isDeactivated && !this.chart.loading && (this.chart.domain = domain);
+    },
+    selectEvent (event) {
+      console.log('Selected event', event);
     },
     formatCoordinates({ latitude, longitude }) {
       latitude = Number.parseFloat(latitude);
@@ -293,9 +303,6 @@ export default {
         longitude = '&nbsp;' + longitude;
       }
       return [latitude, longitude].join(', ');
-    },
-    toggleJumpButton (disable = true) {
-      this.showJumpButton = !disable;
     },
   },
 };

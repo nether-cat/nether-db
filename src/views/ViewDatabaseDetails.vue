@@ -14,7 +14,7 @@
             <BCol>
               <BCard header-tag="header" footer-tag="footer">
                 <h4 slot="header">Lake details</h4>
-                <BContainer v-observe-visibility="toggleJumpButton" fluid class="card-text">
+                <BContainer fluid class="card-text">
                   <BRow>
                     <BCol>
                       <h5 class="font-weight-normal text-left">
@@ -117,7 +117,7 @@
               </Transition>
               <div style="height: 485px;">
                 <SkipServerSide>
-                  <VlMap ref="map"
+                  <VlMap ref="mapComponent"
                          :load-tiles-while-animating="true"
                          :load-tiles-while-interacting="true"
                          data-projection="EPSG:4326"
@@ -228,13 +228,6 @@
           </BRow>
         </template>
       </ApolloQuery>
-      <Transition name="fade-opacity">
-        <div v-if="showJumpButton" class="btn-overlay">
-          <BButton v-scroll-to="{ el: 'body', force: false, ...scrollEvents }" variant="link">
-            <FontAwesomeIcon :icon="['far', 'arrow-alt-circle-up']" size="5x"/>
-          </BButton>
-        </div>
-      </Transition>
     </template>
   </ApolloQuery>
 </template>
@@ -290,11 +283,6 @@ export default {
       isDeactivated: false,
       isInitializing: true,
       shouldFetchMore: true,
-      showJumpButton: false,
-      scrollEvents: {
-        onStart: () => (this.showJumpButton = false),
-        onCancel: () => (this.showJumpButton = true),
-      },
     };
   },
   watch: {
@@ -305,6 +293,9 @@ export default {
   },
   activated () {
     this.isDeactivated = false;
+    let comp = this.$refs.mapComponent;
+    comp = comp && comp.length ? comp[0] : comp;
+    comp && comp.$map && comp.$map.updateSize();
   },
   deactivated () {
     this.isDeactivated = true;
@@ -349,9 +340,9 @@ export default {
     },
     onMapMounted () {
       ScaleLineLoad.then(() => {
-        let map = this.$refs.map;
-        map = map.length ? map[0] : map;
-        map.$map.getControls().extend([
+        let comp = this.$refs.mapComponent;
+        comp = comp.length ? comp[0] : comp;
+        comp.$map.getControls().extend([
           new ScaleLine(),
         ]);
       });

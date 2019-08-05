@@ -2,7 +2,7 @@
   <BContainer fluid class="auth">
     <BRow align-h="center">
       <BCol cols="12" class="text-center">
-        <BImg src="@/assets/varda-logo.svg" alt="Logo" :class="animation"/>
+        <object class="app-logo" name="Logo" role="img" aria-label="Logo" data="@/assets/varda-logo.svg"/>
       </BCol>
     </BRow>
     <BRow v-if="messages.length" align-h="center">
@@ -81,7 +81,7 @@ export default {
     height: 100vh;
     width: 100vw;
     top: 0;
-    img[alt='Logo'] {
+    .app-logo {
       max-height: 74px;
       margin: 0 0 1.5rem;
       @media (min-width: 768px) {

@@ -225,18 +225,17 @@ export default {
   mounted () {
     this.fixZoomButtons();
   },
+  activated () {
+    this.$refs.mapComponent && this.$refs.mapComponent.$map && this.$refs.mapComponent.$map.updateSize();
+  },
   methods,
   render () {
     return (
       <VlMap load-tiles-while-animating={true}
-              load-tiles-while-interacting={true}
-              data-projection="EPSG:4326"
-              style="height: 485px"
-              {...{ /*
-              TODO: Listen for pointer events
-              onpostcompose="trySelectFeature"
-              onpointermove="experimentalHandler"
-              */ }}
+             load-tiles-while-interacting={true}
+             data-projection="EPSG:4326"
+             style="height: 485px"
+             ref="mapComponent"
       >
         <VlView
           min-zoom={1}
