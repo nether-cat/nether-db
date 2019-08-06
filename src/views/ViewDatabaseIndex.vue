@@ -28,9 +28,11 @@
                   <SkipServerSide>
                     <ChartClimate
                       :events="getEvents"
+                      :selection="getSelectedEvents"
                       @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
                       @selectDomain="selectDomain"
                       @selectEvent="selectEvent"
+                      @unselectEvent="unselectEvent"
                     />
                   </SkipServerSide>
                 </div>
@@ -118,6 +120,9 @@
 <script>
 import { log } from '@/plugins';
 import {
+  FFInputTag,
+  FFEventFilter,
+  FFContinentFilter,
   FFCountryFilter,
 } from '@/components/FormFiltersLibrary';
 import FormFilters from '@/components/FormFilters';
@@ -170,7 +175,11 @@ export default {
     return {
       events: [],
       lakes: [],
-      filters: [FFCountryFilter.factory(this)],
+      filters: [
+        FFEventFilter.factory(this),
+        FFContinentFilter.factory(this),
+        FFCountryFilter.factory(this),
+      ],
       filteredLakes: [],
       chart: {
         domain: undefined,
@@ -211,7 +220,14 @@ export default {
   },
   computed: {
     getEvents () {
-      return this.events.filter(e => e.lakes.length > 1);
+      let [filter] = this.filters;
+      return this.events.filter(
+        e => e.lakes.length > 1 && e.lakes.some(l => filter.ui.data.find(d => d.uuid === l.uuid)),
+      );
+    },
+    getSelectedEvents () {
+      let [filter] = this.filters, events;
+      return events = filter.ui.tags.map(t => t.opts.params.value);
     },
     getLakes () {
       return (this.lakes || []).map(lake => {
@@ -266,7 +282,7 @@ export default {
           jobs[step](); step++;
           requestAnimationFrame(runSequence);
         } else {
-          console.log(`[APP] Updated the map features in ${runtime}ms`);
+          console.log(`[APP] Updating the map features took ${runtime.toFixed(0)}ms`);
         }
       };
       requestAnimationFrame(runSequence);
@@ -274,7 +290,7 @@ export default {
   },
   activated () {
     /* FIXME: This is a dirty hack, but when this component has been inactive
-              too long, the c3 component starts acting weird without this.
+              for too long, the c3 component starts acting weird without this.
     */
     this.chart.flush(this.chart.domain);
     this.isDeactivated = false;
@@ -286,8 +302,26 @@ export default {
     selectDomain (domain) {
       return !this.isDeactivated && !this.chart.loading && (this.chart.domain = domain);
     },
-    selectEvent (event) {
-      console.log('Selected event', event);
+    selectEvent (event, next = () => {}) {
+      let [filter] = this.filters;
+      if (filter.ui.tags.find(t => t.opts.params.value === event)) {
+        return;
+      }
+      console.log('[APP] Added filter for event:', event);
+      let newTag = FFInputTag.factory({ label: event.name, icon: 'layer-group', value: event });
+      newTag.opts.remove = (unselectEvent = true) => {
+        let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
+        (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+        (!!unselectEvent) && next();
+        filter.refreshCache();
+      };
+      filter.ui.tags.push(newTag);
+      filter.refreshCache();
+    },
+    unselectEvent (event) {
+      console.log('[APP] Removed filter for event:', event);
+      let [filter] = this.filters, tag = filter.ui.tags.find(t => t.opts.params.value === event);
+      (!!tag) && tag.opts.remove(false);
     },
     formatCoordinates({ latitude, longitude }) {
       latitude = Number.parseFloat(latitude);

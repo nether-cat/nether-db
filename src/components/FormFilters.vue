@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { FFListDivider, FFListItem } from '@/components/FormFiltersLibrary';
+import { FFListDivider } from '@/components/FormFiltersLibrary';
 
 export default {
   name: 'FormFilters',
@@ -155,7 +155,8 @@ export default {
       }
     },
     tags () {
-      return [].concat(...this.processors.map(proc => proc.ui.tags));
+      return [].concat(...this.processors.map(proc => proc.ui.tags))
+        .sort((tagLeft, tagRight) => tagLeft.t - tagRight.t);
     },
   },
   watch: {
@@ -194,7 +195,7 @@ export default {
     },
   },
   mounted () {
-    console.log('Processors used:', this.processors);
+    console.log('[APP] Filter processors used:', this.processors);
   },
   methods: {
     updateResult () {
@@ -272,7 +273,7 @@ export default {
     },
     onKeyDown (evt, debug = false) {
       'function' === typeof this['on' + evt.key] && this['on' + evt.key](evt);
-      debug === true && console.log('onKeyDown:', evt);
+      debug === true && console.log('[APP] Form filters handled `keydown`:', evt);
     },
     onBackspace (evt) {
       let { key, target: { selectionStart: start, selectionEnd: end } } = evt;
@@ -290,8 +291,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $highlight-color: hsl(200, 60%, 95%);
-  $highlight-alert: adjust_hue(darken(saturate($highlight-color, 25%), 10%), -190deg);
+  $highlight-background: hsl(200, 60%, 95%);
+  $highlight-border: hsl(200, 60%, 80%);
+  $highlight-color: hsl(200, 60%, 30%);
+  $highlight-focus: hsl(200, 60%, 22.5%);
+  $danger-background: hsl(10, 85%, 90%);
+  $danger-border: hsl(10, 85%, 80%);
+  $danger-color: hsl(10, 75%, 30%);
+  $danger-focus: hsl(10, 75%, 22.5%);
+
+  @mixin highlight-colors {
+    background-color: $highlight-background;
+    border-color: $highlight-border;
+    color: $highlight-color;
+  }
+
+  @mixin danger-colors {
+    background-color: $danger-background;
+    border-color: $danger-border;
+    color: $danger-color;
+  }
 
   .form-group {
     top: -.5rem;
@@ -322,11 +341,26 @@ export default {
           > .input-tag-content {
             cursor: default;
             display: inline;
-            border: 1px solid #ced4da;
+            border: 1px solid;
             border-radius: .25rem;
             margin: 0 .25rem 0 0;
-            padding: 0 .0625rem 0 .3125rem;
-            background-color: $highlight-color;
+            padding: 0 .3125rem 0 .3125rem;
+            @include highlight-colors;
+            a {
+              @include highlight-colors;
+              &:hover {
+                color: $highlight-focus;
+              }
+            }
+            &.invalid {
+              @include danger-colors;
+              a {
+                @include danger-colors;
+                &:hover {
+                  color: $danger-focus;
+                }
+              }
+            }
           }
           &.input-tags-enter-active,
           &.input-tags-leave-active {
@@ -337,7 +371,13 @@ export default {
             transform: scale(.25, .5);
           }
           &.input-tags-leave-active > .input-tag-content {
-            background-color: $highlight-alert;
+            @include danger-colors;
+            a {
+              @include danger-colors;
+              &:hover {
+                color: $danger-focus;
+              }
+            }
           }
         }
       }
@@ -393,7 +433,7 @@ export default {
         color: #495057;
         padding-left: 2rem;
         text-decoration: none;
-        background-color: $highlight-color;
+        background-color: $highlight-background;
         svg[data-icon='caret-right'] {
           display: inline-block;
           left: .6875rem;

@@ -25,6 +25,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    selection: {
+      type: Array,
+      default: () => [],
+    },
   },
   data () {
     return {
@@ -32,15 +36,32 @@ export default {
     };
   },
   watch: {
-    events () {
-      console.log('Events updated with count', this.events.length, 'in', this.chart);
-      this.chart.load({
-        columns: [
-          ['x2', ...this.events.map(e => e.ageMean / 1000)],
-          [dataLabels.data2, ...this.events.map(e => -52)],
-        ],
-        done: () => this.chart.show(dataLabels.data2),
-      });
+    events (newVal, oldVal) {
+      let options = !newVal || newVal && oldVal && oldVal.length
+        ? { unload: [dataLabels.data2] } : {};
+      let toggleEvents = () => {
+        if (newVal && newVal.length) {
+          this.chart.show(dataLabels.data2);
+          this.chart.select([dataLabels.data2], [...newVal.entries()]
+            .filter(([, e]) => this.selection.includes(e))
+            .map(([i]) => i),
+          );
+        } else {
+          this.chart.hide(dataLabels.data2);
+        }
+      };
+      if ('function' === typeof this.chart.load) {
+        this.chart.load({
+          ...options,
+          columns: [
+            ['x2', ...(newVal && newVal.map(e => e.ageMean / 1000) || [])],
+            [dataLabels.data2, ...(newVal && newVal.map(e => -52) || [])],
+          ],
+          done: toggleEvents,
+        });
+      } else {
+        toggleEvents();
+      }
     },
   },
   mounted () {
@@ -77,10 +98,25 @@ export default {
           },
           // Prepend column labels and x-axes
           rows: [['x1', dataLabels.data1, 'x2', dataLabels.data2], ...dataRows],
-          onclick: (data) => {
-            if (data.id === dataLabels.data2 && this.events[data.index]) {
-              this.$emit('selectEvent', this.events[data.index]);
-            }
+          selection: {
+            // Enable interactive multi-selections for event circles
+            enabled: true,
+            isselectable: (data) => data.id === dataLabels.data2 && this.events[data.index],
+          },
+          onselected: ({ index }, elem) => {
+            // Emit the selected event and an arrow function that
+            // allows the parent component to unselect that event
+            let selectedEvent = this.events[index];
+            this.$emit('selectEvent', selectedEvent, () => {
+              let i = this.events.findIndex(e => selectedEvent === e);
+              if (i > -1) {
+                this.chart.unselect([dataLabels.data2], [i]);
+              }
+            });
+          },
+          onunselected: ({ index }, elem) => {
+            // Emit the unselected event
+            this.$emit('unselectEvent', this.events[index]);
           },
         },
         axis: {
@@ -108,7 +144,7 @@ export default {
         size: {
           height: 400,
         },
-        // Callback to emit tooltips
+        // Callback to display tooltips with custom HTML
         tooltip: {
           // eslint-disable-next-line no-unused-vars
           contents: (d, defaultTitleFormat, defaultValueFormat, color) => {
@@ -226,6 +262,10 @@ export default {
     }
     .c3-tooltip-container > .tooltip-card {
       word-wrap: normal;
+    }
+    //noinspection CssUnknownProperty
+    .c3-selected-circle {
+      r: 29;
     }
   }
 </style>
