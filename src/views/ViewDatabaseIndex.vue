@@ -121,6 +121,7 @@
 import { log } from '@/plugins';
 import {
   FFInputTag,
+  FFDomainFilter,
   FFEventFilter,
   FFContinentFilter,
   FFCountryFilter,
@@ -176,6 +177,7 @@ export default {
       events: [],
       lakes: [],
       filters: [
+        FFDomainFilter.factory(this),
         FFEventFilter.factory(this),
         FFContinentFilter.factory(this),
         FFCountryFilter.factory(this),
@@ -183,6 +185,8 @@ export default {
       filteredLakes: [],
       chart: {
         domain: undefined,
+        domainLimits: undefined,
+        domainTimeout: undefined,
         flush: () => {},
         loading: true,
       },
@@ -220,13 +224,13 @@ export default {
   },
   computed: {
     getEvents () {
-      let [filter] = this.filters;
+      let [, filter] = this.filters;
       return this.events.filter(
         e => e.lakes.length > 1 && e.lakes.some(l => filter.ui.data.find(d => d.uuid === l.uuid)),
       );
     },
     getSelectedEvents () {
-      let [filter] = this.filters, events;
+      let [, filter] = this.filters, events;
       return events = filter.ui.tags.map(t => t.opts.params.value);
     },
     getLakes () {
@@ -254,6 +258,37 @@ export default {
     },
   },
   watch: {
+    'chart.domain': function (newVal, oldVal) {
+      if (this.chart.domainLimits === undefined) {
+        this.chart.domainLimits = newVal;
+        return;
+      }
+      if (newVal[0] !== oldVal[0] || newVal[1] !== oldVal[1]) {
+        clearTimeout(this.chart.domainTimeout);
+        this.chart.domainTimeout = setTimeout(() => {
+          let [filter] = this.filters;
+          let [tag] = filter.ui.tags;
+          if (!tag) {
+            console.log('[APP] Added filter for domain:', newVal);
+            let newTag = FFInputTag.factory({
+              label: '<em>Age within time span</em>',
+              icon: 'history',
+              value: newVal.map(v => v * 1000),
+            });
+            newTag.opts.remove = (resetDomain = true) => {
+              let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
+              (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+              //(!!resetDomain) && next();
+              filter.refreshCache();
+            };
+            filter.ui.tags.push(newTag);
+          } else {
+            tag.opts.params.value = newVal.map(v => v * 1000);
+          }
+          filter.refreshCache();
+        }, 100);
+      }
+    },
     async filteredLakes (newVal, oldVal) {
       let jobs = [], batchSize = 15;
       console.log('[APP] Started updating the map features...');
@@ -299,11 +334,11 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
-    selectDomain (domain) {
-      return !this.isDeactivated && !this.chart.loading && (this.chart.domain = domain);
+    selectDomain ([begin, end]) {
+      !this.isDeactivated && !this.chart.loading && (this.chart.domain = [begin, end]);
     },
     selectEvent (event, next = () => {}) {
-      let [filter] = this.filters;
+      let [, filter] = this.filters;
       if (filter.ui.tags.find(t => t.opts.params.value === event)) {
         return;
       }
@@ -320,7 +355,7 @@ export default {
     },
     unselectEvent (event) {
       console.log('[APP] Removed filter for event:', event);
-      let [filter] = this.filters, tag = filter.ui.tags.find(t => t.opts.params.value === event);
+      let [, filter] = this.filters, tag = filter.ui.tags.find(t => t.opts.params.value === event);
       (!!tag) && tag.opts.remove(false);
     },
     formatCoordinates({ latitude, longitude }) {

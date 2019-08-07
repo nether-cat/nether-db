@@ -147,6 +147,54 @@ export class FFProcessor {
   }
 }
 
+export class FFDomainFilter extends FFProcessor {
+  initialize (vm) {
+    super.initialize(vm);
+    this.hiddenRule = function (lake) {
+      let datasets = [...new Set([].concat(...lake.cores.map(core => core.datasets)))];
+      return this.length && this.every(([lowerLimit, upperLimit]) => !datasets.some(
+        ({ ageMin, ageMax }) => (ageMin > lowerLimit && ageMin < upperLimit
+          || ageMax > lowerLimit && ageMax < upperLimit),
+      ));
+    };
+    return this;
+  }
+  updateCache () {
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      let datasets = [...new Set([].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
+        lake => [...new Set([].concat(...lake.cores.map(core => core.datasets)))],
+      )))].filter(
+        d => !Number.isNaN(Number.parseFloat(d.ageMin)) && !Number.isNaN(Number.parseFloat(d.ageMax)),
+      );
+      let [{ ageMin } = {}] = datasets.sort((dLeft, dRight) => dLeft.ageMin - dRight.ageMin);
+      let [{ ageMax } = {}] = datasets.sort((dLeft, dRight) => dRight.ageMax - dLeft.ageMax);
+      this.ui.data = { ageMin, ageMax };
+      this.ui.tags.forEach(t => {
+        let [lowerLimit, upperLimit] = t.opts.params.value;
+        t.opts.valid = datasets.some(
+          ({ ageMin, ageMax }) => (ageMin > lowerLimit && ageMin < upperLimit
+            || ageMax > lowerLimit && ageMax < upperLimit),
+        );
+      });
+    }
+    return this;
+  }
+  updateSource () {
+    this.ui.data = [].concat(...this.vm.source);
+    let datasets = [...new Set([].concat(...this.vm.source).map(
+      lake => [...new Set([].concat(...lake.cores.map(core => core.datasets)))],
+    ))].filter(
+      d => !Number.isNaN(Number.parseFloat(d.ageMin)) && !Number.isNaN(Number.parseFloat(d.ageMax)),
+    );
+    let [{ ageMin } = {}] = datasets.sort((dLeft, dRight) => dLeft.ageMin - dRight.ageMin);
+    let [{ ageMax } = {}] = datasets.sort((dLeft, dRight) => dRight.ageMax - dLeft.ageMax);
+    this.ui.data = { ageMin, ageMax };
+    return this;
+  }
+}
+
 export class FFEventFilter extends FFProcessor {
   initialize (vm) {
     super.initialize(vm);
@@ -254,11 +302,9 @@ export class FFContinentFilter extends FFInteractiveFilter {
       console.log('[APP] Update cache hook for continent filter called.');
       let cacheDiff = { ...this.vm.cache };
       Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
-      this.suggestionValues = [...new Set([].concat(
-        ...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
-          lake => [...new Set([].concat(...lake.countries.map(country => country.continents)))],
-        ),
-      ))];
+      this.suggestionValues = [...new Set([].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
+        lake => [...new Set([].concat(...lake.countries.map(country => country.continents)))],
+      )))];
       this.ui.tags.forEach(t => (
         t.opts.valid = this.suggestionValues.includes(t.opts.params.value)
       ));
