@@ -283,7 +283,7 @@ export class FFContinentFilter extends FFInteractiveFilter {
         .some(continent => !this.length || this.includes(continent));
     };
     this.ui.actions.push(
-      FFListItem.factory({ label: 'Browse continents...', icon: 'globe-africa', enter: () => this.activate() }),
+      FFListItem.factory({ label: 'Browse continents...', icon: 'compass', enter: () => this.activate() }),
     );
     this.suggestionsActive.push(
       FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
@@ -314,6 +314,15 @@ export class FFContinentFilter extends FFInteractiveFilter {
   }
   updateSource () {
     console.log('[APP] Update source hook for continent filter called.');
+    const globes = {
+      AF: 'globe-africa',
+      AN: 'globe',
+      AS: 'globe-asia',
+      EU: 'globe-europe',
+      NA: 'globe-americas',
+      OC: 'globe-asia',
+      SA: 'globe-americas',
+    };
     this.suggestionValues = [...new Set([].concat(...this.vm.source.map(
       lake => [...new Set([].concat(...lake.countries.map(country => country.continents)))],
     )))];
@@ -321,10 +330,10 @@ export class FFContinentFilter extends FFInteractiveFilter {
       .sort(({ name: a }, { name: b }) => a.toLowerCase() < b.toLowerCase() ? -1 : 1)
       .map(continent => FFListItem.factory({
         label: `Add filter for <strong>${continent.name}</strong>`,
-        icon: 'globe-africa',
+        icon: globes[continent.code],
         value: continent,
         enter: () => {
-          let thisTag = FFInputTag.factory({ label: continent.name, icon: 'globe-africa', value: continent });
+          let thisTag = FFInputTag.factory({ label: continent.name, icon: globes[continent.code], value: continent });
           thisTag.opts.remove = () => {
             this.ui.tags.splice(this.ui.tags.findIndex(t => t === thisTag), 1);
             this.refreshSuggestions();
