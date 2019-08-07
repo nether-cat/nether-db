@@ -3,7 +3,7 @@
     <BRow>
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
+          <h4 slot="header">Filters</h4>
           <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
@@ -81,8 +81,8 @@
             <template slot="table-caption">
               {{
                 filteredLakes.length && filteredLakes.length !== getLakes.length
-                  ? 'Lakes matching your criteria:'
-                  : 'All lakes currently in the database:'
+                  ? `${filteredLakes.length} sites that match your criteria:`
+                  : `${filteredLakes.length} sites available in the database:`
               }}
             </template>
             <template slot="countries" slot-scope="cell">
@@ -258,17 +258,28 @@ export default {
     },
   },
   watch: {
-    'chart.domain': function (newVal, oldVal) {
+    'chart.domain': async function (newVal, oldVal) {
       if (this.chart.domainLimits === undefined) {
         this.chart.domainLimits = newVal;
         return;
       }
-      if (newVal[0] !== oldVal[0] || newVal[1] !== oldVal[1]) {
+      let lowerDiff = Math.abs(newVal[0] - oldVal[0]),
+          upperDiff = Math.abs(newVal[1] - oldVal[1]);
+      if (lowerDiff > .5 || upperDiff > .5) {
         clearTimeout(this.chart.domainTimeout);
         this.chart.domainTimeout = setTimeout(() => {
           let [filter] = this.filters;
           let [tag] = filter.ui.tags;
-          if (!tag) {
+          lowerDiff = Math.abs(newVal[0] - this.chart.domainLimits[0]);
+          upperDiff = Math.abs(newVal[1] - this.chart.domainLimits[1]);
+          if (lowerDiff < 1.3 && upperDiff < 1.3) {
+            if (tag) {
+              console.log('[APP] Removed filter for domain.');
+              let tagIndex = filter.ui.tags.findIndex(t => t === tag);
+              (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+              filter.refreshCache();
+            }
+          } else if (!tag) {
             console.log('[APP] Added filter for domain:', newVal);
             let newTag = FFInputTag.factory({
               label: '<em>Age within time span</em>',
@@ -276,22 +287,26 @@ export default {
               value: newVal.map(v => v * 1000),
             });
             newTag.opts.remove = (resetDomain = true) => {
-              let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
-              (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
-              //(!!resetDomain) && next();
-              filter.refreshCache();
+              console.log('[APP] Removed filter for domain.');
+              this.chart.flush(this.chart.domainLimits);
+              this.$nextTick(() => {
+                let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
+                (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+                filter.refreshCache();
+              });
             };
             filter.ui.tags.push(newTag);
+            filter.refreshCache();
           } else {
+            console.log('[APP] Modified filter for domain:', newVal);
             tag.opts.params.value = newVal.map(v => v * 1000);
+            filter.refreshCache();
           }
-          filter.refreshCache();
-        }, 100);
+        }, 250);
       }
     },
     async filteredLakes (newVal, oldVal) {
       let jobs = [], batchSize = 15;
-      console.log('[APP] Started updating the map features...');
       let hiddenBefore = newVal.filter(lake => !oldVal.includes(lake));
       let hiddenNow = oldVal.filter(lake => !newVal.includes(lake));
       for (let i = 0; i < hiddenNow.length; i += batchSize) {
@@ -311,7 +326,10 @@ export default {
       }
       let start, step = 0;
       let runSequence = (timestamp) => {
-        if (!start) start = timestamp;
+        if (!start) {
+          start = timestamp;
+          console.log('[APP] Started updating the map features...');
+        }
         let runtime = timestamp - start;
         if (jobs[step]) {
           jobs[step](); step++;
@@ -320,7 +338,7 @@ export default {
           console.log(`[APP] Updating the map features took ${runtime.toFixed(0)}ms`);
         }
       };
-      requestAnimationFrame(runSequence);
+      setTimeout(() => requestAnimationFrame(runSequence), 250);
     },
   },
   activated () {

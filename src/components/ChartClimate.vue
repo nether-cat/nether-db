@@ -198,12 +198,12 @@ export default {
         // Enable the sub-chart
         subchart: {
           show: true,
-          onbrush: domain => { this.$emit('selectDomain', domain); console.log('onBrush:', domain); },
+          onbrush: domain => { this.$emit('selectDomain', domain); /* console.log('onBrush:', domain); */ },
         },
         // Enable zoom feature
         zoom: {
           enabled: true,
-          onzoom: domain => { this.$emit('selectDomain', domain); console.log('onZoom:', domain); },
+          onzoom: domain => { this.$emit('selectDomain', domain); /* console.log('onZoom:', domain); */ },
         },
         oninit: () => {
           this.$nextTick(() => {
@@ -214,7 +214,6 @@ export default {
             this.$emit('init', (domain) => {
               this.chart.flush();
               this.chart.zoom(domain || defaultDomain);
-              this.chart.flush();
             });
           });
         },

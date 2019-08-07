@@ -4,7 +4,7 @@
       'form-group': true,
       'focus-explicit': true,
       'focus-within': state.focused,
-      'is-filled': !!userInput.trim() || tags.length,
+      'is-filled': !!state.textInput.trim() || tags.length,
     }"
   >
     <label for="inputTextSearch" class="d-block">
@@ -20,7 +20,7 @@
         <div class="input-textarea-wrapper">
           <textarea
             id="inputTextSearch"
-            v-model="userInput"
+            v-model="state.textInput"
             :style="styleProps"
             @keydown.down.prevent="moveSelection('forward')"
             @keydown.up.prevent="moveSelection('backward')"
@@ -53,8 +53,8 @@
           </span>
         </TransitionGroup>
         <span id="inputTextExtent" class="input-textarea-extent">
-          <span v-if="!userInput.trim()">&nbsp;</span>
-          {{ userInput }}
+          <span v-if="!state.textInput.trim()">&nbsp;</span>
+          {{ state.textInput }}
         </span>
         <div class="form-footer">
           <BListGroup v-if="state.focused && dropdown.length">
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { FFListDivider } from '@/components/FormFiltersLibrary';
+import { FFListDivider, FFListItem } from '@/components/FormFiltersLibrary';
 
 export default {
   name: 'FormFilters',
@@ -115,9 +115,10 @@ export default {
       state: {
         focused: false,
         focusTimer: undefined,
+        ignoreMouse: false,
         selected: -1,
         selectTimer: undefined,
-        ignoreMouse: false,
+        textInput: '',
       },
       cache: {},
       styleProps: {
@@ -126,11 +127,18 @@ export default {
         top: '16px',
       },
       processors: this.use.map(proc => proc.initialize(this)),
-      userInput: '',
-      actions: [
+      actionsBefore: [
         FFListDivider.factory({
           label: 'Featured actions',
           icon: ['far', 'hand-point-right'],
+        }),
+      ],
+      actionsAfter: [
+        FFListItem.factory({
+          label: 'Close this dialog...',
+          icon: 'comment-slash',
+          enter: () => this.focusElement('escapeHandler'),
+          flipCaret: true,
         }),
       ],
     };
@@ -141,7 +149,7 @@ export default {
     },
     allActions () {
       let actions = [].concat(...this.processors.map(proc => proc.ui.actions));
-      let allActions = [...this.actions, ...actions];
+      let allActions = [...this.actionsBefore, ...actions, ...this.actionsAfter];
       return (allActions.length > 1 ? allActions : []);
     },
     allSuggestions () {
@@ -175,7 +183,7 @@ export default {
       },
       immediate: true,
     },
-    userInput: {
+    'state.textInput': {
       handler (newVal, oldVal) {
         let sanitized = newVal.trim().replace(/\s+/g, ' ');
         if (sanitized !== oldVal.trim().replace(/\s+/g, ' ')) {
@@ -183,11 +191,11 @@ export default {
             sanitized += ' ';
           }
           if (sanitized !== newVal) {
-            this.userInput = sanitized;
+            this.state.textInput = sanitized;
           } else {
             this.$nextTick(() => this.updateExtents());
           }
-          this.processors.forEach(proc => proc.updateUserInput());
+          this.processors.forEach(proc => proc.updateTextInput());
         } else {
           this.$nextTick(() => this.updateExtents());
         }
@@ -212,8 +220,8 @@ export default {
           this.processors
             .filter(proc => proc.ui.active)
             .forEach(proc => proc.deactivate());
-          if (!!this.userInput && !this.userInput.trim()) {
-            this.userInput = '';
+          if (!!this.state.textInput && !this.state.textInput.trim()) {
+            this.state.textInput = '';
           }
         } else {
           this.state.selected = -1;
@@ -257,6 +265,12 @@ export default {
             el.parentNode.scrollTop = el.offsetTop - el.parentNode.clientHeight + m * (el.offsetHeight - 1) - 1;
           }
         }
+      }
+    },
+    activateProcessor (name = '') {
+      let proc = this.processors.find(proc => name === proc.name);
+      if (proc) {
+        proc.activate();
       }
     },
     updateExtents () {

@@ -90,6 +90,7 @@ export class FFProcessor {
   }
   constructor (parent, props = {}) {
     this.vm = undefined;
+    this.name = undefined;
     this.parent = parent;
     this.props = props;
     this.knownCache = {};
@@ -142,7 +143,7 @@ export class FFProcessor {
   updateSource () {
     return this;
   }
-  updateUserInput () {
+  updateTextInput () {
     return this;
   }
 }
@@ -150,6 +151,7 @@ export class FFProcessor {
 export class FFDomainFilter extends FFProcessor {
   initialize (vm) {
     super.initialize(vm);
+    this.name = 'domain';
     this.hiddenRule = function (lake) {
       let datasets = [...new Set([].concat(...lake.cores.map(core => core.datasets)))];
       return this.length && this.every(([lowerLimit, upperLimit]) => !datasets.some(
@@ -198,6 +200,7 @@ export class FFDomainFilter extends FFProcessor {
 export class FFEventFilter extends FFProcessor {
   initialize (vm) {
     super.initialize(vm);
+    this.name = 'events';
     this.hiddenRule = function (lake) {
       return this.length && this.every(event => !event.lakes.find(l => l.uuid === lake.uuid));
     };
@@ -231,22 +234,27 @@ export class FFInteractiveFilter extends FFProcessor {
     this.suggestionValues = [];
   }
   activate () {
-    super.activate();
-    this.searchTokens = [];
-    this.vm.userInput = '';
-    this.refreshSuggestions();
-    this.previousSelection = this.vm.state.selected;
-    this.vm.state.selected = 1;
+    this.vm.state.textInput = '';
+    this.vm.$nextTick(() => {
+      super.activate();
+      this.searchTokens = [];
+      this.refreshSuggestions();
+      this.previousSelection = this.vm.state.selected;
+      this.vm.state.selected = -1;
+      this.vm.moveSelection();
+    });
     return this;
   }
   deactivate () {
     super.deactivate();
-    this.vm.userInput = '';
     this.ui.suggestions.splice(0, this.ui.suggestions.length);
-    this.vm.state.selected = this.previousSelection;
+    this.vm.$nextTick(() => {
+      this.vm.state.textInput = '';
+      this.vm.state.selected = this.previousSelection;
+    });
     return this;
   }
-  refreshSuggestions () {
+  refreshSuggestions (selectFirstMatch = false) {
     if (!this.ui.active) return this;
     this.ui.suggestions = [
       ...this.suggestionsActive,
@@ -260,17 +268,20 @@ export class FFInteractiveFilter extends FFProcessor {
         ),
       ),
     ];
+    if (selectFirstMatch) {
+      this.vm.state.selected = this.suggestionsActive.length;
+    }
     if (this.vm.state.selected >= this.vm.dropdown.length - 1) {
       this.vm.state.selected = this.vm.dropdown.length - 1;
     }
     return this;
   }
-  updateUserInput () {
-    super.updateUserInput();
+  updateTextInput () {
+    super.updateTextInput();
     if (!this.ui.active) return this;
-    this.searchTokens = this.vm.userInput.trim().split(' ').filter(s => !!s);
+    this.searchTokens = this.vm.state.textInput.trim().split(' ').filter(s => !!s);
     clearTimeout(this.inputDelay);
-    this.inputDelay = setTimeout(() => this.refreshSuggestions(), 250);
+    this.inputDelay = setTimeout(() => this.refreshSuggestions(true), 250);
     return this;
   }
 }
@@ -278,6 +289,7 @@ export class FFInteractiveFilter extends FFProcessor {
 export class FFContinentFilter extends FFInteractiveFilter {
   initialize (vm) {
     super.initialize(vm);
+    this.name = 'continents';
     this.hiddenRule = function (lake) {
       return ![...new Set([].concat(...lake.countries.map(country => country.continents)))]
         .some(continent => !this.length || this.includes(continent));
@@ -299,7 +311,6 @@ export class FFContinentFilter extends FFInteractiveFilter {
   }
   updateCache () {
     if (this.vm.cache !== this.knownCache) {
-      console.log('[APP] Update cache hook for continent filter called.');
       let cacheDiff = { ...this.vm.cache };
       Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
       this.suggestionValues = [...new Set([].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
@@ -313,7 +324,6 @@ export class FFContinentFilter extends FFInteractiveFilter {
     return this;
   }
   updateSource () {
-    console.log('[APP] Update source hook for continent filter called.');
     const globes = {
       AF: 'globe-africa',
       AN: 'globe',
@@ -340,12 +350,14 @@ export class FFContinentFilter extends FFInteractiveFilter {
             this.refreshCache();
           };
           this.ui.tags.push(thisTag);
-          if (this.vm.userInput !== '') {
-            this.vm.userInput = '';
+          if (this.vm.state.textInput !== '') {
+            this.vm.state.textInput = '';
           } else {
             this.refreshSuggestions();
           }
           this.refreshCache();
+          this.deactivate();
+          this.vm.activateProcessor('countries');
         },
       }));
     this.refreshSuggestions();
@@ -356,6 +368,7 @@ export class FFContinentFilter extends FFInteractiveFilter {
 export class FFCountryFilter extends FFInteractiveFilter {
   initialize (vm) {
     super.initialize(vm);
+    this.name = 'countries';
     this.hiddenRule = function (lake) {
       return !lake.countries.some(country => !this.length || this.includes(country));
     };
@@ -376,7 +389,6 @@ export class FFCountryFilter extends FFInteractiveFilter {
   }
   updateCache () {
     if (this.vm.cache !== this.knownCache) {
-      console.log('[APP] Update cache hook for country filter called.');
       let cacheDiff = { ...this.vm.cache };
       Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
       this.suggestionValues = [...new Set([].concat(
@@ -390,7 +402,6 @@ export class FFCountryFilter extends FFInteractiveFilter {
     return this;
   }
   updateSource () {
-    console.log('[APP] Update source hook for country filter called.');
     this.suggestionValues = [...new Set([].concat(...this.vm.source.map(lake => lake.countries)))];
     this.suggestions = this.suggestionValues
       .sort(({ name: a }, { name: b }) => a.toLowerCase() < b.toLowerCase() ? -1 : 1)
@@ -406,8 +417,8 @@ export class FFCountryFilter extends FFInteractiveFilter {
             this.refreshCache();
           };
           this.ui.tags.push(thisTag);
-          if (this.vm.userInput !== '') {
-            this.vm.userInput = '';
+          if (this.vm.state.textInput !== '') {
+            this.vm.state.textInput = '';
           } else {
             this.refreshSuggestions();
           }
