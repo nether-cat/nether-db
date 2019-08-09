@@ -4,7 +4,7 @@
       'form-group': true,
       'focus-explicit': true,
       'focus-within': state.focused,
-      'is-filled': !!userInput.trim() || tags.length,
+      'is-filled': !!state.textInput.trim() || tags.length,
     }"
   >
     <label for="inputTextSearch" class="d-block">
@@ -20,7 +20,7 @@
         <div class="input-textarea-wrapper">
           <textarea
             id="inputTextSearch"
-            v-model="userInput"
+            v-model="state.textInput"
             :style="styleProps"
             @keydown.down.prevent="moveSelection('forward')"
             @keydown.up.prevent="moveSelection('backward')"
@@ -53,8 +53,8 @@
           </span>
         </TransitionGroup>
         <span id="inputTextExtent" class="input-textarea-extent">
-          <span v-if="!userInput.trim()">&nbsp;</span>
-          {{ userInput }}
+          <span v-if="!state.textInput.trim()">&nbsp;</span>
+          {{ state.textInput }}
         </span>
         <div class="form-footer">
           <BListGroup v-if="state.focused && dropdown.length">
@@ -115,9 +115,10 @@ export default {
       state: {
         focused: false,
         focusTimer: undefined,
+        ignoreMouse: false,
         selected: -1,
         selectTimer: undefined,
-        ignoreMouse: false,
+        textInput: '',
       },
       cache: {},
       styleProps: {
@@ -126,11 +127,18 @@ export default {
         top: '16px',
       },
       processors: this.use.map(proc => proc.initialize(this)),
-      userInput: '',
-      actions: [
+      actionsBefore: [
         FFListDivider.factory({
           label: 'Featured actions',
           icon: ['far', 'hand-point-right'],
+        }),
+      ],
+      actionsAfter: [
+        FFListItem.factory({
+          label: 'Close this dialog...',
+          icon: 'comment-slash',
+          enter: () => this.focusElement('escapeHandler'),
+          flipCaret: true,
         }),
       ],
     };
@@ -141,7 +149,7 @@ export default {
     },
     allActions () {
       let actions = [].concat(...this.processors.map(proc => proc.ui.actions));
-      let allActions = [...this.actions, ...actions];
+      let allActions = [...this.actionsBefore, ...actions, ...this.actionsAfter];
       return (allActions.length > 1 ? allActions : []);
     },
     allSuggestions () {
@@ -155,7 +163,8 @@ export default {
       }
     },
     tags () {
-      return [].concat(...this.processors.map(proc => proc.ui.tags));
+      return [].concat(...this.processors.map(proc => proc.ui.tags))
+        .sort((tagLeft, tagRight) => tagLeft.t - tagRight.t);
     },
   },
   watch: {
@@ -174,7 +183,7 @@ export default {
       },
       immediate: true,
     },
-    userInput: {
+    'state.textInput': {
       handler (newVal, oldVal) {
         let sanitized = newVal.trim().replace(/\s+/g, ' ');
         if (sanitized !== oldVal.trim().replace(/\s+/g, ' ')) {
@@ -182,11 +191,11 @@ export default {
             sanitized += ' ';
           }
           if (sanitized !== newVal) {
-            this.userInput = sanitized;
+            this.state.textInput = sanitized;
           } else {
             this.$nextTick(() => this.updateExtents());
           }
-          this.processors.forEach(proc => proc.updateUserInput());
+          this.processors.forEach(proc => proc.updateTextInput());
         } else {
           this.$nextTick(() => this.updateExtents());
         }
@@ -194,7 +203,7 @@ export default {
     },
   },
   mounted () {
-    console.log('Processors used:', this.processors);
+    console.log('[APP] Filter processors used:', this.processors);
   },
   methods: {
     updateResult () {
@@ -211,8 +220,8 @@ export default {
           this.processors
             .filter(proc => proc.ui.active)
             .forEach(proc => proc.deactivate());
-          if (!!this.userInput && !this.userInput.trim()) {
-            this.userInput = '';
+          if (!!this.state.textInput && !this.state.textInput.trim()) {
+            this.state.textInput = '';
           }
         } else {
           this.state.selected = -1;
@@ -258,6 +267,12 @@ export default {
         }
       }
     },
+    activateProcessor (name = '') {
+      let proc = this.processors.find(proc => name === proc.name);
+      if (proc) {
+        proc.activate();
+      }
+    },
     updateExtents () {
       let extentElem = document.getElementById('inputTextExtent');
       let searchElem = document.getElementById('inputTextSearch');
@@ -272,7 +287,7 @@ export default {
     },
     onKeyDown (evt, debug = false) {
       'function' === typeof this['on' + evt.key] && this['on' + evt.key](evt);
-      debug === true && console.log('onKeyDown:', evt);
+      debug === true && console.log('[APP] Form filters handled `keydown`:', evt);
     },
     onBackspace (evt) {
       let { key, target: { selectionStart: start, selectionEnd: end } } = evt;
@@ -290,8 +305,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $highlight-color: hsl(200, 60%, 95%);
-  $highlight-alert: adjust_hue(darken(saturate($highlight-color, 25%), 10%), -190deg);
+  $highlight-background: hsl(200, 60%, 95%);
+  $highlight-border: hsl(200, 60%, 80%);
+  $highlight-color: hsl(200, 60%, 30%);
+  $highlight-focus: hsl(200, 60%, 22.5%);
+  $danger-background: hsl(10, 85%, 90%);
+  $danger-border: hsl(10, 85%, 80%);
+  $danger-color: hsl(10, 75%, 30%);
+  $danger-focus: hsl(10, 75%, 22.5%);
+
+  @mixin highlight-colors {
+    background-color: $highlight-background;
+    border-color: $highlight-border;
+    color: $highlight-color;
+  }
+
+  @mixin danger-colors {
+    background-color: $danger-background;
+    border-color: $danger-border;
+    color: $danger-color;
+  }
 
   .form-group {
     top: -.5rem;
@@ -322,11 +355,26 @@ export default {
           > .input-tag-content {
             cursor: default;
             display: inline;
-            border: 1px solid #ced4da;
+            border: 1px solid;
             border-radius: .25rem;
             margin: 0 .25rem 0 0;
-            padding: 0 .0625rem 0 .3125rem;
-            background-color: $highlight-color;
+            padding: 0 .3125rem 0 .3125rem;
+            @include highlight-colors;
+            a {
+              @include highlight-colors;
+              &:hover {
+                color: $highlight-focus;
+              }
+            }
+            &.invalid {
+              @include danger-colors;
+              a {
+                @include danger-colors;
+                &:hover {
+                  color: $danger-focus;
+                }
+              }
+            }
           }
           &.input-tags-enter-active,
           &.input-tags-leave-active {
@@ -337,7 +385,13 @@ export default {
             transform: scale(.25, .5);
           }
           &.input-tags-leave-active > .input-tag-content {
-            background-color: $highlight-alert;
+            @include danger-colors;
+            a {
+              @include danger-colors;
+              &:hover {
+                color: $danger-focus;
+              }
+            }
           }
         }
       }
@@ -393,7 +447,7 @@ export default {
         color: #495057;
         padding-left: 2rem;
         text-decoration: none;
-        background-color: $highlight-color;
+        background-color: $highlight-background;
         svg[data-icon='caret-right'] {
           display: inline-block;
           left: .6875rem;

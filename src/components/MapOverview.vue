@@ -83,6 +83,14 @@ function data () {
   };
 };
 
+const watch = {
+  features () {
+    this.availableFeatures = [];
+    this.focusedClusters = [];
+    this.focusedFeatures = [];
+  },
+};
+
 const methods = {
   filterByCluster (feature, layer) {
     try {
@@ -222,6 +230,7 @@ export default {
       ));
     },
   },
+  watch,
   mounted () {
     this.fixZoomButtons();
   },
