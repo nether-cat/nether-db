@@ -8,14 +8,21 @@ query getLakes {
       uuid
       code
       name
+      continents {
+        uuid
+        code
+        name
+      }
     }
     cores {
       uuid
       label
       datasets {
         uuid
-        label
         file
+        label
+        ageMin
+        ageMax
         attributes {
           uuid
           name
@@ -23,6 +30,11 @@ query getLakes {
             uuid
             name
           }
+        }
+        publication {
+          uuid
+          doi
+          citation
         }
       }
     }

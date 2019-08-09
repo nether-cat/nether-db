@@ -202,7 +202,7 @@ function extendParameters () {
   Object.assign(templateParametersOffline, {
     params: {
       ...templateParametersEmail.params,
-      title: 'Scheduled Downtime',
+      title: 'Service Offline',
       content: offlineInfoSource,
     },
   });

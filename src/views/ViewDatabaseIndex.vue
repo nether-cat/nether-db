@@ -3,7 +3,7 @@
     <BRow>
       <BCol cols="12" lg="6">
         <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filters <span class="text-muted float-right">({{ filteredLakes.length }} results)</span></h4>
+          <h4 slot="header">Filters</h4>
           <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
@@ -28,9 +28,11 @@
                   <SkipServerSide>
                     <ChartClimate
                       :events="getEvents"
+                      :selection="getSelectedEvents"
                       @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
                       @selectDomain="selectDomain"
                       @selectEvent="selectEvent"
+                      @unselectEvent="unselectEvent"
                     />
                   </SkipServerSide>
                 </div>
@@ -79,8 +81,8 @@
             <template slot="table-caption">
               {{
                 filteredLakes.length && filteredLakes.length !== getLakes.length
-                  ? 'Lakes matching your criteria:'
-                  : 'All lakes currently in the database:'
+                  ? `${filteredLakes.length} sites that match your criteria:`
+                  : `${filteredLakes.length} sites available in the database:`
               }}
             </template>
             <template slot="countries" slot-scope="cell">
@@ -118,6 +120,10 @@
 <script>
 import { log } from '@/plugins';
 import {
+  FFInputTag,
+  FFDomainFilter,
+  FFEventFilter,
+  FFContinentFilter,
   FFCountryFilter,
 } from '@/components/FormFiltersLibrary';
 import FormFilters from '@/components/FormFilters';
@@ -170,10 +176,17 @@ export default {
     return {
       events: [],
       lakes: [],
-      filters: [FFCountryFilter.factory(this)],
+      filters: [
+        FFDomainFilter.factory(this),
+        FFEventFilter.factory(this),
+        FFContinentFilter.factory(this),
+        FFCountryFilter.factory(this),
+      ],
       filteredLakes: [],
       chart: {
         domain: undefined,
+        domainLimits: undefined,
+        domainTimeout: undefined,
         flush: () => {},
         loading: true,
       },
@@ -211,7 +224,14 @@ export default {
   },
   computed: {
     getEvents () {
-      return this.events.filter(e => e.lakes.length > 1);
+      let [, filter] = this.filters;
+      return this.events.filter(
+        e => e.lakes.length > 1 && e.lakes.some(l => filter.ui.data.find(d => d.uuid === l.uuid)),
+      );
+    },
+    getSelectedEvents () {
+      let [, filter] = this.filters, events;
+      return events = filter.ui.tags.map(t => t.opts.params.value);
     },
     getLakes () {
       return (this.lakes || []).map(lake => {
@@ -238,9 +258,55 @@ export default {
     },
   },
   watch: {
+    'chart.domain': async function (newVal, oldVal) {
+      if (this.chart.domainLimits === undefined) {
+        this.chart.domainLimits = newVal;
+        return;
+      }
+      let lowerDiff = Math.abs(newVal[0] - oldVal[0]),
+          upperDiff = Math.abs(newVal[1] - oldVal[1]);
+      if (lowerDiff > .5 || upperDiff > .5) {
+        clearTimeout(this.chart.domainTimeout);
+        this.chart.domainTimeout = setTimeout(() => {
+          let [filter] = this.filters;
+          let [tag] = filter.ui.tags;
+          lowerDiff = Math.abs(newVal[0] - this.chart.domainLimits[0]);
+          upperDiff = Math.abs(newVal[1] - this.chart.domainLimits[1]);
+          if (lowerDiff < 1.3 && upperDiff < 1.3) {
+            if (tag) {
+              console.log('[APP] Removed filter for domain.');
+              let tagIndex = filter.ui.tags.findIndex(t => t === tag);
+              (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+              filter.refreshCache();
+            }
+          } else if (!tag) {
+            console.log('[APP] Added filter for domain:', newVal);
+            let newTag = FFInputTag.factory({
+              label: '<em>Age within time span</em>',
+              icon: 'history',
+              value: newVal.map(v => v * 1000),
+            });
+            newTag.opts.remove = (resetDomain = true) => {
+              console.log('[APP] Removed filter for domain.');
+              this.chart.flush(this.chart.domainLimits);
+              this.$nextTick(() => {
+                let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
+                (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+                filter.refreshCache();
+              });
+            };
+            filter.ui.tags.push(newTag);
+            filter.refreshCache();
+          } else {
+            console.log('[APP] Modified filter for domain:', newVal);
+            tag.opts.params.value = newVal.map(v => v * 1000);
+            filter.refreshCache();
+          }
+        }, 250);
+      }
+    },
     async filteredLakes (newVal, oldVal) {
       let jobs = [], batchSize = 15;
-      console.log('[APP] Started updating the map features...');
       let hiddenBefore = newVal.filter(lake => !oldVal.includes(lake));
       let hiddenNow = oldVal.filter(lake => !newVal.includes(lake));
       for (let i = 0; i < hiddenNow.length; i += batchSize) {
@@ -260,21 +326,24 @@ export default {
       }
       let start, step = 0;
       let runSequence = (timestamp) => {
-        if (!start) start = timestamp;
+        if (!start) {
+          start = timestamp;
+          console.log('[APP] Started updating the map features...');
+        }
         let runtime = timestamp - start;
         if (jobs[step]) {
           jobs[step](); step++;
           requestAnimationFrame(runSequence);
         } else {
-          console.log(`[APP] Updated the map features in ${runtime}ms`);
+          console.log(`[APP] Updating the map features took ${runtime.toFixed(0)}ms`);
         }
       };
-      requestAnimationFrame(runSequence);
+      setTimeout(() => requestAnimationFrame(runSequence), 250);
     },
   },
   activated () {
     /* FIXME: This is a dirty hack, but when this component has been inactive
-              too long, the c3 component starts acting weird without this.
+              for too long, the c3 component starts acting weird without this.
     */
     this.chart.flush(this.chart.domain);
     this.isDeactivated = false;
@@ -283,11 +352,29 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
-    selectDomain (domain) {
-      return !this.isDeactivated && !this.chart.loading && (this.chart.domain = domain);
+    selectDomain ([begin, end]) {
+      !this.isDeactivated && !this.chart.loading && (this.chart.domain = [begin, end]);
     },
-    selectEvent (event) {
-      console.log('Selected event', event);
+    selectEvent (event, next = () => {}) {
+      let [, filter] = this.filters;
+      if (filter.ui.tags.find(t => t.opts.params.value === event)) {
+        return;
+      }
+      console.log('[APP] Added filter for event:', event);
+      let newTag = FFInputTag.factory({ label: event.name, icon: 'layer-group', value: event });
+      newTag.opts.remove = (unselectEvent = true) => {
+        let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
+        (tagIndex > -1) && filter.ui.tags.splice(tagIndex, 1);
+        (!!unselectEvent) && next();
+        filter.refreshCache();
+      };
+      filter.ui.tags.push(newTag);
+      filter.refreshCache();
+    },
+    unselectEvent (event) {
+      console.log('[APP] Removed filter for event:', event);
+      let [, filter] = this.filters, tag = filter.ui.tags.find(t => t.opts.params.value === event);
+      (!!tag) && tag.opts.remove(false);
     },
     formatCoordinates({ latitude, longitude }) {
       latitude = Number.parseFloat(latitude);

@@ -2,9 +2,10 @@ import Vue from 'vue';
 
 // noinspection ES6ModulesDependencies
 export const FFInputTag = ({ data }) => (
-  <span class="input-tag-content">
+  <span class={{ 'input-tag-content': true, 'invalid': !data.attrs.opts.valid }}>
+    {data.attrs.opts.icon ? <FontAwesomeIcon icon={data.attrs.opts.icon} class="mr-1"/> : ''}
     <span domProps={{ innerHTML: data.attrs.opts.label }}/>
-    <a href="#" role="button" tabindex="-1" class="text-secondary" on={{
+    <a href="#" role="button" tabindex="-1" class="ml-1" on={{
       'click': (evt) => {
         evt.preventDefault(); evt.stopPropagation();
         if ('function' === typeof data.attrs.opts.remove) {
@@ -15,7 +16,7 @@ export const FFInputTag = ({ data }) => (
         evt.preventDefault(); evt.stopPropagation();
       },
     }}>
-      <FontAwesomeIcon icon='times' fixedWidth/>
+      <FontAwesomeIcon icon="times"/>
     </a>
   </span>
 );
@@ -50,8 +51,20 @@ export const FFListItem = ({ data, slots }) => (
       },
     },
   }} href="#" role="button" tabindex="-1">
-    <FontAwesomeIcon icon='caret-right' fixedWidth/>
-    {data.attrs.opts.icon ? <FontAwesomeIcon icon={data.attrs.opts.icon} fixedWidth/> : ''}
+    <FontAwesomeIcon
+      icon="caret-right"
+      fixedWidth
+      {...(data.attrs.opts.params.flipCaret ? {
+        props: { flip: 'horizontal' },
+      } : {})}
+    />
+    {data.attrs.opts.icon ? <FontAwesomeIcon
+      icon={data.attrs.opts.icon}
+      fixedWidth
+      {...(data.attrs.opts.params.flipIcon ? {
+        props: { flip: 'horizontal' },
+      } : {})}
+    /> : ''}
     {'string' === typeof data.attrs.opts.label
       ? <span domProps={{ innerHTML: data.attrs.opts.label }}/>
       : 'function' === typeof data.attrs.opts.label
@@ -61,18 +74,35 @@ export const FFListItem = ({ data, slots }) => (
   </BListGroupItem>
 );
 
-FFInputTag.factory = ({ label, remove, ...params }) => ({ opts: { label, remove, params }, component: FFInputTag });
-FFListDivider.factory = ({ label, icon }) => ({ opts: { label, icon, skip: true }, component: FFListDivider });
-FFListItem.factory = ({ label, icon, enter, ...params }) => ({ opts: { label, icon, enter, params }, component: FFListItem });
+FFInputTag.factory = ({ label, icon, remove, ...params }) => (
+  { opts: { label, icon, remove, valid: true, params }, component: FFInputTag, t: Date.now() }
+);
+FFListDivider.factory = ({ label, icon }) => (
+  { opts: { label, icon, skip: true }, component: FFListDivider }
+);
+FFListItem.factory = ({ label, icon, enter, ...params }) => (
+  { opts: { label, icon, enter, params }, component: FFListItem }
+);
 
 export class FFProcessor {
+  static factory (parent, props) {
+    return new this(parent, props);
+  }
   constructor (parent, props = {}) {
+    this.vm = undefined;
+    this.name = undefined;
     this.parent = parent;
     this.props = props;
-    this.search = '';
+    this.knownCache = {};
+    this.localCache = {};
+    this.localMemory = [];
+    this.hiddenRule = function () {
+      return false;
+    };
     this.ui = Vue.observable({
       active: false,
       actions: [],
+      data: [],
       suggestions: [],
       tags: [],
     });
@@ -89,102 +119,306 @@ export class FFProcessor {
     this.ui.active = false;
     return this;
   }
+  refreshCache () {
+    let cache = { ...this.vm.cache };
+    let predicate = this.ui.tags.map(tag => tag.opts.params.value);
+    let hiddenBefore = this.localMemory;
+    let hiddenNow = this.vm.source.filter(this.hiddenRule, predicate);
+    hiddenBefore.filter(lake => !hiddenNow.includes(lake)).forEach(({ uuid }) => {
+      --cache[uuid] || (cache[uuid] = 0);
+      delete this.localCache[uuid];
+    });
+    hiddenNow.filter(lake => !hiddenBefore.includes(lake)).forEach(({ uuid }) => {
+      ++cache[uuid] || (cache[uuid] = 1);
+      this.localCache[uuid] = 1;
+    });
+    this.localMemory = hiddenNow;
+    this.knownCache = cache;
+    this.vm.cache = cache;
+    return this;
+  }
   updateCache () {
     return this;
   }
   updateSource () {
     return this;
   }
-  updateUserInput () {
+  updateTextInput () {
     return this;
   }
 }
 
-export class FFCountryFilter extends FFProcessor {
-  constructor (parent, props) {
-    super(parent, props);
-    this.ui.actions.push(
-      FFListItem.factory({ label: 'Browse countries...', icon: 'globe-africa', enter: () => this.activate() }),
-      //FFListItem.factory({ label: 'Browse proxies...', icon: 'microscope', enter: () => this.activate() }),
-      //FFListItem.factory({ label: 'Search citations...', icon: 'quote-right', enter: () => this.activate() }),
-    );
-    this.inputDelay = undefined;
-    this.localMemory = [];
-    this.previousSelection = -1;
-    this.searchTokens = [];
-    this.suggestionsTitle = FFListDivider.factory({ label: 'Available filters', icon: 'filter' });
-    this.suggestionsBack = FFListItem.factory({ label: 'Go back...', enter: () => this.deactivate() });
-    this.suggestions = [];
-  }
+export class FFDomainFilter extends FFProcessor {
   initialize (vm) {
     super.initialize(vm);
+    this.name = 'domain';
+    this.hiddenRule = function (lake) {
+      let datasets = [...new Set([].concat(...lake.cores.map(core => core.datasets)))];
+      return this.length && this.every(([lowerLimit, upperLimit]) => !datasets.some(
+        ({ ageMin, ageMax }) => (ageMin > lowerLimit && ageMin < upperLimit
+          || ageMax > lowerLimit && ageMax < upperLimit),
+      ));
+    };
     return this;
   }
-  activate () {
-    super.activate();
+  updateCache () {
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      let datasets = [...new Set([].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
+        lake => [...new Set([].concat(...lake.cores.map(core => core.datasets)))],
+      )))].filter(
+        d => !Number.isNaN(Number.parseFloat(d.ageMin)) && !Number.isNaN(Number.parseFloat(d.ageMax)),
+      );
+      let [{ ageMin } = {}] = datasets.sort((dLeft, dRight) => dLeft.ageMin - dRight.ageMin);
+      let [{ ageMax } = {}] = datasets.sort((dLeft, dRight) => dRight.ageMax - dLeft.ageMax);
+      this.ui.data = { ageMin, ageMax };
+      this.ui.tags.forEach(t => {
+        let [lowerLimit, upperLimit] = t.opts.params.value;
+        t.opts.valid = datasets.some(
+          ({ ageMin, ageMax }) => (ageMin > lowerLimit && ageMin < upperLimit
+            || ageMax > lowerLimit && ageMax < upperLimit),
+        );
+      });
+    }
+    return this;
+  }
+  updateSource () {
+    this.ui.data = [].concat(...this.vm.source);
+    let datasets = [...new Set([].concat(...this.vm.source).map(
+      lake => [...new Set([].concat(...lake.cores.map(core => core.datasets)))],
+    ))].filter(
+      d => !Number.isNaN(Number.parseFloat(d.ageMin)) && !Number.isNaN(Number.parseFloat(d.ageMax)),
+    );
+    let [{ ageMin } = {}] = datasets.sort((dLeft, dRight) => dLeft.ageMin - dRight.ageMin);
+    let [{ ageMax } = {}] = datasets.sort((dLeft, dRight) => dRight.ageMax - dLeft.ageMax);
+    this.ui.data = { ageMin, ageMax };
+    return this;
+  }
+}
+
+export class FFEventFilter extends FFProcessor {
+  initialize (vm) {
+    super.initialize(vm);
+    this.name = 'events';
+    this.hiddenRule = function (lake) {
+      return this.length && this.every(event => !event.lakes.find(l => l.uuid === lake.uuid));
+    };
+    return this;
+  }
+  updateCache () {
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      this.ui.data = [].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]));
+      this.ui.tags.forEach(t => (
+        t.opts.valid = t.opts.params.value.lakes.some(l => this.ui.data.find(d => l.uuid === d.uuid))
+      ));
+    }
+    return this;
+  }
+  updateSource () {
+    this.ui.data = [].concat(...this.vm.source);
+    return this;
+  }
+}
+
+export class FFInteractiveFilter extends FFProcessor {
+  constructor (parent, props) {
+    super(parent, props);
+    this.inputDelay = undefined;
+    this.previousSelection = -1;
     this.searchTokens = [];
-    this.vm.userInput = '';
-    this.refreshSuggestions();
-    this.previousSelection = this.vm.state.selected;
-    this.vm.state.selected = 1;
+    this.suggestionsActive = [];
+    this.suggestions = [];
+    this.suggestionValues = [];
+  }
+  activate () {
+    this.vm.state.textInput = '';
+    this.vm.$nextTick(() => {
+      super.activate();
+      this.searchTokens = [];
+      this.refreshSuggestions();
+      this.previousSelection = this.vm.state.selected;
+      this.vm.state.selected = -1;
+      this.vm.moveSelection();
+    });
     return this;
   }
   deactivate () {
     super.deactivate();
-    this.vm.userInput = '';
     this.ui.suggestions.splice(0, this.ui.suggestions.length);
-    this.vm.state.selected = this.previousSelection;
+    this.vm.$nextTick(() => {
+      this.vm.state.textInput = '';
+      this.vm.state.selected = this.previousSelection;
+    });
     return this;
   }
-  refreshCache () {
-    let cache = { ...this.vm.cache };
-    let condition = this.ui.tags.map(tag => tag.opts.params.value);
-    let hiddenBefore = this.localMemory;
-    let hiddenNow = this.vm.source.filter(
-      lake => !lake.countries.some(country => !condition.length || condition.includes(country)),
-    );
-    hiddenBefore.filter(lake => !hiddenNow.includes(lake)).forEach(({ uuid }) => --cache[uuid] || (cache[uuid] = 0));
-    hiddenNow.filter(lake => !hiddenBefore.includes(lake)).forEach(({ uuid }) => ++cache[uuid] || (cache[uuid] = 1));
-    this.localMemory = hiddenNow;
-    this.vm.cache = cache;
-    return this;
-  }
-  refreshSuggestions () {
+  refreshSuggestions (selectFirstMatch = false) {
     if (!this.ui.active) return this;
     this.ui.suggestions = [
-      this.suggestionsTitle,
-      this.suggestionsBack,
+      ...this.suggestionsActive,
       ...this.suggestions.filter(
         s => !this.ui.tags.find(t => t.opts.params && s.opts.params && t.opts.params.value === s.opts.params.value),
-      ).filter(s => !this.searchTokens.length || this.searchTokens.some(t => s.opts.label.indexOf(t) > -1)),
+      ).filter(
+        s => this.suggestionValues.includes(s.opts.params.value),
+      ).filter(
+        s => !this.searchTokens.length || this.searchTokens.some(
+          t => s.opts.label.match(RegExp(`(^|[^\\w])${t}`, 'i')),
+        ),
+      ),
     ];
+    if (selectFirstMatch) {
+      this.vm.state.selected = this.suggestionsActive.length;
+    }
     if (this.vm.state.selected >= this.vm.dropdown.length - 1) {
       this.vm.state.selected = this.vm.dropdown.length - 1;
     }
     return this;
   }
+  updateTextInput () {
+    super.updateTextInput();
+    if (!this.ui.active) return this;
+    this.searchTokens = this.vm.state.textInput.trim().split(' ').filter(s => !!s);
+    clearTimeout(this.inputDelay);
+    this.inputDelay = setTimeout(() => this.refreshSuggestions(true), 250);
+    return this;
+  }
+}
+
+export class FFContinentFilter extends FFInteractiveFilter {
+  initialize (vm) {
+    super.initialize(vm);
+    this.name = 'continents';
+    this.hiddenRule = function (lake) {
+      return ![...new Set([].concat(...lake.countries.map(country => country.continents)))]
+        .some(continent => !this.length || this.includes(continent));
+    };
+    this.ui.actions.push(
+      FFListItem.factory({ label: 'Browse continents...', icon: 'compass', enter: () => this.activate() }),
+    );
+    this.suggestionsActive.push(
+      FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
+      FFListItem.factory({
+        label: 'Go back...',
+        icon: 'directions',
+        enter: () => this.deactivate(),
+        flipCaret: true,
+        flipIcon: true,
+      }),
+    );
+    return this;
+  }
   updateCache () {
-    super.updateCache();
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      this.suggestionValues = [...new Set([].concat(...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(
+        lake => [...new Set([].concat(...lake.countries.map(country => country.continents)))],
+      )))];
+      this.ui.tags.forEach(t => (
+        t.opts.valid = this.suggestionValues.includes(t.opts.params.value)
+      ));
+      this.refreshSuggestions();
+    }
     return this;
   }
   updateSource () {
-    super.updateSource();
-    this.suggestions = [...new Set([].concat(...this.vm.source.map(lake => lake.countries)))]
+    const globes = {
+      AF: 'globe-africa',
+      AN: 'globe',
+      AS: 'globe-asia',
+      EU: 'globe-europe',
+      NA: 'globe-americas',
+      OC: 'globe-asia',
+      SA: 'globe-americas',
+    };
+    this.suggestionValues = [...new Set([].concat(...this.vm.source.map(
+      lake => [...new Set([].concat(...lake.countries.map(country => country.continents)))],
+    )))];
+    this.suggestions = this.suggestionValues
       .sort(({ name: a }, { name: b }) => a.toLowerCase() < b.toLowerCase() ? -1 : 1)
-      .map(country => FFListItem.factory({
-        label: `Add filter for <strong>${country.name}</strong>`,
-        icon: 'globe-africa',
-        value: country,
+      .map(continent => FFListItem.factory({
+        label: `Add filter for <strong>${continent.name}</strong>`,
+        icon: globes[continent.code],
+        value: continent,
         enter: () => {
-          let thisTag = FFInputTag.factory({ label: country.name, value: country });
+          let thisTag = FFInputTag.factory({ label: continent.name, icon: globes[continent.code], value: continent });
           thisTag.opts.remove = () => {
             this.ui.tags.splice(this.ui.tags.findIndex(t => t === thisTag), 1);
             this.refreshSuggestions();
             this.refreshCache();
           };
           this.ui.tags.push(thisTag);
-          if (this.vm.userInput !== '') {
-            this.vm.userInput = '';
+          if (this.vm.state.textInput !== '') {
+            this.vm.state.textInput = '';
+          } else {
+            this.refreshSuggestions();
+          }
+          this.refreshCache();
+          this.deactivate();
+          this.vm.activateProcessor('countries');
+        },
+      }));
+    this.refreshSuggestions();
+    return this;
+  }
+}
+
+export class FFCountryFilter extends FFInteractiveFilter {
+  initialize (vm) {
+    super.initialize(vm);
+    this.name = 'countries';
+    this.hiddenRule = function (lake) {
+      return !lake.countries.some(country => !this.length || this.includes(country));
+    };
+    this.ui.actions.push(
+      FFListItem.factory({ label: 'Browse countries...', icon: 'map-marker-alt', enter: () => this.activate() }),
+    );
+    this.suggestionsActive.push(
+      FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
+      FFListItem.factory({
+        label: 'Go back...',
+        icon: 'directions',
+        enter: () => this.deactivate(),
+        flipCaret: true,
+        flipIcon: true,
+      }),
+    );
+    return this;
+  }
+  updateCache () {
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      this.suggestionValues = [...new Set([].concat(
+        ...this.vm.source.filter(lake => !cacheDiff[lake.uuid]).map(lake => lake.countries),
+      ))];
+      this.ui.tags.forEach(t => (
+        t.opts.valid = this.suggestionValues.includes(t.opts.params.value)
+      ));
+      this.refreshSuggestions();
+    }
+    return this;
+  }
+  updateSource () {
+    this.suggestionValues = [...new Set([].concat(...this.vm.source.map(lake => lake.countries)))];
+    this.suggestions = this.suggestionValues
+      .sort(({ name: a }, { name: b }) => a.toLowerCase() < b.toLowerCase() ? -1 : 1)
+      .map(country => FFListItem.factory({
+        label: `Add filter for <strong>${country.name}</strong>`,
+        icon: 'map-marker-alt',
+        value: country,
+        enter: () => {
+          let thisTag = FFInputTag.factory({ label: country.name, icon: 'map-marker-alt', value: country });
+          thisTag.opts.remove = () => {
+            this.ui.tags.splice(this.ui.tags.findIndex(t => t === thisTag), 1);
+            this.refreshSuggestions();
+            this.refreshCache();
+          };
+          this.ui.tags.push(thisTag);
+          if (this.vm.state.textInput !== '') {
+            this.vm.state.textInput = '';
           } else {
             this.refreshSuggestions();
           }
@@ -193,17 +427,5 @@ export class FFCountryFilter extends FFProcessor {
       }));
     this.refreshSuggestions();
     return this;
-  }
-  updateUserInput () {
-    super.updateUserInput();
-    if (!this.ui.active) return this;
-    this.searchTokens = this.vm.userInput.trim().split(' ').filter(s => !!s);
-    console.log('User input:', this.searchTokens);
-    clearTimeout(this.inputDelay);
-    this.inputDelay = setTimeout(() => this.refreshSuggestions(), 250);
-    return this;
-  }
-  static factory (parent, props) {
-    return new FFCountryFilter(parent, props);
   }
 }
