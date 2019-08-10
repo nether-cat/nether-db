@@ -155,6 +155,7 @@
           query lookupDataset($uuid: ID!, $offset: Int!) {
             datasets: Dataset(uuid: $uuid) {
               uuid
+              file
               attributes {
                 uuid
                 name
@@ -189,6 +190,9 @@
                 >
                   <template slot="table-caption">
                     Records in the selected dataset:
+                    <BButton class="float-right" size="sm" variant="outline-primary" @click="getCsv(dataset)">
+                      <FontAwesomeIcon icon="download"/> CSV
+                    </BButton>
                   </template>
                   <template slot="__rowNum__" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
@@ -340,6 +344,59 @@ export default {
           new ScaleLine(),
         ]);
       });
+    },
+    toggleJumpButton (disable = true) {
+      this.showJumpButton = !disable;
+    },
+    objectToCsv (data) {
+      const csvRows = [];
+      const headers = [];
+      for (let i = 0; i < data[1].length; i++) {
+        headers.push((data[0][i][0]));
+      }
+      console.log(headers);
+      csvRows.push(headers.join(','));
+      for (let row = 0; row < data.length; row++) {
+        let newRow = [row + 1];
+        for (let i = 1; i < data[1].length; i++) {
+          newRow.push((data[row][i][1]));
+        }
+        csvRows.push(newRow);
+      }
+      return csvRows.join('\n');
+    },
+    download (data, name) {
+      const blob = new Blob([data], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('hidden', '');
+      a.setAttribute('href', url);
+      a.setAttribute('download', `${name}.csv`);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    getCsv (dataset) {
+      const data = [];
+      const attributes = [{ label: '#' }].concat(
+        dataset.attributes.map((attribute) => {
+          return {
+            label: attribute.name,
+          };
+        }),
+      );
+      for (let i = 0; i < dataset.records.length; i++) {
+        let newRow = [['#', i + 1]];
+        for (let f = 0; f < attributes.length - 1; f++) {
+          newRow.push(['' + Object.values(attributes[f + 1]), dataset.records[i][`__${f}__`]]);
+        }
+        data.push(newRow);
+      };
+      console.log(data);
+      const csvData = this.objectToCsv(data);
+      this.download(csvData, dataset.file || 'export');
+      console.log(csvData);
+
     },
   },
 };
