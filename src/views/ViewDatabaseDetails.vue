@@ -6,125 +6,95 @@
       uuid: lakeId
     }"
     :skip="!lakeId || isDeactivated"
+    @result="updateMapCenter"
   >
     <template v-slot:default="{ result: { loading, error, data } }">
       <BRow v-for="lake in (data ? data.lakes : [])" :key="lake.uuid">
         <BCol cols="12" lg="6">
-          <BRow>
-            <BCol>
-              <BCard header-tag="header" footer-tag="footer">
-                <h4 slot="header">Lake details</h4>
-                <BContainer fluid class="card-text">
+          <BCard class="h-100">
+            <BContainer fluid class="card-text">
+              <BRow>
+                <BCol class="grid-format-data">
+                  <h5 class="font-weight-normal text-left">
+                    <span v-if="lake.name">{{ lake.name }}</span>
+                    <span v-else><em>Unknown lake</em></span>
+                    <span v-if="lake.countries" class="comma-separated text-muted">
+                      (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
+                    </span>
+                  </h5>
+                  <hr>
                   <BRow>
+                    <BCol cols="5">Latitude:</BCol>
+                    <BCol cols="5">
+                      <pre>{{ Math.abs(lake.latitude) | formatNumber(5) + (lake.latitude ? '°' : '—') }}</pre>
+                    </BCol>
                     <BCol>
-                      <h5 class="font-weight-normal text-left">
-                        <span v-if="lake.name">{{ lake.name }}</span>
-                        <span v-else><em>Unknown lake</em></span>
-                        <span v-if="lake.countries" class="comma-separated text-muted">
-                          (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
-                        </span>
-                      </h5>
-                      <hr>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Longitude:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.longitude || '&mdash;' }}</BCol>
-                      </BRow>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Latitude:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.latitude || '&mdash;' }}</BCol>
-                      </BRow>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Surface level:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.surfaceLevel || '&mdash;' }}</BCol>
-                      </BRow>
-                      <hr>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Maximum depth:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.maxDepth || '&mdash;' }}</BCol>
-                      </BRow>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Surface area:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.surfaceArea || '&mdash;' }}</BCol>
-                      </BRow>
-                      <BRow>
-                        <BCol cols="5" class="text-right">Water body volume:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.waterBodyVolume || '&mdash;' }}</BCol>
-                      </BRow>
-                      <hr v-if="lake.catchmentArea">
-                      <BRow v-if="lake.catchmentArea">
-                        <BCol cols="5" class="text-right">Catchment area:</BCol>
-                        <BCol cols="7" class="text-left">{{ lake.catchmentArea }}</BCol>
-                      </BRow>
+                      <pre v-if="lake.latitude"> {{ (lake.latitude >= 0) ? 'N' : 'S' }}</pre>
+                      <pre v-else>——</pre>
                     </BCol>
                   </BRow>
-                </BContainer>
-              </BCard>
-            </BCol>
-          </BRow>
-          <BRow>
-            <BCol class="mt-4">
-              <BCard>
-                <BTable hover
-                        outlined
-                        striped
-                        caption-top
-                        show-empty
-                        :items="lake.cores.reduce((arr, core) => arr.concat(core.datasets), [])"
-                        :fields="['type', 'ageResolution', 'actions']"
-                >
-                  <template slot="table-caption">
-                    Available datasets:
-                  </template>
-                  <template slot="type" slot-scope="cell">
-                    {{ cell.item.categories[0].name | upperCaseFirst }}
-                  </template>
-                  <template slot="HEAD_ageResolution">
-                    Samples per 1000 years
-                  </template>
-                  <template slot="ageResolution" slot-scope="cell">
-                    {{ Number.parseFloat(cell.item.ageResolution).toFixed(3) }}
-                  </template>
-                  <template slot="actions" slot-scope="cell">
-                    <BButton
-                      size="sm"
-                      variant="primary"
-                      :disabled="datasetId === cell.item.uuid"
-                      :to="{ query: { datasetId: cell.item.uuid } }"
-                    >
-                      Show records
-                    </BButton>
-                  </template>
-                </BTable>
-              </BCard>
-            </BCol>
-          </BRow>
+                  <BRow>
+                    <BCol cols="5">Longitude:</BCol>
+                    <BCol cols="5">
+                      <pre>{{ Math.abs(lake.longitude) | formatNumber(5) + (lake.longitude ? '°' : '—') }}</pre>
+                    </BCol>
+                    <BCol>
+                      <pre v-if="lake.longitude"> {{ (lake.longitude >= 0) ? 'E' : 'W' }}</pre>
+                      <pre v-else>——</pre>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5">Surface elevation:</BCol>
+                    <BCol cols="5"><pre>{{ lake.surfaceLevel | formatNumber }}</pre></BCol>
+                    <BCol><pre v-if="lake.surfaceLevel"> m</pre><pre v-else>——</pre></BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5">Maximum depth:</BCol>
+                    <BCol cols="5"><pre>{{ lake.maxDepth | formatNumber }}</pre></BCol>
+                    <BCol><pre v-if="lake.maxDepth"> m</pre><pre v-else>——</pre></BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5">Surface area:</BCol>
+                    <BCol cols="5"><pre>{{ lake.surfaceArea | formatNumber }}</pre></BCol>
+                    <BCol><pre v-if="lake.surfaceArea"> m²</pre><pre v-else>——</pre></BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5">Water body volume:</BCol>
+                    <BCol cols="5"><pre>{{ lake.waterBodyVolume | formatNumber }}</pre></BCol>
+                    <BCol><pre v-if="lake.waterBodyVolume"> m³</pre><pre v-else>——</pre></BCol>
+                  </BRow>
+                  <hr>
+                  <BRow>
+                    <BCol cols="5">Catchment area:</BCol>
+                    <BCol cols="5"><pre>{{ lake.catchmentArea | formatNumber }}</pre></BCol>
+                    <BCol><pre v-if="lake.catchmentArea"> m²</pre><pre v-else>——</pre></BCol>
+                  </BRow>
+                </BCol>
+              </BRow>
+            </BContainer>
+          </BCard>
         </BCol>
         <div class="d-block d-lg-none mt-4 w-100"/>
         <BCol cols="12" lg="6">
-          <BCard header-tag="header" footer-tag="footer">
-            <h4 slot="header">Map</h4>
-            <BContainer fluid class="card-text rounded overflow-hidden">
+          <BCard class="h-100">
+            <BContainer fluid class="card-text rounded overflow-hidden position-relative h-100">
               <Transition name="fade-opacity">
-                <div v-show="isInitializing"
-                     class="loading-cover rounded overflow-hidden"
-                     style="height: 485px; line-height: 485px;"
-                >
-                  <div>
+                <div v-show="isInitializing" class="loading-cover rounded overflow-hidden">
+                  <span>
                     Map loading...<br>
                     <FontAwesomeIcon icon="circle-notch" size="5x" spin/>
-                  </div>
+                  </span>
                 </div>
               </Transition>
-              <div style="height: 485px;">
+              <div class="h-100">
                 <SkipServerSide>
                   <VlMap ref="mapComponent"
                          :load-tiles-while-animating="true"
                          :load-tiles-while-interacting="true"
                          data-projection="EPSG:4326"
-                         style="height: 485px"
                          @mounted="onMapMounted"
                   >
-                    <VlView :max-zoom="18" :zoom="10" :center="[lake.longitude, lake.latitude]" :rotation="0"/>
+                    <VlView :max-zoom="18" :zoom="10" :center="mapCenter" :rotation="0"/>
                     <VlFeature v-for="result in [lake]"
                                :id="result.uuid"
                                :key="result.uuid"
@@ -147,6 +117,49 @@
             </BContainer>
           </BCard>
         </BCol>
+        <BCol cols="12" class="mt-4">
+          <BCard class="overflow-auto">
+            <BTable hover
+                    outlined
+                    striped
+                    caption-top
+                    show-empty
+                    :items="[].concat(...lake.cores.map(core => core.datasets.map(d => ({ ...d, core }))))"
+                    :fields="datasetsListFields"
+            >
+              <template slot="table-caption">
+                {{ [].concat(...lake.cores.map(core => core.datasets)).length }} datasets available for this site:
+              </template>
+              <template slot="categories" slot-scope="{ value }">
+                {{ value | upperCaseFirst }}
+              </template>
+              <template slot="HEAD_ageInterval">
+                Ages&ensp;<span class="font-weight-lighter text-secondary">[yr BP] in [<em>min</em>, <em>max</em>]</span>
+              </template>
+              <template slot="HEAD_samples">
+                Samples&ensp;<span class="font-weight-lighter text-secondary">[<em>count</em>]</span>
+              </template>
+              <template slot="HEAD_ageResolution">
+                Resolution&ensp;<span class="font-weight-lighter text-secondary">[Samples / kyr]</span>
+              </template>
+              <template slot="HEAD_publication">
+                Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
+              </template>
+              <template slot="actions" slot-scope="{ item }">
+                <BButton
+                  size="sm"
+                  variant="primary"
+                  class="disabled-focus-none"
+                  :disabled="datasetId === item.uuid"
+                  :href="$router.resolve({ query: { datasetId: item.uuid } }).href"
+                  @click.prevent="loadDataset"
+                >
+                  Show records
+                </BButton>
+              </template>
+            </BTable>
+          </BCard>
+        </BCol>
       </BRow>
       <ApolloQuery
         v-if="datasetId"
@@ -156,6 +169,8 @@
             datasets: Dataset(uuid: $uuid) {
               uuid
               file
+              label
+              samples
               attributes {
                 uuid
                 name
@@ -178,21 +193,23 @@
                 :key="dataset.uuid"
           >
             <BCol class="mt-4">
-              <BCard style="overflow-x: auto;">
+              <BCard class="overflow-auto">
+                <div class="table-actions">
+                  <BButton size="sm" variant="outline-primary" @click="getCsv(dataset)">
+                    <FontAwesomeIcon icon="download"/> CSV
+                  </BButton>
+                </div>
                 <BTable hover
                         outlined
                         striped
                         caption-top
                         show-empty
                         sort-by="__rowNum__"
-                        :items="dataset.records.map((record, index) => Object.assign({}, record, { __rowNum__: index }))"
+                        :items="dataset.records.map((r, i) => Object.assign({}, r, { __rowNum__: i }))"
                         :fields="getFields(dataset)"
                 >
                   <template slot="table-caption">
-                    Records in the selected dataset:
-                    <BButton class="float-right" size="sm" variant="outline-primary" @click="getCsv(dataset)">
-                      <FontAwesomeIcon icon="download"/> CSV
-                    </BButton>
+                    {{ dataset.samples }} samples recorded in this dataset:
                   </template>
                   <template slot="__rowNum__" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
@@ -204,7 +221,7 @@
                   </template>
                   <template v-for="{ key } in getFields(dataset).slice(1)" :slot="key" slot-scope="cell">
                     <span :key="key">
-                      {{ cell.item[key] }}<i v-if="!cell.item[key]" class="long-dash"/>
+                      {{ cell.item[key] }}<i v-if="!cell.item[key] && cell.item[key] !== false" class="long-dash"/>
                     </span>
                   </template>
                   <template slot="bottom-row" slot-scope="{ columns }">
@@ -271,6 +288,12 @@ export default {
   components: {
     ...SkipSSR,
   },
+  filters: {
+    formatNumber (value, digits = 2) {
+      return Number.parseFloat(value).toFixed(digits)
+        .replace('NaN', String('—').repeat(digits));
+    },
+  },
   props: {
     lakeId: { type: String, default: undefined },
     datasetId: { type: String, default: undefined },
@@ -281,6 +304,18 @@ export default {
       isDeactivated: false,
       isInitializing: true,
       shouldFetchMore: true,
+      shouldScrollDown: false,
+      datasetsListFields: [
+        { key: 'categories', label: 'Subject', formatter: ([category]) => category && category.name || '—' },
+        { key: 'core.label', label: 'Core label', formatter: (s) => s || '—' },
+        { key: 'ageInterval', formatter: ($0, $1, dataset) => `[${dataset.ageMin}, ${dataset.ageMax}]` },
+        'samples',
+        { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(3) || '—' },
+        { key: 'publication', formatter: ([publication]) => publication && publication.doi || '—' },
+        'actions',
+      ],
+      currentLake: undefined,
+      mapCenter: [0, 8],
     };
   },
   watch: {
@@ -299,6 +334,14 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
+    updateMapCenter ({ data: { lakes: [lake] } }) {
+      if (lake) {
+        if (!this.currentLake || this.currentLake.uuid !== lake.uuid) {
+          this.mapCenter = [lake.longitude, lake.latitude];
+        }
+        this.currentLake = lake;
+      }
+    },
     getFields (dataset) {
       if (dataset) {
         return [{ key: '__rowNum__', label: '#' }].concat(
@@ -312,6 +355,10 @@ export default {
       } else {
         return [];
       }
+    },
+    loadDataset ({ target }) {
+      this.shouldScrollDown = true;
+      this.$router.replace(target.getAttribute('href'));
     },
     fetchMore (query, dataset = {}) {
       if (dataset.uuid) {
@@ -332,11 +379,13 @@ export default {
       }
     },
     onFirstRecords () {
-      if (!process.env.VUE_SSR && !this.isDeactivated) {
+      if (!process.env.VUE_SSR && !this.isDeactivated && this.shouldScrollDown) {
         scrollDown(this);
       }
+      this.shouldScrollDown = false;
     },
     onMapMounted () {
+      this.fixZoomButtons();
       ScaleLineLoad.then(() => {
         let comp = this.$refs.mapComponent;
         comp = comp.length ? comp[0] : comp;
@@ -345,8 +394,17 @@ export default {
         ]);
       });
     },
-    toggleJumpButton (disable = true) {
-      this.showJumpButton = !disable;
+    fixZoomButtons () {
+      if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
+        setTimeout(this.fixZoomButtons, 250);
+      } else {
+        this.$el.querySelectorAll('.ol-zoom button').forEach(btn => {
+          let lastFocus = Date.now();
+          btn.addEventListener('focus', () => lastFocus = Date.now());
+          btn.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
+          btn.addEventListener('mouseout', ({ target }) => target.blur());
+        });
+      }
     },
     objectToCsv (data) {
       const csvRows = [];

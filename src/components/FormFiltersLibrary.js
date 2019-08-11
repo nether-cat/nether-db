@@ -264,7 +264,15 @@ export class FFInteractiveFilter extends FFProcessor {
         s => this.suggestionValues.includes(s.opts.params.value),
       ).filter(
         s => !this.searchTokens.length || this.searchTokens.some(
-          t => s.opts.label.match(RegExp(`(^|[^\\w])${t}`, 'i')),
+          t => {
+            let result;
+            try {
+              result = !!s.opts.label.match(RegExp(`(^|[^\\w])${t}`, 'i'));
+            } catch (e) {
+              result = false;
+            }
+            return result;
+          },
         ),
       ),
     ];

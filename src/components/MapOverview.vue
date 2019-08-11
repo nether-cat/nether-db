@@ -243,7 +243,6 @@ export default {
       <VlMap load-tiles-while-animating={true}
              load-tiles-while-interacting={true}
              data-projection="EPSG:4326"
-             style="height: 485px"
              ref="mapComponent"
       >
         <VlView
@@ -254,7 +253,6 @@ export default {
           rotation={this.rotation}
           constrainRotation={false}
           {...vOn({
-            'update:zoom': (evt) => console.log('Zoom level:', evt),
           })}
         />
         <VlLayerTile id="osm">
@@ -262,7 +260,7 @@ export default {
         </VlLayerTile>
         <VlLayerVector id="cluster-layer">
           <VlSourceCluster distance={25}>
-            <VlSourceVector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', true)}/>
+            <VlSourceVector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', this)}/>
             <VlStyleFunc factory={this.clusterStyleFunc}/>
           </VlSourceCluster>
         </VlLayerVector>
@@ -327,21 +325,6 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  .ol-control button {
-    &:focus {
-      outline-width: 0;
-      background-color: rgba(0, 60, 136, 0.7);
-      &:not(:hover) {
-        outline-width: 3px;
-      }
-    }
-    &:hover {
-      background-color: rgba(0, 60, 136, 0.7);
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   .feature-popup {

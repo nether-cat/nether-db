@@ -21,6 +21,7 @@ query lookupLake($uuid: ID!) {
         uuid
         file
         label
+        samples
         ageMin
         ageMax
         ageResolution
