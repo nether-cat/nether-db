@@ -456,13 +456,27 @@ export default {
       this.shouldScrollDown = false;
     },
     onMapMounted () {
+      this.fixResizeEvents();
       this.fixZoomButtons();
       ScaleLineLoad.then(() => {
         let comp = this.$refs.mapComponent;
-        comp = comp.length ? comp[0] : comp;
+        comp = comp && comp.length ? comp[0] : comp;
         comp.$map.getControls().extend([
           new ScaleLine(),
         ]);
+      });
+    },
+    fixResizeEvents () {
+      window.addEventListener('resize', () => {
+        let canvas = this.$el.querySelector('.ol-viewport canvas');
+        let comp = this.$refs.mapComponent;
+        comp = comp && comp.length ? comp[0] : comp;
+        if (!this.isDeactivated && canvas && comp && comp.$map) {
+          requestAnimationFrame(() => {
+            canvas.setAttribute('height', '0');
+            comp.$map.updateSize();
+          });
+        }
       });
     },
     fixZoomButtons () {

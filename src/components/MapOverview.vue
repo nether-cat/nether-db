@@ -80,6 +80,7 @@ function data () {
     availableFeatures: [],
     focusedClusters: [],
     focusedFeatures: [],
+    isDeactivated: false,
   };
 };
 
@@ -201,6 +202,19 @@ const methods = {
       }
     }
   },
+  fixResizeEvents () {
+    window.addEventListener('resize', () => {
+      let canvas = this.$el.querySelector('.ol-viewport canvas');
+      let comp = this.$refs.mapComponent;
+      comp = comp && comp.length ? comp[0] : comp;
+      if (!this.isDeactivated && canvas && comp && comp.$map) {
+        requestAnimationFrame(() => {
+          canvas.setAttribute('height', '0');
+          comp.$map.updateSize();
+        });
+      }
+    });
+  },
   fixZoomButtons () {
     if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
       setTimeout(this.fixZoomButtons, 250);
@@ -232,10 +246,15 @@ export default {
   },
   watch,
   mounted () {
+    this.fixResizeEvents();
     this.fixZoomButtons();
   },
   activated () {
+    this.isDeactivated = false;
     this.$refs.mapComponent && this.$refs.mapComponent.$map && this.$refs.mapComponent.$map.updateSize();
+  },
+  deactivated () {
+    this.isDeactivated = true;
   },
   methods,
   render () {
