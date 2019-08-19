@@ -59,7 +59,7 @@ type Core implements Entity {
   coringMethod: String
   created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
-  drillDate: _Neo4jDate
+  drillDate: Int
   label: String
   lake(first: Int = 1, offset: Int = 0): [Lake]
   latitude: Float

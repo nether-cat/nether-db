@@ -129,7 +129,7 @@ type Core implements Entity {
   latitude: Float
   longitude: Float
   coringMethod: String
-  drillDate: _Neo4jDate
+  drillDate: Int
   waterDepth: Float
   composite: Boolean
   ageDepthMethod: String

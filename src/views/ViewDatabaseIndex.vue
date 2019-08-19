@@ -61,8 +61,7 @@
     <BRow>
       <BCol class="mt-4">
         <BCard class="overflow-auto">
-          <BTable hover
-                  outlined
+          <BTable outlined
                   striped
                   caption-top
                   show-empty
@@ -162,17 +161,6 @@ export default {
   components: {
     ...SkipSSR,
     FormFilters,
-  },
-  filters: {
-    coordinates ({ latitude, longitude }) {
-      latitude = Number.parseFloat(latitude);
-      longitude = Number.parseFloat(longitude);
-      latitude = Math.abs(latitude).toFixed(5) + (latitude < 0 ? '° S' : '° N');
-      latitude = String(' ').repeat(11 - latitude.length) + latitude;
-      longitude = Math.abs(longitude).toFixed(5) + (longitude < 0 ? '° W' : '° E');
-      longitude = String(' ').repeat(12 - longitude.length) + longitude;
-      return [latitude, longitude].join(', ');
-    },
   },
   data () {
     return {

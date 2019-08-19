@@ -40,13 +40,38 @@ export default {
       border-top: 1px solid #eee;
       padding-top: 1px;
     }
+    /deep/ .table-hover {
+      tbody tr {
+        &:hover {
+          cursor: pointer;
+          background-color: hsl(200, 60%, 95%);
+        }
+
+        &:focus {
+          background-color: hsl(200, 60%, 95%);
+          outline: 0;
+        }
+      }
+    }
     /deep/ .table, /deep/ .table-hover {
+      tbody tr.b-table-details, tbody tr.b-table-has-details {
+        background-color: hsl(240, 100%, 99%) !important;
+      }
       tbody tr.b-table-bottom-row {
+        cursor: inherit !important;
         background-color: inherit !important;
         color: inherit !important;
         > td {
           padding: .5rem;
         }
+      }
+    }
+    /deep/ .table-hover.table-toggle {
+      tbody tr:hover {
+        cursor: zoom-in;
+      }
+      tbody tr.b-table-details, tbody tr.b-table-has-details {
+        cursor: zoom-out;
       }
     }
     /deep/ .loading-cover {

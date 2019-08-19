@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
   faAlignLeft,
+  faAngleDoubleUp,
   faArchive,
   faBell,
   faBolt,
@@ -44,12 +45,16 @@ import {
   faHourglassHalf,
   faInfoCircle,
   faLayerGroup,
+  faLevelDownAlt,
+  faLink,
   faMapMarkerAlt,
+  faMapPin,
   faMicroscope,
   faPowerOff,
   faQuestionCircle,
   faQuoteRight,
   faRedo,
+  faRulerVertical,
   faSearch,
   faShare,
   faSignInAlt,
@@ -59,6 +64,7 @@ import {
   faTimes,
   faTimesCircle,
   faUserCircle,
+  faWater,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -75,6 +81,7 @@ import {
 
 library.add(
   faAlignLeft,
+  faAngleDoubleUp,
   faArchive,
   faArrowAltCircleUp,
   faBell,
@@ -115,12 +122,16 @@ library.add(
   faHourglassHalf,
   faInfoCircle,
   faLayerGroup,
+  faLevelDownAlt,
+  faLink,
   faMapMarkerAlt,
+  faMapPin,
   faMicroscope,
   faPowerOff,
   faQuestionCircle,
   faQuoteRight,
   faRedo,
+  faRulerVertical,
   faSearch,
   faShare,
   faSignInAlt,
@@ -131,6 +142,7 @@ library.add(
   faTimesCircle,
   faUserCircle,
   faVuejs,
+  faWater,
 );
 
 import {
@@ -155,6 +167,15 @@ export function installPlugins (Vue) {
   // add filter functions from change-case
   Object.entries(changeCase).forEach(([name, func]) => {
     Vue.filter(name, func);
+  });
+  Vue.filter('coordinates', ({ latitude, longitude }) => {
+    latitude = Number.parseFloat(latitude);
+    longitude = Number.parseFloat(longitude);
+    latitude = Math.abs(latitude).toFixed(5) + (latitude < 0 ? '° S' : '° N');
+    latitude = String(' ').repeat(11 - latitude.length) + latitude;
+    longitude = Math.abs(longitude).toFixed(5) + (longitude < 0 ? '° W' : '° E');
+    longitude = String(' ').repeat(12 - longitude.length) + longitude;
+    return [latitude, longitude].join(', ');
   });
   // add components from vue-fontawesome
   Vue.component('FontAwesomeIcon', FontAwesomeIcon);

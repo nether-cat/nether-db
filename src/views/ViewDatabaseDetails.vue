@@ -17,7 +17,7 @@
                 <BCol class="grid-format-data">
                   <h5 class="font-weight-normal text-left">
                     <span v-if="lake.name">{{ lake.name }}</span>
-                    <span v-else><em>Unknown lake</em></span>
+                    <span v-else><em>Unnamed site</em></span>
                     <span v-if="lake.countries" class="comma-separated text-muted">
                       (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
                     </span>
@@ -26,49 +26,47 @@
                   <BRow>
                     <BCol cols="5">Latitude:</BCol>
                     <BCol cols="5">
-                      <pre>{{ Math.abs(lake.latitude) | formatNumber(5) + (lake.latitude ? '°' : '—') }}</pre>
+                      <pre>{{
+                        Math.abs(lake.latitude) | formatNumber(5) + ('number' === typeof lake.latitude ? '°' : '—')
+                      }}</pre>
                     </BCol>
-                    <BCol>
-                      <pre v-if="lake.latitude"> {{ (lake.latitude >= 0) ? 'N' : 'S' }}</pre>
-                      <pre v-else>——</pre>
-                    </BCol>
+                    <BCol><pre>{{ lake.latitude | formatUnit(0 > lake.latitude ? 'S' : 'N') }}</pre></BCol>
                   </BRow>
                   <BRow>
                     <BCol cols="5">Longitude:</BCol>
                     <BCol cols="5">
-                      <pre>{{ Math.abs(lake.longitude) | formatNumber(5) + (lake.longitude ? '°' : '—') }}</pre>
+                      <pre>{{
+                        Math.abs(lake.longitude) | formatNumber(5) + ('number' === typeof lake.longitude ? '°' : '—')
+                      }}</pre>
                     </BCol>
-                    <BCol>
-                      <pre v-if="lake.longitude"> {{ (lake.longitude >= 0) ? 'E' : 'W' }}</pre>
-                      <pre v-else>——</pre>
-                    </BCol>
+                    <BCol><pre>{{ lake.longitude | formatUnit(0 > lake.longitude ? 'W' : 'E') }}</pre></BCol>
                   </BRow>
                   <BRow>
                     <BCol cols="5">Surface elevation:</BCol>
                     <BCol cols="5"><pre>{{ lake.surfaceLevel | formatNumber }}</pre></BCol>
-                    <BCol><pre v-if="lake.surfaceLevel"> m</pre><pre v-else>——</pre></BCol>
+                    <BCol><pre>{{ lake.surfaceLevel | formatUnit('m') }}</pre></BCol>
                   </BRow>
                   <BRow>
                     <BCol cols="5">Maximum depth:</BCol>
                     <BCol cols="5"><pre>{{ lake.maxDepth | formatNumber }}</pre></BCol>
-                    <BCol><pre v-if="lake.maxDepth"> m</pre><pre v-else>——</pre></BCol>
+                    <BCol><pre>{{ lake.maxDepth | formatUnit('m') }}</pre></BCol>
                   </BRow>
                   <BRow>
                     <BCol cols="5">Surface area:</BCol>
                     <BCol cols="5"><pre>{{ lake.surfaceArea | formatNumber }}</pre></BCol>
-                    <BCol><pre v-if="lake.surfaceArea"> m²</pre><pre v-else>——</pre></BCol>
+                    <BCol><pre>{{ lake.surfaceArea | formatUnit('m²') }}</pre></BCol>
                   </BRow>
                   <BRow>
                     <BCol cols="5">Water body volume:</BCol>
                     <BCol cols="5"><pre>{{ lake.waterBodyVolume | formatNumber }}</pre></BCol>
-                    <BCol><pre v-if="lake.waterBodyVolume"> m³</pre><pre v-else>——</pre></BCol>
+                    <BCol><pre>{{ lake.waterBodyVolume | formatUnit('m³') }}</pre></BCol>
                   </BRow>
-                  <hr>
                   <BRow>
                     <BCol cols="5">Catchment area:</BCol>
                     <BCol cols="5"><pre>{{ lake.catchmentArea | formatNumber }}</pre></BCol>
-                    <BCol><pre v-if="lake.catchmentArea"> m²</pre><pre v-else>——</pre></BCol>
+                    <BCol><pre>{{ lake.catchmentArea | formatUnit('m²') }}</pre></BCol>
                   </BRow>
+                  <hr>
                 </BCol>
               </BRow>
             </BContainer>
@@ -124,11 +122,43 @@
                     striped
                     caption-top
                     show-empty
-                    :items="[].concat(...lake.cores.map(core => core.datasets.map(d => ({ ...d, core }))))"
+                    class="table-toggle"
+                    :items="[].concat(...lake.cores.map(core => core.datasets.map(d => (
+                      { ...d, core, _showDetails: isDatasetSelected(d) }
+                    ))))"
                     :fields="datasetsListFields"
+                    @row-clicked="datasetsListClicked"
+                    @mouseover.native="datasetsListFocus"
+                    @mouseout.native="datasetsListBlur"
             >
               <template slot="table-caption">
                 {{ [].concat(...lake.cores.map(core => core.datasets)).length }} datasets available for this site:
+              </template>
+              <template slot="row-details" slot-scope="{ item }">
+                <div class="position-relative" style="margin: -.75rem" @click="datasetsListClicked(item)">
+                  <div class="position-relative" style="padding: .75rem; background-color: transparent">
+                    <div>
+                      <span class="py-2 pr-2" :class="{ 'font-italic': !item.core.label }">
+                        <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
+                      </span>
+                      <span v-if="item.core.latitude && item.core.longitude" class="p-2">
+                        <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
+                      </span>
+                      <span v-if="item.core.coringMethod" class="p-2">
+                        <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
+                      </span>
+                      <span v-if="item.core.drillDate" class="p-2">
+                        <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
+                      </span>
+                      <span v-if="item.core.waterDepth" class="p-2">
+                        <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
+                      </span>
+                      <pre class="d-none"><small>{{
+                        { file: item.file, attributes: item.attributes.map(({ name }) => name) }
+                      }}</small></pre>
+                    </div>
+                  </div>
+                </div>
               </template>
               <template slot="categories" slot-scope="{ value }">
                 {{ value | upperCaseFirst }}
@@ -147,14 +177,24 @@
               </template>
               <template slot="actions" slot-scope="{ item }">
                 <BButton
+                  v-if="datasetId !== item.uuid"
                   size="sm"
-                  variant="primary"
-                  class="disabled-focus-none"
-                  :disabled="datasetId === item.uuid"
+                  variant="secondary"
+                  style="min-width: 3.5rem"
                   :href="$router.resolve({ query: { datasetId: item.uuid } }).href"
                   @click.prevent="loadDataset"
                 >
-                  Show records
+                  Open
+                </BButton>
+                <BButton
+                  v-else
+                  size="sm"
+                  variant="danger"
+                  style="min-width: 3.5rem"
+                  :to="$route.path"
+                  replace
+                >
+                  Close
                 </BButton>
               </template>
             </BTable>
@@ -199,8 +239,7 @@
                     <FontAwesomeIcon icon="download"/> CSV
                   </BButton>
                 </div>
-                <BTable hover
-                        outlined
+                <BTable outlined
                         striped
                         caption-top
                         show-empty
@@ -220,8 +259,11 @@
                     </span>
                   </template>
                   <template v-for="{ key } in getFields(dataset).slice(1)" :slot="key" slot-scope="cell">
-                    <span :key="key">
-                      {{ cell.item[key] }}<i v-if="!cell.item[key] && cell.item[key] !== false" class="long-dash"/>
+                    <span v-if="isInvalidValue(cell.item[key])" :key="key">
+                      <i class="long-dash"/>
+                    </span>
+                    <span v-else :key="key">
+                      {{ cell.item[key] }}
                     </span>
                   </template>
                   <template slot="bottom-row" slot-scope="{ columns }">
@@ -289,9 +331,14 @@ export default {
     ...SkipSSR,
   },
   filters: {
-    formatNumber (value, digits = 2) {
-      return Number.parseFloat(value).toFixed(digits)
-        .replace('NaN', String('—').repeat(digits));
+    formatNumber (value, length = 2) {
+      return Number.parseFloat(value).toFixed(length)
+        .replace('NaN', String('—').repeat(length));
+    },
+    formatUnit (value, unit = '', length = 2) {
+      return 'number' === typeof value
+        ? (unit ? ' ' + unit : '')
+        : '—'.repeat(length);
     },
   },
   props: {
@@ -342,6 +389,27 @@ export default {
         this.currentLake = lake;
       }
     },
+    datasetsListBlur ({ target }) {
+      if (target.tagName === 'TD') {
+        let elem = target.parentElement.parentElement.querySelector('tr:focus');
+        elem && elem.blur();
+      }
+    },
+    datasetsListFocus ({ target }) {
+      if (target.tagName === 'TD') {
+        this.datasetsListBlur({ target });
+        let rect = target.parentElement.getBoundingClientRect();
+        if (rect && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+          target.parentElement.focus();
+        }
+      }
+    },
+    datasetsListClicked (item, index) {
+      item._showDetails = !item._showDetails;
+    },
+    isDatasetSelected (dataset) {
+      return dataset.uuid === this.datasetId;
+    },
     getFields (dataset) {
       if (dataset) {
         return [{ key: '__rowNum__', label: '#' }].concat(
@@ -355,6 +423,9 @@ export default {
       } else {
         return [];
       }
+    },
+    isInvalidValue (value) {
+      return !value && typeof value !== 'number' && typeof value !== 'boolean';
     },
     loadDataset ({ target }) {
       this.shouldScrollDown = true;
