@@ -10,6 +10,19 @@ export default {
 };
 </script>
 
+<style lang="scss">
+  .tooltip-table-cell .tooltip-inner {
+    max-width: 200px;
+    text-align: left;
+    @media (min-width: 992px) {
+      max-width: 20vw;
+    }
+    @media (min-width: 1200px) {
+      max-width: 25vw;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~vuelayers/lib/style.css';
 
@@ -17,7 +30,7 @@ export default {
     /deep/ .vl-map {
       height: 485px !important;
       min-height: 485px !important;
-      @media only screen and (min-width: 992px) {
+      @media (min-width: 992px) {
         height: 100% !important;
       }
     }
@@ -54,6 +67,9 @@ export default {
       }
     }
     /deep/ .table, /deep/ .table-hover {
+      tbody tr.b-table-details > td {
+        padding: 0;
+      }
       tbody tr.b-table-details, tbody tr.b-table-has-details {
         background-color: hsl(240, 100%, 99%) !important;
       }

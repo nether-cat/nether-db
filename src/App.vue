@@ -85,6 +85,9 @@ export default Vue.extend({
       &.disabled:hover {
         cursor: default;
       }
+      &.text-decoration-none:hover .text-decoration-hover {
+        text-decoration: underline !important;
+      }
     }
     .bg-theme-color {
       background-color: $theme-color;

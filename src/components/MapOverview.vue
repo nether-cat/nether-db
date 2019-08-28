@@ -348,7 +348,7 @@ export default {
 <style lang="scss" scoped>
   .feature-popup {
     bottom: 1.1em;
-    @media only screen and (min-width: 576px) {
+    @media (min-width: 576px) {
       bottom: 0;
     }
     .card {

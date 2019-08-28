@@ -135,28 +135,34 @@
                 {{ [].concat(...lake.cores.map(core => core.datasets)).length }} datasets available for this site:
               </template>
               <template slot="row-details" slot-scope="{ item }">
-                <div class="position-relative" style="margin: -.75rem" @click="datasetsListClicked(item)">
-                  <div class="position-relative" style="padding: .75rem; background-color: transparent">
-                    <div>
-                      <span class="py-2 pr-2" :class="{ 'font-italic': !item.core.label }">
-                        <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
+                <div @click="datasetsListClicked(item)">
+                  <div style="margin-left: .75rem; padding: .75rem 0; width: calc(100% - 1.5rem)">
+                    <span class="py-2 pr-2" :class="{ 'font-italic': !item.core.label }">
+                      <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
+                    </span>
+                    <span v-if="item.core.latitude && item.core.longitude" class="p-2">
+                      <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
+                    </span>
+                    <span v-if="item.core.coringMethod" class="p-2">
+                      <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
+                    </span>
+                    <span v-if="item.core.drillDate" class="p-2">
+                      <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
+                    </span>
+                    <span v-if="item.core.waterDepth" class="p-2">
+                      <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
+                    </span>
+                    <span v-if="item.publication && item.publication.length && item.publication[0].citation">
+                      <br>&nbsp;<br>
+                    </span>
+                    <span v-if="item.publication && item.publication.length && item.publication[0].citation"
+                          class="py-2 pr-2 d-lg-inline-block w-50"
+                    >
+                      <FontAwesomeIcon icon="quote-right"/>&ensp;{{ (item.publication[0].citation || '') | stripUrl }}
+                      <span v-if="item.publication[0].doi">
+                        <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
                       </span>
-                      <span v-if="item.core.latitude && item.core.longitude" class="p-2">
-                        <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
-                      </span>
-                      <span v-if="item.core.coringMethod" class="p-2">
-                        <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
-                      </span>
-                      <span v-if="item.core.drillDate" class="p-2">
-                        <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
-                      </span>
-                      <span v-if="item.core.waterDepth" class="p-2">
-                        <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
-                      </span>
-                      <pre class="d-none"><small>{{
-                        { file: item.file, attributes: item.attributes.map(({ name }) => name) }
-                      }}</small></pre>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </template>
@@ -175,27 +181,48 @@
               <template slot="HEAD_publication">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
               </template>
+              <template slot="publication" slot-scope="{ value: { doi, citation } }">
+                <a v-if="doi"
+                   v-b-tooltip.hover.bottom.html="{
+                     customClass: 'tooltip-table-cell',
+                     title: citation.replace(
+                       /Available at:? https?:\/\/.*doi\.org\/(.*?)\.?\s$/i,
+                       '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$1</span>',
+                     ),
+                   }"
+                   class="text-dark text-decoration-none text-nowrap"
+                   title="Visit publication"
+                   :href="`https://dx.doi.org/${doi}`"
+                   target="_blank"
+                >
+                  <span class="text-decoration-hover">{{ doi }}</span>
+                  <FontAwesomeIcon class="ml-2" icon="external-link-alt"/>
+                </a>
+                <span v-else>—</span>
+              </template>
               <template slot="actions" slot-scope="{ item }">
-                <BButton
-                  v-if="datasetId !== item.uuid"
-                  size="sm"
-                  variant="secondary"
-                  style="min-width: 3.5rem"
-                  :href="$router.resolve({ query: { datasetId: item.uuid } }).href"
-                  @click.prevent="loadDataset"
-                >
-                  Open
-                </BButton>
-                <BButton
-                  v-else
-                  size="sm"
-                  variant="danger"
-                  style="min-width: 3.5rem"
-                  :to="$route.path"
-                  replace
-                >
-                  Close
-                </BButton>
+                <div class="text-center">
+                  <BButton
+                    v-if="datasetId !== item.uuid"
+                    size="sm"
+                    variant="secondary"
+                    style="min-width: 4rem"
+                    :href="$router.resolve({ query: { datasetId: item.uuid } }).href"
+                    @click.prevent="loadDataset"
+                  >
+                    Open
+                  </BButton>
+                  <BButton
+                    v-else
+                    size="sm"
+                    variant="danger"
+                    style="min-width: 4rem"
+                    :to="$route.path"
+                    replace
+                  >
+                    Close
+                  </BButton>
+                </div>
               </template>
             </BTable>
           </BCard>
@@ -325,10 +352,19 @@ if (!process.env.VUE_SSR) {
 
 const scrollDown = debounce((vm) => vm.$scrollTo('#recordsTable', 750, { offset: -58 }), 250);
 
+const ExternalLink = {
+  functional: true,
+  render () {
+    const [, { data, props }] = arguments;
+    return <a class="text-dark" target="_blank" {...data}>{props.href}</a>;
+  },
+};
+
 export default {
   name: 'ViewDatabaseDetails',
   components: {
     ...SkipSSR,
+    ExternalLink,
   },
   filters: {
     formatNumber (value, length = 2) {
@@ -339,6 +375,10 @@ export default {
       return 'number' === typeof value
         ? (unit ? ' ' + unit : '')
         : '—'.repeat(length);
+    },
+    stripUrl (value) {
+      let re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
+      return value.replace(re, '');
     },
   },
   props: {
@@ -358,8 +398,10 @@ export default {
         { key: 'ageInterval', formatter: ($0, $1, dataset) => `[${dataset.ageMin}, ${dataset.ageMax}]` },
         'samples',
         { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(3) || '—' },
-        { key: 'publication', formatter: ([publication]) => publication && publication.doi || '—' },
-        'actions',
+        { key: 'publication', formatter: (
+          [{ doi = '', citation = 'View publication' } = {}] = [{}],
+        ) => ({ doi, citation }) },
+        { key: 'actions', label: '' },
       ],
       currentLake: undefined,
       mapCenter: [0, 8],

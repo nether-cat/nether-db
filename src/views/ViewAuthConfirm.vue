@@ -151,10 +151,12 @@ export default {
 
 <style lang="scss" scoped>
   .media.account-info {
-    font-size: 1.225rem;
+    font-size: calc(2.5vw + .225rem);
     img {
       height: 64px;
       width: 64px;
+      max-height: 15vw;
+      max-width: 15vw;
       &.img-thumbnail {
         height: calc(64px + .5rem);
         width: calc(64px + .5rem);
@@ -164,11 +166,11 @@ export default {
         }
       }
     }
-    @media (max-width: 575px) {
-      font-size: calc(2.5vw + .225rem);
+    @media (min-width: 576px) {
+      font-size: 1.225rem;
       img {
-        max-height: 15vw;
-        max-width: 15vw;
+        max-height: initial;
+        max-width: initial;
       }
     }
   }

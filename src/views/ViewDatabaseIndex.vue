@@ -90,14 +90,16 @@
             <template slot="datasets" slot-scope="cell">
               <div class="text-monospace text-right">{{ cell.item.datasetsCount }}</div>
             </template>
-            <template slot="HEAD_actions" slot-scope="cell">
-              <div class="text-center">{{ cell.label }}</div>
-            </template>
             <template slot="actions" slot-scope="cell">
               <div class="text-center">
-                <RouterLink :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }" title="View details">
-                  <FontAwesomeIcon icon="external-link-alt" alt="View details"/>
-                </RouterLink>
+                <BButton
+                  size="sm"
+                  variant="secondary"
+                  style="min-width: 4rem"
+                  :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }"
+                >
+                  Details
+                </BButton>
               </div>
             </template>
           </BTable>
@@ -190,7 +192,7 @@ export default {
         { key: 'countries', label: 'Country' },
         'coordinates',
         'datasets',
-        { key: 'actions', label: 'Details' },
+        { key: 'actions', label: '' },
       ],
       isDeactivated: false,
     };
