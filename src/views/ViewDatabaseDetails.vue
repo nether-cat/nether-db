@@ -6,19 +6,22 @@
       uuid: lakeId
     }"
     :skip="!lakeId || isDeactivated"
+    :notify-on-network-status-change="true"
+    :update="data => data && data.lakes && data.lakes[0] || {}"
     @result="updateMapCenter"
   >
-    <template v-slot:default="{ result: { loading, error, data } }">
-      <BRow v-for="lake in (data ? data.lakes : [])" :key="lake.uuid">
+    <template v-slot:default="{ isLoading, result: { data: lake = { uuid: 0 }, loading, networkStatus, error } }">
+      <BRow>
         <BCol cols="12" lg="6">
           <BCard class="h-100">
             <BContainer fluid class="card-text">
               <BRow>
-                <BCol class="grid-format-data">
+                <BCol v-if="networkStatus !== network.loading" class="grid-format-data">
                   <h5 class="font-weight-normal text-left">
                     <span v-if="lake.name">{{ lake.name }}</span>
-                    <span v-else><em>Unnamed site</em></span>
-                    <span v-if="lake.countries" class="comma-separated text-muted">
+                    <span v-else-if="lake.uuid"><em>Unnamed site</em></span>
+                    <span v-else><em>Unknown site</em></span>
+                    <span v-if="0 && networkStatus !== network.loading && lake.countries" class="comma-separated text-muted">
                       (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
                     </span>
                   </h5>
@@ -68,6 +71,108 @@
                   </BRow>
                   <hr>
                 </BCol>
+                <BCol v-else class="grid-format-data">
+                  <h5 class="font-weight-normal text-left">
+                    <span class="loading-bar"><em>Unknown site</em></span>
+                  </h5>
+                  <hr>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Latitude:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{
+                          Math.abs(lake.latitude) | formatNumber(5) + ('number' === typeof lake.latitude ? '°' : '—')
+                        }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.latitude | formatUnit(0 > lake.latitude ? 'S' : 'N') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Longitude:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{
+                          Math.abs(lake.longitude) | formatNumber(5) + ('number' === typeof lake.longitude ? '°' : '—')
+                        }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.longitude | formatUnit(0 > lake.longitude ? 'W' : 'E') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Surface elevation:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{ lake.surfaceLevel | formatNumber }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.surfaceLevel | formatUnit('m') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Maximum depth:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{ lake.maxDepth | formatNumber }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.maxDepth | formatUnit('m') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Surface area:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{ lake.surfaceArea | formatNumber }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.surfaceArea | formatUnit('m²') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Water body volume:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{ lake.waterBodyVolume | formatNumber }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.waterBodyVolume | formatUnit('m³') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <BRow>
+                    <BCol cols="5"><span class="loading-bar align-right">Catchment area:</span></BCol>
+                    <BCol cols="5">
+                      <div class="loading-bar align-right connect right">
+                        <pre>{{ lake.catchmentArea | formatNumber }}</pre>
+                      </div>
+                    </BCol>
+                    <BCol>
+                      <div class="loading-bar connect left">
+                        <pre>{{ lake.catchmentArea | formatUnit('m²') }}</pre>
+                      </div>
+                    </BCol>
+                  </BRow>
+                  <hr>
+                </BCol>
               </BRow>
             </BContainer>
           </BCard>
@@ -86,19 +191,16 @@
               </Transition>
               <div class="h-100">
                 <SkipServerSide>
-                  <VlMap ref="mapComponent"
+                  <VlMap v-if="lake.uuid"
+                         ref="mapComponent"
                          :load-tiles-while-animating="true"
                          :load-tiles-while-interacting="true"
                          data-projection="EPSG:4326"
                          @mounted="onMapMounted"
                   >
                     <VlView :max-zoom="18" :zoom="10" :center="mapCenter" :rotation="0"/>
-                    <VlFeature v-for="result in [lake]"
-                               :id="result.uuid"
-                               :key="result.uuid"
-                               :properties="{ id: result.uuid, name: result.name }"
-                    >
-                      <VlGeomPoint :coordinates="[result.longitude, result.latitude]"/>
+                    <VlFeature :id="lake.uuid" :properties="{ id: lake.uuid, name: lake.name }">
+                      <VlGeomPoint :coordinates="[lake.longitude, lake.latitude]"/>
                       <VlStyleBox :z-index="1">
                         <VlStyleCircle :radius="6">
                           <VlStyleStroke :color="[255, 255, 255, 1]" :width="1.5"/>
@@ -120,10 +222,11 @@
             <BTable hover
                     outlined
                     striped
+                    responsive
                     caption-top
                     show-empty
                     class="table-toggle"
-                    :items="[].concat(...lake.cores.map(core => core.datasets.map(d => (
+                    :items="!lake.cores ? [] : [].concat(...lake.cores.map(core => core.datasets.map(d => (
                       { ...d, core, _showDetails: isDatasetSelected(d) }
                     ))))"
                     :fields="datasetsListFields"
@@ -132,31 +235,42 @@
                     @mouseout.native="datasetsListBlur"
             >
               <template slot="table-caption">
-                {{ [].concat(...lake.cores.map(core => core.datasets)).length }} datasets available for this site:
+                <span v-if="networkStatus !== network.loading">
+                  {{ !lake.cores ? 0 : [].concat(...lake.cores.map(core => core.datasets)).length }}
+                  datasets available for this site:
+                </span>
+                <span v-else style="user-select: none">&nbsp;</span>
+              </template>
+              <template slot="empty" slot-scope="scope">
+                <span>{{ scope.emptyText }}</span>
               </template>
               <template slot="row-details" slot-scope="{ item }">
                 <div @click="datasetsListClicked(item)">
                   <div style="margin-left: .75rem; padding: .75rem 0; width: calc(100% - 1.5rem)">
-                    <span class="py-2 pr-2" :class="{ 'font-italic': !item.core.label }">
+                    <span class="d-inline-block pb-2 pr-3 text-nowrap" :class="{ 'font-italic': !item.core.label }">
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
-                    <span v-if="item.core.latitude && item.core.longitude" class="p-2">
+                    <span v-if="item.core.latitude && item.core.longitude" class="d-inline-block pb-2 pr-3">
                       <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
                     </span>
-                    <span v-if="item.core.coringMethod" class="p-2">
+                    <span v-if="item.core.coringMethod" class="d-inline-block pb-2 pr-3 text-nowrap">
                       <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
                     </span>
-                    <span v-if="item.core.drillDate" class="p-2">
+                    <span v-if="item.core.drillDate" class="d-inline-block pb-2 pr-3">
                       <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
                     </span>
-                    <span v-if="item.core.waterDepth" class="p-2">
+                    <span v-if="item.core.waterDepth" class="d-inline-block pb-2 pr-3">
                       <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
                     </span>
-                    <span v-if="item.publication && item.publication.length && item.publication[0].citation">
-                      <br>&nbsp;<br>
+                    <span v-if="item.analysisMethod" class="d-inline-block pb-2 pr-3 text-nowrap">
+                      <FontAwesomeIcon icon="microscope"/>&ensp;{{ item.analysisMethod }}
                     </span>
+                    <span v-if="item.comments" class="d-inline-block pb-2 pr-3 text-nowrap">
+                      <FontAwesomeIcon icon="comment-dots"/>&ensp;{{ item.comments }}
+                    </span>
+                    <br v-if="item.publication && item.publication.length && item.publication[0].citation">
                     <span v-if="item.publication && item.publication.length && item.publication[0].citation"
-                          class="py-2 pr-2 d-lg-inline-block w-50"
+                          class="pb-2 pr-3 d-xl-inline-block w-50"
                     >
                       <FontAwesomeIcon icon="quote-right"/>&ensp;{{ (item.publication[0].citation || '') | stripUrl }}
                       <span v-if="item.publication[0].doi">
@@ -166,22 +280,22 @@
                   </div>
                 </div>
               </template>
-              <template slot="categories" slot-scope="{ value }">
+              <template slot="[categories]" slot-scope="{ value }">
                 {{ value | upperCaseFirst }}
               </template>
-              <template slot="HEAD_ageInterval">
+              <template slot="HEAD[ageInterval]">
                 Ages&ensp;<span class="font-weight-lighter text-secondary">[yr BP] in [<em>min</em>, <em>max</em>]</span>
               </template>
-              <template slot="HEAD_samples">
+              <template slot="HEAD[samples]">
                 Samples&ensp;<span class="font-weight-lighter text-secondary">[<em>count</em>]</span>
               </template>
-              <template slot="HEAD_ageResolution">
+              <template slot="HEAD[ageResolution]">
                 Resolution&ensp;<span class="font-weight-lighter text-secondary">[Samples / kyr]</span>
               </template>
-              <template slot="HEAD_publication">
+              <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
               </template>
-              <template slot="publication" slot-scope="{ value: { doi, citation } }">
+              <template slot="[publication]" slot-scope="{ value: { doi, citation } }">
                 <a v-if="doi"
                    v-b-tooltip.hover.bottom.html="{
                      customClass: 'tooltip-table-cell',
@@ -200,13 +314,12 @@
                 </a>
                 <span v-else>—</span>
               </template>
-              <template slot="actions" slot-scope="{ item }">
+              <template slot="[actions]" slot-scope="{ item }">
                 <div class="text-center">
                   <BButton
                     v-if="datasetId !== item.uuid"
                     size="sm"
                     variant="secondary"
-                    style="min-width: 4rem"
                     :href="$router.resolve({ query: { datasetId: item.uuid } }).href"
                     @click.prevent="loadDataset"
                   >
@@ -216,7 +329,6 @@
                     v-else
                     size="sm"
                     variant="danger"
-                    style="min-width: 4rem"
                     :to="$route.path"
                     replace
                   >
@@ -229,7 +341,7 @@
         </BCol>
       </BRow>
       <ApolloQuery
-        v-if="datasetId"
+        v-if="datasetId && lake && lake.uuid"
         :tag="undefined"
         :query="require('graphql-tag')`
           query lookupDataset($uuid: ID!, $offset: Int!) {
@@ -250,11 +362,12 @@
           uuid: datasetId,
           offset: 0,
         }"
-        :skip="!datasetId || isDeactivated"
         :throttle="300"
+        :skip="!datasetId || isDeactivated"
+        :notify-on-network-status-change="true"
         @result="() => timesFetched++ || onFirstRecords()"
       >
-        <template v-slot:default="{ query, isLoading, result: { loading, error, data } }">
+        <template v-slot:default="{ query, isLoading, result: { data, loading, error } }">
           <BRow v-for="(dataset, num) in (data ? data.datasets : [])"
                 :id="`recordsTable${ num ? '-' + num : '' }`"
                 :key="dataset.uuid"
@@ -268,6 +381,7 @@
                 </div>
                 <BTable outlined
                         striped
+                        responsive
                         caption-top
                         show-empty
                         sort-by="__rowNum__"
@@ -277,15 +391,15 @@
                   <template slot="table-caption">
                     {{ dataset.samples }} samples recorded in this dataset:
                   </template>
-                  <template slot="__rowNum__" slot-scope="cell">
+                  <template slot="[__rowNum__]" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
                   </template>
-                  <template v-for="{ key } in getFields(dataset).slice(1)" :slot="'HEAD_' + key" slot-scope="{ label }">
+                  <template v-for="{ key } in getFields(dataset).slice(1)" :slot="`HEAD[${key}]`" slot-scope="{ label }">
                     <span :key="'HEAD_' + key">
                       {{ label | sentenceCase }}
                     </span>
                   </template>
-                  <template v-for="{ key } in getFields(dataset).slice(1)" :slot="key" slot-scope="cell">
+                  <template v-for="{ key } in getFields(dataset).slice(1)" :slot="`[${key}]`" slot-scope="cell">
                     <span v-if="isInvalidValue(cell.item[key])" :key="key">
                       <i class="long-dash"/>
                     </span>
@@ -318,6 +432,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import { NetworkStatus } from 'apollo-client';
 
 const SkipSSR = {};
 
@@ -387,6 +502,8 @@ export default {
   },
   data () {
     return {
+      currentLake: null,
+      mapCenter: [0, 8],
       timesFetched: 0,
       isDeactivated: false,
       isInitializing: true,
@@ -403,8 +520,7 @@ export default {
         ) => ({ doi, citation }) },
         { key: 'actions', label: '' },
       ],
-      currentLake: undefined,
-      mapCenter: [0, 8],
+      network: NetworkStatus,
     };
   },
   watch: {
@@ -423,7 +539,7 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
-    updateMapCenter ({ data: { lakes: [lake] } }) {
+    updateMapCenter ({ data: lake }) {
       if (lake) {
         if (!this.currentLake || this.currentLake.uuid !== lake.uuid) {
           this.mapCenter = [lake.longitude, lake.latitude];

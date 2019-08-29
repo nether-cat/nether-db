@@ -63,6 +63,7 @@
         <BCard class="overflow-auto">
           <BTable outlined
                   striped
+                  responsive
                   caption-top
                   show-empty
                   sort-by="name"
@@ -70,32 +71,37 @@
                   :fields="fields"
           >
             <template slot="table-caption">
-              {{
-                filteredLakes.length && filteredLakes.length !== getLakes.length
-                  ? `${filteredLakes.length} sites that match your criteria:`
-                  : `${filteredLakes.length} sites available in the database:`
-              }}
+              <span v-if="isInitialized">
+                {{
+                  filteredLakes.length && filteredLakes.length !== getLakes.length
+                    ? `${filteredLakes.length} sites that match your criteria:`
+                    : `${filteredLakes.length} sites available in the database:`
+                }}
+              </span>
+              <span v-else style="user-select: none">&nbsp;</span>
             </template>
-            <template slot="countries" slot-scope="cell">
+            <template slot="empty" slot-scope="scope">
+              <span>{{ scope.emptyText }}</span>
+            </template>
+            <template slot="[countries]" slot-scope="cell">
               <div class="text-monospace">
                 {{ cell.item['countries'].map(c => c['code']).join(', ') }}
               </div>
             </template>
-            <template slot="coordinates" slot-scope="cell">
+            <template slot="[coordinates]" slot-scope="cell">
               <div class="text-monospace"><pre>{{ cell.item | coordinates }}</pre></div>
             </template>
-            <template slot="HEAD_datasets" slot-scope="cell">
+            <template slot="HEAD[datasets]" slot-scope="cell">
               <div class="text-right">{{ cell.label }}</div>
             </template>
-            <template slot="datasets" slot-scope="cell">
+            <template slot="[datasets]" slot-scope="cell">
               <div class="text-monospace text-right">{{ cell.item.datasetsCount }}</div>
             </template>
-            <template slot="actions" slot-scope="cell">
+            <template slot="[actions]" slot-scope="cell">
               <div class="text-center">
                 <BButton
                   size="sm"
                   variant="secondary"
-                  style="min-width: 4rem"
                   :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }"
                 >
                   Details
@@ -194,6 +200,7 @@ export default {
         'datasets',
         { key: 'actions', label: '' },
       ],
+      isInitialized: false,
       isDeactivated: false,
     };
   },
@@ -212,6 +219,11 @@ export default {
       error (err) {
         log([err.message], 'Query', 2);
         return false;
+      },
+      watchLoading (isLoading, countModifier) {
+        if (countModifier < 0) {
+          this.isInitialized = true;
+        }
       },
     },
   },

@@ -83,7 +83,7 @@
     "unorm": "^1.5.0",
     "uuid": "^3.3.2",
     "vue": "^2.6.10",
-    "vue-apollo": "^3.0.0-beta.30",
+    "vue-apollo": "^3.0.0-rc.2",
     "vue-no-ssr": "^1.1.1",
     "vue-observe-visibility": "^0.4.4",
     "vue-router": "^3.0.4",

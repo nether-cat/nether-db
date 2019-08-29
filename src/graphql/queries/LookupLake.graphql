@@ -30,6 +30,8 @@ query lookupLake($uuid: ID!) {
         ageMin
         ageMax
         ageResolution
+        analysisMethod
+        comments
         attributes {
           uuid
           name

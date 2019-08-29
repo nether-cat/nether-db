@@ -26,6 +26,15 @@ export default {
 <style lang="scss" scoped>
   @import '~vuelayers/lib/style.css';
 
+  @keyframes border-glow {
+    0% {
+      border-color: hsla(0, 0%, 85%, .5);
+    }
+    50% {
+      border-color: hsla(0, 0%, 80%, .75);
+    }
+  }
+
   .container-fluid {
     /deep/ .vl-map {
       height: 485px !important;
@@ -90,10 +99,57 @@ export default {
         cursor: zoom-out;
       }
     }
+    /deep/ .table-responsive tr:not(.b-table-details) {
+      th, td {
+        white-space: nowrap !important;
+      }
+      td:last-of-type .btn {
+        min-width: 4rem;
+      }
+    }
+    /deep/ .loading-bar {
+      display: inline;
+      position: relative;
+      color: transparent;
+      user-select: none;
+      &::before {
+        content: ' ';
+        top: .25em;
+        right: auto;
+        left: 0;
+        position: absolute;
+        width: calc(100% + 25%);
+        animation: border-glow 2s infinite;
+        border-bottom: 0.75em solid hsla(0, 0%, 85%, .5);
+        border-radius: .375em;
+      }
+      &.align-right::before {
+        right: 0;
+        left: auto;
+      }
+      &.connect {
+        &.right::before {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        &.left::before {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        &.both::before {
+          border-radius: 0;
+        }
+      }
+    }
+    /deep/ .loading-cover,
+    /deep/ .b-table-empty-row {
+      background-color: rgba(245, 245, 245, .7) !important;
+      color: #6c757d !important;
+      text-align: center !important;
+      line-height: 4.5rem;
+      font-size: 1.25rem;
+    }
     /deep/ .loading-cover {
-      background-color: rgba(245, 245, 245, .7);
-      color: #6c757d;
-      text-align: center;
       justify-content: center;
       align-items: center;
       display: flex;
@@ -104,8 +160,6 @@ export default {
       z-index: 99;
       > div, span {
         display: inline-block;
-        line-height: 4.5rem;
-        font-size: 1.25rem;
       }
     }
     /deep/ .card-body > .table {
@@ -114,9 +168,12 @@ export default {
     /deep/ .table pre,
     /deep/ .grid-format-data pre {
       color: inherit;
-      display: inline-block;
+      display: inline;
       font-size: 1em;
       margin: 0 0;
+    }
+    /deep/ .grid-format-data pre {
+      line-height: 2.0;
     }
     /deep/ .grid-format-data .row {
       > div:not(:nth-of-type(3)) {
