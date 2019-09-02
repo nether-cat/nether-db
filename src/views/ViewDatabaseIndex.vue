@@ -2,34 +2,30 @@
   <BContainer fluid>
     <BRow>
       <BCol cols="12" lg="6">
-        <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Filters</h4>
+        <BCard class="h-100">
           <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <FormFilters :source="getLakes" :result.sync="filteredLakes" :use="filters"/>
+                <FormFilters :source="getLakes" :result.sync="filteredLakes" :use="filters" @resized="resizeMap"/>
                 <hr>
               </BCol>
             </BRow>
             <BRow>
               <BCol>
-                <div class="rounded overflow-hidden" style="height: 400px;">
+                <div class="rounded overflow-hidden position-relative" style="height: 400px;">
                   <Transition name="fade-opacity">
-                    <div v-show="chart.loading"
-                         class="loading-cover rounded overflow-hidden"
-                         style="height: 400px; line-height: 400px;"
-                    >
-                      <div>
+                    <div v-show="chart.loading" class="loading-cover rounded overflow-hidden">
+                      <span>
                         Chart loading...<br>
                         <FontAwesomeIcon icon="circle-notch" size="5x" :transform="{ rotate: 120 }" spin/>
-                      </div>
+                      </span>
                     </div>
                   </Transition>
                   <SkipServerSide>
                     <ChartClimate
                       :events="getEvents"
                       :selection="getSelectedEvents"
-                      @init="(flush) => { chart.flush = flush; $nextTick(() => chart.loading = false); }"
+                      @loaded="registerChart"
                       @selectDomain="selectDomain"
                       @selectEvent="selectEvent"
                       @unselectEvent="unselectEvent"
@@ -43,23 +39,19 @@
       </BCol>
       <div class="d-block d-lg-none mt-4 w-100"/>
       <BCol cols="12" lg="6">
-        <BCard header-tag="header" footer-tag="footer">
-          <h4 slot="header">Map</h4>
-          <BContainer fluid class="card-text rounded overflow-hidden">
+        <BCard class="h-100">
+          <BContainer fluid class="card-text rounded overflow-hidden position-relative h-100">
             <Transition name="fade-opacity">
-              <div v-show="map.loading"
-                   class="loading-cover rounded overflow-hidden"
-                   style="height: 485px; line-height: 485px;"
-              >
-                <div>
+              <div v-show="map.loading" class="loading-cover rounded overflow-hidden">
+                <span>
                   Map loading...<br>
                   <FontAwesomeIcon icon="circle-notch" size="5x" spin/>
-                </div>
+                </span>
               </div>
             </Transition>
-            <div style="height: 485px;">
+            <div class="h-100">
               <SkipServerSide>
-                <MapOverview :features="map.features" @loaded="$nextTick(() => map.loading = false)"/>
+                <MapOverview :features="map.features" @loaded="registerMap"/>
               </SkipServerSide>
             </div>
           </BContainer>
@@ -68,10 +60,10 @@
     </BRow>
     <BRow>
       <BCol class="mt-4">
-        <BCard style="overflow-x: auto;">
-          <BTable hover
-                  outlined
+        <BCard class="overflow-auto">
+          <BTable outlined
                   striped
+                  responsive
                   caption-top
                   show-empty
                   sort-by="name"
@@ -79,35 +71,41 @@
                   :fields="fields"
           >
             <template slot="table-caption">
-              {{
-                filteredLakes.length && filteredLakes.length !== getLakes.length
-                  ? `${filteredLakes.length} sites that match your criteria:`
-                  : `${filteredLakes.length} sites available in the database:`
-              }}
+              <span v-if="isInitialized">
+                {{
+                  filteredLakes.length && filteredLakes.length !== getLakes.length
+                    ? `${filteredLakes.length} sites that match your criteria:`
+                    : `${filteredLakes.length} sites available in the database:`
+                }}
+              </span>
+              <span v-else style="user-select: none">&nbsp;</span>
             </template>
-            <template slot="countries" slot-scope="cell">
+            <template slot="empty" slot-scope="scope">
+              <span>{{ scope.emptyText }}</span>
+            </template>
+            <template slot="[countries]" slot-scope="cell">
               <div class="text-monospace">
                 {{ cell.item['countries'].map(c => c['code']).join(', ') }}
               </div>
             </template>
-            <template slot="coordinates" slot-scope="cell">
-              <!-- eslint-disable-next-line vue/no-v-html -->
-              <div class="text-monospace" v-html="formatCoordinates(cell.item)"/>
+            <template slot="[coordinates]" slot-scope="cell">
+              <div class="text-monospace"><pre>{{ cell.item | coordinates }}</pre></div>
             </template>
-            <template slot="HEAD_datasets" slot-scope="cell">
+            <template slot="HEAD[datasets]" slot-scope="cell">
               <div class="text-right">{{ cell.label }}</div>
             </template>
-            <template slot="datasets" slot-scope="cell">
+            <template slot="[datasets]" slot-scope="cell">
               <div class="text-monospace text-right">{{ cell.item.datasetsCount }}</div>
             </template>
-            <template slot="HEAD_actions" slot-scope="cell">
-              <div class="text-center">{{ cell.label }}</div>
-            </template>
-            <template slot="actions" slot-scope="cell">
+            <template slot="[actions]" slot-scope="cell">
               <div class="text-center">
-                <RouterLink :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }" title="View details">
-                  <FontAwesomeIcon icon="external-link-alt" alt="View details"/>
-                </RouterLink>
+                <BButton
+                  size="sm"
+                  variant="secondary"
+                  :to="{ name: 'databaseDetails', params: { lakeId: cell.item.uuid } }"
+                >
+                  Details
+                </BButton>
               </div>
             </template>
           </BTable>
@@ -191,6 +189,7 @@ export default {
         loading: true,
       },
       map: {
+        component: undefined,
         features: [],
         loading: true,
       },
@@ -199,8 +198,9 @@ export default {
         { key: 'countries', label: 'Country' },
         'coordinates',
         'datasets',
-        { key: 'actions', label: 'Details' },
+        { key: 'actions', label: '' },
       ],
+      isInitialized: false,
       isDeactivated: false,
     };
   },
@@ -219,6 +219,11 @@ export default {
       error (err) {
         log([err.message], 'Query', 2);
         return false;
+      },
+      watchLoading (isLoading, countModifier) {
+        if (countModifier < 0) {
+          this.isInitialized = true;
+        }
       },
     },
   },
@@ -280,7 +285,7 @@ export default {
               filter.refreshCache();
             }
           } else if (!tag) {
-            console.log('[APP] Added filter for domain:', newVal);
+            console.log('[APP] Added filter for age domain:', newVal);
             let newTag = FFInputTag.factory({
               label: '<em>Age within time span</em>',
               icon: 'history',
@@ -298,7 +303,7 @@ export default {
             filter.ui.tags.push(newTag);
             filter.refreshCache();
           } else {
-            console.log('[APP] Modified filter for domain:', newVal);
+            console.log('[APP] Modified filter for age domain:', newVal);
             tag.opts.params.value = newVal.map(v => v * 1000);
             filter.refreshCache();
           }
@@ -345,13 +350,30 @@ export default {
     /* FIXME: This is a dirty hack, but when this component has been inactive
               for too long, the c3 component starts acting weird without this.
     */
-    this.chart.flush(this.chart.domain);
+    this.chart.flush(this.chart.domain, true);
     this.isDeactivated = false;
   },
   deactivated () {
     this.isDeactivated = true;
   },
   methods: {
+    registerChart (flush) {
+      this.chart.flush = flush;
+      this.$nextTick(() => this.chart.loading = false);
+    },
+    registerMap (outerComp) {
+      (this.map.component = outerComp) && this.$nextTick(() => this.map.loading = false);
+    },
+    resizeMap () {
+      let canvas = document.querySelector('.vl-map .ol-viewport canvas');
+      let innerComp = this.map.component && this.map.component.$refs.mapComponent;
+      if (canvas && innerComp) {
+        requestAnimationFrame(() => {
+          canvas.setAttribute('height', '0');
+          innerComp.$map.updateSize();
+        });
+      }
+    },
     selectDomain ([begin, end]) {
       !this.isDeactivated && !this.chart.loading && (this.chart.domain = [begin, end]);
     },
@@ -360,7 +382,7 @@ export default {
       if (filter.ui.tags.find(t => t.opts.params.value === event)) {
         return;
       }
-      console.log('[APP] Added filter for event:', event);
+      console.log('[APP] Added filter for tephra event:', event);
       let newTag = FFInputTag.factory({ label: event.name, icon: 'layer-group', value: event });
       newTag.opts.remove = (unselectEvent = true) => {
         let tagIndex = filter.ui.tags.findIndex(t => t === newTag);
@@ -372,24 +394,9 @@ export default {
       filter.refreshCache();
     },
     unselectEvent (event) {
-      console.log('[APP] Removed filter for event:', event);
+      console.log('[APP] Removed filter for tephra event:', event);
       let [, filter] = this.filters, tag = filter.ui.tags.find(t => t.opts.params.value === event);
       (!!tag) && tag.opts.remove(false);
-    },
-    formatCoordinates({ latitude, longitude }) {
-      latitude = Number.parseFloat(latitude);
-      longitude = Number.parseFloat(longitude);
-      latitude = latitude < 0 ? (-1 * latitude).toFixed(6) + '° S' : latitude.toFixed(6) + '° N';
-      if (latitude.length < 12) {
-        latitude = '&nbsp;' + latitude;
-      }
-      longitude = longitude < 0 ? (-1 * longitude).toFixed(6) + '° W' : longitude.toFixed(6) + '° E';
-      if (longitude.length < 12) {
-        longitude = '&nbsp;&nbsp;' + longitude;
-      } else if (longitude.length < 13) {
-        longitude = '&nbsp;' + longitude;
-      }
-      return [latitude, longitude].join(', ');
     },
   },
 };

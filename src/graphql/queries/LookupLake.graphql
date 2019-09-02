@@ -17,13 +17,21 @@ query lookupLake($uuid: ID!) {
     cores {
       uuid
       label
+      latitude
+      longitude
+      coringMethod
+      drillDate
+      waterDepth
       datasets {
         uuid
         file
         label
+        samples
         ageMin
         ageMax
         ageResolution
+        analysisMethod
+        comments
         attributes {
           uuid
           name

@@ -129,7 +129,7 @@ type Core implements Entity {
   latitude: Float
   longitude: Float
   coringMethod: String
-  drillDate: _Neo4jDate
+  drillDate: Int
   waterDepth: Float
   composite: Boolean
   ageDepthMethod: String
@@ -167,10 +167,14 @@ type Dataset implements Entity {
   updated: _Neo4jDateTime!
   file: String!
   label: String
-  ageMax: Float
+  samples: Int @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) RETURN count(m)")
   ageMin: Float
+  ageMax: Float
+  depthMin: Float
+  depthMax: Float
   ageSpan: Float
   ageResolution: Float
+  depthSpan: Float
   depthResolution: Float
   analysisMethod: String
   comments: String

@@ -59,7 +59,7 @@ type Core implements Entity {
   coringMethod: String
   created: _Neo4jDateTime!
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
-  drillDate: _Neo4jDate
+  drillDate: Int
   label: String
   lake(first: Int = 1, offset: Int = 0): [Lake]
   latitude: Float
@@ -92,12 +92,16 @@ type Dataset implements Entity {
   comments: String
   core(first: Int = 1, offset: Int = 0): [Core]
   created: _Neo4jDateTime!
+  depthMax: Float
+  depthMin: Float
   depthResolution: Float
+  depthSpan: Float
   distributor: String
   file: String!
   label: String
   publication(first: Int = 1, offset: Int = 0): [Publication]
   records(first: Int = 100, offset: Int = 0): [JSON]
+  samples: Int
   updated: _Neo4jDateTime!
   url: String
   uuid: ID!
@@ -108,8 +112,8 @@ type Event implements Entity {
   ageMean: Float
   ageMin: Float
   created: _Neo4jDateTime!
-  datasets: [Dataset]
-  lakes: [Lake]
+  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  lakes(first: Int = 100, offset: Int = 0): [Lake]
   name: String!
   updated: _Neo4jDateTime!
   uuid: ID!

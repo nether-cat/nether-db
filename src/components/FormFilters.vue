@@ -8,7 +8,7 @@
     }"
   >
     <label for="inputTextSearch" class="d-block">
-      <FontAwesomeIcon icon="search" fixed-width/> Criteria to be used
+      <FontAwesomeIcon icon="search" fixed-width/> Filters to be used
     </label>
     <div>
       <div
@@ -279,11 +279,15 @@ export default {
       if (!extentElem || !searchElem) {
         return;
       }
+      let { height, top } = this.styleProps;
       let { offsetHeight, offsetLeft, offsetTop } = extentElem;
       offsetLeft = offsetLeft - 9 > 5 ? offsetLeft - 9 : 0;
       this.styleProps.height = `${offsetHeight + 9}px`;
       this.styleProps.textIndent = offsetLeft ? `${offsetLeft}px` : 0;
       this.styleProps.top = `${offsetTop - 2}px`;
+      if (height !== this.styleProps.height || top !== this.styleProps.top) {
+        this.$nextTick(() => this.$emit('resized'));
+      }
     },
     onKeyDown (evt, debug = false) {
       'function' === typeof this['on' + evt.key] && this['on' + evt.key](evt);
@@ -400,6 +404,7 @@ export default {
       }
     }
     .form-footer {
+      cursor: default;
       display: block;
       position: relative;
       left: -.8125rem;
@@ -416,7 +421,7 @@ export default {
       max-height: calc( 11 * 2.25rem + 1px );
       width: calc( 100% + 1.625rem);
       transition: height .2s ease;
-      overflow-y: scroll;
+      overflow-y: auto;
       z-index: 100;
       a, button {
         outline: 0 !important;
@@ -455,7 +460,6 @@ export default {
       }
       .list-group-item.list-group-item-divider {
         z-index: 2;
-        cursor: default;
         padding: .5rem .75rem;
         font-size: .8125rem;
         border-style: solid;

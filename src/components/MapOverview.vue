@@ -80,6 +80,7 @@ function data () {
     availableFeatures: [],
     focusedClusters: [],
     focusedFeatures: [],
+    isDeactivated: false,
   };
 };
 
@@ -201,6 +202,19 @@ const methods = {
       }
     }
   },
+  fixResizeEvents () {
+    window.addEventListener('resize', () => {
+      let canvas = this.$el.querySelector('.ol-viewport canvas');
+      let comp = this.$refs.mapComponent;
+      comp = comp && comp.length ? comp[0] : comp;
+      if (!this.isDeactivated && canvas && comp && comp.$map) {
+        requestAnimationFrame(() => {
+          canvas.setAttribute('height', '0');
+          comp.$map.updateSize();
+        });
+      }
+    });
+  },
   fixZoomButtons () {
     if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
       setTimeout(this.fixZoomButtons, 250);
@@ -232,10 +246,15 @@ export default {
   },
   watch,
   mounted () {
+    this.fixResizeEvents();
     this.fixZoomButtons();
   },
   activated () {
+    this.isDeactivated = false;
     this.$refs.mapComponent && this.$refs.mapComponent.$map && this.$refs.mapComponent.$map.updateSize();
+  },
+  deactivated () {
+    this.isDeactivated = true;
   },
   methods,
   render () {
@@ -243,7 +262,6 @@ export default {
       <VlMap load-tiles-while-animating={true}
              load-tiles-while-interacting={true}
              data-projection="EPSG:4326"
-             style="height: 485px"
              ref="mapComponent"
       >
         <VlView
@@ -254,7 +272,6 @@ export default {
           rotation={this.rotation}
           constrainRotation={false}
           {...vOn({
-            'update:zoom': (evt) => console.log('Zoom level:', evt),
           })}
         />
         <VlLayerTile id="osm">
@@ -262,7 +279,7 @@ export default {
         </VlLayerTile>
         <VlLayerVector id="cluster-layer">
           <VlSourceCluster distance={25}>
-            <VlSourceVector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', true)}/>
+            <VlSourceVector ident="cluster-source" features={this.clusteredFeatures} onMounted={() => this.$emit('loaded', this)}/>
             <VlStyleFunc factory={this.clusterStyleFunc}/>
           </VlSourceCluster>
         </VlLayerVector>
@@ -328,25 +345,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .ol-control button {
-    &:focus {
-      outline-width: 0;
-      background-color: rgba(0, 60, 136, 0.7);
-      &:not(:hover) {
-        outline-width: 3px;
-      }
-    }
-    &:hover {
-      background-color: rgba(0, 60, 136, 0.7);
-    }
-  }
-</style>
-
 <style lang="scss" scoped>
   .feature-popup {
     bottom: 1.1em;
-    @media only screen and (min-width: 576px) {
+    @media (min-width: 576px) {
       bottom: 0;
     }
     .card {

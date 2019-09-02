@@ -154,6 +154,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
     const structuredObj = Object.entries(dataset).reduce((obj, [key, value]) => {
       let [, ref, prop] = key.match(/^(@\w+)\.(\w+)$/) || [];
       if (ref && prop) {
+        if (ref === '@core' && prop === 'drillDate') {
+          value = sanitizeDrillDate({ value });
+        }
         obj[ref] = Object.assign(obj[ref] || {}, { [prop]: value });
       } else if (!key.match(/^_/g)) {
         obj['@dataset'][key] = value;
@@ -496,12 +499,7 @@ function addMoreProps (dataset) {
       if (mappedProps.hasOwnProperty(prop)) {
         prop = mappedProps[prop];
         if (prop === '@core.drillDate') {
-          let match = String(value).match(/\d*$/);
-          let number = match ? Number.parseInt(match[0]) : undefined;
-          if (number > (new Date()).getFullYear()) {
-            number = Math.floor(number / 365 + 1900);
-          }
-          value = number;
+          value = sanitizeDrillDate({ value, fixExcelOnly: true });
         }
         if (value) {
           accumulator[key][prop] = value;
@@ -514,18 +512,31 @@ function addMoreProps (dataset) {
   Object.assign(dataset, metadata.dataset, metadata.core, props, { _lastCheck: new Date() });
 }
 
+function sanitizeDrillDate ({ value, fixExcelOnly = false }) {
+  let match = String(value).match(/\d*$/);
+  let result = match ? Number.parseInt(match[0]) : undefined;
+  if (result > (new Date()).getFullYear()) {
+    result = Math.floor(result / 365 + 1900);
+  } else if (fixExcelOnly) {
+    result = value;
+  }
+  return result;
+}
+
 function sortProperties (dataset) {
   const props = [
     'file',
     'label',
-    'analysisMethod',
+    'samples',
     'ageMin',
     'ageMax',
     'depthMin',
     'depthMax',
-    'samples',
     'ageSpan',
     'ageResolution',
+    'depthSpan',
+    'depthResolution',
+    'analysisMethod',
     'comments',
     'url',
     'distributor',

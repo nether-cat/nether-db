@@ -40,14 +40,18 @@ export default {
       let options = !newVal || newVal && oldVal && oldVal.length
         ? { unload: [dataLabels.data2] } : {};
       let toggleEvents = () => {
-        if (newVal && newVal.length) {
-          this.chart.show(dataLabels.data2);
-          this.chart.select([dataLabels.data2], [...newVal.entries()]
-            .filter(([, e]) => this.selection.includes(e))
-            .map(([i]) => i),
-          );
-        } else {
-          this.chart.hide(dataLabels.data2);
+        try {
+          if (newVal && newVal.length) {
+            this.chart.show(dataLabels.data2);
+            this.chart.select([dataLabels.data2], [...newVal.entries()]
+              .filter(([, e]) => this.selection.includes(e))
+              .map(([i]) => i),
+            );
+          } else {
+            this.chart.hide(dataLabels.data2);
+          }
+        } catch (e) {
+          console.error('[APP] Error while updating chart values!');
         }
       };
       if ('function' === typeof this.chart.load) {
@@ -60,7 +64,7 @@ export default {
           done: toggleEvents,
         });
       } else {
-        toggleEvents();
+        setTimeout(toggleEvents, 1000);
       }
     },
   },
@@ -121,7 +125,7 @@ export default {
         },
         axis: {
           x: {
-            label: 'ka BP',
+            label: 'kyr BP',
             min: -0.075,
             max: 122.875,
             tick: {
@@ -155,8 +159,8 @@ export default {
             case dataLabels.data1:
               step = chronology[data.index * 4];
               ageString = step.age < 10
-                ? Math.round(step.age * 1000) + ' a BP'
-                : Number.parseFloat(step.age).toFixed(2) + ' ka BP';
+                ? Math.round(step.age * 1000) + ' yr BP'
+                : Number.parseFloat(step.age).toFixed(2) + ' kyr BP';
               content = `
                     <h6 class="card-title">NGRIP Data</h6>
                     <p class="card-text">When:&nbsp;${ageString}</p>
@@ -167,8 +171,8 @@ export default {
             case dataLabels.data2:
               event = this.events[data.index];
               ageString = event.ageMean < 10000
-                ? Math.round(event.ageMean) + ' a BP'
-                : (event.ageMean / 1000).toFixed(2) + ' ka BP';
+                ? Math.round(event.ageMean) + ' yr BP'
+                : (event.ageMean / 1000).toFixed(2) + ' kyr BP';
               content = `
                     <h6 class="card-title">Event Layer</h6>
                     <p class="card-text">When: ${ageString}</p>
@@ -211,9 +215,10 @@ export default {
             let { min: { x: min }, max: { x: max } } = this.chart.axis.range();
             let defaultDomain = [min - padding, max + padding];
             this.chart.zoom(defaultDomain);
-            this.$emit('init', (domain) => {
+            this.$emit('loaded', (domain, fix = false) => {
               this.chart.flush();
               this.chart.zoom(domain || defaultDomain);
+              fix && this.chart.flush();
             });
           });
         },

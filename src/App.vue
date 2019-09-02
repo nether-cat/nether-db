@@ -64,12 +64,13 @@ export default Vue.extend({
       }
     }
     a {
-      &:focus, &.focus {
+      &:focus:not(.disabled),
+      &.focus:not(.disabled) {
         outline-width: 3px;
         outline-offset: .1em;
       }
-      &.btn-link:focus,
-      &.btn-link.focus {
+      &.btn-link:focus:not(.disabled),
+      &.btn-link.focus:not(.disabled) {
         outline-width: 3px;
         outline-style: auto;
         outline-offset: -3px;
@@ -84,15 +85,26 @@ export default Vue.extend({
       &.disabled:hover {
         cursor: default;
       }
+      &.text-decoration-none:hover .text-decoration-hover {
+        text-decoration: underline !important;
+      }
     }
     .bg-theme-color {
       background-color: $theme-color;
     }
-    button.btn > svg.fa-spin:not(:only-child) {
+    .btn:disabled, .btn.disabled {
+      &:focus, &.focus {
+        &.disabled-focus-none {
+          box-shadow: none !important;
+          outline: 0 !important;
+        }
+      }
+    }
+    .btn > svg.fa-spin:not(:only-child) {
       margin-left: .75em;
     }
-    button.btn.w-100 > svg.fa-spin,
-    button.btn.btn-block > svg.fa-spin {
+    .btn.w-100 > svg.fa-spin,
+    .btn.btn-block > svg.fa-spin {
       &:not(:only-child) {
         position: absolute;
         margin-top: .25em;
@@ -242,9 +254,6 @@ export default Vue.extend({
       border-top: 1px solid currentColor;
       height: .4em;
       width: 1.2em;
-    }
-    .ol-scale-line-inner {
-      border-top: 1px solid rgba(238, 238, 238, 0.5);
     }
   }
 </style>
