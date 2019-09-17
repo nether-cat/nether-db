@@ -647,7 +647,11 @@ function readFromFile ({ file, sheetName, headerStart, valuesStart, endColumn, e
   const headerRange = util.format(`${headerStart}:%s%s`, endColumn, headerStart.charAt(1));
   const valuesRange = util.format(`${valuesStart}:%s%s`, endColumn, endRow);
   const header = xlsx.utils.sheet_to_json(sheet, { header: 1, range: headerRange })[0].map(normalize);
-  const values = xlsx.utils.sheet_to_json(sheet, { header, range: valuesRange });
+  const rowsWithRawValues = xlsx.utils.sheet_to_json(sheet, { header, range: valuesRange, raw: true });
+  const rows = xlsx.utils.sheet_to_json(sheet, { header, range: valuesRange, raw: false });
+  const values = rowsWithRawValues.map((row, index) => Object.fromEntries(
+    Object.entries(row).map(([k, v]) => [k, typeof v === 'number' ? Number.parseFloat(rows[index][k]) : v]),
+  ));
   return { header, values };
 }
 
