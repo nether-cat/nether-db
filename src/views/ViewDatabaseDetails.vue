@@ -30,8 +30,8 @@
                     <BCol cols="5">Latitude:</BCol>
                     <BCol cols="5">
                       <pre>{{
-                        Math.abs(lake.latitude) | formatNumber(5) + ('number' === typeof lake.latitude ? '°' : '—')
-                      }}</pre>
+                        Math.abs(lake.latitude) | formatNumber(5)
+                      }}{{ ('number' === typeof lake.latitude ? '°' : '—') }}</pre>
                     </BCol>
                     <BCol><pre>{{ lake.latitude | formatUnit(0 > lake.latitude ? 'S' : 'N') }}</pre></BCol>
                   </BRow>
@@ -39,8 +39,8 @@
                     <BCol cols="5">Longitude:</BCol>
                     <BCol cols="5">
                       <pre>{{
-                        Math.abs(lake.longitude) | formatNumber(5) + ('number' === typeof lake.longitude ? '°' : '—')
-                      }}</pre>
+                        Math.abs(lake.longitude) | formatNumber(5)
+                      }}{{ ('number' === typeof lake.longitude ? '°' : '—') }}</pre>
                     </BCol>
                     <BCol><pre>{{ lake.longitude | formatUnit(0 > lake.longitude ? 'W' : 'E') }}</pre></BCol>
                   </BRow>
@@ -81,8 +81,8 @@
                     <BCol cols="5">
                       <div class="loading-bar align-right connect right">
                         <pre>{{
-                          Math.abs(lake.latitude) | formatNumber(5) + ('number' === typeof lake.latitude ? '°' : '—')
-                        }}</pre>
+                          Math.abs(lake.latitude) | formatNumber(5)
+                        }}{{ ('number' === typeof lake.latitude ? '°' : '—') }}</pre>
                       </div>
                     </BCol>
                     <BCol>
@@ -96,8 +96,8 @@
                     <BCol cols="5">
                       <div class="loading-bar align-right connect right">
                         <pre>{{
-                          Math.abs(lake.longitude) | formatNumber(5) + ('number' === typeof lake.longitude ? '°' : '—')
-                        }}</pre>
+                          Math.abs(lake.longitude) | formatNumber(5)
+                        }}{{ ('number' === typeof lake.longitude ? '°' : '—') }}</pre>
                       </div>
                     </BCol>
                     <BCol>

@@ -16,6 +16,16 @@ const contentTypes = {
       };
     },
   },
+  'csl+copernicus-publications': {
+    header: 'text/x-bibliography; style=copernicus-publications',
+    process: (DOI, data) => {
+      return {
+        'DOI': DOI,
+        'formatted-citation': data,
+        'formatted-style': 'copernicus-publications',
+      };
+    },
+  },
 };
 
 const retryStatusCodes = [

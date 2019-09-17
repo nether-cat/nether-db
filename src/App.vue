@@ -25,7 +25,8 @@ export default Vue.extend({
     this.$nextTick(() => {
       setTimeout(() => {
         this.$apollo.queries.session.setOptions({
-          fetchPolicy: 'cache-and-network',
+          'query': SESSION, // FIXME: This shouldn't be required! (TypeScript)
+          'fetchPolicy': 'cache-and-network',
         }).then(() => this.$apollo.queries.session.startPolling(60 * 1000));
         this.$apollo.mutate({ mutation: ESLint$0.gql`
           mutation toggleConnection {
@@ -116,6 +117,9 @@ export default Vue.extend({
     .input-group > .form-control {
       &.is-invalid, &.is-valid {
         z-index: 3;
+      }
+      &.disabled, &[disabled] {
+        cursor: default;
       }
     }
     .form-container {
