@@ -655,7 +655,6 @@ export default {
       for (let i = 0; i < data[1].length; i++) {
         headers.push((data[0][i][0]));
       }
-      console.log(headers);
       csvRows.push(headers.join(','));
       for (let row = 0; row < data.length; row++) {
         let newRow = [row + 1];
@@ -693,11 +692,8 @@ export default {
         }
         data.push(newRow);
       };
-      console.log(data);
       const csvData = this.objectToCsv(data);
       this.download(csvData, dataset.file || 'export');
-      console.log(csvData);
-
     },
   },
 };

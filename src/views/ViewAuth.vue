@@ -19,7 +19,7 @@
           <button type="button"
                   aria-label="Close"
                   class="close"
-                  tabindex="1"
+                  tabindex="-1"
                   @click="messages = messages.filter(m => m !== msg)"
                   v-text="'×'"
           />

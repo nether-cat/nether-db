@@ -153,9 +153,11 @@ type Membership {
 
 type Mutation {
   Confirm(token: String!): JSON!
+  Forgot(email: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
   Revoke(token: String!): JSON!
+  SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
   Signup(probeOnly: Boolean, user: UserInput!): JSON!
   Test(_id: ID!, payload: JSON!): JSON
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
@@ -188,6 +190,7 @@ type Publication implements Entity {
 type Query {
   Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
+  Credentials(currentPassword: Password, password: Password, token: String): JSON!
   Dataset(_id: String, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
   Event: [Event]
   Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
@@ -344,7 +347,6 @@ input _Neo4jTimeInput {
 }
 
 
-"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
 "The `Upload` scalar type represents a file upload."

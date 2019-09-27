@@ -46,7 +46,7 @@
         <BNavItemDropdown right no-caret>
           <template slot="button-content">
             <FontAwesomeLayers fixed-width>
-              <FontAwesomeIcon icon="bell"/>
+              <FontAwesomeIcon icon="bell" title="Notifications"/>
               <FontAwesomeLayers v-if="data && data.unreadCount" class="fa-layers-counter">
                 {{ data.unreadCount }}
               </FontAwesomeLayers>
@@ -68,11 +68,11 @@
         <FontAwesomeIcon icon="spinner" fixed-width spin/>
       </BNavItem>
       <BNavItem v-else-if="session.state !== 'AUTHORIZED'" :to="{ name: 'login', query: { redirect: $route.fullPath } }">
-        <FontAwesomeIcon icon="sign-in-alt" fixed-width/>
+        <FontAwesomeIcon icon="sign-in-alt" fixed-width title="Login"/>
       </BNavItem>
       <BNavItemDropdown v-else-if="session.state === 'AUTHORIZED'" right no-caret>
         <template slot="button-content">
-          <FontAwesomeIcon icon="user-circle" fixed-width/>
+          <FontAwesomeIcon icon="user-circle" fixed-width :title="session.user"/>
         </template>
         <div class="bs-popover-bottom popover fix">
           <div class="arrow"/>
