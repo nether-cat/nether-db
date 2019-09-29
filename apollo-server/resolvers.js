@@ -10,6 +10,9 @@ module.exports = {
     Session(object, params, ctx) {
       return ctx.session;
     },
+    Credentials(...args) {
+      return session.setPassword(...args);
+    },
     Confirmation(...args) {
       return session.confirm(...args);
     },
@@ -52,6 +55,12 @@ module.exports = {
     },
     Logout(...args) {
       return session.logout(...args);
+    },
+    Forgot(...args) {
+      return session.forgot(...args);
+    },
+    SetPassword(...args) {
+      return session.setPassword(...args);
     },
     Signup(...args) {
       return session.signup(...args);

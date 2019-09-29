@@ -10,7 +10,7 @@
           @done="onDone"
         >
           <template slot-scope="{ mutate, loading }">
-            <BForm novalidate class="mt-2 mb-1" @submit.prevent="$v.$touch(); !$v.$invalid && mutate()">
+            <BForm novalidate class="mt-2 mb-1" @submit.prevent="$v.$touch() || !$v.$invalid && mutate()">
               <BFormRow>
                 <BCol cols="12" sm="4" md="4">
                   <BFormGroup id="inputGroupTitlePrefix"
@@ -148,7 +148,7 @@
                               spellcheck="false"
                               @focus="passwordFocused = true"
                               @input="validate($v.form.password, 0)"
-                              @blur="passwordFocused = false; validate($v.form.password, 0)"
+                              @blur="(passwordFocused = false) || validate($v.form.password, 0)"
                   />
                   <button slot="append"
                           type="button"
@@ -166,10 +166,10 @@
                   </button>
                 </BInputGroup>
                 <div v-if="!$v.form.password.$dirty" class="full-feedback">
-                  Should have at least 8 characters. Use uppercase, lowercase and a number.
+                  Must have at least 8 characters. Use uppercase, lowercase and a number.
                 </div>
                 <Scoped v-else v-slot="{ field }" :field="$v.form.password" class="full-feedback">
-                  Should have
+                  Must have
                   <span :class="(field.req && field.min ? 'valid-' : 'invalid-') + 'feedback'">at least 8</span> characters. Use
                   <span :class="(field.req && field.upper ? 'valid-' : 'invalid-') + 'feedback'">uppercase</span>,
                   <span :class="(field.req && field.lower ? 'valid-' : 'invalid-') + 'feedback'">lowercase</span> and
@@ -202,7 +202,7 @@ import {
 } from 'vuelidate/lib/validators';
 import { MixinValidation } from '@/mixins/mixin-validation';
 
-const setupProbe = (vm) => (value) => (!value || !value.length || !email(value)) ||
+const emailTester = (vm) => (value) => (!value || !value.length || !email(value)) ||
   vm.$apollo.mutate({
     mutation: require('@/graphql/mutations/Signup.graphql'),
     variables: {
@@ -269,7 +269,7 @@ export default {
         email: {
           required,
           isValid: email,
-          isAvailable: setupProbe(this),
+          isAvailable: emailTester(this),
         },
         password: {
           req: required,

@@ -15,7 +15,7 @@
             v-slot="{ mutate, loading }"
             :mutation="require('@/graphql/mutations/Confirm.graphql')"
             :variables="{ token }"
-            class="form-animated"
+            class="form-container"
             @done="onMutated"
           >
             <p>
@@ -23,7 +23,7 @@
                 Your email address was linked with an account for this service.
               </span>
               <span v-else>
-                You maybe tried to confirm an email address linked with this service.
+                Maybe you tried to confirm an email address linked with this service.
               </span>
               <span v-if="preparing">Please wait a moment.</span>
               <span v-else-if="payload.state === 'AUTH_EMAIL'">
@@ -32,14 +32,14 @@
               </span>
               <span v-else-if="payload.state === 'AUTH_EXPIRED'">
                 However, the provided token has expired.
-                Please click below to get an email with a new confirmation link.
+                Please click below to get an email with a new confirmation token.
               </span>
               <span v-else-if="!token || !token.length || payload.state === 'AUTH_ERROR'">
                 However, no valid confirmation token has been provided.
                 Please try to log in or contact us for help.
               </span>
             </p>
-            <BMedia v-if="!!payload.user" class="account-info align-items-center flex-wrap">
+            <BMedia v-if="payload.user" class="account-info align-items-center flex-wrap">
               <BImg
                 slot="aside"
                 blank-color="#aaa"
@@ -56,14 +56,14 @@
                 <small class="text-muted">{{ payload.user.email }}</small>
               </div>
             </BMedia>
-            <BButton :disabled="preparing || loading || done || !!timer"
+            <BButton :disabled="preparing || loading || done || timer"
                      type="button"
                      variant="primary"
                      class="mb-3 mt-1 w-100"
                      @click="onAction(mutate)"
             >
               <span v-if="!token || !token.length || payload.state === 'AUTH_ERROR'">Go to log in</span>
-              <span v-else-if="payload.state === 'AUTH_EXPIRED'">Send a new token{{ timer ? ` (${timer})` : '' }}</span>
+              <span v-else-if="payload.state === 'AUTH_EXPIRED'">Get a new token{{ timer ? ` (${timer})` : '' }}</span>
               <span v-else>Confirm email address</span>
               <FontAwesomeIcon v-if="preparing || loading" icon="spinner" spin/>
             </BButton>
@@ -107,16 +107,15 @@ export default {
       this.payload = result;
     },
     onAction (mutate) {
-      if (this.token && this.token.length && this.payload.state !== 'AUTH_ERROR') {
+      if (this.token && this.token.length && this.payload && this.payload.state !== 'AUTH_ERROR') {
         mutate();
       } else {
         this.$router.push({ name: 'login' });
       }
     },
     onMutated ({ data: { result } }) {
-      this.result = result;
+      let countdown = (s) => (!s && --this.timer || (this.timer = s)) && setTimeout(countdown, 1000);
       if (result.state === 'AUTH_EXPIRED') {
-        let countdown = (s) => (!s && --this.timer || (this.timer = s)) && setTimeout(countdown, 1000);
         countdown(8);
         this.$emit('message', {
           id: uuidv4(),

@@ -74,7 +74,9 @@ const sessionCache = {
     let now = Date.now();
     this.flush(now);
     let reloadAfter = now + ms(timers.cache);
-    this._storage[session.token] = { reloadAfter, session };
+    if (!session.skip) {
+      this._storage[session.token] = { reloadAfter, session };
+    }
     return session;
   },
 };
@@ -103,6 +105,33 @@ Object.defineProperty(signOptions, 'jwtid', {
     return uuidv4();
   },
 });
+
+function sendRecovery (user, transport) {
+  let href = `${baseUrl}/credentials?token=${
+    jwt.sign({ sub: user.email, scope: ['recovery'] }, secret, { ...signOptions })
+  }`;
+  let subject = 'Account Recovery';
+  let paragraphs = [
+    `Hello ${user.fullName}!`,
+    'An account recovery has been requested for this service.'
+    + ' Click below to set a new password for your account.'
+    + ' Please let us know, if you made no such request.',
+  ];
+  transport.sendMail({
+    to: `"${user.fullName}" <${user.email}>`,
+    subject,
+    text: paragraphs.concat(href).join('\n\n'),
+    html: generateEmail({
+      subject,
+      paragraphs,
+      buttons: [{
+        title: 'Recover my account',
+        variant: 'primary',
+        href,
+      }],
+    }),
+  }).catch(console.error);
+}
 
 function sendConfirmation (user, transport) {
   let href = `${baseUrl}/confirm?token=${
@@ -163,6 +192,30 @@ function sendNotification (user, transport) {
   }).catch(console.error);
 }
 
+function handleEmailToken(token, ref) {
+  let email, scope, result = {};
+  try {
+    if (!token || typeof token !== 'string') {
+      return { success: false, state: sessionStates.AUTH_ERROR };
+    }
+    ({ sub: email, scope } = jwt.verify(token, secret, verifyOptions));
+  } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      try {
+        ({ sub: email, scope } = jwt.verify(token, secret, { ...verifyOptions, ignoreExpiration: true }));
+        result = { success: false, state: sessionStates.AUTH_EXPIRED };
+      } catch (error) {
+        console.error(error);
+        return { success: false, state: sessionStates.AUTH_ERROR };
+      }
+    } else {
+      console.error(error);
+      return { success: false, state: sessionStates.AUTH_ERROR };
+    }
+  }
+  return Object.assign(ref, { email, scope, result });
+}
+
 module.exports = {
   roles: userRoles,
   states: sessionStates,
@@ -218,6 +271,7 @@ module.exports = {
   },
   async login($0, params, ctx) {
     const email = params.email;
+    const soft = params.soft;
     const { isHash, value } = params.password;
     if (typeof isHash !== 'boolean' || !email || !value) {
       ctx.req.res.clearCookie('apollo-token');
@@ -248,11 +302,13 @@ module.exports = {
         let scope = ['session'];
         let payload = { sub: user.email, scope };
         let token = jwt.sign(payload, secret, { ...signOptions });
-        ctx.req.res.cookie('apollo-token', token, {
-          expires: new Date(Date.now() + ms(timers.cookie)),
-          httpOnly: true,
-          secure: false,
-        });
+        if (soft !== true) {
+          ctx.req.res.cookie('apollo-token', token, {
+            expires: new Date(Date.now() + ms(timers.cookie)),
+            httpOnly: true,
+            secure: false,
+          });
+        }
         return sessionCache.write({
           _id: defaultSession._id,
           user: user.email,
@@ -260,6 +316,7 @@ module.exports = {
           token,
           expires: payload.exp * 1000,
           state: sessionStates.AUTHORIZED,
+          skip: soft === true,
         });
       } else if (user.frozen) {
         ctx.req.res.clearCookie('apollo-token');
@@ -272,13 +329,112 @@ module.exports = {
         return { ...defaultSession, state: sessionStates.AUTH_APPROVAL };
       }
     } else {
-      ctx.req.res.clearCookie('apollo-token');
+      if (soft !== true) {
+        ctx.req.res.clearCookie('apollo-token');
+      }
       return { ...defaultSession, state: sessionStates.AUTH_UNKNOWN };
     }
   },
   async logout($0, $1, ctx) {
     ctx.req.res.clearCookie('apollo-token');
     return defaultSession;
+  },
+  async forgot($0, { email }, ctx) {
+    try {
+      /** @type Session */ const db = ctx.driver.session();
+      const { records: [record] } = await db.run(`
+        OPTIONAL MATCH (n:User {email: $email, frozen: false})
+        RETURN {success: count(n) = 1, user: n {.email, .fullName, .titlePrefix, .userRole}} AS result
+      `, { email });
+      let result = record.toObject().result;
+      if (result.success) {
+        sendRecovery(result.user, ctx.transport);
+      }
+    } catch (error) {
+      console.error(new Error(`Lookup with "${email}" failed`));
+      return { success: false };
+    }
+    return { success: true };
+  },
+  async setPassword($0, { currentPassword, password, token }, ctx, { operation: { operation } }) {
+    let email, scope, hash, ref, result = {}, transient = {};
+    if (!token && ctx.session && ctx.session.token && ctx.session.user !== 'Guest') {
+      email = ctx.session.user;
+      scope = ['session', 'recovery'];
+      if (operation !== 'query') {
+        if (!currentPassword || !currentPassword.value || typeof currentPassword.isHash !== 'boolean') {
+          return { success: false, state: sessionStates.AUTH_ERROR };
+        }
+        let { state } = await this.login(0, { email, password: currentPassword, soft: true }, ctx);
+        if (state !== sessionStates.AUTHORIZED) {
+          return { success: false, state };
+        }
+      }
+    } else if (!token && ctx.session && ctx.session.token && ctx.session.state === sessionStates.AUTH_EXPIRED) {
+      email = ctx.session.user;
+      scope = ['session', 'recovery'];
+      result = { success: false, state: sessionStates.AUTH_EXPIRED };
+    } else {
+      ref = handleEmailToken(token, transient);
+      if (ref === transient) {
+        ({ email, scope, result } = ref);
+      } else {
+        return ref;
+      }
+    }
+    if (scope !== 'recovery' && !Array.isArray(scope) || !scope.includes('recovery')) {
+      return { success: false, state: sessionStates.AUTH_ERROR };
+    }
+    if (operation !== 'query' && result.state !== sessionStates.AUTH_EXPIRED) {
+      if (!password || !password.value) {
+        return { success: false, state: sessionStates.AUTH_ERROR };
+      }
+      hash = password.isHash && /[0-9a-f]{64}/.test(password.value) ? password.value
+        : crypto.createHash('sha256').update(password.value).digest('hex');
+      password = await argon2.hash(hash, { timeCost: 10, memoryCost: 2 ** 18, parallelism: 8 });
+    } else {
+      password = '';
+    }
+    const verifiedOnly = !!needVerification;
+    const touchPassword = async (update = false) => {
+      /** @type Session */ const db = ctx.driver.session();
+      const { records: [record] } = await db.run(`
+          OPTIONAL MATCH (n:User {email: $email, frozen: false})
+          WHERE n.emailVerified = $verifiedOnly OR n.emailVerified = TRUE
+          SET n.password = (CASE $update WHEN true THEN $password ELSE n.password END),
+            n.updated = (CASE $update WHEN true THEN datetime() ELSE n.updated END)
+          RETURN {success: count(n) = 1, user: n {.email, .fullName, .titlePrefix, .userRole}} as result
+        `, { email, password, update, verifiedOnly });
+      return record.toObject().result;
+    };
+    try {
+      result = { state: sessionStates.AUTH_PENDING, ...(await touchPassword(false)), ...result };
+      if (!result.user) {
+        return { success: false, state: sessionStates.AUTH_ERROR };
+      } else if (operation === 'query') {
+        return result;
+      }
+    } catch (error) {
+      console.error(new Error(`Lookup with "${email}" failed`));
+      return { success: false, state: sessionStates.AUTH_ERROR };
+    }
+    if (result.state === sessionStates.AUTH_EXPIRED) {
+      if (token) {
+        sendRecovery(result.user, ctx.transport);
+      }
+      return { ...result, success: !!token };
+    }
+    try {
+      result = { state: sessionStates.AUTHORIZED, ...(await touchPassword(true)) };
+      if (!result.user) {
+        return { success: false, state: sessionStates.AUTH_ERROR };
+      } else {
+        return result;
+      }
+    } catch (error) {
+      console.error(new Error(`Recovery with "${email}" failed`));
+      return { success: false, state: sessionStates.AUTH_ERROR };
+    }
   },
   async signup($0, { user, probeOnly }, ctx) {
     if (!user || !user.email) {
@@ -329,27 +485,17 @@ module.exports = {
     }
   },
   async confirm($0, { token }, ctx, { operation: { operation } }) {
-    let email, scope, result = {};
-    try {
-      ({ sub: email, scope } = jwt.verify(token, secret, verifyOptions));
-    } catch (error) {
-      if (error instanceof jwt.TokenExpiredError) {
-        try {
-          ({ sub: email, scope } = jwt.verify(token, secret, { ...verifyOptions, ignoreExpiration: true }));
-          result = { success: false, state: sessionStates.AUTH_EXPIRED };
-        } catch (error) {
-          console.error(error);
-          return { success: false, state: sessionStates.AUTH_ERROR };
-        }
-      } else {
-        console.error(error);
-        return { success: false, state: sessionStates.AUTH_ERROR };
-      }
+    let email, scope, result, ref, transient = {};
+    ref = handleEmailToken(token, transient);
+    if (ref === transient) {
+      ({ email, scope, result } = ref);
+    } else {
+      return ref;
     }
     if (scope !== 'verification' && !Array.isArray(scope) || !scope.includes('verification')) {
       return { success: false, state: sessionStates.AUTH_ERROR };
     }
-    const touchUser = async (confirm = false) => {
+    const touchEmailVerified = async (confirm = false) => {
       /** @type Session */ const db = ctx.driver.session();
       const { records: [record] } = await db.run(`
           OPTIONAL MATCH (n:User {email: $email, frozen: false})
@@ -360,7 +506,7 @@ module.exports = {
       return record.toObject().result;
     };
     try {
-      result = { state: sessionStates.AUTH_EMAIL, ...(await touchUser(false)), ...result };
+      result = { state: sessionStates.AUTH_EMAIL, ...(await touchEmailVerified(false)), ...result };
       if (!result.user) {
         return { success: false, state: sessionStates.AUTH_ERROR };
       } else if (operation === 'query') {
@@ -375,7 +521,7 @@ module.exports = {
       return { ...result, success: true };
     }
     try {
-      result = { state: sessionStates.AUTH_PENDING, ...(await touchUser(true)) };
+      result = { state: sessionStates.AUTH_PENDING, ...(await touchEmailVerified(true)) };
       if (!result.user) {
         return { success: false, state: sessionStates.AUTH_ERROR };
       } else if (!userRoles[result.user.userRole]) {
@@ -391,6 +537,7 @@ module.exports = {
   async revoke($0, params, ctx) {
     return { success: false };
   },
+  sendRecovery,
   sendConfirmation,
   sendNotification,
 };

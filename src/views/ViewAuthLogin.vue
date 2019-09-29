@@ -14,7 +14,7 @@
           @done="onDone"
         >
           <template slot-scope="{ mutate, loading }">
-            <BForm novalidate class="mt-2 mb-1" @submit.prevent="$v.$touch(); !$v.$invalid && mutate()">
+            <BForm novalidate class="mt-2 mb-1" @submit.prevent="$v.$touch() || !$v.$invalid && mutate()">
               <BFormGroup id="inputGroupEmail"
                           :class="{
                             'is-filled': !!form.email,
@@ -32,7 +32,7 @@
                             type="email"
                             autocomplete="username"
                             spellcheck="false"
-                            tabindex="1"
+                            tabindex="0"
                             @input="validate($v.form.email)"
                             @blur="validate($v.form.email, 0)"
                 />
@@ -66,16 +66,16 @@
                               :type="passwordHidden ? 'password' : 'text'"
                               autocomplete="current-password"
                               spellcheck="false"
-                              tabindex="2"
+                              tabindex="0"
                               @focus="passwordFocused = true"
                               @input="validate($v.form.password)"
-                              @blur="passwordFocused = false; validate($v.form.password, 0)"
+                              @blur="(passwordFocused = false) || validate($v.form.password, 0)"
                   />
                   <button slot="append"
                           type="button"
                           class="btn btn-context-toggle"
                           :class="passwordHidden ? '' : 'active'"
-                          tabindex="4"
+                          tabindex="-1"
                           @click.stop.prevent="passwordHidden = !passwordHidden"
                           @mousedown.stop.prevent
                           @mouseup.stop.prevent
@@ -90,15 +90,15 @@
                 <div class="full-feedback">
                   Please enter your password.
                   <BFormInvalidFeedback v-if="$v.form.password.$dirty && !$v.form.password.required">
-                    Should not be empty.
+                    Must not be empty.
                   </BFormInvalidFeedback>
-                  <span class="d-none">&rarr;&nbsp;<a class="forgot-password" tabindex="5" href="#">Forgot password?</a></span>
+                  <span>&rarr;&nbsp;<RouterLink class="forgot-password" tabindex="-1" :to="{ name: 'forgot' }">Forgot password?</RouterLink></span>
                 </div>
               </BFormGroup>
-              <BButton :disabled="loading" variant="primary" class="my-3 w-100" tabindex="3" type="submit">
+              <BButton :disabled="loading" variant="primary" class="my-3 w-100" tabindex="0" type="submit">
                 <span>Log in</span><FontAwesomeIcon v-if="loading" icon="spinner" spin/>
               </BButton>
-              <BButton :disabled="loading" variant="link" class="w-100" tabindex="6" :to="{ name: 'signup' }">
+              <BButton :disabled="loading" variant="link" class="w-100" tabindex="0" :to="{ name: 'signup' }">
                 Create new account
               </BButton>
             </BForm>
@@ -166,6 +166,9 @@ export default {
         text: '<strong>Warning!</strong> You need to log in to access this resource.',
       });
     }
+  },
+  mounted () {
+    document.querySelector('input#emailInput').focus();
   },
   methods: {
     onDone ({ data }) {

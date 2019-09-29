@@ -73,6 +73,7 @@ interface Protectable {
 
 type Query {
   Session: Session!
+  Credentials(currentPassword: Password, password: Password, token: String): JSON!
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
@@ -95,6 +96,8 @@ type Query {
 type Mutation {
   Login(email: String!, password: Password!): Session!
   Logout: Session!
+  Forgot(email: String!): JSON!
+  SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
   Signup(user: UserInput!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!

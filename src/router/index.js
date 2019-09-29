@@ -104,6 +104,16 @@ function createRoutes () {
           },
         },
         {
+          path: '/forgot',
+          name: 'forgot',
+          components: {
+            default: () => import('@/views/ViewAuthForgot'),
+          },
+          props: {
+            default: route => pick(route.query, ['redirect']),
+          },
+        },
+        {
           path: '/signup',
           name: 'signup',
           components: {
@@ -122,7 +132,7 @@ function createRoutes () {
         },
       ],
       meta: {
-        beforeEachHook: ({ data, router, next }) => {
+        beforeEachHook: ({ data, router, to, next }) => {
           if (!data || !conformsTo(data.session, { state: s => s !== 'AUTHORIZED' })) {
             router.status = 403;
             next({
@@ -133,6 +143,24 @@ function createRoutes () {
           }
         },
       },
+    },
+    {
+      path: '/credentials',
+      components: {
+        default: () => import('@/views/ViewAuth'),
+      },
+      children: [
+        {
+          path: '',
+          name: 'credentials',
+          components: {
+            default: () => import('@/views/ViewAuthCredentials'),
+          },
+          props: {
+            default: route => pick(route.query, ['token']),
+          },
+        },
+      ],
     },
     {
       path: '/contact',
