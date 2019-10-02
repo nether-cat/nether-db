@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+const fs = require('fs'),
+  chalk = require('chalk'),
+  XLSX = require('xlsx'),
+  HTML = new (require('html-entities').AllHtmlEntities)(),
+  DOI = require('../apollo-server/utils/doi');
+
+let code = 0, file = './dist/references.csv', list = './dist/publications.csv',
+  /** @type {Array} */ refs = require('../references.json'),
+  tasks = refs.map(ref => DOI
+    .resolve(ref.doi, 'csl+json')
+    .then(res => ref.data = res)
+    .catch(err => ref.data = err)),
+  memory = { short: new Map() };
+
+Promise.all(tasks)
+  .then(() => console.log(chalk.green`Successfully iterated all valid references.`))
+  .then(() => {
+    refs.forEach(ref => {
+      if (ref.citation) {
+        ref.citation = HTML.decode(ref.citation).replace(/\s+/g, ' ');
+      }
+      if (ref.data && ref.data.issued && ref.data.author && ref.data.author.length > 0) {
+        let year = ref.data.issued['date-parts'][0][0];
+        let short = ref.data.author.length === 1
+          ? ref.data.author[0].family + ', ' + year
+          : ref.data.author.length === 2
+            ? ref.data.author[0].family + ' and ' + ref.data.author[1].family + ', ' + year
+            : ref.data.author[0].family + ' et al., ' + year;
+        if (!memory.short.has(short)) {
+          memory.short.set(short, [ref.doi]);
+        } else if (!memory.short.get(short).includes(ref.doi)) {
+          memory.short.set(short, memory.short.get(short).concat(ref.doi));
+        }
+        ref.short = short;
+      }
+    });
+    [...memory.short].filter(([, arr]) => arr.length > 1).forEach(([short, dois]) => dois.forEach((doi, index) => {
+      refs.filter(ref => ref.doi === doi).forEach(ref => {
+        ref.short = short + String.fromCharCode(0x61 + index);
+      });
+    }));
+    let results = [], publications = [];
+    refs.forEach(ref => {
+      if (!results.find(res => res.name === ref.name)) {
+        let { name, longitude, latitude } = ref;
+        results.push({ name, longitude, latitude, chronology: [], tephra: [], c14: [], varves: [] });
+      }
+      if (!ref.citation) {
+        delete ref.citation;
+      }
+      let { short = '???', citation = '??????', doi } = ref;
+      results.find(res => res.name === ref.name)[ref.type].push({ short, citation, doi });
+      if (!publications.find(pub => pub.doi === ref.doi)) {
+        publications.push({ short, citation, doi });
+      }
+    });
+    results.forEach(res => {
+      let references = [].concat(res.chronology, res.tephra, res.c14, res.varves)
+        .map((ref, index) => {
+          ref.index = index;
+          return String.fromCharCode(0x41 + index) + ': ' + ref.short;
+        })
+        .join('; ');
+      let dois = [].concat(res.chronology, res.tephra, res.c14, res.varves)
+        .map((ref, index) => String.fromCharCode(0x41 + index) + ': ' + ref.doi).join('; ');
+      let toLetter = ref => String.fromCharCode(0x41 + ref.index);
+      ['chronology', 'tephra', 'c14', 'varves'].forEach(key => {
+        res[key] = res[key].map(toLetter).join('; ');
+      });
+      res.references = references;
+      res.dois = dois;
+    });
+    fs.writeFileSync(file, XLSX.utils.sheet_to_csv(
+      XLSX.utils.json_to_sheet(results),
+    ));
+    fs.writeFileSync(list, XLSX.utils.sheet_to_csv(
+      XLSX.utils.json_to_sheet(publications),
+    ));
+  })
+  .then(() => console.log(chalk.green`References compiled and written to:`, chalk.blueBright(file)))
+  .then(() => console.log(chalk.green`Unique list compiled and written to:`, chalk.blueBright(list)))
+  .then(() => console.log(`Execution finished with return code ${code}`))
+  .catch(err => console.error(chalk.red`Error occured while iterating the references.`, err));

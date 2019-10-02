@@ -1,0 +1,1434 @@
+[
+  {
+    "name": "Ammersee",
+    "longitude": 47.9983,
+    "latitude": 11.1218,
+    "type": "chronology",
+    "doi": "10.1126/science.284.5420.1654",
+    "citation": "Grafenstein, U. v.: A Mid-European Decadal Isotope-Climate Record from 15,500&nbsp;to 5000&nbsp;Years B.P., Science, 284(5420), 1654–1657, doi:10.1126/science.284.5420.1654, 1999."
+  },
+  {
+    "name": "Ammersee",
+    "longitude": 47.9983,
+    "latitude": 11.1218,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2012.11.010",
+    "citation": "Czymzik, M., Brauer, A., Dulski, P., Plessen, B., Naumann, R., von Grafenstein, U. and Scheffler, R.: Orbital and solar forcing of shifts in Mid- to Late Holocene flood intensity from varved sediments of pre-alpine Lake Ammersee (southern Germany), Quaternary Science Reviews, 61, 96–110, doi:10.1016/j.quascirev.2012.11.010, 2013."
+  },
+  {
+    "name": "Anterne",
+    "longitude": 45.9910,
+    "latitude": 6.7983,
+    "type": "chronology",
+    "doi": "10.1177/0959683610391320",
+    "citation": "Giguet-Covex, C., Arnaud, F., Poulenard, J., Disnar, J.-R., Delhon, C., Francus, P., David, F., Enters, D., Rey, P.-J. and Delannoy, J.-J.: Changes in erosion patterns during the Holocene in a currently treeless subalpine catchment inferred from lake sediment geochemistry (Lake Anterne, 2063 m a.s.l., NW French Alps): The role of climate and human activities, The Holocene, 21(4), 651–665, doi:10.1177/0959683610391320, 2011."
+  },
+  {
+    "name": "Aspevatnet",
+    "longitude": 69.7503,
+    "latitude": 19.9608,
+    "type": "c14",
+    "doi": "10.1191/0959683605hl815rp",
+    "citation": "Bakke, J., Dahl, S. O., Paasche, Ø., Løvlie, R. and Nesje, A.: Glacier fluctuations, equilibrium-line altitudes and palaeoclimate in Lyngen,                 northern Norway, during the Lateglacial and Holocene, The Holocene, 15(4), 518–540, doi:10.1191/0959683605hl815rp, 2005."
+  },
+  {
+    "name": "Ayr Lake",
+    "longitude": 70.4590,
+    "latitude": -70.0860,
+    "type": "chronology",
+    "doi": "10.1007/s10933-012-9584-7",
+    "citation": "Thomas, E. K., McGrane, S., Briner, J. P. and Huang, Y.: Leaf wax δ2H and varve-thickness climate proxies from proglacial lake sediments, Baffin Island, Arctic Canada, Journal of Paleolimnology, 48(1), 193–207, doi:10.1007/s10933-012-9584-7, 2012."
+  },
+  {
+    "name": "Ayr Lake",
+    "longitude": 70.4590,
+    "latitude": -70.0860,
+    "type": "varves",
+    "doi": "10.1007/s10933-012-9584-7",
+    "citation": "Thomas, E. K., McGrane, S., Briner, J. P. and Huang, Y.: Leaf wax δ2H and varve-thickness climate proxies from proglacial lake sediments, Baffin Island, Arctic Canada, Journal of Paleolimnology, 48(1), 193–207, doi:10.1007/s10933-012-9584-7, 2012."
+  },
+  {
+    "name": "Barrine",
+    "longitude": -17.2504,
+    "latitude": 145.6356,
+    "type": "c14",
+    "doi": "10.1017/S003382220001434X",
+    "citation": "Head, M. J., Taylor, L. J. and Walker, D.: ANU Radiocarbon Date List XI: Radiocarbon Dates from Lakes Barrine and Eacham, Atherton Tableland, North Queensland, Australia, Radiocarbon, 36(1), 73–94, doi:10.1017/s003382220001434x, 1994."
+  },
+  {
+    "name": "Bear Lake",
+    "longitude": 75.4838,
+    "latitude": -85.1900,
+    "type": "tephra",
+    "doi": "10.1177/0959683612449756",
+    "citation": "Dörfler, W., Feeser, I., van den Bogaard, C., Dreibrodt, S., Erlenkeuser, H., Kleinmann, A., Merkt, J. and Wiethold, J.: A high-quality annually laminated sequence from Lake Belau, Northern Germany: Revised chronology and its implications for palynological and tephrochronological studies, The Holocene, 22(12), 1413–1426, doi:10.1177/0959683612449756, 2012."
+  },
+  {
+    "name": "Bear Lake",
+    "longitude": 75.4838,
+    "latitude": -85.1900,
+    "type": "c14",
+    "doi": "10.1130/2009.2450(05)",
+    "citation": "Colman, S. M., Rosenbaum, J. G., Kaufman, D. S., Dean, W. E. and McGeehin, J. P.: Radiocarbon ages and age models for the past 30,000 years in Bear Lake, Utah and Idaho, Paleoenvironments of Bear Lake, Utah and Idaho, and its catchment, doi:10.1130/2009.2450(05), 2009."
+  },
+  {
+    "name": "Belau",
+    "longitude": 54.1006,
+    "latitude": 10.2524,
+    "type": "chronology",
+    "doi": "10.2312/meyniana.1998.50.47",
+    "citation": "Garbe-Schönberg, C.-D., Wiethold, J., Butenhoff, D., Utech, C., &amp; Stoffers, P. (1998). Geochemical and palynological record in annually laminated sediments from Lake Belau (Schleswig-Holstein) reflecting paleoecology and human impact over 9000 a. <i>MEYNIANA; 50; 47-70; ISSN 0076-7689</i>. https://doi.org/10.2312/meyniana.1998.50.47"
+  },
+  {
+    "name": "Belau",
+    "longitude": 54.1006,
+    "latitude": 10.2524,
+    "type": "tephra",
+    "doi": "10.1177/0959683612449756",
+    "citation": "Dörfler, W., Feeser, I., van den Bogaard, C., Dreibrodt, S., Erlenkeuser, H., Kleinmann, A., Merkt, J. and Wiethold, J.: A high-quality annually laminated sequence from Lake Belau, Northern Germany: Revised chronology and its implications for palynological and tephrochronological studies, The Holocene, 22(12), 1413–1426, doi:10.1177/0959683612449756, 2012."
+  },
+  {
+    "name": "Belau",
+    "longitude": 54.1006,
+    "latitude": 10.2524,
+    "type": "c14",
+    "doi": "10.1177/0959683612449756",
+    "citation": "Dörfler, W., Feeser, I., van den Bogaard, C., Dreibrodt, S., Erlenkeuser, H., Kleinmann, A., Merkt, J. and Wiethold, J.: A high-quality annually laminated sequence from Lake Belau, Northern Germany: Revised chronology and its implications for palynological and tephrochronological studies, The Holocene, 22(12), 1413–1426, doi:10.1177/0959683612449756, 2012."
+  },
+  {
+    "name": "Big Round Lake",
+    "longitude": 69.8648,
+    "latitude": -68.8548,
+    "type": "chronology",
+    "doi": "10.1007/s10933-008-9258-7",
+    "citation": "Thomas, E. K. and Briner, J. P.: Climate of the past millennium inferred from varved proglacial lake sediments on northeast Baffin Island, Arctic Canada, Journal of Paleolimnology, 41(1), 209–224, doi:10.1007/s10933-008-9258-7, 2008."
+  },
+  {
+    "name": "Big Round Lake",
+    "longitude": 69.8648,
+    "latitude": -68.8548,
+    "type": "varves",
+    "doi": "10.1007/s10933-008-9258-7",
+    "citation": "Thomas, E. K. and Briner, J. P.: Climate of the past millennium inferred from varved proglacial lake sediments on northeast Baffin Island, Arctic Canada, Journal of Paleolimnology, 41(1), 209–224, doi:10.1007/s10933-008-9258-7, 2008."
+  },
+  {
+    "name": "Bled",
+    "longitude": 14.0953,
+    "latitude": 46.3616,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2011.02.014",
+    "citation": "Lane, C. S., Andrič, M., Cullen, V. L. and Blockley, S. P. E.: The occurrence of distal Icelandic and Italian tephra in the Lateglacial of Lake Bled, Slovenia, Quaternary Science Reviews, 30(9-10), 1013–1018, doi:10.1016/j.quascirev.2011.02.014, 2011."
+  },
+  {
+    "name": "Blue Lake",
+    "longitude": 68.0870,
+    "latitude": -150.4652,
+    "type": "chronology",
+    "doi": "10.1007/s10933-008-9262-y",
+    "citation": "Bird, B. W., Abbott, M. B., Finney, B. P. and Kutchko, B.: A 2000 year varve-based climate record from the central Brooks Range, Alaska, Journal of Paleolimnology, 41(1), 25–41, doi:10.1007/s10933-008-9262-y, 2008."
+  },
+  {
+    "name": "Blue Lake",
+    "longitude": 68.0870,
+    "latitude": -150.4652,
+    "type": "c14",
+    "doi": "10.1007/s10933-008-9262-y",
+    "citation": "Bird, B. W., Abbott, M. B., Finney, B. P. and Kutchko, B.: A 2000 year varve-based climate record from the central Brooks Range, Alaska, Journal of Paleolimnology, 41(1), 25–41, doi:10.1007/s10933-008-9262-y, 2008."
+  },
+  {
+    "name": "Blue Lake",
+    "longitude": 68.0870,
+    "latitude": -150.4652,
+    "type": "varves",
+    "doi": "10.1007/s10933-008-9262-y",
+    "citation": "Bird, B. W., Abbott, M. B., Finney, B. P. and Kutchko, B.: A 2000 year varve-based climate record from the central Brooks Range, Alaska, Journal of Paleolimnology, 41(1), 25–41, doi:10.1007/s10933-008-9262-y, 2008."
+  },
+  {
+    "name": "Bow Lake",
+    "longitude": 51.6644,
+    "latitude": -116.4486,
+    "type": "c14",
+    "doi": "10.1006/qres.1998.2009",
+    "citation": "Leonard, E. M. and Reasoner, M. A.: A Continuous Holocene Glacial Record Inferred from Proglacial Lake Sediments in Banff National Park, Alberta, Canada, Quaternary Research, 51(1), 1–13, doi:10.1006/qres.1998.2009, 1999."
+  },
+  {
+    "name": "Bramant",
+    "longitude": 45.1999,
+    "latitude": 6.1759,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2007.07.007",
+    "citation": "Guyard, H., Chapron, E., St-Onge, G., Anselmetti, F. S., Arnaud, F., Magand, O., Francus, P. and Mélières, M.-A.: High-altitude varve records of abrupt environmental changes and mining activity over the last 4000 years in the Western French Alps (Lake Bramant, Grandes Rousses Massif), Quaternary Science Reviews, 26(19-21), 2644–2660, doi:10.1016/j.quascirev.2007.07.007, 2007."
+  },
+  {
+    "name": "Butrint",
+    "longitude": 39.7803,
+    "latitude": 20.0313,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2015.10.043",
+    "citation": "Morellón, M., Anselmetti, F. S., Ariztegui, D., Brushulli, B., Sinopoli, G., Wagner, B., Sadori, L., Gilli, A. and Pambuku, A.: Human–climate interactions in the central Mediterranean region during the last millennia: The laminated record of Lake Butrint (Albania), Quaternary Science Reviews, 136, 134–152, doi:10.1016/j.quascirev.2015.10.043, 2016."
+  },
+  {
+    "name": "C2",
+    "longitude": 82.8276,
+    "latitude": -77.9860,
+    "type": "c14",
+    "doi": "10.1007/BF00176939",
+    "citation": "Lamoureux, S. and Bradley, R.: A late Holocene varved sediment record of environmental change from northern Ellesmere Island, Canada, Journal of Paleolimnology, 16(2), doi:10.1007/bf00176939, 1996."
+  },
+  {
+    "name": "C2",
+    "longitude": 82.8276,
+    "latitude": -77.9860,
+    "type": "varves",
+    "doi": "10.1007/BF00176939",
+    "citation": "Lamoureux, S. and Bradley, R.: A late Holocene varved sediment record of environmental change from northern Ellesmere Island, Canada, Journal of Paleolimnology, 16(2), doi:10.1007/bf00176939, 1996."
+  },
+  {
+    "name": "Chala",
+    "longitude": -3.3168,
+    "latitude": 37.7040,
+    "type": "chronology",
+    "doi": "10.1038/nature08520",
+    "citation": "Verschuren, D., Sinninghe Damsté, J. S., Moernaut, J., Kristen, I., Blaauw, M., Fagot, M. and Haug, G. H.: Half-precessional dynamics of monsoon rainfall near the East African Equator, Nature, 462(7273), 637–641, doi:10.1038/nature08520, 2009."
+  },
+  {
+    "name": "Chala",
+    "longitude": -3.3168,
+    "latitude": 37.7040,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2011.07.014",
+    "citation": "Blaauw, M., van Geel, B., Kristen, I., Plessen, B., Lyaruu, A., Engstrom, D. R., van der Plicht, J. and Verschuren, D.: High-resolution 14C dating of a 25,000-year lake-sediment record from equatorial East Africa, Quaternary Science Reviews, 30(21-22), 3043–3059, doi:10.1016/j.quascirev.2011.07.014, 2011."
+  },
+  {
+    "name": "Chala",
+    "longitude": -3.3168,
+    "latitude": 37.7040,
+    "type": "varves",
+    "doi": "10.1126/science.1203724",
+    "citation": "Wolff, C., Haug, G. H., Timmermann, A., Damste, J. S. S., Brauer, A., Sigman, D. M., Cane, M. A. and Verschuren, D.: Reduced Interannual Rainfall Variability in East Africa During the Last Ice Age, Science, 333(6043), 743–747, doi:10.1126/science.1203724, 2011."
+  },
+  {
+    "name": "Crawford Lake",
+    "longitude": 43.4684,
+    "latitude": -79.9488,
+    "type": "chronology",
+    "doi": "10.1126/science.282.5397.2235",
+    "citation": "Yu, Z. and Eicher, U.: Abrupt Climate Oscillations During the Last Deglaciation in Central North America, Science, 282(5397), 2235–2238, doi:10.1126/science.282.5397.2235, 1998."
+  },
+  {
+    "name": "Crevice",
+    "longitude": 45.0006,
+    "latitude": -110.5784,
+    "type": "c14",
+    "doi": "10.1016/j.palaeo.2012.03.001",
+    "citation": "Whitlock, C., Dean, W. E., Fritz, S. C., Stevens, L. R., Stone, J. R., Power, M. J., Rosenbaum, J. R., Pierce, K. L. and Bracht-Flyr, B. B.: Holocene seasonal variability inferred from multiple proxy records from Crevice Lake, Yellowstone National Park, USA, Palaeogeography, Palaeoclimatology, Palaeoecology, 331-332, 90–103, doi:10.1016/j.palaeo.2012.03.001, 2012."
+  },
+  {
+    "name": "Czechowskie",
+    "longitude": 18.2370,
+    "latitude": 53.8740,
+    "type": "chronology",
+    "doi": "10.31223/osf.io/c9z4y",
+    "citation": "Dietze, E., Brykała, D., Schreuder, L. T., Jażdżewski, K., Blarquez, O., Brauer, A., Dietze, M., Obremska, M., Ott, F., Pieńczewska, A., Schouten, S., Hopmans, E. C. and Słowiński, M.: Human-induced fire regime shifts during 19th century industrialization: a robust fire regime reconstruction using northern Polish lake sediments, , doi:10.31223/osf.io/c9z4y, 2019."
+  },
+  {
+    "name": "Czechowskie",
+    "longitude": 18.2370,
+    "latitude": 53.8740,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2015.11.007",
+    "citation": "Wulf, S., Dräger, N., Ott, F., Serb, J., Appelt, O., Guðmundsdóttir, E., van den Bogaard, C., Słowiński, M., Błaszkiewicz, M. and Brauer, A.: Holocene tephrostratigraphy of varved sediment records from Lakes Tiefer See (NE Germany) and Czechowskie (N Poland), Quaternary Science Reviews, 132, 1–14, doi:10.1016/j.quascirev.2015.11.007, 2016."
+  },
+  {
+    "name": "Czechowskie",
+    "longitude": 18.2370,
+    "latitude": 53.8740,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2013.07.010",
+    "citation": "Wulf, S., Ott, F., Słowiński, M., Noryśkiewicz, A. M., Dräger, N., Martin-Puertas, C., Czymzik, M., Neugebauer, I., Dulski, P., Bourne, A. J., Błaszkiewicz, M. and Brauer, A.: Tracing the Laacher See Tephra in the varved sediment record of the Trzechowskie palaeolake in central Northern Poland, Quaternary Science Reviews, 76, 129–139, doi:10.1016/j.quascirev.2013.07.010, 2013."
+  },
+  {
+    "name": "Dead Sea",
+    "longitude": 31.5352,
+    "latitude": 35.4909,
+    "type": "chronology",
+    "doi": "10.1016/j.epsl.2004.02.015",
+    "citation": "Migowski, C., Agnon, A., Bookman, R., Negendank, J. F. . and Stein, M.: Recurrence pattern of Holocene earthquakes along the Dead Sea transform revealed by varve-counting and radiocarbon dating of lacustrine sediments, Earth and Planetary Science Letters, 222(1), 301–314, doi:10.1016/j.epsl.2004.02.015, 2004."
+  },
+  {
+    "name": "Dead Sea",
+    "longitude": 31.5352,
+    "latitude": 35.4909,
+    "type": "chronology",
+    "doi": "10.1177/0959683615584208",
+    "citation": "Neugebauer, I., Brauer, A., Schwab, M. J., Dulski, P., Frank, U., Hadzhiivanova, E., Kitagawa, H., Litt, T., Schiebel, V., Taha, N. and Waldmann, N. D.: Evidences for centennial dry periods at ~3300 and ~2800 cal. yr BP from micro-facies analyses of the Dead Sea sediments, The Holocene, 25(8), 1358–1371, doi:10.1177/0959683615584208, 2015."
+  },
+  {
+    "name": "Dead Sea",
+    "longitude": 31.5352,
+    "latitude": 35.4909,
+    "type": "c14",
+    "doi": "10.1016/j.epsl.2004.02.015",
+    "citation": "Migowski, C., Agnon, A., Bookman, R., Negendank, J. F. . and Stein, M.: Recurrence pattern of Holocene earthquakes along the Dead Sea transform revealed by varve-counting and radiocarbon dating of lacustrine sediments, Earth and Planetary Science Letters, 222(1), 301–314, doi:10.1016/j.epsl.2004.02.015, 2004."
+  },
+  {
+    "name": "Deep Lake",
+    "longitude": 47.6830,
+    "latitude": -95.3993,
+    "type": "c14",
+    "doi": "10.1130/0091-7613(1997)025<0207:CEOGLA>2.3.CO;2",
+    "citation": "Sheng Hu, F., Wright, H. E., Ito, E. and Lease, K.: Climatic effects of glacial Lake Agassiz in the midwestern United States during the last deglaciation, Geology, 25(3), 207, doi:10.1130/0091-7613(1997)025<0207:ceogla>2.3.co;2, 1997."
+  },
+  {
+    "name": "Deep Lake",
+    "longitude": 47.6830,
+    "latitude": -95.3993,
+    "type": "varves",
+    "doi": "10.1038/22728",
+    "citation": "Hu, F. S., Slawinski, D., Wright, H. E., Ito, E., Johnson, R. G., Kelts, K. R., McEwan, R. F. and Boedigheimer, A.: Abrupt changes in North American climate during early Holocene times, Nature, 400(6743), 437–440, doi:10.1038/22728, 1999."
+  },
+  {
+    "name": "Donard",
+    "longitude": 66.6625,
+    "latitude": -61.7875,
+    "type": "chronology",
+    "doi": "10.1023/A:1011181301514",
+    "citation": "Moore, J. J., Hughen, K. A., Miller, G. H. and Overpeck, J. T.: Journal of Paleolimnology, 25(4), 503–517, doi:10.1023/a:1011181301514, 2001."
+  },
+  {
+    "name": "Donard",
+    "longitude": 66.6625,
+    "latitude": -61.7875,
+    "type": "c14",
+    "doi": "10.1023/A:1011181301514",
+    "citation": "Moore, J. J., Hughen, K. A., Miller, G. H. and Overpeck, J. T.: Journal of Paleolimnology, 25(4), 503–517, doi:10.1023/a:1011181301514, 2001."
+  },
+  {
+    "name": "Donard",
+    "longitude": 66.6625,
+    "latitude": -61.7875,
+    "type": "varves",
+    "doi": "10.1023/A:1011181301514",
+    "citation": "Moore, J. J., Hughen, K. A., Miller, G. H. and Overpeck, J. T.: Journal of Paleolimnology, 25(4), 503–517, doi:10.1023/a:1011181301514, 2001."
+  },
+  {
+    "name": "DV09",
+    "longitude": 75.5744,
+    "latitude": -89.3094,
+    "type": "chronology",
+    "doi": "10.1139/cjes-2012-0143",
+    "citation": "Courtney Mustaphi, C. J. and Gajewski, K.: Holocene sediments from a coastal lake on northern Devon Island, Nunavut, Canada, edited by O. Lian, Canadian Journal of Earth Sciences, 50(5), 564–575, doi:10.1139/cjes-2012-0143, 2013."
+  },
+  {
+    "name": "DV09",
+    "longitude": 75.5744,
+    "latitude": -89.3094,
+    "type": "c14",
+    "doi": "10.1139/cjes-2012-0143",
+    "citation": "Courtney Mustaphi, C. J. and Gajewski, K.: Holocene sediments from a coastal lake on northern Devon Island, Nunavut, Canada, edited by O. Lian, Canadian Journal of Earth Sciences, 50(5), 564–575, doi:10.1139/cjes-2012-0143, 2013."
+  },
+  {
+    "name": "DV09",
+    "longitude": 75.5744,
+    "latitude": -89.3094,
+    "type": "varves",
+    "doi": "10.1139/cjes-2012-0143",
+    "citation": "Courtney Mustaphi, C. J. and Gajewski, K.: Holocene sediments from a coastal lake on northern Devon Island, Nunavut, Canada, edited by O. Lian, Canadian Journal of Earth Sciences, 50(5), 564–575, doi:10.1139/cjes-2012-0143, 2013."
+  },
+  {
+    "name": "East Lake",
+    "longitude": 74.8882,
+    "latitude": -109.5342,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2011.05.019",
+    "citation": "Cuven, S., Francus, P. and Lamoureux, S.: Mid to Late Holocene hydroclimatic and geochemical records from the varved sediments of East Lake, Cape Bounty, Canadian High Arctic, Quaternary Science Reviews, 30(19-20), 2651–2665, doi:10.1016/j.quascirev.2011.05.019, 2011."
+  },
+  {
+    "name": "East Lake",
+    "longitude": 74.8882,
+    "latitude": -109.5342,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2011.05.019",
+    "citation": "Cuven, S., Francus, P. and Lamoureux, S.: Mid to Late Holocene hydroclimatic and geochemical records from the varved sediments of East Lake, Cape Bounty, Canadian High Arctic, Quaternary Science Reviews, 30(19-20), 2651–2665, doi:10.1016/j.quascirev.2011.05.019, 2011."
+  },
+  {
+    "name": "Eklutna",
+    "longitude": 61.4053,
+    "latitude": -149.0259,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2018.10.018",
+    "citation": "Fortin, D., Praet, N., McKay, N. P., Kaufman, D. S., Jensen, B. J. L., Haeussler, P. J., Buchanan, C. and De Batist, M.: New approach to assessing age uncertainties – The 2300-year varve chronology from Eklutna Lake, Alaska (USA), Quaternary Science Reviews, 203, 90–101, doi:10.1016/j.quascirev.2018.10.018, 2019."
+  },
+  {
+    "name": "Elk Lake",
+    "longitude": 47.1891,
+    "latitude": -95.2179,
+    "type": "c14",
+    "doi": "10.1130/0091-7613(1997)025<0391:gwpcap>2.3.co;2",
+    "citation": "Smith, A. J., Donovan, J. J., Ito, E. and Engstrom, D. R.: Ground-water processes controlling a prairie lake’s response to middle Holocene drought, Geology, 25(5), 391, doi:10.1130/0091-7613(1997)025<0391:gwpcap>2.3.co;2, 1997."
+  },
+  {
+    "name": "Elk Lake",
+    "longitude": 47.1891,
+    "latitude": -95.2179,
+    "type": "varves",
+    "doi": "10.1130/SPE276-p97",
+    "citation": "Dean, W. E. and Megard, R. O.: Elk Lake, Minnesota: Evidence for Rapid Climate Change in the North-Central United States, 97–114, doi:10.1130/spe276-p97, 1993."
+  },
+  {
+    "name": "Foy Lake",
+    "longitude": 48.1662,
+    "latitude": -114.3599,
+    "type": "chronology",
+    "doi": "10.1130/G22225.1",
+    "citation": "Stone, J. R. and Fritz, S. C.: Multidecadal drought and Holocene climate instability in the Rocky Mountains, Geology, 34(5), 409, doi:10.1130/g22225.1, 2006."
+  },
+  {
+    "name": "Foy Lake",
+    "longitude": 48.1662,
+    "latitude": -114.3599,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2009.03.003",
+    "citation": "Shuman, B., Henderson, A. K., Colman, S. M., Stone, J. R., Fritz, S. C., Stevens, L. R., Power, M. J. and Whitlock, C.: Holocene lake-level trends in the Rocky Mountains, U.S.A., Quaternary Science Reviews, 28(19-20), 1861–1879, doi:10.1016/j.quascirev.2009.03.003, 2009."
+  },
+  {
+    "name": "Frías",
+    "longitude": -41.0617,
+    "latitude": -71.7990,
+    "type": "c14",
+    "doi": "10.1016/j.quaint.2006.10.022",
+    "citation": "Ariztegui, D., Bösch, P. and Davaud, E.: Dominant ENSO frequencies during the Little Ice Age in Northern Patagonia: The varved record of proglacial Lago Frías, Argentina, Quaternary International, 161(1), 46–55, doi:10.1016/j.quaint.2006.10.022, 2007."
+  },
+  {
+    "name": "Furskogstjärnet",
+    "longitude": 59.3802,
+    "latitude": 12.0801,
+    "type": "tephra",
+    "doi": "10.1016/S0277-3791(02)00036-7",
+    "citation": "Zillén, L. M., Wastegård, S. and Snowball, I. F.: Calendar year ages of three mid-Holocene tephra layers identified in varved lake sediments in west central Sweden, Quaternary Science Reviews, 21(14-15), 1583–1591, doi:10.1016/s0277-3791(02)00036-7, 2002."
+  },
+  {
+    "name": "Gölcük",
+    "longitude": 31.6270,
+    "latitude": 40.6547,
+    "type": "tephra",
+    "doi": "10.1038/333552a0",
+    "citation": "Sullivan, D. G.: The discovery of Santorini Minoan tephra in western Turkey, Nature, 333(6173), 552–554, doi:10.1038/333552a0, 1988."
+  },
+  {
+    "name": "Gropviken",
+    "longitude": 58.3376,
+    "latitude": 16.6678,
+    "type": "tephra",
+    "doi": "10.1002/jqs.2738",
+    "citation": "MACLEOD, A., BRUNNBERG, L., WASTEGÅRD, S., HANG, T. and MATTHEWS, I. P.: Lateglacial cryptotephra detected within clay varves in Östergötland, south-east Sweden, Journal of Quaternary Science, 29(7), 605–609, doi:10.1002/jqs.2738, 2014."
+  },
+  {
+    "name": "Gyltigesjön",
+    "longitude": 56.7567,
+    "latitude": 13.1754,
+    "type": "c14",
+    "doi": "10.1017/S0033822200048086",
+    "citation": "Mellström, A., Muscheler, R., Snowball, I., Ning, W. and Haltia, E.: Radiocarbon Wiggle-Match Dating of Bulk Sediments—How Accurate can It Be?, Radiocarbon, 55(3), 1173–1186, doi:10.1017/s0033822200048086, 2013."
+  },
+  {
+    "name": "Gyltigesjön",
+    "longitude": 56.7567,
+    "latitude": 13.1754,
+    "type": "c14",
+    "doi": "10.1016/j.gloplacha.2013.10.005",
+    "citation": "Snowball, I., Mellström, A., Ahlstrand, E., Haltia, E., Nilsson, A., Ning, W., Muscheler, R. and Brauer, A.: An estimate of post-depositional remanent magnetization lock-in depth in organic rich varved lake sediments, Global and Planetary Change, 110, 264–277, doi:10.1016/j.gloplacha.2013.10.005, 2013."
+  },
+  {
+    "name": "Hämelsee",
+    "longitude": 52.7596,
+    "latitude": 9.3107,
+    "type": "tephra",
+    "doi": "10.1111/bor.12250",
+    "citation": "Jones, G., Lane, C. S., Brauer, A., Davies, S. M., de Bruijn, R., Engels, S., Haliuc, A., Hoek, W. Z., Merkt, J., Sachse, D., Turner, F. and Wagner-Cremer, F.: The Lateglacial to early Holocene tephrochronological record from Lake Hämelsee, Germany: a key site within the European tephra framework, Boreas, 47(1), 28–40, doi:10.1111/bor.12250, 2017."
+  },
+  {
+    "name": "Hämelsee",
+    "longitude": 52.7596,
+    "latitude": 9.3107,
+    "type": "varves",
+    "doi": "https://epic.awi.de/id/eprint/29201/",
+    "citation": ""
+  },
+  {
+    "name": "Hancza",
+    "longitude": 54.2647,
+    "latitude": 22.8126,
+    "type": "chronology",
+    "doi": "10.1111/j.1502-3885.2010.00159.x",
+    "citation": "LAUTERBACH, S., BRAUER, A., ANDERSEN, N., DANIELOPOL, D. L., DULSKI, P., HÜLS, M., MILECKA, K., NAMIOTKO, T., PLESSEN, B., GRAFENSTEIN, U. V. and PARTICIPANTS, D.: Multi-proxy evidence for early to mid-Holocene environmental and climatic changes in northeastern Poland, Boreas, 40(1), 57–72, doi:10.1111/j.1502-3885.2010.00159.x, 2010."
+  },
+  {
+    "name": "Hancza",
+    "longitude": 54.2647,
+    "latitude": 22.8126,
+    "type": "c14",
+    "doi": "10.1111/j.1502-3885.2010.00159.x",
+    "citation": "LAUTERBACH, S., BRAUER, A., ANDERSEN, N., DANIELOPOL, D. L., DULSKI, P., HÜLS, M., MILECKA, K., NAMIOTKO, T., PLESSEN, B., GRAFENSTEIN, U. V. and PARTICIPANTS, D.: Multi-proxy evidence for early to mid-Holocene environmental and climatic changes in northeastern Poland, Boreas, 40(1), 57–72, doi:10.1111/j.1502-3885.2010.00159.x, 2010."
+  },
+  {
+    "name": "Hector Lake",
+    "longitude": 51.5881,
+    "latitude": -116.3643,
+    "type": "tephra",
+    "doi": "10.1006/qres.1998.2009",
+    "citation": "Leonard, E. M. and Reasoner, M. A.: A Continuous Holocene Glacial Record Inferred from Proglacial Lake Sediments in Banff National Park, Alberta, Canada, Quaternary Research, 51(1), 1–13, doi:10.1006/qres.1998.2009, 1999."
+  },
+  {
+    "name": "Hector Lake",
+    "longitude": 51.5881,
+    "latitude": -116.3643,
+    "type": "c14",
+    "doi": "10.1006/qres.1998.2009",
+    "citation": "Leonard, E. M. and Reasoner, M. A.: A Continuous Holocene Glacial Record Inferred from Proglacial Lake Sediments in Banff National Park, Alberta, Canada, Quaternary Research, 51(1), 1–13, doi:10.1006/qres.1998.2009, 1999."
+  },
+  {
+    "name": "Holzmaar",
+    "longitude": 50.1193,
+    "latitude": 6.8787,
+    "type": "chronology",
+    "doi": "10.1130/0091-7613(2000)28%3C783:ADLWCP%3E2.0.CO;2",
+    "citation": "Zolitschka, B., Brauer, A., Negendank, J. F. W., Stockhausen, H. and Lang, A.: Annually dated late Weichselian continental paleoclimate record from the Eifel, Germany, Geology, 28(9), 783, doi:10.1130/0091-7613(2000)28<783:adlwcp>2.0.co;2, 2000."
+  },
+  {
+    "name": "Holzmaar",
+    "longitude": 50.1193,
+    "latitude": 6.8787,
+    "type": "tephra",
+    "doi": "10.1016/j.gloplacha.2014.08.020",
+    "citation": "Prasad, S. and Baier, J.: Tracking the impact of mid- to late Holocene climate change and anthropogenic activities on Lake Holzmaar using an updated Holocene chronology, Global and Planetary Change, 122, 251–264, doi:10.1016/j.gloplacha.2014.08.020, 2014."
+  },
+  {
+    "name": "Holzmaar",
+    "longitude": 50.1193,
+    "latitude": 6.8787,
+    "type": "c14",
+    "doi": "10.1016/j.gloplacha.2014.08.020",
+    "citation": "Prasad, S. and Baier, J.: Tracking the impact of mid- to late Holocene climate change and anthropogenic activities on Lake Holzmaar using an updated Holocene chronology, Global and Planetary Change, 122, 251–264, doi:10.1016/j.gloplacha.2014.08.020, 2014."
+  },
+  {
+    "name": "Hoya Rincón de Parangueo",
+    "longitude": 20.4311,
+    "latitude": -101.2495,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2009.10.017",
+    "citation": "Park, J., Byrne, R., Böhnel, H., Garza, R. M. and Conserva, M.: Holocene climate change and human impact, central Mexico: a record based on maar lake pollen and sediment chemistry, Quaternary Science Reviews, 29(5-6), 618–632, doi:10.1016/j.quascirev.2009.10.017, 2010."
+  },
+  {
+    "name": "Hvítárvatn",
+    "longitude": 64.6101,
+    "latitude": -19.8401,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2011.05.026",
+    "citation": "Larsen, D. J., Miller, G. H., Geirsdóttir, Á. and Thordarson, T.: A 3000-year varved record of glacier activity and climate change from the proglacial lake Hvítárvatn, Iceland, Quaternary Science Reviews, 30(19-20), 2715–2731, doi:10.1016/j.quascirev.2011.05.026, 2011."
+  },
+  {
+    "name": "Hvítárvatn",
+    "longitude": 64.6101,
+    "latitude": -19.8401,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2011.05.026",
+    "citation": "Larsen, D. J., Miller, G. H., Geirsdóttir, Á. and Thordarson, T.: A 3000-year varved record of glacier activity and climate change from the proglacial lake Hvítárvatn, Iceland, Quaternary Science Reviews, 30(19-20), 2715–2731, doi:10.1016/j.quascirev.2011.05.026, 2011."
+  },
+  {
+    "name": "Hvítárvatn",
+    "longitude": 64.6101,
+    "latitude": -19.8401,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2011.05.026",
+    "citation": "Larsen, D. J., Miller, G. H., Geirsdóttir, Á. and Thordarson, T.: A 3000-year varved record of glacier activity and climate change from the proglacial lake Hvítárvatn, Iceland, Quaternary Science Reviews, 30(19-20), 2715–2731, doi:10.1016/j.quascirev.2011.05.026, 2011."
+  },
+  {
+    "name": "Hvítárvatn",
+    "longitude": 64.6101,
+    "latitude": -19.8401,
+    "type": "varves",
+    "doi": "10.1016/j.epsl.2013.07.028",
+    "citation": "Larsen, D. J., Miller, G. H. and Geirsdóttir, Á.: Asynchronous Little Ice Age glacier fluctuations in Iceland and European Alps linked to shifts in subpolar North Atlantic circulation, Earth and Planetary Science Letters, 380, 52–59, doi:10.1016/j.epsl.2013.07.028, 2013."
+  },
+  {
+    "name": "Iceberg Lake",
+    "longitude": 60.7880,
+    "latitude": -142.9589,
+    "type": "chronology",
+    "doi": "10.1007/s10933-008-9264-9",
+    "citation": "Loso, M. G.: Summer temperatures during the Medieval Warm Period and Little Ice Age inferred from varved proglacial lake sediments in southern Alaska, Journal of Paleolimnology, 41(1), 117–128, doi:10.1007/s10933-008-9264-9, 2008."
+  },
+  {
+    "name": "Iceberg Lake",
+    "longitude": 60.7880,
+    "latitude": -142.9589,
+    "type": "c14",
+    "doi": "10.1007/s10933-012-9614-5",
+    "citation": "Diedrich, K. E. and Loso, M. G.: Transient impacts of Little Ice Age glacier expansion on sedimentation processes at glacier-dammed Iceberg Lake, southcentral Alaska, Journal of Paleolimnology, 48(1), 115–132, doi:10.1007/s10933-012-9614-5, 2012."
+  },
+  {
+    "name": "Iceberg Lake",
+    "longitude": 60.7880,
+    "latitude": -142.9589,
+    "type": "varves",
+    "doi": "10.1007/s10933-012-9614-5",
+    "citation": "Diedrich, K. E. and Loso, M. G.: Transient impacts of Little Ice Age glacier expansion on sedimentation processes at glacier-dammed Iceberg Lake, southcentral Alaska, Journal of Paleolimnology, 48(1), 115–132, doi:10.1007/s10933-012-9614-5, 2012."
+  },
+  {
+    "name": "Iceberg Lake",
+    "longitude": 60.7880,
+    "latitude": -142.9589,
+    "type": "varves",
+    "doi": "10.1007/s10933-008-9264-9",
+    "citation": "Loso, M. G.: Summer temperatures during the Medieval Warm Period and Little Ice Age inferred from varved proglacial lake sediments in southern Alaska, Journal of Paleolimnology, 41(1), 117–128, doi:10.1007/s10933-008-9264-9, 2008."
+  },
+  {
+    "name": "Kallio Kourujärvi",
+    "longitude": 62.5600,
+    "latitude": 27.0030,
+    "type": "chronology",
+    "doi": "10.1007/s10933-015-9832-8",
+    "citation": "Saarni, S., Saarinen, T. and Lensu, A.: Organic lacustrine sediment varves as indicators of past precipitation changes: a 3,000-year climate record from Central Finland, Journal of Paleolimnology, 53(4), 401–413, doi:10.1007/s10933-015-9832-8, 2015."
+  },
+  {
+    "name": "Kallio Kourujärvi",
+    "longitude": 62.5600,
+    "latitude": 27.0030,
+    "type": "tephra",
+    "doi": "10.1002/jqs.3078",
+    "citation": "Kalliokoski, M., Wastegård, S. and Saarinen, T.: Rhyolitic and dacitic component of the Askja 1875 tephra in southern and central Finland: first step towards a Finnish tephrochronology, Journal of Quaternary Science, 34(1), 29–39, doi:10.1002/jqs.3078, 2018."
+  },
+  {
+    "name": "Kallio Kourujärvi",
+    "longitude": 62.5600,
+    "latitude": 27.0030,
+    "type": "varves",
+    "doi": "10.1007/s10933-015-9832-8",
+    "citation": "Saarni, S., Saarinen, T. and Lensu, A.: Organic lacustrine sediment varves as indicators of past precipitation changes: a 3,000-year climate record from Central Finland, Journal of Paleolimnology, 53(4), 401–413, doi:10.1007/s10933-015-9832-8, 2015."
+  },
+  {
+    "name": "Kalliojärvi",
+    "longitude": 63.2261,
+    "latitude": 25.3678,
+    "type": "chronology",
+    "doi": "10.1177/0959683615609747",
+    "citation": "Saarni, S., Saarinen, T. and Dulski, P.: Between the North Atlantic Oscillation and the Siberian High: A 4000-year snow accumulation history inferred from varved lake sediments in Finland, The Holocene, 26(3), 423–431, doi:10.1177/0959683615609747, 2015."
+  },
+  {
+    "name": "Kalliojärvi",
+    "longitude": 63.2261,
+    "latitude": 25.3678,
+    "type": "varves",
+    "doi": "10.1177/0959683615609747",
+    "citation": "Saarni, S., Saarinen, T. and Dulski, P.: Between the North Atlantic Oscillation and the Siberian High: A 4000-year snow accumulation history inferred from varved lake sediments in Finland, The Holocene, 26(3), 423–431, doi:10.1177/0959683615609747, 2015."
+  },
+  {
+    "name": "Lac Brulé",
+    "longitude": 45.7192,
+    "latitude": -75.4422,
+    "type": "chronology",
+    "doi": "10.1177/0959683614544054",
+    "citation": "Lafontaine-Boyer, K. and Gajewski, K.: Vegetation dynamics in relation to late Holocene climate variability and disturbance, Outaouais, Québec, Canada, The Holocene, 24(11), 1515–1526, doi:10.1177/0959683614544054, 2014."
+  },
+  {
+    "name": "Lac Brulé",
+    "longitude": 45.7192,
+    "latitude": -75.4422,
+    "type": "c14",
+    "doi": "10.1177/0959683614544054",
+    "citation": "Lafontaine-Boyer, K. and Gajewski, K.: Vegetation dynamics in relation to late Holocene climate variability and disturbance, Outaouais, Québec, Canada, The Holocene, 24(11), 1515–1526, doi:10.1177/0959683614544054, 2014."
+  },
+  {
+    "name": "Lac Brulé",
+    "longitude": 45.7192,
+    "latitude": -75.4422,
+    "type": "varves",
+    "doi": "10.1177/0959683614544054",
+    "citation": "Lafontaine-Boyer, K. and Gajewski, K.: Vegetation dynamics in relation to late Holocene climate variability and disturbance, Outaouais, Québec, Canada, The Holocene, 24(11), 1515–1526, doi:10.1177/0959683614544054, 2014."
+  },
+  {
+    "name": "Lac D'Annecy",
+    "longitude": 45.8578,
+    "latitude": 6.1717,
+    "type": "c14",
+    "doi": "10.1023/A:1008136029735",
+    "citation": "Brauer, A. and Casanova, J.: Journal of Paleolimnology, 25(2), 163–177, doi:10.1023/a:1008136029735, 2001."
+  },
+  {
+    "name": "Etoliko",
+    "longitude": 38.4732,
+    "latitude": 21.3248,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2017.01.010",
+    "citation": "Koutsodendris, A., Brauer, A., Reed, J. M., Plessen, B., Friedrich, O., Hennrich, B., Zacharias, I. and Pross, J.: Climate variability in SE Europe since 1450 AD based on a varved sediment record from Etoliko Lagoon (Western Greece), Quaternary Science Reviews, 159, 63–76, doi:10.1016/j.quascirev.2017.01.010, 2017."
+  },
+  {
+    "name": "Etoliko",
+    "longitude": 38.4732,
+    "latitude": 21.3248,
+    "type": "c14",
+    "doi": "10.1016/j.quaint.2012.06.031",
+    "citation": "Haenssler, E., Nadeau, M.-J., Vött, A. and Unkel, I.: Natural and human induced environmental changes preserved in a Holocene sediment sequence from the Etoliko Lagoon, Greece: New evidence from geochemical proxies, Quaternary International, 308-309, 89–104, doi:10.1016/j.quaint.2012.06.031, 2013."
+  },
+  {
+    "name": "Etoliko",
+    "longitude": 38.4732,
+    "latitude": 21.3248,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2017.01.010",
+    "citation": "Koutsodendris, A., Brauer, A., Reed, J. M., Plessen, B., Friedrich, O., Hennrich, B., Zacharias, I. and Pross, J.: Climate variability in SE Europe since 1450 AD based on a varved sediment record from Etoliko Lagoon (Western Greece), Quaternary Science Reviews, 159, 63–76, doi:10.1016/j.quascirev.2017.01.010, 2017."
+  },
+  {
+    "name": "Lago Buenos Aires",
+    "longitude": -72.0129,
+    "latitude": -46.4900,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2017.10.013",
+    "citation": "Bendle, J. M., Palmer, A. P., Thorndycraft, V. R. and Matthews, I. P.: High-resolution chronology for deglaciation of the Patagonian Ice Sheet at Lago Buenos Aires (46.5°S) revealed through varve chronology and Bayesian age modelling, Quaternary Science Reviews, 177, 314–339, doi:10.1016/j.quascirev.2017.10.013, 2017."
+  },
+  {
+    "name": "Laguna Potrok Aike",
+    "longitude": -51.9608,
+    "latitude": -70.3794,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2012.07.019",
+    "citation": "Kliem, P., Enters, D., Hahn, A., Ohlendorf, C., Lisé-Pronovost, A., St-Onge, G., Wastegård, S. and Zolitschka, B.: Lithology, radiocarbon chronology and sedimentological interpretation of the lacustrine record from Laguna Potrok Aike, southern Patagonia, Quaternary Science Reviews, 71, 54–69, doi:10.1016/j.quascirev.2012.07.019, 2013."
+  },
+  {
+    "name": "Laguna Potrok Aike",
+    "longitude": -51.9608,
+    "latitude": -70.3794,
+    "type": "tephra",
+    "doi": "10.1177/0959683607076437",
+    "citation": "Haberzettl, T., Corbella, H., Fey, M., Janssen, S., Lücke, A., Mayr, C., Ohlendorf, C., Schäbitz, F., Schleser, G. H., Wille, M., Wulf, S. and Zolitschka, B.: Lateglacial and Holocene wet—dry cycles in southern Patagonia: chronology, sedimentology and geochemistry of a lacustrine record from Laguna Potrok Aike, Argentina, The Holocene, 17(3), 297–310, doi:10.1177/0959683607076437, 2007."
+  },
+  {
+    "name": "Laguna Potrok Aike",
+    "longitude": -51.9608,
+    "latitude": -70.3794,
+    "type": "c14",
+    "doi": "10.1177/0959683607076437",
+    "citation": "Haberzettl, T., Corbella, H., Fey, M., Janssen, S., Lücke, A., Mayr, C., Ohlendorf, C., Schäbitz, F., Schleser, G. H., Wille, M., Wulf, S. and Zolitschka, B.: Lateglacial and Holocene wet—dry cycles in southern Patagonia: chronology, sedimentology and geochemistry of a lacustrine record from Laguna Potrok Aike, Argentina, The Holocene, 17(3), 297–310, doi:10.1177/0959683607076437, 2007."
+  },
+  {
+    "name": "Längsee",
+    "longitude": 14.4242,
+    "latitude": 46.7894,
+    "type": "tephra",
+    "doi": "10.1016/S1040-6182(01)00072-6",
+    "citation": "Schmidt, R., van den Bogaard, C., Merkt, J. and Müller, J.: A new Lateglacial chronostratigraphic tephra marker for the south-eastern Alps: The Neapolitan Yellow Tuff (NYT) in Längsee (Austria) in the context of a regional biostratigraphy and palaeoclimate, Quaternary International, 88(1), 45–56, doi:10.1016/s1040-6182(01)00072-6, 2002."
+  },
+  {
+    "name": "Lehmilampi",
+    "longitude": 63.6283,
+    "latitude": 29.1022,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2006.11.005",
+    "citation": "HALTIAHOVI, E., SAARINEN, T. and KUKKONEN, M.: A 2000-year record of solar forcing on varved lake sediment in eastern Finland, Quaternary Science Reviews, 26(5-6), 678–689, doi:10.1016/j.quascirev.2006.11.005, 2007."
+  },
+  {
+    "name": "Lehmilampi",
+    "longitude": 63.6283,
+    "latitude": 29.1022,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2006.11.005",
+    "citation": "HALTIAHOVI, E., SAARINEN, T. and KUKKONEN, M.: A 2000-year record of solar forcing on varved lake sediment in eastern Finland, Quaternary Science Reviews, 26(5-6), 678–689, doi:10.1016/j.quascirev.2006.11.005, 2007."
+  },
+  {
+    "name": "Linné",
+    "longitude": 78.0463,
+    "latitude": 13.8028,
+    "type": "varves",
+    "doi": "https://www.ncdc.noaa.gov/paleo-search/study/8760",
+    "citation": ""
+  },
+  {
+    "name": "Lögurinn",
+    "longitude": 65.2507,
+    "latitude": -14.4649,
+    "type": "tephra",
+    "doi": "10.1111/j.1502-3885.2010.00153.x",
+    "citation": "STRIBERGER, J., BJÖRCK, S., INGÓLFSSON, Ó., KJAER, K. H., SNOWBALL, I. and UVO, C. B.: Climate variability and glacial processes in eastern Iceland during the past 700 years based on varved lake sediments, Boreas, 40(1), 28–45, doi:10.1111/j.1502-3885.2010.00153.x, 2010."
+  },
+  {
+    "name": "Lower Murray Lake",
+    "longitude": 81.3328,
+    "latitude": -69.5510,
+    "type": "chronology",
+    "doi": "10.1007/s10933-008-9252-0",
+    "citation": "Cook, T. L., Bradley, R. S., Stoner, J. S. and Francus, P.: Five thousand years of sediment transfer in a high arctic watershed recorded in annually laminated sediments from Lower Murray Lake, Ellesmere Island, Nunavut, Canada, Journal of Paleolimnology, 41(1), 77–94, doi:10.1007/s10933-008-9252-0, 2008."
+  },
+  {
+    "name": "Lower Murray Lake",
+    "longitude": 81.3328,
+    "latitude": -69.5510,
+    "type": "varves",
+    "doi": "10.1007/s10933-008-9252-0",
+    "citation": "Cook, T. L., Bradley, R. S., Stoner, J. S. and Francus, P.: Five thousand years of sediment transfer in a high arctic watershed recorded in annually laminated sediments from Lower Murray Lake, Ellesmere Island, Nunavut, Canada, Journal of Paleolimnology, 41(1), 77–94, doi:10.1007/s10933-008-9252-0, 2008."
+  },
+  {
+    "name": "Malawi",
+    "longitude": -11.5486,
+    "latitude": 34.5376,
+    "type": "chronology",
+    "doi": "10.5194/essd-9-679-2017",
+    "citation": "Sánchez Goñi, M. F., Desprat, S., Daniau, A.-L., Bassinot, F. C., Polanco-Martínez, J. M., Harrison, S. P., Allen, J. R. M., Anderson, R. S., Behling, H., Bonnefille, R., Burjachs, F., Carrión, J. S., Cheddadi, R., Clark, J. S., Combourieu-Nebout, N., Mustaphi, C. J. C., Debusk, G. H., Dupont, L. M., Finch, J. M., Fletcher, W. J., Giardini, M., González, C., Gosling, W. D., Grigg, L. D., Grimm, E. C., Hayashi, R., Helmens, K., Heusser, L. E., Hill, T., Hope, G., Huntley, B., Igarashi, Y., Irino, T., Jacobs, B., Jiménez-Moreno, G., Kawai, S., Kershaw, A. P., Kumon, F., Lawson, I. T., Ledru, M.-P., Lézine, A.-M., Liew, P. M., Magri, D., Marchant, R., Margari, V., Mayle, F. E., McKenzie, G. M., Moss, P., Müller, S., Müller, U. C., Naughton, F., Newnham, R. M., Oba, T., Pérez-Obiol, R., Pini, R., Ravazzi, C., Roucoux, K. H., Rucina, S. M., Scott, L., Takahara, H., Tzedakis, P. C., Urrego, D. H., van Geel, B., Valencia, B. G., Vandergoes, M. J., Vincens, A., Whitlock, C. L., Willard, D. A. and Yamamoto, M.: The ACER pollen and charcoal database: a global resource to document vegetation and fire response to abrupt climate changes during the last glacial period, Earth System Science Data, 9(2), 679–695, doi:10.5194/essd-9-679-2017, 2017."
+  },
+  {
+    "name": "Malawi",
+    "longitude": -11.5486,
+    "latitude": 34.5376,
+    "type": "chronology",
+    "doi": "10.1073/pnas.1611028113",
+    "citation": "Ivory, S. J., Blome, M. W., King, J. W., McGlue, M. M., Cole, J. E. and Cohen, A. S.: Environmental change explains cichlid adaptive radiation at Lake Malawi over the past 1.2 million years, Proceedings of the National Academy of Sciences, 113(42), 11895–11900, doi:10.1073/pnas.1611028113, 2016."
+  },
+  {
+    "name": "Malawi",
+    "longitude": -11.5486,
+    "latitude": 34.5376,
+    "type": "c14",
+    "doi": "10.4319/lo.1991.36.3.0544",
+    "citation": "Pilskaln, C. H. and Johnson, T. C.: Seasonal signals in Lake Malawi sediments, Limnology and Oceanography, 36(3), 544–557, doi:10.4319/lo.1991.36.3.0544, 1991."
+  },
+  {
+    "name": "Mascardi",
+    "longitude": -41.3157,
+    "latitude": -71.5757,
+    "type": "c14",
+    "doi": "10.1016/S0033-5894(02)00017-0",
+    "citation": "Hajdas, I., Bonani, G., Moreno, P. I. and Ariztegui, D.: Precise radiocarbon dating of Late-Glacial cooling in mid-latitude South America, Quaternary Research, 59(1), 70–78, doi:10.1016/s0033-5894(02)00017-0, 2003."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2012.10.023",
+    "citation": "Martin-Puertas, C., Brauer, A., Dulski, P. and Brademann, B.: Testing climate–proxy stationarity throughout the Holocene: an example from the varved sediments of Lake Meerfelder Maar (Germany), Quaternary Science Reviews, 58, 56–65, doi:10.1016/j.quascirev.2012.10.023, 2012."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "tephra",
+    "doi": "10.1016/j.revpalbo.2015.06.010",
+    "citation": "Engels, S., van Geel, B., Buddelmeijer, N. and Brauer, A.: High-resolution palynological evidence for vegetation response to the Laacher See eruption from the varved record of Meerfelder Maar (Germany) and other central European records, Review of Palaeobotany and Palynology, 221, 160–170, doi:10.1016/j.revpalbo.2015.06.010, 2015."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2015.05.025",
+    "citation": "Lane, C. S., Brauer, A., Martín-Puertas, C., Blockley, S. P. E., Smith, V. C. and Tomlinson, E. L.: The Late Quaternary tephrostratigraphy of annually laminated sediments from Meerfelder Maar, Germany, Quaternary Science Reviews, 122, 192–206, doi:10.1016/j.quascirev.2015.05.025, 2015."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "c14",
+    "doi": "10.1017/S0033822200030307",
+    "citation": "Brauer, A., Endres, C., Zolitschka, B. and FW Negendank, J.: AMS Radiocarbon and Varve Chronology from the Annually Laminated Sediment Record of Lake Meerfelder Maar, Germany, Radiocarbon, 42(3), 355–368, doi:10.1017/s0033822200030307, 2000."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "varves",
+    "doi": "10.1038/ngeo263",
+    "citation": "Brauer, A., Haug, G. H., Dulski, P., Sigman, D. M. and Negendank, J. F. W.: An abrupt wind shift in western Europe at the onset of the Younger Dryas cold period, Nature Geoscience, 1(8), 520–523, doi:10.1038/ngeo263, 2008."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "varves",
+    "doi": "10.1016/j.revpalbo.2015.06.010",
+    "citation": "Engels, S., van Geel, B., Buddelmeijer, N. and Brauer, A.: High-resolution palynological evidence for vegetation response to the Laacher See eruption from the varved record of Meerfelder Maar (Germany) and other central European records, Review of Palaeobotany and Palynology, 221, 160–170, doi:10.1016/j.revpalbo.2015.06.010, 2015."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "varves",
+    "doi": "10.1111/j.1502-3885.2009.00096.x",
+    "citation": "LITT, T., SCHÖLZEL, C., KÜHL, N. and BRAUER, A.: Vegetation and climate history in the Westeifel Volcanic Field (Germany) during the past 11 000 years based on annually laminated lacustrine maar sediments, Boreas, 38(4), 679–690, doi:10.1111/j.1502-3885.2009.00096.x, 2009."
+  },
+  {
+    "name": "Meerfelder Maar",
+    "longitude": 50.1010,
+    "latitude": 6.7570,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2012.10.023",
+    "citation": "Martin-Puertas, C., Brauer, A., Dulski, P. and Brademann, B.: Testing climate–proxy stationarity throughout the Holocene: an example from the varved sediments of Lake Meerfelder Maar (Germany), Quaternary Science Reviews, 58, 56–65, doi:10.1016/j.quascirev.2012.10.023, 2012."
+  },
+  {
+    "name": "Mondsee",
+    "longitude": 47.8157,
+    "latitude": 13.3819,
+    "type": "chronology",
+    "doi": "10.1002/jqs.1448",
+    "citation": "Lauterbach, S., Brauer, A., Andersen, N., Danielopol, D. L., Dulski, P., Hüls, M., Milecka, K., Namiotko, T., Obremska, M. and Von Grafenstein, U.: Environmental responses to Lateglacial climatic fluctuations recorded in the sediments of pre-Alpine Lake Mondsee (northeastern Alps), Journal of Quaternary Science, 26(3), 253–267, doi:10.1002/jqs.1448, 2011."
+  },
+  {
+    "name": "Mondsee",
+    "longitude": 47.8157,
+    "latitude": 13.3819,
+    "type": "c14",
+    "doi": "10.5194/cp-9-1601-2013",
+    "citation": "Swierczynski, T., Lauterbach, S., Dulski, P. and Brauer, A.: Late Neolithic Mondsee Culture in Austria: living on lakes and living with flood risk?, Climate of the Past, 9(4), 1601–1612, doi:10.5194/cp-9-1601-2013, 2013."
+  },
+  {
+    "name": "Montcortés",
+    "longitude": 42.3306,
+    "latitude": 0.9951,
+    "type": "c14",
+    "doi": "10.1007/s10933-010-9443-3",
+    "citation": "Corella, J. P., Moreno, A., Morellón, M., Rull, V., Giralt, S., Rico, M. T., Pérez-Sanz, A. and Valero-Garcés, B. L.: Climate and human impact on a meromictic lake during the last 6,000 years (Montcortès Lake, Central Pyrenees, Spain), Journal of Paleolimnology, 46(3), 351–367, doi:10.1007/s10933-010-9443-3, 2010."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "chronology",
+    "doi": "10.5194/cp-10-2099-2014",
+    "citation": "Martin-Puertas, C., Brauer, A., Wulf, S., Ott, F., Lauterbach, S. and Dulski, P.: Annual proxy data from Lago Grande di Monticchio (southern Italy) between 76 and 112 ka: new chronological constraints and insights on abrupt climatic oscillations, Climate of the Past, 10(6), 2099–2114, doi:10.5194/cp-10-2099-2014, 2014."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "chronology",
+    "doi": "10.1038/23432",
+    "citation": "Allen, J. R. M., Brandt, U., Brauer, A., Hubberten, H.-W., Huntley, B., Keller, J., Kraml, M., Mackensen, A., Mingram, J., Negendank, J. F. W., Nowaczyk, N. R., Oberhänsli, H., Watts, W. A., Wulf, S. and Zolitschka, B.: Rapid environmental changes in southern Europe during the last glacial period, Nature, 400(6746), 740–743, doi:10.1038/23432, 1999."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "tephra",
+    "doi": "10.1016/S0277-3791(99)00007-4",
+    "citation": "Huntley, B., Watts, W. A., Allen, J. R. M. and Zolitschka, B.: Palaeoclimate, chronology and vegetation history of the Weichselian Lateglacial: comparative analysis of data from three cores at Lago Grande di Monticchio, southern Italy, Quaternary Science Reviews, 18(7), 945–960, doi:10.1016/s0277-3791(99)00007-4, 1999."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2012.10.020",
+    "citation": "Wulf, S., Keller, J., Paterne, M., Mingram, J., Lauterbach, S., Opitz, S., Sottili, G., Giaccio, B., Albert, P. G., Satow, C., Tomlinson, E. L., Viccaro, M. and Brauer, A.: The 100–133 ka record of Italian explosive volcanism and revised tephrochronology of Lago Grande di Monticchio, Quaternary Science Reviews, 58, 104–123, doi:10.1016/j.quascirev.2012.10.020, 2012."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "tephra",
+    "doi": "10.1016/j.quaint.2004.01.028",
+    "citation": "Wulf, S., Kraml, M., Brauer, A., Keller, J. and Negendank, J. F. W.: Tephrochronology of the 100ka lacustrine sediment record of Lago Grande di Monticchio (southern Italy), Quaternary International, 122(1), 7–30, doi:10.1016/j.quaint.2004.01.028, 2004."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "tephra",
+    "doi": "10.1016/S0277-3791(99)00007-4",
+    "citation": "Huntley, B., Watts, W. A., Allen, J. R. M. and Zolitschka, B.: Palaeoclimate, chronology and vegetation history of the Weichselian Lateglacial: comparative analysis of data from three cores at Lago Grande di Monticchio, southern Italy, Quaternary Science Reviews, 18(7), 945–960, doi:10.1016/s0277-3791(99)00007-4, 1999."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "c14",
+    "doi": "10.1017/S0033822200018750",
+    "citation": "Hajdas, I., Bonani, G., Zolitschka, B., Brauer, A. and Negendank, J.: 14C Ages of Terrestrial Macrofossils from Lago Grande Di Monticchio (Italy), Radiocarbon, 40(2), 803–807, doi:10.1017/s0033822200018750, 1997."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "c14",
+    "doi": "10.1016/0277-3791(95)00093-3",
+    "citation": "Watts, W.: Vegetation history and palaeoclimate of the last glacial period of Lago Grande di Monticchio, southern Italy, Quaternary Science Reviews, 15(2-3), 133–153, doi:10.1016/0277-3791(95)00093-3, 1996."
+  },
+  {
+    "name": "Monticchio",
+    "longitude": 40.9313,
+    "latitude": 15.6050,
+    "type": "c14",
+    "doi": "10.1016/0277-3791(95)00022-4",
+    "citation": "Zolitschka, B.: Sedimentology, dating and palaeoclimatic interpretation of a 76.3 ka record from Lago Grande di Monticchio, southern Italy, Quaternary Science Reviews, 15(2-3), 101–112, doi:10.1016/0277-3791(95)00022-4, 1996."
+  },
+  {
+    "name": "Mötterutstjärnet",
+    "longitude": 59.6394,
+    "latitude": 12.6675,
+    "type": "tephra",
+    "doi": "10.1016/S0277-3791(02)00036-7",
+    "citation": "Zillén, L. M., Wastegård, S. and Snowball, I. F.: Calendar year ages of three mid-Holocene tephra layers identified in varved lake sediments in west central Sweden, Quaternary Science Reviews, 21(14-15), 1583–1591, doi:10.1016/s0277-3791(02)00036-7, 2002."
+  },
+  {
+    "name": "Nedre Heimredalsvatnet",
+    "longitude": 68.2990,
+    "latitude": 13.6547,
+    "type": "c14",
+    "doi": "10.1016/j.yqres.2010.08.012",
+    "citation": "Balascio, N. L., Zhang, Z., Bradley, R. S., Perren, B., Dahl, S. O. and Bakke, J.: A multi-proxy approach to assessing isolation basin stratigraphy from the Lofoten Islands, Norway, Quaternary Research, 75(1), 288–300, doi:10.1016/j.yqres.2010.08.012, 2011."
+  },
+  {
+    "name": "Nedrefloen",
+    "longitude": 61.9306,
+    "latitude": 6.8664,
+    "type": "c14",
+    "doi": "10.1016/j.yqres.2011.10.001",
+    "citation": "Vasskog, K., Paasche, Ø., Nesje, A., Boyle, J. F. and Birks, H. J. B.: A new approach for reconstructing glacier variability based on lake sediments recording input from more than one glacier, Quaternary Research, 77(1), 192–204, doi:10.1016/j.yqres.2011.10.001, 2012."
+  },
+  {
+    "name": "Ni no Megata",
+    "longitude": 139.7284,
+    "latitude": 39.9524,
+    "type": "tephra",
+    "doi": "10.1016/j.quaint.2009.09.006",
+    "citation": "Yamada, K., Kamite, M., Saito-Kato, M., Okuno, M., Shinozuka, Y. and Yasuda, Y.: Late Holocene monsoonal-climate change inferred from Lakes Ni-no-Megata and San-no-Megata, northeastern Japan, Quaternary International, 220(1-2), 122–132, doi:10.1016/j.quaint.2009.09.006, 2010."
+  },
+  {
+    "name": "Oeschinen",
+    "longitude": 46.4984,
+    "latitude": 7.7274,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2015.03.002",
+    "citation": "Amann, B., Szidat, S. and Grosjean, M.: A millennial-long record of warm season precipitation and flood frequency for the North-western Alps inferred from varved lake sediments: implications for the future, Quaternary Science Reviews, 115, 89–100, doi:10.1016/j.quascirev.2015.03.002, 2015."
+  },
+  {
+    "name": "Oeschinen",
+    "longitude": 46.4984,
+    "latitude": 7.7274,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2015.03.002",
+    "citation": "Amann, B., Szidat, S. and Grosjean, M.: A millennial-long record of warm season precipitation and flood frequency for the North-western Alps inferred from varved lake sediments: implications for the future, Quaternary Science Reviews, 115, 89–100, doi:10.1016/j.quascirev.2015.03.002, 2015."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "chronology",
+    "doi": "10.1007/s10933-009-9404-x",
+    "citation": "Vogel, H., Wagner, B., Zanchetta, G., Sulpizio, R. and Rosén, P.: A paleoclimate record with tephrochronological age control for the last glacial-interglacial cycle from Lake Ohrid, Albania and Macedonia, Journal of Paleolimnology, 44(1), 295–310, doi:10.1007/s10933-009-9404-x, 2010."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "chronology",
+    "doi": "10.1007/s10933-008-9234-2",
+    "citation": "Wagner, B., Lotter, A. F., Nowaczyk, N., Reed, J. M., Schwalb, A., Sulpizio, R., Valsecchi, V., Wessels, M. and Zanchetta, G.: A 40,000-year record of environmental change from ancient Lake Ohrid (Albania and Macedonia), Journal of Paleolimnology, 41(3), 407–430, doi:10.1007/s10933-008-9234-2, 2008."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "chronology",
+    "doi": "10.5194/bg-13-1179-2016",
+    "citation": "Francke, A., Wagner, B., Just, J., Leicher, N., Gromig, R., Baumgarten, H., Vogel, H., Lacey, J. H., Sadori, L., Wonik, T., Leng, M. J., Zanchetta, G., Sulpizio, R. and Giaccio, B.: Sedimentological processes and environmental variability at Lake Ohrid (Macedonia, Albania) between 637 ka and the present, Biogeosciences, 13(4), 1179–1196, doi:10.5194/bg-13-1179-2016, 2016."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "chronology",
+    "doi": "10.5194/bg-7-3187-2010",
+    "citation": "Wagner, B., Vogel, H., Zanchetta, G. and Sulpizio, R.: Environmental change within the Balkan region during the past ca. 50 ka recorded in the sediments from lakes Prespa and Ohrid, Biogeosciences, 7(10), 3187–3198, doi:10.5194/bg-7-3187-2010, 2010."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "tephra",
+    "doi": "10.5194/bg-13-2151-2016",
+    "citation": "Leicher, N., Zanchetta, G., Sulpizio, R., Giaccio, B., Wagner, B., Nomade, S., Francke, A. and Del Carlo, P.: First tephrostratigraphic results of the DEEP site record from Lake Ohrid (Macedonia and Albania), Biogeosciences, 13(7), 2151–2178, doi:10.5194/bg-13-2151-2016, 2016."
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "tephra",
+    "doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "citation": ""
+  },
+  {
+    "name": "Ohrid",
+    "longitude": 41.0371,
+    "latitude": 20.7181,
+    "type": "c14",
+    "doi": "http://kups.ub.uni-koeln.de/id/eprint/2920",
+    "citation": ""
+  },
+  {
+    "name": "Pavin",
+    "longitude": 45.4957,
+    "latitude": 2.8879,
+    "type": "chronology",
+    "doi": "10.1016/j.revpalbo.2004.09.004",
+    "citation": "Stebich, M., Brüchmann, C., Kulbe, T. and Negendank, J. F. W.: Vegetation history, human impact and climate change during the last 700 years recorded in annually laminated sediments of Lac Pavin, France, Review of Palaeobotany and Palynology, 133(1-2), 115–133, doi:10.1016/j.revpalbo.2004.09.004, 2005."
+  },
+  {
+    "name": "Pavin",
+    "longitude": 45.4957,
+    "latitude": 2.8879,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2016.03.020",
+    "citation": "Chassiot, L., Chapron, E., Di Giovanni, C., Albéric, P., Lajeunesse, P., Lehours, A.-C. and Meybeck, M.: Extreme events in the sedimentary record of maar Lake Pavin: Implications for natural hazards assessment in the French Massif Central, Quaternary Science Reviews, 141, 9–25, doi:10.1016/j.quascirev.2016.03.020, 2016."
+  },
+  {
+    "name": "Pettaquamscutt",
+    "longitude": 41.5030,
+    "latitude": -71.4506,
+    "type": "c14",
+    "doi": "10.1007/s10933-008-9226-2",
+    "citation": "Hubeny, J. B., King, J. W. and Cantwell, M.: Anthropogenic influences on estuarine sedimentation and ecology: examples from the varved sediments of the Pettaquamscutt River Estuary, Rhode Island, Journal of Paleolimnology, 41(2), 297–314, doi:10.1007/s10933-008-9226-2, 2008."
+  },
+  {
+    "name": "Plomo",
+    "longitude": -47.0047,
+    "latitude": -72.9122,
+    "type": "chronology",
+    "doi": "10.1016/j.quaint.2015.01.004",
+    "citation": "Elbert, J., Jacques-Coper, M., Van Daele, M., Urrutia, R. and Grosjean, M.: A 600 years warm-season temperature record from varved sediments of Lago Plomo, Northern Patagonia, Chile (47°S), Quaternary International, 377, 28–37, doi:10.1016/j.quaint.2015.01.004, 2015."
+  },
+  {
+    "name": "Prespa",
+    "longitude": 40.8967,
+    "latitude": 21.0050,
+    "type": "tephra",
+    "doi": "10.1016/j.quaint.2012.02.016",
+    "citation": "Wagner, B., Aufgebauer, A., Vogel, H., Zanchetta, G., Sulpizio, R. and Damaschke, M.: Late Pleistocene and Holocene contourite drift in Lake Prespa (Albania/F.Y.R. of Macedonia/Greece), Quaternary International, 274, 112–121, doi:10.1016/j.quaint.2012.02.016, 2012."
+  },
+  {
+    "name": "Prespa",
+    "longitude": 40.8967,
+    "latitude": 21.0050,
+    "type": "tephra",
+    "doi": "10.5194/bg-7-3187-2010",
+    "citation": "Wagner, B., Vogel, H., Zanchetta, G. and Sulpizio, R.: Environmental change within the Balkan region during the past ca. 50 ka recorded in the sediments from lakes Prespa and Ohrid, Biogeosciences, 7(10), 3187–3198, doi:10.5194/bg-7-3187-2010, 2010."
+  },
+  {
+    "name": "Prespa",
+    "longitude": 40.8967,
+    "latitude": 21.0050,
+    "type": "c14",
+    "doi": "10.1016/j.quaint.2012.02.016",
+    "citation": "Wagner, B., Aufgebauer, A., Vogel, H., Zanchetta, G., Sulpizio, R. and Damaschke, M.: Late Pleistocene and Holocene contourite drift in Lake Prespa (Albania/F.Y.R. of Macedonia/Greece), Quaternary International, 274, 112–121, doi:10.1016/j.quaint.2012.02.016, 2012."
+  },
+  {
+    "name": "Puyehue",
+    "longitude": -40.6667,
+    "latitude": -72.4667,
+    "type": "c14",
+    "doi": "10.1016/j.yqres.2008.06.001",
+    "citation": "Bertrand, S., Castiaux, J. and Juvigné, E.: Tephrostratigraphy of the late glacial and Holocene sediments of Puyehue Lake (Southern Volcanic Zone, Chile, 40°S), Quaternary Research, 70(3), 343–357, doi:10.1016/j.yqres.2008.06.001, 2008."
+  },
+  {
+    "name": "Rehwiese",
+    "longitude": 52.4280,
+    "latitude": 13.1996,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2011.12.010",
+    "citation": "Neugebauer, I., Brauer, A., Dräger, N., Dulski, P., Wulf, S., Plessen, B., Mingram, J., Herzschuh, U. and Brande, A.: A Younger Dryas varve chronology from the Rehwiese palaeolake record in NE-Germany, Quaternary Science Reviews, 36, 91–102, doi:10.1016/j.quascirev.2011.12.010, 2012."
+  },
+  {
+    "name": "Rehwiese",
+    "longitude": 52.4280,
+    "latitude": 13.1996,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2011.12.010",
+    "citation": "Neugebauer, I., Brauer, A., Dräger, N., Dulski, P., Wulf, S., Plessen, B., Mingram, J., Herzschuh, U. and Brande, A.: A Younger Dryas varve chronology from the Rehwiese palaeolake record in NE-Germany, Quaternary Science Reviews, 36, 91–102, doi:10.1016/j.quascirev.2011.12.010, 2012."
+  },
+  {
+    "name": "Rehwiese",
+    "longitude": 52.4280,
+    "latitude": 13.1996,
+    "type": "varves",
+    "doi": "10.1016/j.quascirev.2011.12.010",
+    "citation": "Neugebauer, I., Brauer, A., Dräger, N., Dulski, P., Wulf, S., Plessen, B., Mingram, J., Herzschuh, U. and Brande, A.: A Younger Dryas varve chronology from the Rehwiese palaeolake record in NE-Germany, Quaternary Science Reviews, 36, 91–102, doi:10.1016/j.quascirev.2011.12.010, 2012."
+  },
+  {
+    "name": "RS29",
+    "longitude": 73.1400,
+    "latitude": -95.2780,
+    "type": "c14",
+    "doi": "10.1139/as-2016-0013",
+    "citation": "Paull, T. M., Finkelstein, S. A. and Gajewski, K.: Interactions between climate and landscape drive Holocene ecological change in a High Arctic lake on Somerset Island, Nunavut, Canada, Arctic Science, 3(1), 17–38, doi:10.1139/as-2016-0013, 2017."
+  },
+  {
+    "name": "Sacrower See",
+    "longitude": 52.4432,
+    "latitude": 13.0991,
+    "type": "tephra",
+    "doi": "10.1007/s10933-009-9362-3",
+    "citation": "Enters, D., Kirilova, E., Lotter, A. F., Lücke, A., Parplies, J., Jahns, S., Kuhn, G. and Zolitschka, B.: Climate change and human impact at Sacrower See (NE Germany) during the past 13,000 years: a geochemical record, Journal of Paleolimnology, 43(4), 719–737, doi:10.1007/s10933-009-9362-3, 2009."
+  },
+  {
+    "name": "Sacrower See",
+    "longitude": 52.4432,
+    "latitude": 13.0991,
+    "type": "c14",
+    "doi": "10.1007/s10933-009-9362-3",
+    "citation": "Enters, D., Kirilova, E., Lotter, A. F., Lücke, A., Parplies, J., Jahns, S., Kuhn, G. and Zolitschka, B.: Climate change and human impact at Sacrower See (NE Germany) during the past 13,000 years: a geochemical record, Journal of Paleolimnology, 43(4), 719–737, doi:10.1007/s10933-009-9362-3, 2009."
+  },
+  {
+    "name": "Sawtooth",
+    "longitude": 79.3494,
+    "latitude": -83.9235,
+    "type": "varves",
+    "doi": "10.1029/2002GL015082",
+    "citation": "Francus, P., Bradley, R. S., Abbott, M. B., Patridge, W. and Keimig, F.: Paleoclimate studies of minerogenic sediments using annually resolved textural parameters, Geophysical Research Letters, 29(20), 59–1–59–4, doi:10.1029/2002gl015082, 2002."
+  },
+  {
+    "name": "Schleinsee",
+    "longitude": 47.6122,
+    "latitude": 9.6348,
+    "type": "tephra",
+    "doi": "10.2307/2260813",
+    "citation": "Clark, J. S., Merkt, J. and Muller, H.: Post-Glacial Fire, Vegetation, and Human History on the Northern Alpine Forelands, South-Western Germany, The Journal of Ecology, 77(4), 897, doi:10.2307/2260813, 1989."
+  },
+  {
+    "name": "Sihailongwan",
+    "longitude": 42.2865,
+    "latitude": 126.6019,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2018.09.023",
+    "citation": "Mingram, J., Stebich, M., Schettler, G., Hu, Y., Rioual, P., Nowaczyk, N., Dulski, P., You, H., Opitz, S., Liu, Q. and Liu, J.: Millennial-scale East Asian monsoon variability of the last glacial deduced from annually laminated sediments from Lake Sihailongwan, N.E. China, Quaternary Science Reviews, 201, 57–76, doi:10.1016/j.quascirev.2018.09.023, 2018."
+  },
+  {
+    "name": "Sihailongwan",
+    "longitude": 42.2865,
+    "latitude": 126.6019,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2018.09.023",
+    "citation": "Mingram, J., Stebich, M., Schettler, G., Hu, Y., Rioual, P., Nowaczyk, N., Dulski, P., You, H., Opitz, S., Liu, Q. and Liu, J.: Millennial-scale East Asian monsoon variability of the last glacial deduced from annually laminated sediments from Lake Sihailongwan, N.E. China, Quaternary Science Reviews, 201, 57–76, doi:10.1016/j.quascirev.2018.09.023, 2018."
+  },
+  {
+    "name": "Soppensee",
+    "longitude": 47.0901,
+    "latitude": 8.0803,
+    "type": "tephra",
+    "doi": "10.1017/S0033822200046117",
+    "citation": "Hajdas, I. and Michczyński, A.: Age-Depth Model of Lake Soppensee (Switzerland) Based on the High-Resolution 14C Chronology Compared with Varve Chronology, Radiocarbon, 52(3), 1027–1040, doi:10.1017/s0033822200046117, 2010."
+  },
+  {
+    "name": "Soppensee",
+    "longitude": 47.0901,
+    "latitude": 8.0803,
+    "type": "c14",
+    "doi": "10.1016/j.quascirev.2016.05.011",
+    "citation": "Gierga, M., Hajdas, I., van Raden, U. J., Gilli, A., Wacker, L., Sturm, M., Bernasconi, S. M. and Smittenberg, R. H.: Long-stored soil carbon released by prehistoric land use: Evidence from compound-specific radiocarbon analysis on Soppensee lake sediments, Quaternary Science Reviews, 144, 123–131, doi:10.1016/j.quascirev.2016.05.011, 2016."
+  },
+  {
+    "name": "Steel Lake",
+    "longitude": 46.9730,
+    "latitude": -94.6834,
+    "type": "c14",
+    "doi": "10.1191/0959683605hl828rp",
+    "citation": "Tlan, J., Brown, T. A. and Hul, F. S.: Comparison of varve and 14C chronologies from Steel Lake, Minnesota, USA, The Holocene, 15(4), 510–517, doi:10.1191/0959683605hl828rp, 2005."
+  },
+  {
+    "name": "Storsjön",
+    "longitude": 63.2149,
+    "latitude": 14.3146,
+    "type": "chronology",
+    "doi": "10.3390/quat1010002",
+    "citation": "Labuhn, I., Hammarlund, D., Chapron, E., Czymzik, M., Dumoulin, J.-P., Nilsson, A., Régnier, E., Robygd, J. and von Grafenstein, U.: Holocene Hydroclimate Variability in Central Scandinavia Inferred from Flood Layers in Contourite Drift Deposits in Lake Storsjön, Quaternary, 1(1), 2, doi:10.3390/quat1010002, 2018."
+  },
+  {
+    "name": "Storsjön",
+    "longitude": 63.2149,
+    "latitude": 14.3146,
+    "type": "c14",
+    "doi": "10.3390/quat1010002",
+    "citation": "Labuhn, I., Hammarlund, D., Chapron, E., Czymzik, M., Dumoulin, J.-P., Nilsson, A., Régnier, E., Robygd, J. and von Grafenstein, U.: Holocene Hydroclimate Variability in Central Scandinavia Inferred from Flood Layers in Contourite Drift Deposits in Lake Storsjön, Quaternary, 1(1), 2, doi:10.3390/quat1010002, 2018."
+  },
+  {
+    "name": "Sugan Lake",
+    "longitude": 38.8667,
+    "latitude": 93.9000,
+    "type": "chronology",
+    "doi": "10.1016/j.quaint.2008.05.00",
+    "citation": ""
+  },
+  {
+    "name": "Sugan Lake",
+    "longitude": 38.8667,
+    "latitude": 93.9000,
+    "type": "c14",
+    "doi": "10.1017/S0033822200055909",
+    "citation": "Zhou, A., Chen, F., Wang, Z., Yang, M., Qiang, M. and Zhang, J.: Temporal Change of Radiocarbon Reservoir Effect in Sugan Lake, Northwest China during the Late Holocene, Radiocarbon, 51(2), 529–535, doi:10.1017/s0033822200055909, 2009."
+  },
+  {
+    "name": "Suigetsu",
+    "longitude": 35.5833,
+    "latitude": 135.8833,
+    "type": "tephra",
+    "doi": "10.1016/j.quascirev.2013.01.026",
+    "citation": "Smith, V. C., Staff, R. A., Blockley, S. P. E., Bronk Ramsey, C., Nakagawa, T., Mark, D. F., Takemura, K. and Danhara, T.: Identification and correlation of visible tephras in the Lake Suigetsu SG06 sedimentary archive, Japan: chronostratigraphic markers for synchronising of east Asian/west Pacific palaeoclimatic records across the last 150 ka, Quaternary Science Reviews, 67, 121–137, doi:10.1016/j.quascirev.2013.01.026, 2013."
+  },
+  {
+    "name": "Superior",
+    "longitude": 47.7508,
+    "latitude": -72.2719,
+    "type": "chronology",
+    "doi": "10.1038/ncomms15713",
+    "citation": "O’Beirne, M. D., Werne, J. P., Hecky, R. E., Johnson, T. C., Katsev, S. and Reavie, E. D.: Anthropogenic climate change has altered primary productivity in Lake Superior, Nature Communications, 8(1), doi:10.1038/ncomms15713, 2017."
+  },
+  {
+    "name": "Tanganyika",
+    "longitude": -5.8363,
+    "latitude": 29.5976,
+    "type": "chronology",
+    "doi": "10.5194/essd-9-679-2017",
+    "citation": "Sánchez Goñi, M. F., Desprat, S., Daniau, A.-L., Bassinot, F. C., Polanco-Martínez, J. M., Harrison, S. P., Allen, J. R. M., Anderson, R. S., Behling, H., Bonnefille, R., Burjachs, F., Carrión, J. S., Cheddadi, R., Clark, J. S., Combourieu-Nebout, N., Mustaphi, C. J. C., Debusk, G. H., Dupont, L. M., Finch, J. M., Fletcher, W. J., Giardini, M., González, C., Gosling, W. D., Grigg, L. D., Grimm, E. C., Hayashi, R., Helmens, K., Heusser, L. E., Hill, T., Hope, G., Huntley, B., Igarashi, Y., Irino, T., Jacobs, B., Jiménez-Moreno, G., Kawai, S., Kershaw, A. P., Kumon, F., Lawson, I. T., Ledru, M.-P., Lézine, A.-M., Liew, P. M., Magri, D., Marchant, R., Margari, V., Mayle, F. E., McKenzie, G. M., Moss, P., Müller, S., Müller, U. C., Naughton, F., Newnham, R. M., Oba, T., Pérez-Obiol, R., Pini, R., Ravazzi, C., Roucoux, K. H., Rucina, S. M., Scott, L., Takahara, H., Tzedakis, P. C., Urrego, D. H., van Geel, B., Valencia, B. G., Vandergoes, M. J., Vincens, A., Whitlock, C. L., Willard, D. A. and Yamamoto, M.: The ACER pollen and charcoal database: a global resource to document vegetation and fire response to abrupt climate changes during the last glacial period, Earth System Science Data, 9(2), 679–695, doi:10.5194/essd-9-679-2017, 2017."
+  },
+  {
+    "name": "Tanganyika",
+    "longitude": -5.8363,
+    "latitude": 29.5976,
+    "type": "chronology",
+    "doi": "10.1038/NGEO865",
+    "citation": "Tierney, J. E., Mayes, M. T., Meyer, N., Johnson, C., Swarzenski, P. W., Cohen, A. S. and Russell, J. M.: Late-twentieth-century warming in Lake Tanganyika unprecedented since AD 500, Nature Geoscience, 3(6), 422–425, doi:10.1038/ngeo865, 2010."
+  },
+  {
+    "name": "Tanganyika",
+    "longitude": -5.8363,
+    "latitude": 29.5976,
+    "type": "chronology",
+    "doi": "10.1126/science.1160485",
+    "citation": "Tierney, J. E., Russell, J. M., Huang, Y., Damste, J. S. S., Hopmans, E. C. and Cohen, A. S.: Northern Hemisphere Controls on Tropical Southeast African Climate During the Past 60,000 Years, Science, 322(5899), 252–255, doi:10.1126/science.1160485, 2008."
+  },
+  {
+    "name": "Tanganyika",
+    "longitude": -5.8363,
+    "latitude": 29.5976,
+    "type": "chronology",
+    "doi": "10.1029/2007GL029508",
+    "citation": "Tierney, J. E. and Russell, J. M.: Abrupt climate change in southeast tropical Africa influenced by Indian monsoon variability and ITCZ migration, Geophysical Research Letters, 34(15), doi:10.1029/2007gl029508, 2007."
+  },
+  {
+    "name": "Tanganyika",
+    "longitude": -5.8363,
+    "latitude": 29.5976,
+    "type": "tephra",
+    "doi": "10.1016/0277-3791(91)90036-T",
+    "citation": "Williamson, D., Thouveny, N., Hillaire-Marcel, C., Mondeguer, A., Taieb, M., Tiercelin, J.-J. and Vincens, A.: Chronological potential of palaeomagnetic oscillations recorded in late quaternary sediments from Lake Tanganyika, Quaternary Science Reviews, 10(4), 351–361, doi:10.1016/0277-3791(91)90036-t, 1991."
+  },
+  {
+    "name": "Teletskoye",
+    "longitude": 51.5914,
+    "latitude": 87.6672,
+    "type": "c14",
+    "doi": "10.1016/j.gloplacha.2016.04.002",
+    "citation": "Rudaya, N., Nazarova, L., Novenko, E., Andreev, A., Kalugin, I., Daryin, A., Babich, V., Li, H.-C. and Shilov, P.: Quantitative reconstructions of mid- to late holocene climate and vegetation in the north-eastern altai mountains recorded in lake teletskoye, Global and Planetary Change, 141, 12–24, doi:10.1016/j.gloplacha.2016.04.002, 2016."
+  },
+  {
+    "name": "Tiefer See",
+    "longitude": 52.4055,
+    "latitude": 13.0801,
+    "type": "chronology",
+    "doi": "10.1177/0959683616660173",
+    "citation": "Dräger, N., Theuerkauf, M., Szeroczyńska, K., Wulf, S., Tjallingii, R., Plessen, B., Kienel, U. and Brauer, A.: Varve microfacies and varve preservation record of climate change and human impact for the last 6000 years at Lake Tiefer See (NE Germany), The Holocene, 27(3), 450–464, doi:10.1177/0959683616660173, 2016."
+  },
+  {
+    "name": "Tiefer See",
+    "longitude": 52.4055,
+    "latitude": 13.0801,
+    "type": "tephra",
+    "doi": "https://publishup.uni-potsdam.de/frontdoor/index/index/docId/10303",
+    "citation": ""
+  },
+  {
+    "name": "Tougou-ike",
+    "longitude": 35.4775,
+    "latitude": 133.8925,
+    "type": "tephra",
+    "doi": "10.1016/S1040-6182(02)00148-9",
+    "citation": "Kato, M., Fukusawa, H. and Yasuda, Y.: Varved lacustrine sediments of Lake Tougou-ike, Western Japan, with reference to Holocene sea-level changes in Japan, Quaternary International, 105(1), 33–37, doi:10.1016/s1040-6182(02)00148-9, 2003."
+  },
+  {
+    "name": "Tutira",
+    "longitude": -39.2238,
+    "latitude": 176.8923,
+    "type": "tephra",
+    "doi": "10.1016/S0031-0182(97)00136-3",
+    "citation": "Eden, D. N. and Page, M. J.: Palaeoclimatic implications of a storm erosion record from late Holocene lake sediments, North Island, New Zealand, Palaeogeography, Palaeoclimatology, Palaeoecology, 139(1-2), 37–58, doi:10.1016/s0031-0182(97)00136-3, 1998."
+  },
+  {
+    "name": "Van",
+    "longitude": 38.6040,
+    "latitude": 42.8763,
+    "type": "chronology",
+    "doi": "10.5194/cp-11-1491-2015",
+    "citation": "Pickarski, N., Kwiecien, O., Langgut, D. and Litt, T.: Abrupt climate and vegetation variability of eastern Anatolia during the last glacial, Climate of the Past, 11(11), 1491–1505, doi:10.5194/cp-11-1491-2015, 2015."
+  },
+  {
+    "name": "Victoria",
+    "longitude": 33.19833,
+    "latitude": -1.2317,
+    "type": "chronology",
+    "doi": "10.1007/s10933-004-4227-2",
+    "citation": "Stager, J. C., Ryves, D., Cumming, B. F., Meeker, L. D. and Beer, J.: Solar variability and the levels of Lake Victoria, East Africa, during the last millenium, Journal of Paleolimnology, 33(2), 243–251, doi:10.1007/s10933-004-4227-2, 2005."
+  },
+  {
+    "name": "Victoria",
+    "longitude": 33.19833,
+    "latitude": -1.2317,
+    "type": "chronology",
+    "doi": "10.1016/S0031-0182(01)00468-0",
+    "citation": "Stager, J. C., Mayewski, P. A. and Meeker, L. D.: Cooling cycles, Heinrich event 1, and the desiccation of Lake Victoria, Palaeogeography, Palaeoclimatology, Palaeoecology, 183(1-2), 169–178, doi:10.1016/s0031-0182(01)00468-0, 2002."
+  },
+  {
+    "name": "Victoria",
+    "longitude": 33.19833,
+    "latitude": -1.2317,
+    "type": "chronology",
+    "doi": "10.1016/j.quascirev.2012.08.014",
+    "citation": "Berke, M. A., Johnson, T. C., Werne, J. P., Grice, K., Schouten, S. and Sinninghe Damsté, J. S.: Molecular records of climate variability and vegetation response since the Late Pleistocene in the Lake Victoria basin, East Africa, Quaternary Science Reviews, 55, 59–74, doi:10.1016/j.quascirev.2012.08.014, 2012."
+  },
+  {
+    "name": "Victoria",
+    "longitude": 33.19833,
+    "latitude": -1.2317,
+    "type": "tephra",
+    "doi": "10.1177/0959683618798163",
+    "citation": "Lane, C. S., Martin-Jones, C. M. and Johnson, T. C.: A cryptotephra record from the Lake Victoria sediment core record of Holocene palaeoenvironmental change, The Holocene, 28(12), 1909–1917, doi:10.1177/0959683618798163, 2018."
+  },
+  {
+    "name": "Woserin",
+    "longitude": 53.6684,
+    "latitude": 12.0263,
+    "type": "chronology",
+    "doi": "10.1177/0959683615622549",
+    "citation": "Czymzik, M., Dreibrodt, S., Feeser, I., Adolphi, F. and Brauer, A.: Mid-Holocene humid periods reconstructed from calcite varves of the Lake Woserin sediment record (north-eastern Germany), The Holocene, 26(6), 935–946, doi:10.1177/0959683615622549, 2016."
+  },
+  {
+    "name": "Woserin",
+    "longitude": 53.6684,
+    "latitude": 12.0263,
+    "type": "varves",
+    "doi": "10.1177/0959683615622549",
+    "citation": "Czymzik, M., Dreibrodt, S., Feeser, I., Adolphi, F. and Brauer, A.: Mid-Holocene humid periods reconstructed from calcite varves of the Lake Woserin sediment record (north-eastern Germany), The Holocene, 26(6), 935–946, doi:10.1177/0959683615622549, 2016."
+  },
+  {
+    "name": "Żabińskie",
+    "longitude": 54.1318,
+    "latitude": 21.9836,
+    "type": "tephra",
+    "doi": "10.1016/j.quageo.2018.06.001",
+    "citation": "Żarczyński, M., Tylmann, W. and Goslar, T.: Multiple varve chronologies for the last 2000 years from the sediments of Lake Żabińskie (northeastern Poland) – Comparison of strategies for varve counting and uncertainty estimations, Quaternary Geochronology, 47, 107–119, doi:10.1016/j.quageo.2018.06.001, 2018."
+  },
+  {
+    "name": "Zoñar",
+    "longitude": 37.4833,
+    "latitude": -4.6897,
+    "type": "c14",
+    "doi": "10.1177/0959683608093533",
+    "citation": "Martín-Puertas, C., Valero-Garcés, B. L., Pilar Mata, M., González-Sampériz, P., Bao, R., Moreno, A. and Stefanova, V.: Arid and humid phases in southern Spain during the last 4000 years: the Zoñar Lake record, Córdoba, The Holocene, 18(6), 907–921, doi:10.1177/0959683608093533, 2008."
+  }
+]
