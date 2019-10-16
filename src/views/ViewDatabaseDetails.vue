@@ -16,64 +16,17 @@
           <BCard class="h-100">
             <BContainer fluid class="card-text">
               <BRow>
-                <BCol v-if="networkStatus !== network.loading" class="grid-format-data">
-                  <h5 class="font-weight-normal text-left">
+                <BCol class="grid-format-data" :class="{ 'is-loading': networkStatus === network.loading }">
+                  <h5 v-if="networkStatus === network.loading" class="font-weight-normal text-left">
+                    <span class="loading-bar"><em>Unknown site</em></span>
+                  </h5>
+                  <h5 v-else class="font-weight-normal text-left">
                     <span v-if="lake.name">{{ lake.name }}</span>
                     <span v-else-if="lake.uuid"><em>Unnamed site</em></span>
                     <span v-else><em>Unknown site</em></span>
-                    <span v-if="0 && networkStatus !== network.loading && lake.countries" class="comma-separated text-muted">
+                    <span v-if="lake.countries" class="comma-separated text-muted">
                       (<span v-for="country in lake.countries" :key="country.code">{{ country.code }}</span>)
                     </span>
-                  </h5>
-                  <hr>
-                  <BRow>
-                    <BCol cols="5">Latitude:</BCol>
-                    <BCol cols="5">
-                      <pre>{{
-                        Math.abs(lake.latitude) | formatNumber(5)
-                      }}{{ ('number' === typeof lake.latitude ? '°' : '—') }}</pre>
-                    </BCol>
-                    <BCol><pre>{{ lake.latitude | formatUnit(0 > lake.latitude ? 'S' : 'N') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Longitude:</BCol>
-                    <BCol cols="5">
-                      <pre>{{
-                        Math.abs(lake.longitude) | formatNumber(5)
-                      }}{{ ('number' === typeof lake.longitude ? '°' : '—') }}</pre>
-                    </BCol>
-                    <BCol><pre>{{ lake.longitude | formatUnit(0 > lake.longitude ? 'W' : 'E') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Surface elevation:</BCol>
-                    <BCol cols="5"><pre>{{ lake.surfaceLevel | formatNumber }}</pre></BCol>
-                    <BCol><pre>{{ lake.surfaceLevel | formatUnit('m') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Maximum depth:</BCol>
-                    <BCol cols="5"><pre>{{ lake.maxDepth | formatNumber }}</pre></BCol>
-                    <BCol><pre>{{ lake.maxDepth | formatUnit('m') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Surface area:</BCol>
-                    <BCol cols="5"><pre>{{ lake.surfaceArea | formatNumber }}</pre></BCol>
-                    <BCol><pre>{{ lake.surfaceArea | formatUnit('m²') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Water body volume:</BCol>
-                    <BCol cols="5"><pre>{{ lake.waterBodyVolume | formatNumber }}</pre></BCol>
-                    <BCol><pre>{{ lake.waterBodyVolume | formatUnit('m³') }}</pre></BCol>
-                  </BRow>
-                  <BRow>
-                    <BCol cols="5">Catchment area:</BCol>
-                    <BCol cols="5"><pre>{{ lake.catchmentArea | formatNumber }}</pre></BCol>
-                    <BCol><pre>{{ lake.catchmentArea | formatUnit('m²') }}</pre></BCol>
-                  </BRow>
-                  <hr>
-                </BCol>
-                <BCol v-else class="grid-format-data">
-                  <h5 class="font-weight-normal text-left">
-                    <span class="loading-bar"><em>Unknown site</em></span>
                   </h5>
                   <hr>
                   <BRow>
@@ -342,26 +295,12 @@
       </BRow>
       <ApolloQuery
         v-if="datasetId && lake && lake.uuid"
-        :tag="undefined"
-        :query="require('graphql-tag')`
-          query lookupDataset($uuid: ID!, $offset: Int!) {
-            datasets: Dataset(uuid: $uuid) {
-              uuid
-              file
-              label
-              samples
-              attributes {
-                uuid
-                name
-              }
-              records(first: 100, offset: $offset)
-            }
-          }
-        `"
+        :query="require('../graphql/queries/LookupDataset.graphql')"
         :variables="{
           uuid: datasetId,
           offset: 0,
         }"
+        :tag="undefined"
         :throttle="300"
         :skip="!datasetId || isDeactivated"
         :notify-on-network-status-change="true"
@@ -511,7 +450,7 @@ export default {
       shouldScrollDown: false,
       datasetsListFields: [
         { key: 'categories', label: 'Subject', formatter: ([category]) => category && category.name || '—' },
-        { key: 'core.label', label: 'Core label', formatter: (s) => s || '—' },
+        { key: 'core.label', label: 'Sediment profile', formatter: (s) => s || '—' },
         { key: 'ageInterval', formatter: ($0, $1, dataset) => `[${dataset.ageMin}, ${dataset.ageMax}]` },
         'samples',
         { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(3) || '—' },

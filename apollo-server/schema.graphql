@@ -2,6 +2,8 @@ scalar JSON
 
 directive @auth(role: UserRole = USER) on OBJECT | FIELD_DEFINITION
 
+directive @additionalLabels(labels: [String]) on OBJECT
+
 directive @cypher(statement: String!) on FIELD_DEFINITION
 
 directive @relation(
@@ -9,7 +11,9 @@ directive @relation(
   direction: _RelationDirections,
   from: String,
   to: String
-) on FIELD_DEFINITION | OBJECT
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+directive @neo4j_ignore on FIELD_DEFINITION
 
 enum AccessLevel {
   OWNER
@@ -54,21 +58,17 @@ input UserInput {
   password: Password!
 }
 
-interface Authorizable {
-  uuid: ID!
-  permissions: [Permission]
-}
-
 interface Entity {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String]
 }
 
-interface Protectable {
+interface Permission @relation(name: "HAS_PERMISSION", from: "Entity", to: "Dataset") {
   uuid: ID!
-  protected: Boolean
-  permissions: [Permission]
+  Dataset: Dataset!
+  level: AccessLevel!
 }
 
 type Query {
@@ -78,7 +78,7 @@ type Query {
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
   Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String): [Dataset] @auth
-  Event: [Event] @cypher(statement: """
+  Event: [Event] @auth @cypher(statement: """
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
       .*,
@@ -105,29 +105,40 @@ type Mutation {
   Test(_id: ID!, payload: JSON!): JSON @auth
 }
 
-type Attribute implements Entity {
+type Attribute implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   name: String!
   description: String
   categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
 }
 
-type Category implements Entity {
+type Category implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   name: String!
   description: String
   attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: IN)
   datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "BELONGS_TO", direction: IN)
 }
 
-type Core implements Entity {
+type Changeset implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
+  payload: JSON!
+}
+
+type Core implements Entity @additionalLabels(labels: ["Entity"]) {
+  uuid: ID!
+  created: _Neo4jDateTime!
+  updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   label: String
   latitude: Float
   longitude: Float
@@ -141,10 +152,11 @@ type Core implements Entity {
   lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: OUT)
 }
 
-type Continent implements Entity {
+type Continent implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
@@ -152,10 +164,11 @@ type Continent implements Entity {
   countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: IN)
 }
 
-type Country implements Entity {
+type Country implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
@@ -164,10 +177,11 @@ type Country implements Entity {
   lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: IN)
 }
 
-type Dataset implements Entity {
+type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   file: String!
   label: String
   samples: Int @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) RETURN count(m)")
@@ -188,12 +202,24 @@ type Dataset implements Entity {
   core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: OUT)
   publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
   records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP {offset} LIMIT {first} RETURN collect(m { .* })")
+  accessLevel: AccessLevel! @cypher(statement: """
+    OPTIONAL MATCH (u:User { email: $cypherParams.currentUser }),
+      (u)-[p1:HAS_PERMISSION]->(this),
+      (u)-[:MEMBER_OF*1..]->()-[p2:HAS_PERMISSION]->(this)
+    WITH (collect(p1) + collect(p2)) as all
+    UNWIND (all + [{ level: 'NONE' }]) AS p WITH DISTINCT p
+    ORDER BY apoc.coll.indexOf($cypherParams.accessLevels, p.level)
+    DESC LIMIT 1 RETURN p.level
+  """)
+  protected: Boolean
+  permissions: [Permission]
 }
 
-type Event implements Entity {
+type Event implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   name: String!
   ageMax: Float
   ageMean: Float
@@ -202,19 +228,30 @@ type Event implements Entity {
   lakes(first: Int = 100, offset: Int = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP {offset} LIMIT {first} RETURN l")
 }
 
-type Group implements Entity & Authorizable {
+type Group implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   name: String!
-  members: [Membership]
-  permissions: [Permission]
+  members: [User] @relation(name: "MEMBER_OF", direction: IN)
+  children: [Group] @relation(name: "MEMBER_OF", direction: IN)
+  parents: [Group] @relation(name: "MEMBER_OF", direction: OUT)
+  permissions: [GroupPermission]
 }
 
-type Lake implements Entity {
+type GroupPermission implements Permission @relation(name: "HAS_PERMISSION", from: "Group", to: "Dataset") {
+  uuid: ID!
+  Group: Group!
+  Dataset: Dataset!
+  level: AccessLevel!
+}
+
+type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   name: String!
   latitude: Float!
   longitude: Float!
@@ -227,24 +264,11 @@ type Lake implements Entity {
   countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
 }
 
-type Membership @relation(name: "MEMBER_OF") {
-  uuid: ID!
-  from: User!
-  to: Group!
-  moderates: Boolean
-}
-
-type Permission @relation(name: "HAS_PERMISSION") {
-  uuid: ID!
-  from: Authorizable!
-  to: Protectable!
-  level: AccessLevel
-}
-
-type Publication implements Entity {
+type Publication implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   resolved: _Neo4jDateTime
   citation: String
   title: String
@@ -267,10 +291,11 @@ type Session {
   state: SessionState!
 }
 
-type User implements Entity & Authorizable {
+type User implements Entity @additionalLabels(labels: ["Entity"]) {
   uuid: ID!
   created: _Neo4jDateTime!
   updated: _Neo4jDateTime!
+  types: [String] @cypher(statement: "MATCH (this) RETURN labels(this)")
   titlePrefix: String
   fullName: String!
   shortName: String
@@ -284,8 +309,15 @@ type User implements Entity & Authorizable {
   emailVerified: Boolean!
   frozen: Boolean!
   reason: String
-  memberships: [Membership]
-  permissions: [Permission]
+  groups: [Group] @relation(name: "MEMBER_OF", direction: OUT)
+  permissions: [UserPermission]
+}
+
+type UserPermission implements Permission @relation(name: "HAS_PERMISSION", from: "User", to: "Dataset") {
+  uuid: ID!
+  User: User!
+  Dataset: Dataset!
+  level: AccessLevel!
 }
 
 # The following types are implemented by Neo4j

@@ -8,6 +8,10 @@ const htmlWebpackPlugin = {};
 const templateParametersEmail = {};
 const templateParametersOffline = {};
 
+if (!isProd) {
+  process.env.DEBUG = 'neo4j-graphql-js';
+}
+
 module.exports = {
   lintOnSave: true,
 

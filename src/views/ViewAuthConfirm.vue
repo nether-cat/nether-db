@@ -56,7 +56,7 @@
                 <small class="text-muted">{{ payload.user.email }}</small>
               </div>
             </BMedia>
-            <BButton :disabled="preparing || loading || done || timer"
+            <BButton :disabled="preparing || loading || done || !!timer"
                      type="button"
                      variant="primary"
                      class="mb-3 mt-1 w-100"

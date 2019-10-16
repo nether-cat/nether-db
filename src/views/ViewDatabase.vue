@@ -107,7 +107,7 @@ export default {
         min-width: 4rem;
       }
     }
-    /deep/ .loading-bar {
+    /deep/ .is-loading .loading-bar {
       display: inline;
       position: relative;
       color: transparent;

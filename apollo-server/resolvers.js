@@ -6,6 +6,18 @@ module.exports = {
   // Schema resolvers
   // https://www.apollographql.com/docs/graphql-tools/resolvers
   JSON: GraphQLJSON,
+  Permission: {
+    __resolveType(obj, context, info) {
+      if (obj.User) {
+        return 'UserPermission';
+      }
+
+      if (obj.Group) {
+        return 'GroupPermission';
+      }
+      return null;
+    },
+  },
   Query: {
     Session(object, params, ctx) {
       return ctx.session;
@@ -34,19 +46,19 @@ module.exports = {
       });
     },
     Country(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+      return neo4jgraphql(object, params, ctx, resolveInfo);
     },
     Dataset(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+      return neo4jgraphql(object, params, ctx, resolveInfo);
     },
     Event(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+      return neo4jgraphql(object, params, ctx, resolveInfo);
     },
     Lake(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+      return neo4jgraphql(object, params, ctx, resolveInfo);
     },
     User(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true);
+      return neo4jgraphql(object, params, ctx, resolveInfo);
     },
   },
   Mutation: {
@@ -82,7 +94,7 @@ module.exports = {
           next = user => session.sendNotification(user, ctx.transport);
         }
       }
-      let user = neo4jgraphql(object, params, ctx, resolveInfo, true);
+      let user = neo4jgraphql(object, params, ctx, resolveInfo);
       user.then(next);
       return user;
     },

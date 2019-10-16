@@ -141,7 +141,7 @@ export default {
           session: {
             __typename: 'Session',
             _id: 'SESSION_INFO',
-            user: 'Guest',
+            user: 'guest',
             userRole: 'NONE',
             token: null,
             expires: -1,
