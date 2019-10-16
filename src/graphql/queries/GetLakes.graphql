@@ -36,6 +36,7 @@ query getLakes {
           doi
           citation
         }
+        accessLevel
       }
     }
   }

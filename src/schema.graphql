@@ -5,20 +5,16 @@ schema {
   mutation: Mutation
 }
 
-interface Authorizable {
-  permissions: [Permission]
-  uuid: ID!
-}
-
 interface Entity {
   created: _Neo4jDateTime!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
 
-interface Protectable {
-  permissions: [Permission]
-  protected: Boolean
+interface Permission {
+  Dataset: Dataset!
+  level: AccessLevel!
   uuid: ID!
 }
 
@@ -27,6 +23,7 @@ type Attribute implements Entity {
   created: _Neo4jDateTime!
   description: String
   name: String!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
@@ -37,6 +34,15 @@ type Category implements Entity {
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   description: String
   name: String!
+  types: [String]
+  updated: _Neo4jDateTime!
+  uuid: ID!
+}
+
+type Changeset implements Entity {
+  created: _Neo4jDateTime!
+  payload: JSON!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
@@ -48,6 +54,7 @@ type Continent implements Entity {
   created: _Neo4jDateTime!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
@@ -64,6 +71,7 @@ type Core implements Entity {
   lake(first: Int = 1, offset: Int = 0): [Lake]
   latitude: Float
   longitude: Float
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
   waterDepth: Float
@@ -77,11 +85,13 @@ type Country implements Entity {
   lakes(first: Int = 100, offset: Int = 0): [Lake]
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
 
 type Dataset implements Entity {
+  accessLevel: AccessLevel!
   ageMax: Float
   ageMin: Float
   ageResolution: Float
@@ -99,9 +109,12 @@ type Dataset implements Entity {
   distributor: String
   file: String!
   label: String
+  permissions: [Permission]
+  protected: Boolean
   publication(first: Int = 1, offset: Int = 0): [Publication]
   records(first: Int = 100, offset: Int = 0): [JSON]
   samples: Int
+  types: [String]
   updated: _Neo4jDateTime!
   url: String
   uuid: ID!
@@ -115,16 +128,27 @@ type Event implements Entity {
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
   lakes(first: Int = 100, offset: Int = 0): [Lake]
   name: String!
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
 }
 
-type Group implements Authorizable & Entity {
+type Group implements Entity {
+  children: [Group]
   created: _Neo4jDateTime!
-  members: [Membership]
+  members: [User]
   name: String!
-  permissions: [Permission]
+  parents: [Group]
+  permissions: [GroupPermission]
+  types: [String]
   updated: _Neo4jDateTime!
+  uuid: ID!
+}
+
+type GroupPermission implements Permission {
+  Dataset: Dataset!
+  Group: Group!
+  level: AccessLevel!
   uuid: ID!
 }
 
@@ -139,16 +163,10 @@ type Lake implements Entity {
   name: String!
   surfaceArea: Float
   surfaceLevel: Float
+  types: [String]
   updated: _Neo4jDateTime!
   uuid: ID!
   waterBodyVolume: Float
-}
-
-type Membership {
-  from: User!
-  moderates: Boolean
-  to: Group!
-  uuid: ID!
 }
 
 type Mutation {
@@ -163,13 +181,6 @@ type Mutation {
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
 
-type Permission {
-  from: Authorizable!
-  level: AccessLevel
-  to: Protectable!
-  uuid: ID!
-}
-
 type Publication implements Entity {
   abstract: String
   authors: String
@@ -181,6 +192,7 @@ type Publication implements Entity {
   resolved: _Neo4jDateTime
   source: String
   title: String
+  types: [String]
   updated: _Neo4jDateTime!
   url: String
   uuid: ID!
@@ -208,7 +220,7 @@ type Session {
   userRole: UserRole!
 }
 
-type User implements Authorizable & Entity {
+type User implements Entity {
   created: _Neo4jDateTime!
   deactivated: Boolean!
   department: String
@@ -216,16 +228,24 @@ type User implements Authorizable & Entity {
   emailVerified: Boolean!
   frozen: Boolean!
   fullName: String!
+  groups: [Group]
   institution: String
-  memberships: [Membership]
   password: String!
-  permissions: [Permission]
+  permissions: [UserPermission]
   reason: String
   role: String
   shortName: String
   titlePrefix: String
+  types: [String]
   updated: _Neo4jDateTime!
   userRole: UserRole!
+  uuid: ID!
+}
+
+type UserPermission implements Permission {
+  Dataset: Dataset!
+  User: User!
+  level: AccessLevel!
   uuid: ID!
 }
 

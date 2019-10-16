@@ -49,6 +49,7 @@ query lookupLake($uuid: ID!) {
           doi
           citation
         }
+        accessLevel
       }
     }
   }

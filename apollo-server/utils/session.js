@@ -35,7 +35,7 @@ const signOptions = {
 };
 const defaultSession = {
   _id: 'SESSION_INFO',
-  user: 'Guest',
+  user: 'guest',
   userRole: 'NONE',
   token: null,
   expires: -1,
@@ -270,9 +270,9 @@ module.exports = {
     });
   },
   async login($0, params, ctx) {
-    const email = params.email;
     const soft = params.soft;
     const { isHash, value } = params.password;
+    const email = (params.email || '').trim().toLowerCase();
     if (typeof isHash !== 'boolean' || !email || !value) {
       ctx.req.res.clearCookie('apollo-token');
       return { ...defaultSession, state: sessionStates.AUTH_ERROR };
@@ -340,6 +340,10 @@ module.exports = {
     return defaultSession;
   },
   async forgot($0, { email }, ctx) {
+    email = (email || '').trim().toLowerCase();
+    if (!email) {
+      return { success: false };
+    }
     try {
       /** @type Session */ const db = ctx.driver.session();
       const { records: [record] } = await db.run(`
@@ -358,7 +362,7 @@ module.exports = {
   },
   async setPassword($0, { currentPassword, password, token }, ctx, { operation: { operation } }) {
     let email, scope, hash, ref, result = {}, transient = {};
-    if (!token && ctx.session && ctx.session.token && ctx.session.user !== 'Guest') {
+    if (!token && ctx.session && ctx.session.token && (ctx.session.user || 'guest').toLowerCase() !== 'guest') {
       email = ctx.session.user;
       scope = ['session', 'recovery'];
       if (operation !== 'query') {
@@ -437,9 +441,12 @@ module.exports = {
     }
   },
   async signup($0, { user, probeOnly }, ctx) {
-    if (!user || !user.email) {
+    if (!user || !user.email || !user.email.trim()) {
       return { success: false };
-    } else if (probeOnly) {
+    } else {
+      user.email = user.email.trim().toLowerCase();
+    }
+    if (probeOnly) {
       try {
         /** @type Session */ const db = ctx.driver.session();
         const { records: [record] } = await db.run(`

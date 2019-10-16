@@ -71,13 +71,21 @@ fetchPublications().then(updatePublications);
 // connection => Subscription
 export default async ({ req, connection }) => {
   const transport = await smtp;
+  const cypherParams = {
+    accessLevels: ['VIEWER', 'EDITOR', 'OWNER'],
+    currentUser: '',
+  };
   const ctx = {
     driver,
     neo4j,
-    transport,
     req,
     connection,
+    cypherParams,
+    transport,
   };
   ctx.session = await session.load(null, null, ctx);
+  if (ctx.session && ctx.session.user && ctx.session.user !== 'guest') {
+    ctx.cypherParams.currentUser = ctx.session.user;
+  }
   return ctx;
 };
