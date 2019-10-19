@@ -1,4 +1,4 @@
-const { neo4jgraphql } = require('neo4j-graphql-js');
+const { neo4jgraphql } = require('neo4j-graphql-js/src');
 const GraphQLJSON = require('graphql-type-json');
 const session = require('./utils/session');
 
