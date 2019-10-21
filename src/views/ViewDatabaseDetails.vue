@@ -304,7 +304,7 @@
         :throttle="300"
         :skip="!datasetId || isDeactivated"
         :notify-on-network-status-change="true"
-        @result="() => timesFetched++ || onFirstRecords()"
+        @result="(res) => onIncomingResult(res)"
       >
         <template v-slot:default="{ query, isLoading, result: { data, loading, error } }">
           <BRow v-for="(dataset, num) in (data ? data.datasets : [])"
@@ -546,11 +546,18 @@ export default {
         });
       }
     },
-    onFirstRecords () {
-      if (!process.env.VUE_SSR && !this.isDeactivated && this.shouldScrollDown) {
-        scrollDown(this);
+    onIncomingResult ({ networkStatus }) {
+      if (!process.env.VUE_SSR) {
+        let status = this.network[networkStatus || 8];
+        status += ' ' + '.'.repeat(12 - status.length);
+        console.log(`[API] Network status: ${status} (${Date.now() / 1000})`);
+        if (this.shouldScrollDown && this.network.ready === networkStatus) {
+          this.shouldScrollDown = false;
+          if (!this.isDeactivated) {
+            scrollDown(this);
+          }
+        }
       }
-      this.shouldScrollDown = false;
     },
     onMapMounted () {
       this.fixResizeEvents();

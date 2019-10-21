@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
+import { ucFirst } from 'change-case';
 import { log } from '@/plugins';
 // @ts-ignore
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client';
+import { createHttpLink } from 'apollo-link-http';
 
 // Install the vue plugin
 Vue.use(VueApollo);
@@ -50,7 +52,13 @@ const defaultOptions = {
 };
 
 // Call this in the Vue app file
-export function createProvider (options = {}) {
+export function createProvider (options: any = {}) {
+  if (!options.defaultHttpLink && !options.link) {
+    options.link = createHttpLink({
+      uri: options.httpEndpoint || defaultOptions.httpEndpoint,
+      ...(options.httpLinkOptions || {}),
+    });
+  }
   // Create apollo client
   const { apolloClient, wsClient } = createApolloClient({
     ...defaultOptions,
@@ -67,8 +75,14 @@ export function createProvider (options = {}) {
         // fetchPolicy: 'cache-and-network',
       },
     },
-    errorHandler (err) {
-      log([err.message], 'Provider', 2);
+    errorHandler (err, vm?, key?: string, type?: 'query' | 'subscription', options?) {
+      try {
+        key = options.query.definitions[0].name.value;
+      } catch {
+        key = key && key != type ? key : 'NULL';
+      }
+      log([`${ucFirst(type || 'operation')} \`${key}\` -> ${err.message}`], 'Provider', 2);
+      return true;
     },
   });
 

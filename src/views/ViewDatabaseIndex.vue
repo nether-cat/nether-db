@@ -116,7 +116,6 @@
 </template>
 
 <script>
-import { log } from '@/plugins';
 import {
   FFInputTag,
   FFDomainFilter,
@@ -208,18 +207,10 @@ export default {
     events: {
       prefetch: false,
       query: GET_EVENTS,
-      error (err) {
-        log([err.message], 'Query', 2);
-        return false;
-      },
     },
     lakes: {
       prefetch: false,
       query: GET_LAKES,
-      error (err) {
-        log([err.message], 'Query', 2);
-        return false;
-      },
       watchLoading (isLoading, countModifier) {
         if (countModifier < 0) {
           this.isInitialized = true;

@@ -1,12 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-const bundle = require('./package.json');
+const bundle = require('./package');
 
 const isProd = process.env.NODE_ENV === 'production';
-
-const htmlWebpackPlugin = {};
-const templateParametersEmail = {};
-const templateParametersOffline = {};
 
 if (!isProd) {
   process.env.DEBUG = 'neo4j-graphql-js';
@@ -35,47 +31,85 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
   },
 
+  pluginOptions: {
+    apollo: {
+      lintGQL: true,
+      enableMocks: false,
+      enableEngine: true,
+      cors: { origin: true, credentials: true },
+      apolloServer: {
+        introspection: true,
+      },
+    },
+    ssr: {
+      entry: target => `./src/entry-${target}.js`,
+      defaultTitle: 'nether-db',
+      templatePath: path.resolve(__dirname, './dist/index.server.html'),
+      extendServer: app => {
+        const cookieParser = require('cookie-parser');
+        app.use(cookieParser());
+      },
+      copyUrlOnStart: false,
+      nodeExternalsWhitelist: [
+        /\.less$/,
+        /\.(s)css$/,
+        /\?vue&type=style/,
+        /^@babel\/runtime-corejs2/,
+        /^@fortawesome\/vue-fontawesome/,
+        /^bootstrap-vue/,
+        /^regenerator-runtime/,
+        /^(ol\/|vuelayers)/,
+      ],
+    },
+  },
+
   chainWebpack: config => {
 
+    const htmlPlugin = config.plugins.get('html').store;
+
+    config.plugins.delete('html-ssr');
+
     config.plugin('html')
-      .tap(([args]) => [{
-        ...Object.assign(htmlWebpackPlugin, args),
-        filename: 'index.client.html',
-        template: path.resolve(__dirname, './templates/index.client.html'),
-      }]);
+      .tap(args => {
+        Object.assign(args[0], {
+          filename: 'index.client.html',
+          template: path.resolve(__dirname, './templates/index.client.html'),
+        });
+        return args;
+      });
 
     config.plugin('html-server').after('html')
-      .use(require.resolve('html-webpack-plugin'), [{
-        ...htmlWebpackPlugin,
+      .use(htmlPlugin.get('plugin'), [{
+        ...htmlPlugin.get('args')[0],
         filename: 'index.server.html',
         template: path.resolve(__dirname, './templates/index.server.html'),
       }]);
 
     if (isProd) {
 
-      extendParameters();
+      const { emailTemplateConfig, offlineTemplateConfig } = getParameters();
 
       config.plugin('html-email').after('html-server')
-        .use(require.resolve('html-webpack-plugin'), [{
-          ...htmlWebpackPlugin,
+        .use(htmlPlugin.get('plugin'), [{
+          ...htmlPlugin.get('args')[0],
           filename: 'index.email.html',
           template: path.resolve(__dirname, './templates/index.static.html'),
           templateParameters: (...args) => ({
-            ...htmlWebpackPlugin.templateParameters(...args),
-            ...templateParametersEmail,
+            ...htmlPlugin.get('args')[0].templateParameters(...args),
+            ...emailTemplateConfig,
           }),
           inject: false,
           minify: false,
         }]);
 
       config.plugin('html-offline').after('html-email')
-        .use(require.resolve('html-webpack-plugin'), [{
-          ...htmlWebpackPlugin,
+        .use(htmlPlugin.get('plugin'), [{
+          ...htmlPlugin.get('args')[0],
           filename: 'index.offline.html',
           template: path.resolve(__dirname, './templates/index.static.html'),
           templateParameters: (...args) => ({
-            ...htmlWebpackPlugin.templateParameters(...args),
-            ...templateParametersOffline,
+            ...htmlPlugin.get('args')[0].templateParameters(...args),
+            ...offlineTemplateConfig,
           }),
         }]);
 
@@ -153,61 +187,37 @@ module.exports = {
       ));
 
   },
-
-  pluginOptions: {
-    apollo: {
-      enableMocks: false,
-      enableEngine: true,
-      cors: { origin: true, credentials: true },
-      serverOptions: { introspection: true },
-    },
-    ssr: {
-      entry: target => `./src/entry-${target}.js`,
-      defaultTitle: 'nether-db',
-      templatePath: path.resolve(__dirname, './dist/index.server.html'),
-      extendServer: app => {
-        const cookieParser = require('cookie-parser');
-        app.use(cookieParser());
-      },
-      nodeExternalsWhitelist: [
-        /\.less$/,
-        /\.(s)css$/,
-        /\?vue&type=style/,
-        /^@babel\/runtime-corejs2/,
-        /^@fortawesome\/vue-fontawesome/,
-        /^bootstrap-vue/,
-        /^regenerator-runtime/,
-        /^(ol\/|vuelayers)/,
-      ],
-    },
-  },
 };
 
-function extendParameters () {
+function getParameters () {
   const fs = require('fs');
   const logoFile = path.resolve(__dirname, './src/assets/varda-logo.svg');
   const logoSource = fs.readFileSync(logoFile, 'utf8');
   const offlineInfoFile = path.resolve(__dirname, './templates/index.offline.0.html');
   const offlineInfoSource = fs.readFileSync(offlineInfoFile, 'utf8');
+  const defaultParams = {
+    generator: {
+      name: 'webpack',
+      version: require('webpack/package').version,
+    },
+    logo: `<div role="img" aria-label="Logo">${logoSource}</div>`,
+    credits: `${bundle.name} v${bundle.version}`,
+  };
 
-  Object.assign(templateParametersEmail, {
-    params: {
-      generator: {
-        name: 'webpack',
-        version: require('webpack/package').version,
+  return {
+    emailTemplateConfig: {
+      params: {
+        ...defaultParams,
+        title: '<%= email.subject %>',
+        content: '<%= email.body %>',
       },
-      logo: `<div role="img" aria-label="Logo">${logoSource}</div>`,
-      credits: `${bundle.name} v${bundle.version}`,
-      title: '<%= email.subject %>',
-      content: '<%= email.body %>',
     },
-  });
-
-  Object.assign(templateParametersOffline, {
-    params: {
-      ...templateParametersEmail.params,
-      title: 'Service Offline',
-      content: offlineInfoSource,
+    offlineTemplateConfig: {
+      params: {
+        ...defaultParams,
+        title: 'Service Offline',
+        content: offlineInfoSource,
+      },
     },
-  });
+  };
 }

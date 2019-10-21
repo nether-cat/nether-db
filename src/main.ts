@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from '@/App.vue';
+import 'vue-apollo/types/gql';
 
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 
@@ -25,7 +26,8 @@ export async function createApp ({
 } = {}) {
   const options = {
     ssr: false,
-    persisting: true,
+    defaultHttpLink: false,
+    persisting: { useGETForHashedQueries: true },
     httpLinkOptions: {
       credentials: 'include',
     },
