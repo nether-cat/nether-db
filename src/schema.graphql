@@ -3,6 +3,7 @@
 schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }
 
 interface Entity {
@@ -157,6 +158,7 @@ type Lake implements Entity {
   cores(first: Int = 100, offset: Int = 0): [Core]
   countries(first: Int = 100, offset: Int = 0): [Country]
   created: _Neo4jDateTime!
+  datasetsCount: Int
   latitude: Float!
   longitude: Float!
   maxDepth: Float
@@ -177,7 +179,7 @@ type Mutation {
   Revoke(token: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
   Signup(probeOnly: Boolean, user: UserInput!): JSON!
-  Test(_id: ID!, payload: JSON!): JSON
+  UpdateLake(name: String, uuid: ID!): Lake!
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
 
@@ -203,9 +205,10 @@ type Query {
   Confirmation(token: String!): JSON!
   Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
-  Dataset(_id: String, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Dataset(_id: String, filter: _EntityFilter, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
   Event: [Event]
-  Lake(_id: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
+  GetByUUID(filter: _EntityFilter): [Entity]
+  Lake(_id: String, filter: _EntityFilter, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
   User(_id: String, email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
@@ -218,6 +221,10 @@ type Session {
   token: String
   user: String!
   userRole: UserRole!
+}
+
+type Subscription {
+  EntityUpdated(types: [String]): Entity!
 }
 
 type User implements Entity {
@@ -332,6 +339,14 @@ input UserInput {
   role: String
   shortName: String
   titlePrefix: String
+}
+
+input _EntityFilter {
+  AND: [_EntityFilter]
+  OR: [_EntityFilter]
+  uuid: ID
+  uuid_in: [ID!]
+  uuid_starts_with: String
 }
 
 input _Neo4jDateInput {

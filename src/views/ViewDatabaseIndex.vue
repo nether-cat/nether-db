@@ -6,7 +6,7 @@
           <BForm class="card-text container-fluid form-container" @submit.prevent.stop>
             <BRow>
               <BCol>
-                <FormFilters :source="getLakes" :result.sync="filteredLakes" :use="filters" @resized="resizeMap"/>
+                <FormFilters :source="lakes" :result.sync="filteredLakes" :use="filters" @resized="resizeMap"/>
                 <hr>
               </BCol>
             </BRow>
@@ -73,9 +73,9 @@
             <template slot="table-caption">
               <span v-if="isInitialized">
                 {{
-                  filteredLakes.length && filteredLakes.length !== getLakes.length
+                  filteredLakes.length && filteredLakes.length !== lakes.length
                     ? `${filteredLakes.length} sites that match your criteria:`
-                    : `${filteredLakes.length} sites available in the database:`
+                    : `${filteredLakes.length} known sites in the database:`
                 }}
               </span>
               <span v-else style="user-select: none">&nbsp;</span>
@@ -126,6 +126,7 @@ import {
 import FormFilters from '@/components/FormFilters';
 import GET_EVENTS from '@/graphql/queries/GetEvents.graphql';
 import GET_LAKES from '@/graphql/queries/GetLakes.graphql';
+import GET_ENTITIES from '@/graphql/subscriptions/GetEntities.graphql';
 
 const SkipSSR = {};
 
@@ -217,6 +218,21 @@ export default {
         }
       },
     },
+    $subscribe: {
+      entityUpdated: {
+        query: GET_ENTITIES,
+        variables () {
+          return {
+            types: ['Lake'],
+          };
+        },
+        result ({ data }) {
+          if (data && data.entityUpdated) {
+            console.log('[APP] Received an update for entity:', data.entityUpdated.uuid);
+          }
+        },
+      },
+    },
   },
   computed: {
     getEvents () {
@@ -228,13 +244,6 @@ export default {
     getSelectedEvents () {
       let [, filter] = this.filters, events;
       return events = filter.ui.tags.map(t => t.opts.params.value);
-    },
-    getLakes () {
-      return (this.lakes || []).map(lake => {
-        let datasetsCount = 0;
-        lake.cores.forEach(core => core.datasets.forEach(() => datasetsCount++));
-        return Object.assign({}, lake, { datasetsCount });
-      });
     },
     mapZoom: {
       get () { return this.$store.state.database.map.zoom; },
@@ -312,7 +321,6 @@ export default {
           this.map.features = this.map.features.filter(f => !batch.find(l => f.id === l.uuid));
         });
       }
-      hiddenBefore = hiddenBefore.filter(l => !this.map.features.find(f => l.uuid === f.id));
       for (let i = 0; i < hiddenBefore.length; i += batchSize) {
         let j = i + batchSize < hiddenBefore.length ? i + batchSize : hiddenBefore.length;
         let batch = hiddenBefore.slice(i, i + batchSize);

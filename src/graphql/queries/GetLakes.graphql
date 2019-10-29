@@ -4,6 +4,7 @@ query getLakes {
     name
     longitude
     latitude
+    datasetsCount
     countries {
       uuid
       code
