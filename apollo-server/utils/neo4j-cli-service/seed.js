@@ -1,24 +1,14 @@
-const taskStartTime = Date.now();
-
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const https = require('https');
 const ms = require('ms');
 const xlsx = require('xlsx');
-const unorm = require('unorm');
-const latinize = require('latinize');
-const changeCase = require('change-case');
-const { default: chalk } = require('chalk');
-const { v1: neo4j } = require('neo4j-driver');
 const countriesList = require('countries-list');
-const fromEntries = require('object.fromentries');
+const { default: chalk } = require('chalk');
+const unorm = require('unorm');
 
-if (!Object.fromEntries) {
-  fromEntries.shim();
-}
-
-const normalize = s => changeCase.camelCase(latinize(s));
+const { cql, getDbSession, exitHandler, normalize, printStats, printError, taskStatus } = require('./lib');
 
 const mappedProps = {
   // core
@@ -41,52 +31,19 @@ const datasetsOrder = (a, b) => {
   );
 };
 
-const status = {
-  _status: 0,
-  /**
-   * @param {Number|Boolean} id
-   */
-  set (id) {
-    this._status = Math.floor(Number(id));
-  },
-  /**
-   * @returns {Number}
-   */
-  get () {
-    return this._status;
-  },
-  /**
-   * @returns {Boolean}
-   */
-  hasError () {
-    return this._status !== 0;
-  },
-};
-
 const filenameFixes = new Map(), filenameRefs = new Map();
 
 let storage = {};
 
 module.exports = async function taskSeed ({ host, user, password }) {
+  const taskStartTime = Date.now();
+
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
   else throw new Error('No password has been provided');
 
-  /** @type {Driver} */ const driver = neo4j.driver(
-    process.env.NEO4J_URI || 'bolt://localhost:7687',
-    neo4j.auth.basic(
-      process.env.NEO4J_USER || 'neo4j',
-      process.env.NEO4J_PASSWORD || 'neo4j',
-    ),
-  );
-  /** @type {Session} */ const db = driver.session();
-
-  const onExitTask = () => {
-    db.close();
-    const taskEndTime = Date.now();
-    const taskDuration = taskEndTime - taskStartTime;
-    console.log(`Finished! Execution time was ${chalk.blueBright(taskDuration / 1000)} seconds.\n`);
-    return status.get();
-  };
+  const db = getDbSession();
+  const status = taskStatus();
+  const onExitTask = exitHandler(db, status, taskStartTime);;
 
   let storageFile = path.resolve(process.env.SHARED_SHEETS_PATH, 'records.json');
 
@@ -593,12 +550,12 @@ async function executeQuery ({ label, db, params, statement, check = true, dryRu
       }
     }).reduce((total, valid) => valid && total, true));
     if (!resultMatchesInput) {
-      throw new TaskError('Returned objects don\'t match passed input objects');
+      throw new Error('Returned objects don\'t match passed input objects');
     }
-    query.then(r => printQueryStats(label, r));
+    await query.then(r => printStats(label, r));
   } catch(err) {
     await tx.rollback();
-    printQueryError(label, err);
+    printError(label, err);
     throw false;
   }
   if (dryRun) {
@@ -607,27 +564,6 @@ async function executeQuery ({ label, db, params, statement, check = true, dryRu
   }
   await tx.commit();
   return true;
-}
-
-function cql (cypherQuery) {
-  return String(cypherQuery);
-}
-
-function printQueryStats (queryLabel, result) {
-  let { summary: { counters: { _stats: statistics } } } = result;
-  console.log('================================================================\n');
-  console.log(`Stats for the query \`${chalk.cyan(queryLabel)}\`:\n`);
-  Object.entries(statistics).forEach(([action, count]) => {
-     console.log(` => ${changeCase.sentenceCase(action)}: ${count}`);
-  });
-  console.log('');
-}
-
-function printQueryError (queryLabel, err) {
-  console.log('================================================================\n');
-  console.log(chalk.red(`Failure running the query \`${chalk.cyan(queryLabel)}\`:\n`));
-  console.error(chalk.red(err.stack));
-  console.log('');
 }
 
 function readFromStorage ({ file: records }) {
@@ -670,12 +606,4 @@ function requestUrl (url) {
       reject(err);
     });
   });
-}
-
-class TaskError extends Error {
-  constructor (message = '') {
-    super();
-    this.name = 'TaskError';
-    this.message = message;
-  }
 }

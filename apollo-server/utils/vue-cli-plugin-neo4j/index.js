@@ -3,6 +3,7 @@ const publicDir = encodeURIComponent(path.resolve(__dirname));
 
 const NEO4J_MIGRATION_TASK = /neo4j-cli-service migrate/;
 const NEO4J_SEED_DATA_TASK = /neo4j-cli-service seed/;
+const NEO4J_DUMP_DATA_TASK = /neo4j-cli-service dump/;
 const NEO4J_DELETE_DB_TASK = /neo4j-cli-service reset/;
 
 const taskCommon = {
@@ -84,6 +85,11 @@ module.exports = api => {
   api.describeTask({
     match: NEO4J_SEED_DATA_TASK,
     description: 'Adds example datasets to your database for app testing',
+    ...taskCommon,
+  });
+  api.describeTask({
+    match: NEO4J_SEED_DATA_TASK,
+    description: 'Dumps all datasets from your database to ./live/export',
     ...taskCommon,
   });
   api.describeTask({
