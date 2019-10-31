@@ -1339,6 +1339,17 @@
     ]
   },
   {
+    "name": "Sary-Chelek",
+    "latitude": 41.8932,
+    "longitude": 71.958267,
+    "surfaceLevel": 1874,
+    "surfaceArea": 4900000,
+    "catchmentArea": 91000000,
+    "@countries": [
+      "KG"
+    ]
+  },
+  {
     "name": "Sawtooth",
     "latitude": 79.3493946951,
     "longitude": -83.9235253451,
