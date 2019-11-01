@@ -31,6 +31,11 @@ const mappedProps = {
   'analysisMethod': 'analysisMethod',
 };
 
+const attributeMappers = [
+  str => str.replace('uncertainty', 'error'),
+  str => str.replace('Uncertainty', 'Error'),
+];
+
 const datasetsOrder = (a, b) => {
   return (
     (!a['_fileExists'] - !b['_fileExists']) ||
@@ -328,6 +333,7 @@ module.exports = async function taskSeed ({ host, user, password }) {
     records = records.map(record => Object.fromEntries(Object.entries(record).map(
       ([key, value]) => [`__${attributes.findIndex(attribute => attribute === key)}__`, value],
     )));
+    attributes = attributes.map(str => attributeMappers.reduce((value, map) => map(value), str));
 
     await executeQuery({
       db,
