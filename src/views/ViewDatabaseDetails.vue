@@ -243,7 +243,7 @@
                 Samples&ensp;<span class="font-weight-lighter text-secondary">[<em>count</em>]</span>
               </template>
               <template slot="HEAD[ageResolution]">
-                Resolution&ensp;<span class="font-weight-lighter text-secondary">[Samples / kyr]</span>
+                Resolution&ensp;<span class="font-weight-lighter text-secondary">[samples / kyr]</span>
               </template>
               <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
@@ -453,7 +453,7 @@ export default {
         { key: 'core.label', label: 'Sediment profile', formatter: (s) => s || '—' },
         { key: 'ageInterval', formatter: ($0, $1, dataset) => `[${dataset.ageMin}, ${dataset.ageMax}]` },
         'samples',
-        { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(3) || '—' },
+        { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(2) || '—' },
         { key: 'publication', formatter: (
           [{ doi = '', citation = 'View publication' } = {}] = [{}],
         ) => ({ doi, citation }) },

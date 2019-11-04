@@ -3140,11 +3140,11 @@
   },
   {
     "file": "Meerfelder_Maar-Varves-BRAUER_et_al_2008",
-    "samples": 1950,
+    "samples": 2001,
     "ageMin": 11000,
     "ageMax": 13000,
     "ageSpan": 2001,
-    "ageResolution": 974.5127436281858,
+    "ageResolution": 1000,
     "url": "https://www.ncdc.noaa.gov/paleo-search/study/8656",
     "distributor": "NOAA",
     "@category.name": "Varves",
