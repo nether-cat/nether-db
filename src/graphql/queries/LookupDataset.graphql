@@ -1,14 +1,45 @@
-query lookupDataset($uuid: ID!, $offset: Int!) {
+query lookupDataset($uuid: ID!, $first: Int = 100, $offset: Int = 0) {
   datasets: Dataset(uuid: $uuid) {
     uuid
     file
     label
     samples
+    analysisMethod
+    comments
     attributes {
       uuid
       name
     }
-    records(first: 100, offset: $offset)
+    categories {
+      uuid
+      name
+    }
+    publication {
+      uuid
+      doi
+      citation
+    }
+    core {
+      uuid
+      label
+      latitude
+      longitude
+      coringMethod
+      drillDate
+      waterDepth
+      lake {
+        uuid
+        name
+        longitude
+        latitude
+        maxDepth
+        surfaceLevel
+        surfaceArea
+        catchmentArea
+        waterBodyVolume
+      }
+    }
+    records(first: $first, offset: $offset)
     accessLevel
   }
 }

@@ -102,7 +102,9 @@ export default Vue.extend({
       }
     }
     .btn > svg.fa-spin:not(:only-child) {
-      margin-left: .75em;
+      &:not(:first-child) {
+        margin-left: .75em;
+      }
     }
     .btn.w-100 > svg.fa-spin,
     .btn.btn-block > svg.fa-spin {

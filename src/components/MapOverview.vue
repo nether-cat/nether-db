@@ -219,12 +219,13 @@ const methods = {
     if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
       setTimeout(this.fixZoomButtons, 250);
     } else {
-      this.$el.querySelectorAll('.ol-zoom button').forEach(btn => {
+      let /** @param el {HTMLElement} */ setup = (el) => {
         let lastFocus = Date.now();
-        btn.addEventListener('focus', () => lastFocus = Date.now());
-        btn.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
-        btn.addEventListener('mouseout', ({ target }) => target.blur());
-      });
+        el.addEventListener('focus', () => lastFocus = Date.now());
+        el.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
+        el.addEventListener('mouseout', ({ target }) => target.blur());
+      };
+      this.$el.querySelectorAll('.ol-zoom button').forEach(setup);
     }
   },
 };
