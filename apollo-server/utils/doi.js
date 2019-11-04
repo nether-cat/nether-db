@@ -1,5 +1,7 @@
-const axios = require('axios');
-const chalk = require('chalk');
+const axios = require('axios'),
+  chalk = require('chalk'),
+  HTML = new (require('html-entities').AllHtmlEntities)(),
+  reformat = data => HTML.decode(data).replace(/\s+/g, ' ');
 
 const contentTypes = {
   'csl+json': {
@@ -11,7 +13,7 @@ const contentTypes = {
     process: (DOI, data) => {
       return {
         'DOI': DOI,
-        'formatted-citation': data,
+        'formatted-citation': reformat(data),
         'formatted-style': 'harvard3',
       };
     },
@@ -21,7 +23,7 @@ const contentTypes = {
     process: (DOI, data) => {
       return {
         'DOI': DOI,
-        'formatted-citation': data,
+        'formatted-citation': reformat(data),
         'formatted-style': 'copernicus-publications',
       };
     },

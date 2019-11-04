@@ -162,9 +162,9 @@ export default {
                 ? Math.round(step.age * 1000) + ' yr BP'
                 : Number.parseFloat(step.age).toFixed(2) + ' kyr BP';
               content = `
-                    <h6 class="card-title">NGRIP Data</h6>
-                    <p class="card-text">When:&nbsp;${ageString}</p>
-                    <p class="card-text">Value:&nbsp;${step.d18o}&nbsp;𝛿<sup>18</sup>O</p>
+                    <h6 class="card-title mb-3">NGRIP Data</h6>
+                    <h6 class="card-subtitle text-muted mb-2">${step.d18o}&nbsp;𝛿<sup>18</sup>O</h6>
+                    <p class="card-text"><small>(${ageString})</small></p>
                   `;
               break;
             // Events
@@ -174,9 +174,9 @@ export default {
                 ? Math.round(event.ageMean) + ' yr BP'
                 : (event.ageMean / 1000).toFixed(2) + ' kyr BP';
               content = `
-                    <h6 class="card-title">Event Layer</h6>
-                    <p class="card-text">When: ${ageString}</p>
-                    <p class="card-text">Name: ${event.name}</p>
+                    <h6 class="card-title mb-3">Event Layer</h6>
+                    <h6 class="card-subtitle text-muted mb-2">${event.name}</h6>
+                    <p class="card-text"><small>(${ageString})</small></p>
                   `;
               break;
             default:

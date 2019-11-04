@@ -200,32 +200,55 @@
               <template slot="row-details" slot-scope="{ item }">
                 <div @click="datasetsListClicked(item)">
                   <div style="margin-left: .75rem; padding: .75rem 0; width: calc(100% - 1.5rem)">
-                    <span class="d-inline-block pb-2 pr-3 text-nowrap" :class="{ 'font-italic': !item.core.label }">
+                    <span class="d-inline-block pb-2 pr-3 text-nowrap"
+                          :class="{ 'font-italic': !item.core.label }"
+                          title="Sediment profile"
+                    >
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
-                    <span v-if="item.core.latitude && item.core.longitude" class="d-inline-block pb-2 pr-3">
+                    <span v-if="item.core.latitude && item.core.longitude"
+                          class="d-inline-block pb-2 pr-3"
+                          title="Location"
+                    >
                       <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
                     </span>
-                    <span v-if="item.core.coringMethod" class="d-inline-block pb-2 pr-3 text-nowrap">
+                    <span v-if="item.core.coringMethod"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
+                          title="Coring method"
+                    >
                       <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
                     </span>
-                    <span v-if="item.core.drillDate" class="d-inline-block pb-2 pr-3">
+                    <span v-if="item.core.drillDate"
+                          class="d-inline-block pb-2 pr-3"
+                          title="Drill date"
+                    >
                       <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
                     </span>
-                    <span v-if="item.core.waterDepth" class="d-inline-block pb-2 pr-3">
+                    <span v-if="item.core.waterDepth"
+                          class="d-inline-block pb-2 pr-3"
+                          title="Water depth"
+                    >
                       <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
                     </span>
-                    <span v-if="item.analysisMethod" class="d-inline-block pb-2 pr-3 text-nowrap">
+                    <span v-if="item.analysisMethod"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
+                          title="Analysis method"
+                    >
                       <FontAwesomeIcon icon="microscope"/>&ensp;{{ item.analysisMethod }}
                     </span>
-                    <span v-if="item.comments" class="d-inline-block pb-2 pr-3 text-nowrap">
+                    <span v-if="item.comments"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
+                          title="Comments"
+                    >
                       <FontAwesomeIcon icon="comment-dots"/>&ensp;{{ item.comments }}
                     </span>
                     <br v-if="item.publication && item.publication.length && item.publication[0].citation">
                     <span v-if="item.publication && item.publication.length && item.publication[0].citation"
                           class="pb-2 pr-3 d-xl-inline-block w-50"
+                          title="Reference"
                     >
-                      <FontAwesomeIcon icon="quote-right"/>&ensp;{{ (item.publication[0].citation || '') | stripUrl }}
+                      <!-- eslint-disable-next-line vue/no-v-html -->
+                      <FontAwesomeIcon icon="quote-right"/>&ensp;<span v-html="stripUrl(item.publication[0].citation)"/>
                       <span v-if="item.publication[0].doi">
                         <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
                       </span>
@@ -250,11 +273,11 @@
               </template>
               <template slot="[publication]" slot-scope="{ value: { doi, citation } }">
                 <a v-if="doi"
-                   v-b-tooltip.hover.bottom.html="{
+                   v-b-tooltip.hover.bottom.viewport.html="{
                      customClass: 'tooltip-table-cell',
                      title: citation.replace(
-                       /Available at:? https?:\/\/.*doi\.org\/(.*?)\.?\s$/i,
-                       '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$1</span>',
+                       /(Available at:?)?\s?https?:\/\/.*doi\.org\/(.*?)\.?\s?$/i,
+                       '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$2</span>',
                      ),
                    }"
                    class="text-dark text-decoration-none text-nowrap"
@@ -438,10 +461,6 @@ export default {
         ? (unit ? ' ' + unit : '')
         : '—'.repeat(length);
     },
-    stripUrl (value) {
-      let re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
-      return value.replace(re, '');
-    },
   },
   props: {
     lakeId: { type: String, default: undefined },
@@ -460,12 +479,14 @@ export default {
       datasetsListFields: [
         { key: 'categories', label: 'Subject', formatter: ([category]) => category && category.name || '—' },
         { key: 'core.label', label: 'Sediment profile', formatter: (s) => s || '—' },
-        { key: 'ageInterval', formatter: ($0, $1, dataset) => `[${dataset.ageMin}, ${dataset.ageMax}]` },
-        'samples',
+        { key: 'ageInterval', formatter: ($0, $1, { ageMin: a, ageMax: b }) => (
+          a === null || b === null ? '—' : `[${a}, ${b}]`
+        ) },
+        { key: 'samples' },
         { key: 'ageResolution', formatter: (n) => n && Number.parseFloat(n).toFixed(2) || '—' },
-        { key: 'publication', formatter: (
-          [{ doi = '', citation = 'View publication' } = {}] = [{}],
-        ) => ({ doi, citation }) },
+        { key: 'publication', formatter: ([{ doi = '', citation = 'View publication' } = {}] = [{}]) => (
+          { doi, citation }
+        ) },
         { key: 'actions', label: '' },
       ],
       codes: { STATUS_OKAY: 0, STATUS_LOAD: 1, STATUS_DONE: 2 },
@@ -488,6 +509,10 @@ export default {
     this.isDeactivated = true;
   },
   methods: {
+    stripUrl (value) {
+      let re = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/gi;
+      return (value || '').replace(re, '');
+    },
     updateMapCenter ({ data: lake }) {
       if (lake) {
         if (!this.currentLake || this.currentLake.uuid !== lake.uuid) {
