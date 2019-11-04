@@ -314,8 +314,16 @@
             <BCol class="mt-4">
               <BCard class="overflow-auto">
                 <div class="table-actions">
-                  <BButton size="sm" variant="outline-primary" @click="getCsv(dataset)">
-                    <FontAwesomeIcon icon="download"/> CSV
+                  <BButton
+                    size="sm"
+                    variant="outline-primary"
+                    :disabled="exportStatus > codes.STATUS_OKAY"
+                    @click="exportCSV(dataset)"
+                  >
+                    <FontAwesomeIcon v-if="exportStatus === codes.STATUS_LOAD" icon="spinner" fixed-width spin/>
+                    <FontAwesomeIcon v-else-if="exportStatus === codes.STATUS_DONE" icon="check" fixed-width/>
+                    <FontAwesomeIcon v-else icon="download" fixed-width/>
+                    <span class="ml-1">CSV</span>
                   </BButton>
                 </div>
                 <BTable outlined
@@ -444,6 +452,7 @@ export default {
       currentLake: null,
       mapCenter: [0, 8],
       timesFetched: 0,
+      exportStatus: 0,
       isDeactivated: false,
       isInitializing: true,
       shouldFetchMore: true,
@@ -459,6 +468,7 @@ export default {
         ) => ({ doi, citation }) },
         { key: 'actions', label: '' },
       ],
+      codes: { STATUS_OKAY: 0, STATUS_LOAD: 1, STATUS_DONE: 2 },
       network: NetworkStatus,
     };
   },
@@ -587,59 +597,78 @@ export default {
       if (this.$el.querySelectorAll('.ol-zoom button').length < 2) {
         setTimeout(this.fixZoomButtons, 250);
       } else {
-        this.$el.querySelectorAll('.ol-zoom button').forEach(btn => {
+        let /** @param el {HTMLElement} */ setup = (el) => {
           let lastFocus = Date.now();
-          btn.addEventListener('focus', () => lastFocus = Date.now());
-          btn.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
-          btn.addEventListener('mouseout', ({ target }) => target.blur());
-        });
+          el.addEventListener('focus', () => lastFocus = Date.now());
+          el.addEventListener('click', ({ target }) => (Date.now() - lastFocus) < 60 && target.blur());
+          el.addEventListener('mouseout', ({ target }) => target.blur());
+        };
+        this.$el.querySelectorAll('.ol-zoom button').forEach(setup);
       }
     },
-    objectToCsv (data) {
-      const csvRows = [];
-      const headers = [];
-      for (let i = 0; i < data[1].length; i++) {
-        headers.push((data[0][i][0]));
-      }
-      csvRows.push(headers.join(','));
-      for (let row = 0; row < data.length; row++) {
-        let newRow = [row + 1];
-        for (let i = 1; i < data[1].length; i++) {
-          newRow.push((data[row][i][1]));
-        }
-        csvRows.push(newRow);
-      }
-      return csvRows.join('\n');
-    },
-    download (data, name) {
-      const blob = new Blob([data], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.setAttribute('hidden', '');
-      a.setAttribute('href', url);
-      a.setAttribute('download', `${name}.csv`);
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    },
-    getCsv (dataset) {
-      const data = [];
-      const attributes = [{ label: '#' }].concat(
-        dataset.attributes.map((attribute) => {
-          return {
-            label: attribute.name,
-          };
-        }),
+    download (data, filename, mime) {
+      const blob = new Blob([data], { type: mime });
+      const anchor = /** @type {ChildNode|HTMLAnchorElement} */ (
+        document.createElement('a')
       );
-      for (let i = 0; i < dataset.records.length; i++) {
-        let newRow = [['#', i + 1]];
-        for (let f = 0; f < attributes.length - 1; f++) {
-          newRow.push(['' + Object.values(attributes[f + 1]), dataset.records[i][`__${f}__`]]);
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = `${filename}`;
+      anchor.style.display = 'none';
+      document.body.appendChild(anchor).click();
+      document.body.removeChild(anchor);
+    },
+    async exportCSV (dataset) {
+      this.exportStatus = this.codes.STATUS_LOAD;
+      let uuid = dataset.uuid,
+          records = [...dataset.records],
+          hasMore = dataset.samples > records.length,
+          first = true;
+      while (hasMore || first) {
+        let { data: result } = await this.$apollo.query({
+          query: await import('@/graphql/queries/LookupDataset.graphql'),
+          variables: { uuid, first: 1000, offset: records.length },
+          fetchPolicy: 'no-cache',
+        });
+        if (result && result.datasets.length && result.datasets[0].records.length) {
+          dataset = result.datasets[0];
+          records.push(...dataset.records);
+          hasMore = dataset.samples > records.length;
+        } else if (first && result && result.datasets.length) {
+          dataset = result.datasets[0];
+        } else {
+          hasMore = false;
         }
-        data.push(newRow);
+        first = false;
+      }
+      const { publication: [pub = {}] = [], core: [core = {}] = [] } = dataset;
+      const { lake: [lake = {}] = [] } = core, reference = pub.doi ? `https://dx.doi.org/${pub.doi}` : null;
+      const meta = {
+        info: '0',
+        lakeName: lake.name || 'n/a',
+        lakeLatitude: lake.latitude || 'n/a',
+        lakeLongitude: lake.longitude || 'n/a',
+        sedimentProfile: core.label || 'n/a',
+        coringMethod: core.coringMethod || 'n/a',
+        drillDate: core.drillDate || 'n/a',
+        analysisMethod: dataset.analysisMethod || 'n/a',
+        comments: dataset.comments || 'n/a',
+        reference: reference || 'n/a',
       };
-      const csvData = this.objectToCsv(data);
-      this.download(csvData, dataset.file || 'export');
+      const header = ['data', ...dataset.attributes.map(({ name }) => name)];
+      const rows = [[], Object.keys(meta), Object.values(meta), [], header, ...records.map(
+        (record, rowIndex) => [`${rowIndex + 1}`, ...header.slice(1).map(
+          (columnName, columnIndex) => {
+            const value = record[`__${columnIndex}__`];
+            const useQuotes = 'string' === typeof value && (!isNaN(value) || value.includes(','));
+            return (useQuotes ? `"${value}"` : value);
+          },
+        )],
+      )];
+      this.download(rows.join('\n'), `${dataset.file || 'export'}.csv`, 'text/csv');
+      this.exportStatus = this.codes.STATUS_DONE;
+      setTimeout(() => {
+        this.exportStatus = this.codes.STATUS_OKAY;
+      }, 3000);
     },
   },
 };
