@@ -6,7 +6,7 @@ const fs = require('fs'),
   HTML = new (require('html-entities').AllHtmlEntities)(),
   DOI = require('../apollo-server/utils/doi');
 
-let code = 0, file = './dist/references.csv', list = './dist/publications.csv',
+let code = 0, file = './live/references.csv', list = './live/publications.csv',
   /** @type {Array} */ refs = require('../references.json'),
   tasks = refs.map(ref => DOI
     .resolve(ref.doi, 'csl+json')

@@ -4,6 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const { default: chalk } = require('chalk');
 const seed = require('../apollo-server/utils/neo4j-cli-service/seed');
+const dump = require('../apollo-server/utils/neo4j-cli-service/dump');
 
 const stripSecrets = (key, value) => {
   if (value && /key|password|secret|token/i.test(key)) {
@@ -103,6 +104,7 @@ const handler = execute => {
 const info = cmd => {
   if (cmd === taskMigrate) return chalk.yellow('Initializes and migrates your database');
   if (cmd === taskSeed) return chalk.yellow('Adds example datasets to your database');
+  if (cmd === taskDump) return chalk.yellow('Dumps all datasets from your database');
   if (cmd === taskReset) return chalk.yellow('Removes everything from your database');
   return chalk.yellow('Shows usage details and options for ') + chalk.gray('<cmd>');
 };
@@ -114,6 +116,7 @@ const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
     .command(chalk.gray('<cmd>') + ' --help', info())
     .command('migrate', info(taskMigrate), builder, handler(taskMigrate))
     .command('seed', info(taskSeed), builder, handler(taskSeed))
+    .command('dump', info(taskDump), builder, handler(taskDump))
     .command('reset', info(taskReset), builder, handler(taskReset))
     .help('help', info()).hide('version').argv;
 })();
@@ -133,6 +136,11 @@ function taskMigrate(argv) {
 function taskSeed(argv) {
   console.log(`Seeding task for ${chalk.underline(argv.host)} has been started!\n`);
   return seed(argv);
+}
+
+function taskDump(argv) {
+  console.log(`Dump data task for ${chalk.underline(argv.host)} has been started!\n`);
+  return dump(argv);
 }
 
 function taskReset(argv) {
