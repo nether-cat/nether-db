@@ -9,6 +9,7 @@ query lookupLake($uuid: ID!) {
     surfaceArea
     catchmentArea
     waterBodyVolume
+    datasetsCount
     countries {
       uuid
       code

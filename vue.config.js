@@ -39,6 +39,28 @@ module.exports = {
       cors: { origin: true, credentials: true },
       apolloServer: {
         introspection: true,
+        plugins: [
+          {
+            /* The `requestDidStart` will be called when the request has started
+               processing and more granular events — like `parsingDidStart` below —
+               are executed when those particular events occur. */
+            requestDidStart (requestContext) {
+              /* Request-specific scope can be created here and
+                 used in more granular lifecycle events below. */
+              return {
+                responseForOperation (innerContext) {
+                  void innerContext;
+                },
+                executionDidStart (innerContext) {
+                  void innerContext;
+                },
+                willSendResponse (innerContext) {
+                  void innerContext;
+                },
+              };
+            },
+          },
+        ],
       },
     },
     ssr: {

@@ -1,0 +1,17 @@
+subscription getEntities($types: [String]) {
+  entityUpdated: EntityUpdated(types: $types) {
+    __typename
+    uuid
+    ... on Lake {
+      name
+      longitude
+      latitude
+      maxDepth
+      surfaceLevel
+      surfaceArea
+      catchmentArea
+      waterBodyVolume
+      datasetsCount
+    }
+  }
+}

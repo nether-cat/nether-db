@@ -2,19 +2,6 @@ scalar JSON
 
 directive @auth(role: UserRole = USER) on OBJECT | FIELD_DEFINITION
 
-directive @additionalLabels(labels: [String]) on OBJECT
-
-directive @cypher(statement: String!) on FIELD_DEFINITION
-
-directive @relation(
-  name: String!,
-  direction: _RelationDirections,
-  from: String,
-  to: String
-) on FIELD_DEFINITION | OBJECT | INTERFACE
-
-directive @neo4j_ignore on FIELD_DEFINITION
-
 enum AccessLevel {
   OWNER
   EDITOR
@@ -77,7 +64,7 @@ type Query {
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
   Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
-  Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String): [Dataset] @auth
+  Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth
   Event: [Event] @auth @cypher(statement: """
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
@@ -89,7 +76,8 @@ type Query {
     RETURN e
     ORDER BY e.ageMean
   """)
-  Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String): [Lake] @auth
+  GetByUUID(filter: _EntityFilter): [Entity] @auth(role: ADMIN)
+  Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth
   User(_id: String, uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
 }
 
@@ -101,8 +89,12 @@ type Mutation {
   Signup(user: UserInput!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!
+  UpdateLake(uuid: ID!, name: String): Lake! @auth(role: ADMIN)
   UpdateUser(uuid: ID!, emailVerified: Boolean, frozen: Boolean, userRole: UserRole, updated: _Neo4jDateTimeInput): User! @auth(role: ADMIN)
-  Test(_id: ID!, payload: JSON!): JSON @auth
+}
+
+type Subscription {
+  EntityUpdated(types: [String]): Entity! @auth
 }
 
 type Attribute implements Entity @additionalLabels(labels: ["Entity"]) {
@@ -260,6 +252,7 @@ type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
   surfaceArea: Float
   catchmentArea: Float
   waterBodyVolume: Float
+  datasetsCount: Int @cypher(statement: "MATCH (this)--(:Core)--(d:Dataset) RETURN count(DISTINCT d)")
   cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: IN)
   countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
 }
@@ -320,7 +313,17 @@ type UserPermission implements Permission @relation(name: "HAS_PERMISSION", from
   level: AccessLevel!
 }
 
-# The following types are implemented by Neo4j
+# The input types below are being provided for Neo4j
+
+input _EntityFilter {
+  AND: [_EntityFilter]
+  OR: [_EntityFilter]
+  uuid: ID
+  uuid_in: [ID!]
+  uuid_starts_with: String
+}
+
+# The types below are being implemented by Neo4j
 
 type _Neo4jDate {
   year: Int
@@ -390,3 +393,18 @@ enum _RelationDirections {
   IN
   OUT
 }
+
+# The directives below are being implemented by Neo4j
+
+directive @additionalLabels(labels: [String]) on OBJECT
+
+directive @cypher(statement: String!) on FIELD_DEFINITION
+
+directive @relation(
+  name: String!,
+  direction: _RelationDirections,
+  from: String,
+  to: String
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+directive @neo4j_ignore on FIELD_DEFINITION
