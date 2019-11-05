@@ -92,11 +92,11 @@ const sessionStates = {
   UNAUTHORIZED: 'UNAUTHORIZED',
 };
 const userRoles = {
-  ADMIN: 4,
-  MANAGER: 3,
-  REVIEWER: 2,
-  USER: 1,
   NONE: 0,
+  USER: 1,
+  REVIEWER: 2,
+  MANAGER: 3,
+  ADMIN: 4,
 };
 
 Object.defineProperty(signOptions, 'jwtid', {
@@ -150,7 +150,7 @@ function sendRecovery (user, transport) {
   }).catch(console.error);
 }
 
-function sendConfirmation (user, transport) {
+function sendVerification (user, transport) {
   let href = `${baseUrl}/confirm?token=${
     jwt.sign({ sub: user.email, scope: ['verification'] }, secret, { ...signOptions })
   }`;
@@ -178,6 +178,9 @@ function sendConfirmation (user, transport) {
 }
 
 function sendNotification (user, transport) {
+  if (!user.userRole || user.userRole === 'NONE') {
+    return;
+  }
   let href = user.emailVerified || !needVerification ? `${baseUrl}/login` : `${baseUrl}/confirm?token=${
     jwt.sign({ sub: user.email, scope: ['verification'] }, secret, { ...signOptions })
   }`;
@@ -499,7 +502,7 @@ module.exports = {
         `, { user });
         let result = record.toObject();
         if (result.success) {
-          sendConfirmation(user, ctx.transport);
+          sendVerification(user, ctx.transport);
         }
         return result;
       } catch (error) {
@@ -541,7 +544,7 @@ module.exports = {
       return { success: false, state: sessionStates.AUTH_ERROR };
     }
     if (result.state === sessionStates.AUTH_EXPIRED) {
-      sendConfirmation(result.user, ctx.transport);
+      sendVerification(result.user, ctx.transport);
       return { ...result, success: true };
     }
     try {
@@ -562,6 +565,6 @@ module.exports = {
     return { success: false };
   },
   sendRecovery,
-  sendConfirmation,
+  sendVerification,
   sendNotification,
 };

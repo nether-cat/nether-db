@@ -227,9 +227,9 @@ const Scoped = {
   functional: true,
   render () {
     const [, { data, props, scopedSlots }] = arguments;
-    return <div {...data}>
+    return (<div {...data}>
       {scopedSlots.default(props)}
-    </div>;
+    </div>);
   },
 };
 

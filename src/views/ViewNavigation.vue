@@ -37,32 +37,14 @@
       </BNavItemDropdown>
       <ApolloQuery
         v-if="session.state === 'AUTHORIZED'"
-        v-slot="{ result: { loading, error, data } }"
+        v-slot="{ query, result: { loading, error, data } }"
         :query="require('@/graphql/queries/ListUsers.graphql')"
+        :variables="{ first: pageSize }"
         :skip="session.userRole !== 'ADMIN'"
         :update="parseEvents"
         :tag="undefined"
       >
-        <BNavItemDropdown right no-caret>
-          <template slot="button-content">
-            <FontAwesomeLayers fixed-width>
-              <FontAwesomeIcon icon="bell" title="Notifications"/>
-              <FontAwesomeLayers v-if="data && data.unreadCount" class="fa-layers-counter">
-                {{ data.unreadCount }}
-              </FontAwesomeLayers>
-            </FontAwesomeLayers>
-          </template>
-          <div class="bs-popover-bottom popover fix">
-            <div class="arrow"/>
-          </div>
-          <BDropdownGroup v-if="!data || !data.recent.length" class="dropdown-group" header="Last 7 days">
-            <BDropdownText class="my-n2 px-5 py-4 bg-light text-center">
-              <small class="font-weight-light text-secondary">No recent events</small>
-            </BDropdownText>
-          </BDropdownGroup>
-          <ListUserEvents v-else :data="data" :activity.sync="activity" group="recent" header="Last 7 days"/>
-          <ListUserEvents v-if="data && data.before.length" :data="data" :activity.sync="activity" group="before" header="Earlier"/>
-        </BNavItemDropdown>
+        <ListUserEvents :list-query="query" :page-size="pageSize" :data="data" :activity.sync="activity"/>
       </ApolloQuery>
       <BNavItem v-if="session.state === 'AUTH_PENDING'" disabled>
         <FontAwesomeIcon icon="spinner" fixed-width spin/>
@@ -106,6 +88,7 @@ export default {
       },
       collapsed: true,
       activity: false,
+      pageSize: 5,
     };
   },
   apollo: {
@@ -119,6 +102,7 @@ export default {
     },
     parseEvents(data) {
       let initial = {
+        countNewUsers: 0,
         users: [],
       };
       if (!data) {
@@ -127,9 +111,9 @@ export default {
       data = { ...initial, ...data };
       data.users = data.users.map(u => ({ ...u, duration: moment(u.created.formatted).fromNow() }));
       let result = {
-        recent: data.users.filter(u => moment(u.created.formatted).isAfter(moment().subtract(7, 'days'))),
-        before: data.users.filter(u => moment(u.created.formatted).isSameOrBefore(moment().subtract(7, 'days'))),
-        unreadCount: data.users.filter(u => u.userRole === 'NONE' && u.frozen !== true).length,
+        items: [...data.users],
+        currentLength: data.users.length,
+        unreadCount: data.countNewUsers,
       };
       return result;
     },
@@ -181,23 +165,23 @@ export default {
       /deep/.dropdown-menu {
         position: absolute;
         top: calc(100% + .5rem - 2px * 1.5);
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .125);
+        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .125);
         > li {
+          margin: -1px;
+          overflow: hidden;
           width: max-content;
           min-width: 100%;
+          border: 1px solid transparent;
+          border-radius: .25rem;
           .dropdown-group {
             padding: .5rem 0;
           }
           &:last-of-type .dropdown-group {
             padding-bottom: 0;
-            .b-dropdown-text.bg-light {
-              border-bottom: 1px solid #dee2e6;
-              margin-bottom: 0 !important;
-            }
           }
           .dropdown-header {
             padding: .125rem 1rem;
-            border: solid #dee2e6;
+            border: solid hsla(210, 14%, 89%, 1.0);
             border-width: 1px 0;
             font-weight: 500;
           }
@@ -212,7 +196,7 @@ export default {
             cursor: pointer;
             &:active {
               color: inherit;
-              background-color: inherit;
+              background-color: #f8f9fa;
               text-decoration: inherit;
             }
           }
@@ -236,7 +220,7 @@ export default {
         }
       }
     }
-    .popover.fix {
+    /deep/.popover.fix {
       top: -.5rem;
       width: max-content;
       min-width: 100%;
@@ -258,12 +242,12 @@ export default {
         border: 1px solid rgba(0, 0, 255, 0.1);
       }
     }
-  }
-  .fa-layers-counter {
-    font-weight: 500;
-    font-size: 1.125em;
-    transform: scale(0.6) translate(.75em, -1em);
-    max-width: 2.5em;
-    width: auto;
+    /deep/.fa-layers-counter {
+      font-weight: 500;
+      font-size: 1.125em;
+      transform: scale(0.6) translate(.75em, -1em);
+      max-width: 2.5em;
+      width: auto;
+    }
   }
 </style>

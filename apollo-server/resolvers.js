@@ -86,6 +86,9 @@ module.exports = {
     User(...args) {
       return neo4jgraphql(...args);
     },
+    CountNewUsers(...args) {
+      return neo4jgraphql(...args);
+    },
   },
   Mutation: {
     Login(...args) {
@@ -121,7 +124,7 @@ module.exports = {
       let next = () => {};
       if (vars.emailVerified === false) {
         vars = { uuid: vars.uuid, emailVerified: false };
-        next = user => session.sendConfirmation(user, ctx.transport);
+        next = user => session.sendVerification(user, ctx.transport);
       } else {
         vars = { ...vars, updated: { formatted: new Date().toISOString() } };
         if (vars.userRole !== 'NONE') {

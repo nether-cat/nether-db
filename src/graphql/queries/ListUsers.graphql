@@ -1,7 +1,8 @@
 #import "../fragments/UserFragment.graphql"
 
-query listUsers {
-  users: User(orderBy: "created_desc") {
+query listUsers($first: Int = 5, $offset: Int = 0) {
+  users: User(first: $first, offset: $offset, orderBy: "created_desc") {
     ...user
   }
+  countNewUsers: CountNewUsers
 }
