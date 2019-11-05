@@ -106,6 +106,23 @@ Object.defineProperty(signOptions, 'jwtid', {
   },
 });
 
+function getSessionToken (ctx) {
+  let token;
+  if (ctx.req) {
+    token = ctx.req.cookies && ctx.req.cookies['apollo-token'];
+    if (!token) {
+      token = ctx.req.headers.authorization.split(' ')[1];
+    }
+  } else if (ctx.connection) {
+    let ws = ctx.connection;
+    if (ws.context && ws.context.connection) {
+      ws = ws.context.connection;
+    }
+    token = ws.headers.authorization.split(' ')[1];
+  }
+  return token;
+}
+
 function sendRecovery (user, transport) {
   let href = `${baseUrl}/credentials?token=${
     jwt.sign({ sub: user.email, scope: ['recovery'] }, secret, { ...signOptions })
@@ -225,7 +242,7 @@ module.exports = {
   async load($0, $1, ctx) {
     let user, email, scope, exp, cached, token;
     try {
-      token = ctx.req.cookies['apollo-token'];
+      token = getSessionToken(ctx);
     } catch (e) {
       token = undefined;
     }

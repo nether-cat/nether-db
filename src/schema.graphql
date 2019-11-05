@@ -159,6 +159,7 @@ type Lake implements Entity {
   countries(first: Int = 100, offset: Int = 0): [Country]
   created: _Neo4jDateTime!
   datasetsCount: Int
+  initZoom: Float
   latitude: Float!
   longitude: Float!
   maxDepth: Float
@@ -179,7 +180,7 @@ type Mutation {
   Revoke(token: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
   Signup(probeOnly: Boolean, user: UserInput!): JSON!
-  UpdateLake(name: String, uuid: ID!): Lake!
+  UpdateLake(initZoom: Float, name: String, uuid: ID!): Lake!
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
 

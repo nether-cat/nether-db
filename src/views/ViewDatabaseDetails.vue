@@ -151,7 +151,14 @@
                          data-projection="EPSG:4326"
                          @mounted="onMapMounted"
                   >
-                    <VlView :max-zoom="18" :zoom="10" :center="mapCenter" :rotation="0"/>
+                    <VlView
+                      :min-zoom="1"
+                      :max-zoom="18"
+                      :zoom="lake.initZoom || 10"
+                      :center="mapCenter"
+                      :rotation="0"
+                      :constrain-rotation="false"
+                    />
                     <VlFeature :id="lake.uuid" :properties="{ id: lake.uuid, name: lake.name }">
                       <VlGeomPoint :coordinates="[lake.longitude, lake.latitude]"/>
                       <VlStyleBox :z-index="1">

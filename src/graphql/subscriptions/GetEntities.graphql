@@ -11,6 +11,7 @@ subscription getEntities($types: [String]) {
       surfaceArea
       catchmentArea
       waterBodyVolume
+      initZoom
       datasetsCount
     }
   }

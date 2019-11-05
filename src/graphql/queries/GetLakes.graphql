@@ -4,6 +4,7 @@ query getLakes {
     name
     longitude
     latitude
+    initZoom
     datasetsCount
     countries {
       uuid

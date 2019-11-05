@@ -14,6 +14,11 @@ module.exports = async function taskDump ({ host, user, password }) {
   const status = taskStatus();
   const onExitTask = exitHandler(db, status, taskStartTime);
 
+  const objectMappers = {
+    lakes: obj => delete obj.initZoom && obj,
+    publications: obj => delete obj.resolved && obj,
+  };
+
   Object.assign(root, await readQuery({ db, statement: cql`
     MATCH (lake:Lake)
     WITH DISTINCT lake { .*, created: toString(lake.created), updated: toString(lake.updated),
@@ -67,7 +72,11 @@ module.exports = async function taskDump ({ host, user, password }) {
   `, label: 'Read all publications from database' }));
 
   Object.entries(root).forEach(([group, arr]) => {
+    const transform = (
+      typeof objectMappers[group] === 'function'
+    ) ? objectMappers[group] : obj => obj;
     arr.forEach(obj => {
+      transform(obj);
       Object.entries(obj).filter(([k]) => k.startsWith('~')).forEach(([k, v]) => {
         let linkedGroup = k.substr(1);
         if (Array.isArray(v)) {
@@ -86,7 +95,7 @@ module.exports = async function taskDump ({ host, user, password }) {
         delete obj[k];
       });
       let created = obj.created, updated = obj.updated;
-      delete obj.created; delete obj.updated; delete obj.resolved;
+      delete obj.created; delete obj.updated;
       Object.assign(obj, { created, updated });
     });
   });

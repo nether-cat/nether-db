@@ -89,7 +89,7 @@ type Mutation {
   Signup(user: UserInput!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!
-  UpdateLake(uuid: ID!, name: String): Lake! @auth(role: ADMIN)
+  UpdateLake(uuid: ID!, name: String, initZoom: Float): Lake! @auth(role: ADMIN)
   UpdateUser(uuid: ID!, emailVerified: Boolean, frozen: Boolean, userRole: UserRole, updated: _Neo4jDateTimeInput): User! @auth(role: ADMIN)
 }
 
@@ -252,6 +252,7 @@ type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
   surfaceArea: Float
   catchmentArea: Float
   waterBodyVolume: Float
+  initZoom: Float
   datasetsCount: Int @cypher(statement: "MATCH (this)--(:Core)--(d:Dataset) RETURN count(DISTINCT d)")
   cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: IN)
   countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
