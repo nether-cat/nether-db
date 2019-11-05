@@ -31,7 +31,7 @@ module.exports = async function taskDump ({ host, user, password }) {
   Object.assign(root, await readQuery({ db, statement: cql`
     MATCH (category:Category)
     WITH DISTINCT category { .*, created: toString(category.created), updated: toString(category.updated),
-        \`~datasets\`: [(category)<-[:BELONGS_TO]-(category_datasets:Datasets) | category_datasets { .uuid }] }
+        \`~datasets\`: [(category)<-[:BELONGS_TO]-(category_datasets:Dataset) | category_datasets { .uuid }] }
       ORDER BY category.name ASC
     RETURN collect(DISTINCT category) AS subjects
   `, label: 'Read all categories from database' }));
