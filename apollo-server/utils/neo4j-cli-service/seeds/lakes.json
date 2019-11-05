@@ -770,14 +770,6 @@
     ]
   },
   {
-    "name": "Lac Pavin",
-    "latitude": 45.4954663696999,
-    "longitude": 2.88766599378,
-    "@countries": [
-      "FR"
-    ]
-  },
-  {
     "name": "Lago Buenos Aires",
     "latitude": -46.49,
     "longitude": -72.0129,
@@ -1024,14 +1016,6 @@
     "surfaceLevel": 89,
     "maxDepth": 9.4,
     "surfaceArea": 130000
-  },
-  {
-    "name": "Mötterutstjärnet",
-    "latitude": 59.639434,
-    "longitude": 12.667512,
-    "@countries": [
-      "SE"
-    ]
   },
   {
     "name": "Murray Lakes",
