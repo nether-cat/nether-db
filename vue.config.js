@@ -71,6 +71,9 @@ module.exports = {
         const cookieParser = require('cookie-parser');
         app.use(cookieParser());
       },
+      skipRequests: req => isProd
+        ? req.path === '/graphql'
+        : req.originalUrl === '/graphql',
       copyUrlOnStart: false,
       nodeExternalsWhitelist: [
         /\.less$/,
