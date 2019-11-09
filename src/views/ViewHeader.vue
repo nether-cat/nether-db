@@ -11,7 +11,7 @@ export default {
       <div v-observe-visibility={process.env.VUE_SSR ? false : {
         callback: isVisible => (this.isVisible = isVisible),
         intersection: {
-          rootMargin: `${window.innerHeight / 2}px 0px 0px 0px`,
+          rootMargin: `${Math.ceil(window.innerHeight / 3)}px 0px 0px 0px`,
         },
       }} class="header container-fluid px-0">
         <BRow class="mx-0">
@@ -27,7 +27,7 @@ export default {
           </BCol>
         </BRow>
         <Transition name="fade-opacity">{ this.isVisible || (
-          <BButton v-scroll-to={{ el: 'body', force: false }} variant="link">
+          <BButton v-scroll-to={{ el: 'body', force: false, offset: 111 }} variant="link">
             <FontAwesomeIcon icon={['far', 'arrow-alt-circle-up']} size="5x"/>
           </BButton>
         )}</Transition>
@@ -67,9 +67,13 @@ export default {
       padding: 0;
       border-width: 0;
       border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0);
+      font-size: .75rem;
+      background-color: rgba(0, 0, 0, .05);
       &:hover {
-        background-color: rgba(0, 0, 0, .05);
+        background-color: rgba(0, 0, 0, .1);
+      }
+      @media (min-width: 992px) {
+        font-size: 1rem;
       }
     }
   }

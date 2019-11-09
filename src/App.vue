@@ -13,6 +13,14 @@ import SESSION from '@/graphql/queries/Session.graphql';
 
 export default Vue.extend({
   name: 'App',
+  data() {
+    return {
+      viewport: {
+        height: -1,
+        width: -1,
+      },
+    };
+  },
   apollo: {
     session: SESSION,
     isConnected: ESLint$0.gql`
@@ -22,6 +30,14 @@ export default Vue.extend({
     `,
   },
   mounted () {
+    let actualHeight = document.documentElement.clientHeight;
+    let navbar = document.querySelector('#app > nav');
+    if (navbar) {
+      this.viewport.height = actualHeight - navbar.getBoundingClientRect().height;
+    } else {
+      this.viewport.height = actualHeight;
+    }
+    console.log('[APP] Content viewport height is:', this.viewport.height);
     this.$nextTick(() => {
       setTimeout(() => {
         this.$apollo.queries.session.setOptions({
@@ -260,6 +276,14 @@ export default Vue.extend({
       border-top: 1px solid currentColor;
       height: .4em;
       width: 1.2em;
+    }
+    > .navbar + .footer::before {
+      content: 'Updating the DOM failed. Please reload this page.';
+      color: var(--danger);
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 500;
+      padding: 2.5rem 0;
     }
   }
 </style>

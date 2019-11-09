@@ -320,7 +320,7 @@ export default {
 <style lang="scss" scoped>
   $more-color: hsla(206, 60%, 31%, 0.3);
 
-  /deep/.dropdown-menu {
+  /deep/ .dropdown-menu {
     padding-bottom: 0;
   }
   .dropdown-group.dropdown-scroll {

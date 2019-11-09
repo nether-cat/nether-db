@@ -38,9 +38,10 @@ export default {
   .container-fluid {
     /deep/ .vl-map {
       height: 485px !important;
-      min-height: 485px !important;
-      @media (min-width: 992px) {
+      max-height: calc(100vh - 6rem) !important;
+      @media (min-width: 992px) and (min-height: 576px)  {
         height: 100% !important;
+        max-height: 100vh !important;
       }
     }
     /deep/ .ol-viewport canvas {
@@ -62,20 +63,69 @@ export default {
       border-top: 1px solid #eee;
       padding-top: 1px;
     }
+    /deep/ .b-table-sticky-header {
+      &.table-main {
+        max-height: calc(100vh - 10rem);
+        @media (min-width: 768px) and (min-height: 900px) {
+          max-height: calc(100vh - 14.125rem);
+        }
+      }
+      &.table-minor {
+        max-height: calc(100vh - 12rem);
+        @media (min-width: 768px) and (min-height: 768px) {
+          max-height: calc(100vh - 14.5rem);
+        }
+        @media (min-width: 768px) and (min-height: 900px) {
+          min-height: calc(100vh - 36rem);
+          max-height: calc(100vh - 36rem);
+        }
+      }
+      .table {
+        border-top-width: 0 !important;
+        border-collapse: separate;
+        border-spacing: 0;
+        tbody tr:first-child td {
+          border-top-width: 0 !important;
+        }
+      }
+    }
+    /deep/ .table-header > * {
+      display: inline-block;
+      padding: 0 1rem .75rem 0;
+      vertical-align: middle;
+    }
+    /deep/ .table-actions {
+      float: right;
+    }
     /deep/ .table-hover {
       tbody tr {
         &:hover {
-          cursor: pointer;
           background-color: hsl(200, 60%, 95%);
         }
-
         &:focus {
           background-color: hsl(200, 60%, 95%);
           outline: 0;
         }
       }
     }
+    /deep/ :not(.table-toggle-details) > .table-hover {
+      tbody tr:hover {
+        cursor: pointer;
+      }
+    }
+    /deep/ .table-toggle-details.may-toggle > .table-hover {
+      tbody tr:hover {
+        cursor: zoom-in;
+      }
+      tbody tr.b-table-details, tbody tr.b-table-has-details {
+        cursor: zoom-out;
+      }
+    }
     /deep/ .table, /deep/ .table-hover {
+      thead th {
+        border-bottom-width: 1px !important;
+        border-bottom-color: hsla(210, 14%, 78%, 1.0);
+      }
       tbody tr.b-table-details > td {
         padding: 0;
       }
@@ -91,20 +141,23 @@ export default {
         }
       }
     }
-    /deep/ .table-hover.table-toggle {
-      tbody tr:hover {
-        cursor: zoom-in;
+    /deep/ .table-responsive {
+      margin-bottom: 0;
+      .table.b-table > caption {
+        padding-top: .75rem;
+        padding-bottom: 0;
       }
-      tbody tr.b-table-details, tbody tr.b-table-has-details {
-        cursor: zoom-out;
+      .table.b-table.b-table-caption-top > caption {
+        padding-bottom: .75rem;
+        padding-top: 0;
       }
-    }
-    /deep/ .table-responsive tr:not(.b-table-details) {
-      th, td {
-        white-space: nowrap !important;
-      }
-      td:last-of-type .btn {
-        min-width: 4rem;
+      tr:not(.b-table-details) {
+        th, td {
+          white-space: nowrap !important;
+        }
+        td:last-of-type .btn {
+          min-width: 4rem;
+        }
       }
     }
     /deep/ .is-loading .loading-bar {
@@ -162,9 +215,6 @@ export default {
         display: inline-block;
       }
     }
-    /deep/ .card-body > .table {
-      margin-bottom: .5rem;
-    }
     /deep/ .table pre,
     /deep/ .grid-format-data pre {
       color: inherit;
@@ -187,14 +237,6 @@ export default {
         padding-left: 0 !important;
       }
     }
-    /deep/ .table-actions {
-      padding-right: inherit;
-      padding-top: inherit;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-
     /deep/ ::-webkit-scrollbar {
       -webkit-appearance: none;
     }
