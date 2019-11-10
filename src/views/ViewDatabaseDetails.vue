@@ -179,28 +179,43 @@
         </BCol>
         <BCol cols="12" class="mt-4">
           <BCard class="overflow-auto">
+            <div class="table-header">
+              <span class="table-caption text-muted">
+                <span v-if="networkStatus !== network.loading">
+                  <span v-if="datasetId && lake.datasetsCount">
+                    Selected one dataset{{ lake.datasetsCount === 1 ? ':' : '' }}
+                    <span v-if="lake.datasetsCount > 1">
+                      <span class="d-none d-sm-inline">&mdash;&nbsp;</span>
+                      <br class="d-sm-none">
+                      <RouterLink :to="$route.path">{{ `(Show all ${lake.datasetsCount} datasets)` }}</RouterLink>
+                    </span>
+                  </span>
+                  <span v-else>
+                    {{ lake.datasetsCount || 'No' }}
+                    {{ lake.datasetsCount === 1 ? 'dataset' : 'datasets' }}
+                    available for this site:
+                  </span>
+                </span>
+                <span v-else style="user-select: none">&nbsp;</span>
+              </span>
+            </div>
             <BTable hover
                     outlined
                     striped
                     responsive
                     caption-top
                     show-empty
-                    class="table-toggle"
+                    sticky-header
+                    class="table-main"
+                    :class="{ 'table-toggle-details': true, 'may-toggle': !datasetId }"
                     :items="!lake.cores ? [] : [].concat(...lake.cores.map(core => core.datasets.map(d => (
-                      { ...d, core, _showDetails: isDatasetSelected(d) }
-                    ))))"
+                      { ...d, core, _showDetails: d.uuid === datasetId }
+                    )))).filter(d => !datasetId || d.uuid === datasetId)"
                     :fields="datasetsListFields"
                     @row-clicked="datasetsListClicked"
                     @mouseover.native="datasetsListFocus"
                     @mouseout.native="datasetsListBlur"
             >
-              <template slot="table-caption">
-                <span v-if="networkStatus !== network.loading">
-                  {{ !lake.cores ? 0 : [].concat(...lake.cores.map(core => core.datasets)).length }}
-                  datasets available for this site:
-                </span>
-                <span v-else style="user-select: none">&nbsp;</span>
-              </template>
               <template slot="empty" slot-scope="scope">
                 <span>{{ scope.emptyText }}</span>
               </template>
@@ -249,17 +264,21 @@
                     >
                       <FontAwesomeIcon icon="comment-dots"/>&ensp;{{ item.comments }}
                     </span>
-                    <br v-if="item.publication && item.publication.length && item.publication[0].citation">
-                    <span v-if="item.publication && item.publication.length && item.publication[0].citation"
-                          class="pb-2 pr-3 d-xl-inline-block w-50"
-                          title="Reference"
+                    <div v-if="item.publication && item.publication.length && item.publication[0].citation"
+                         class="row mx-0 flex-nowrap"
                     >
-                      <!-- eslint-disable-next-line vue/no-v-html -->
-                      <FontAwesomeIcon icon="quote-right"/>&ensp;<span v-html="stripUrl(item.publication[0].citation)"/>
-                      <span v-if="item.publication[0].doi">
-                        <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
+                      <span style="flex-shrink: 1; font-size: .875em;"
+                            class="col-12 mt-2 mb-1 pb-2 px-0"
+                            title="Reference"
+                      >
+                        <!-- eslint-disable-next-line vue/no-v-html -->
+                        <FontAwesomeIcon icon="quote-right"/>&ensp;<span v-html="stripUrl(item.publication[0].citation)"/>
+                        <span v-if="item.publication[0].doi">
+                          <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
+                        </span>
                       </span>
-                    </span>
+                      <span class="col-5 col-lg-6"/>
+                    </div>
                   </div>
                 </div>
               </template>
@@ -285,7 +304,7 @@
                      title: citation.replace(
                        /(Available at:?)?\s?https?:\/\/.*doi\.org\/(.*?)\.?\s?$/i,
                        '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$2</span>',
-                     ),
+                     )
                    }"
                    class="text-dark text-decoration-none text-nowrap"
                    title="Visit publication"
@@ -324,7 +343,7 @@
         </BCol>
       </BRow>
       <ApolloQuery
-        v-if="datasetId && lake && lake.uuid"
+        v-if="datasetId && lake && lake.uuid && lake.datasetsCount"
         :query="require('../graphql/queries/LookupDataset.graphql')"
         :variables="{
           uuid: datasetId,
@@ -332,7 +351,7 @@
         }"
         :tag="undefined"
         :throttle="300"
-        :skip="!datasetId || isDeactivated"
+        :skip="!datasetId || isDeactivated || !lake.datasetsCount"
         :notify-on-network-status-change="true"
         @result="(res) => onIncomingResult(res)"
       >
@@ -343,31 +362,39 @@
           >
             <BCol class="mt-4">
               <BCard class="overflow-auto">
-                <div class="table-actions">
-                  <BButton
-                    size="sm"
-                    variant="outline-primary"
-                    :disabled="exportStatus > codes.STATUS_OKAY"
-                    @click="exportCSV(dataset)"
-                  >
-                    <FontAwesomeIcon v-if="exportStatus === codes.STATUS_LOAD" icon="spinner" fixed-width spin/>
-                    <FontAwesomeIcon v-else-if="exportStatus === codes.STATUS_DONE" icon="check" fixed-width/>
-                    <FontAwesomeIcon v-else icon="download" fixed-width/>
-                    <span class="ml-1">CSV</span>
-                  </BButton>
+                <div class="table-header">
+                  <span class="table-caption text-muted">
+                    <span>
+                      {{ dataset.samples || 'No' }}
+                      {{ dataset.samples === 1 ? 'sample' : 'samples' }}
+                    </span>
+                    <span>recorded in this dataset:</span>
+                  </span>
+                  <span class="table-actions">
+                    <BButton
+                      size="sm"
+                      variant="outline-primary"
+                      :disabled="exportStatus > codes.STATUS_OKAY"
+                      @click="exportCSV(dataset)"
+                    >
+                      <FontAwesomeIcon v-if="exportStatus === codes.STATUS_LOAD" icon="spinner" fixed-width spin/>
+                      <FontAwesomeIcon v-else-if="exportStatus === codes.STATUS_DONE" icon="check" fixed-width/>
+                      <FontAwesomeIcon v-else icon="download" fixed-width/>
+                      <span class="ml-1">CSV</span>
+                    </BButton>
+                  </span>
                 </div>
                 <BTable outlined
                         striped
                         responsive
                         caption-top
                         show-empty
+                        sticky-header
                         sort-by="__rowNum__"
+                        class="table-minor"
                         :items="dataset.records.map((r, i) => Object.assign({}, r, { __rowNum__: i }))"
                         :fields="getFields(dataset)"
                 >
-                  <template slot="table-caption">
-                    {{ dataset.samples }} samples recorded in this dataset:
-                  </template>
                   <template slot="[__rowNum__]" slot-scope="cell">
                     {{ cell.item.__rowNum__ + 1 }}
                   </template>
@@ -537,17 +564,22 @@ export default {
     datasetsListFocus ({ target }) {
       if (target.tagName === 'TD') {
         this.datasetsListBlur({ target });
-        let rect = target.parentElement.getBoundingClientRect();
-        if (rect && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+        let boundaryBottom, tableRowRect = target.parentElement.getBoundingClientRect();
+        let tableContainer = target.parentElement.parentElement.parentElement.parentElement;
+        if (tableContainer.classList.contains('b-table-sticky-header')) {
+          boundaryBottom = tableContainer.getBoundingClientRect().bottom;
+        } else {
+          boundaryBottom = window.innerHeight || document.documentElement.clientHeight;
+        }
+        if (tableRowRect.bottom <= boundaryBottom) {
           target.parentElement.focus();
         }
       }
     },
-    datasetsListClicked (item, index) {
-      item._showDetails = !item._showDetails;
-    },
-    isDatasetSelected (dataset) {
-      return dataset.uuid === this.datasetId;
+    datasetsListClicked (item) {
+      if (!this.datasetId) {
+        item._showDetails = !item._showDetails;
+      }
     },
     getFields (dataset) {
       if (dataset) {
@@ -571,7 +603,7 @@ export default {
       this.$router.replace(target.getAttribute('href'));
     },
     fetchMore (query, dataset = {}) {
-      if (dataset.uuid) {
+      if (!query.loading && dataset.uuid) {
         query.fetchMore({
           variables: {
             offset: dataset.records.length,

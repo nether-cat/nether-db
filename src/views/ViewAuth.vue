@@ -96,11 +96,11 @@ export default {
       }
     }
     .alert {
-      /deep/span {
+      /deep/ span {
         position: relative;
         z-index: 2;
       }
-      /deep/button {
+      /deep/ button {
         position: absolute;
         z-index: 2;
       }

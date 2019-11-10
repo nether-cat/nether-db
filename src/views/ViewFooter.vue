@@ -18,10 +18,10 @@ export default {
   },
   computed: {
     classesDefaultBlock() {
-      return { 'd-block': true, 'd-lg-inline': !this.wrapAlways };
+      return { 'd-block': true, 'd-md-inline': !this.wrapAlways };
     },
     classesDefaultNone() {
-      return { 'd-none': true, 'd-lg-inline': !this.wrapAlways };
+      return { 'd-none': true, 'd-md-inline': !this.wrapAlways };
     },
   },
   render () {
@@ -41,8 +41,8 @@ export default {
 <style lang="scss" scoped>
   .footer {
     display: block;
-    padding: .5rem 0 2rem 0;
+    padding: 0 0 1.5rem 0;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 </style>
