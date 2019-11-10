@@ -204,15 +204,16 @@ type Publication implements Entity {
 
 type Query {
   Confirmation(token: String!): JSON!
-  Country(_id: String, code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
+  CountNewUsers: Int
+  Country(code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
-  Dataset(_id: String, filter: _EntityFilter, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Dataset(filter: _EntityFilter, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
   Event: [Event]
   GetByUUID(filter: _EntityFilter): [Entity]
-  Lake(_id: String, filter: _EntityFilter, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
+  Lake(filter: _EntityFilter, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
-  User(_id: String, email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
+  User(email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
 }
 
 type Session {

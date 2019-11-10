@@ -5,6 +5,9 @@ import session from './utils/session';
 import smtp from './utils/smtp';
 import doi from './utils/doi';
 
+const accessLevels = ['VIEWER', 'EDITOR', 'OWNER'];
+const userRoles = Object.keys(session.roles);
+
 async function fetchPublications () {
   /** @type Session */ let db = driver.session();
   let queryResult = await db.run(`
@@ -72,8 +75,10 @@ fetchPublications().then(updatePublications);
 export default async ({ req, connection }) => {
   const transport = await smtp;
   const cypherParams = {
-    accessLevels: ['VIEWER', 'EDITOR', 'OWNER'],
-    currentUser: '',
+    accessLevels: [...accessLevels],
+    userRoles: [...userRoles],
+    currentUser: 'guest',
+    currentRole: 'NONE',
   };
   const ctx = {
     driver,
@@ -86,6 +91,7 @@ export default async ({ req, connection }) => {
   ctx.session = await session.load(null, null, ctx);
   if (ctx.session && ctx.session.user && ctx.session.user !== 'guest') {
     ctx.cypherParams.currentUser = ctx.session.user;
+    ctx.cypherParams.currentRole = ctx.session.userRole;
   }
   return ctx;
 };

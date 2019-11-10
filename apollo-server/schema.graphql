@@ -63,8 +63,8 @@ type Query {
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
-  Country(_id: String, uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
-  Dataset(_id: String, uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth
+  Country(uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
+  Dataset(uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth
   Event: [Event] @auth @cypher(statement: """
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
@@ -77,8 +77,13 @@ type Query {
     ORDER BY e.ageMean
   """)
   GetByUUID(filter: _EntityFilter): [Entity] @auth(role: ADMIN)
-  Lake(_id: String, uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth
-  User(_id: String, uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
+  Lake(uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth
+  User(uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
+  CountNewUsers: Int @auth(role: ADMIN) @cypher(statement: """
+    MATCH (n:User)
+    WHERE n.userRole = 'NONE' AND n.frozen <> true
+    RETURN count(n)
+  """)
 }
 
 type Mutation {
