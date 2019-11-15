@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title><%= params.title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css" integrity="sha256-HbgiGHMLxHZ3kkAiixyvnaaZFNjNWLYKD/QG6PWaQPc=" crossorigin="anonymous"/>
+<style lang="css">
+  body {
+    overflow: auto;
+  }
+  .overlay-visible:not(.overlay-backdrop) {
+    overflow: hidden;
+  }
+  body.overlay-visible .overlay-backdrop {
+    display: block;
+  }
+  .overlay-backdrop {
+    display: none;
+    background-color: rgba(0, 0, 0, .75);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
+  .overlay-frame {
+    position: relative;
+    background: hsl(0, 0%, 96%);
+    border: 2px solid hsl(212, 67%, 53%);
+    border-radius: .5rem;
+    margin: 15px auto;
+    max-width: 982px;
+  }
+  .markdown-body, .overlay-frame {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  @media (min-width: 768px) {
+    .overlay-frame {
+      margin: 30px auto;
+    }
+    .markdown-body, .overlay-frame {
+      padding: 30px;
+    }
+  }
+  svg:not(:root).svg-inline--fa {
+    overflow: visible;
+  }
+  .svg-inline--fa.fa-4x {
+    font-size: 4em;
+  }
+  .svg-inline--fa.fa-fw {
+    text-align: center;
+    width: 1.25em;
+  }
+  .svg-inline--fa.fa-w-14 {
+    width: 0.875em;
+  }
+  .svg-inline--fa.fa-w-16 {
+    width: 1em;
+  }
+  .svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -.125em;
+  }
+</style>
+</head>
+<body>
+<main id="app" class="markdown-body">
+  <div class="overlay-backdrop overlay-visible">
+    <div class="overlay-frame">
+      <h2>
+        <a id="overlay" class="anchor" href="#overlay" aria-hidden="true" rel="nofollow">
+          <svg aria-hidden="true" class="octicon octicon-link" height="16" viewbox="0 0 16 16" width="16">
+            <path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"/>
+          </svg>
+        </a>Overlay</h2>
+      <p>{{ message }}</p>
+    </div>
+  </div>
+<!-- START graphql-markdown -->
+<!-- END graphql-markdown -->
+  <p>&nbsp;</p>
+  <center>
+    <small>
+      © Helmholtz-Zentrum Potsdam ·
+      <strong><a href="#">Deutsches GeoForschungsZentrum GFZ</a></strong> ·
+      Provided with <%= params.credits %>
+      <svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false"
+           aria-hidden="true" data-prefix="fab" data-icon="vuejs"
+           viewBox="0 0 448 512" class="svg-inline--fa fa-vuejs fa-w-14 fa-fw">
+        <path fill="currentColor" d="
+            M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3h-91.1z
+            m-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5 55.7 96.3z
+          "/>
+      </svg>
+    </small>
+  </center>
+</main>
+<!--script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+  window.__VUE_APP__ = new Vue({
+    el: '#app',
+    data: {
+      message: 'This is an exemplary overlay which is intended to be used in a future version of the software.',
+    },
+  });
+</script-->
+</body>
+</html>
