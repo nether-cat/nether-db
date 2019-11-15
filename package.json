@@ -127,6 +127,9 @@
     "typescript": "^3.4.5",
     "vue-template-compiler": "^2.6.10"
   },
+  "engines": {
+    "node": ">=8.16.0"
+  },
   "vuePlugins": {
     "ui": [
       "apollo-server/utils/vue-cli-plugin-neo4j"
