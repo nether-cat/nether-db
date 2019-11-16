@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D8.16.0-brightgreen.svg)](package.json)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 `nether-db` powers the Varved Sediments Database (VARDA) to provide standardized
 climate proxy records from annually resolved lake sediment archives. It's being developed in cooperation
