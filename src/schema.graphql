@@ -347,7 +347,7 @@ type Publication implements Entity {
   year: Int
 }
 
-"The query root, from which multiple types of *requests* can be made."
+"The query root, from which multiple types of *queries* can be made."
 type Query {
   Confirmation(token: String!): JSON!
   CountNewUsers: Int
@@ -370,6 +370,8 @@ type Session {
   expires: Float!
   "Indicates the current state of authorization."
   state: SessionState!
+  "Indicates wether requests for fields marked `strict: false` must be authorized."
+  strictEnv: Boolean!
   "Signed JSON Web Token (JWT) that contains basic session details."
   token: String
   "Contains the user's login name or `guest` if there is no valid authorization token."

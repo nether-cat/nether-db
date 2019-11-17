@@ -5,4 +5,5 @@ fragment session on Session {
   token
   expires
   state
+  strictEnv
 }

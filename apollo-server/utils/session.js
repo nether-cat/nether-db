@@ -1,6 +1,7 @@
 const secret = process.env.SHARED_TOKEN_SECRET;
 const baseUrl = process.env.VUE_APP_BASE_URI || 'http://localhost:8000';
 const graphqlUrl = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:4000/graphql';
+const needAuthorization = JSON.parse(process.env.VUE_APP_AUTH_NEED_AUTHORIZATION || true);
 const needVerification = JSON.parse(process.env.VUE_APP_AUTH_NEED_VERIFICATION || true);
 
 if (!secret || typeof secret !== 'string' || secret.length < 32) {
@@ -40,6 +41,7 @@ const defaultSession = {
   token: null,
   expires: -1,
   state: 'UNAUTHORIZED',
+  strictEnv: !!needAuthorization,
 };
 const sessionCache = {
   _storage: {},
@@ -250,7 +252,7 @@ module.exports = {
       token = undefined;
     }
     if (!token) {
-      return defaultSession;
+      return { ...defaultSession };
     }
     try {
       cached = sessionCache.read(token);
@@ -287,6 +289,7 @@ module.exports = {
       token,
       expires: exp * 1000,
       state: sessionStates.AUTHORIZED,
+      strictEnv: defaultSession.strictEnv,
     });
   },
   async login($0, params, ctx) {
@@ -336,6 +339,7 @@ module.exports = {
           token,
           expires: payload.exp * 1000,
           state: sessionStates.AUTHORIZED,
+          strictEnv: defaultSession.strictEnv,
           skip: soft === true,
         });
       } else if (user.frozen) {
@@ -357,7 +361,7 @@ module.exports = {
   },
   async logout($0, $1, ctx) {
     ctx.req.res.clearCookie('apollo-token');
-    return defaultSession;
+    return { ...defaultSession };
   },
   async forgot($0, { email }, ctx) {
     email = (email || '').trim().toLowerCase();

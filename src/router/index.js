@@ -20,6 +20,7 @@ function createRoutes () {
     navigation: () => import('@/views/ViewNavigation'),
     footer: () => import('@/views/ViewFooter'),
   };
+  const isStrict = session => !(session && session.strictEnv === false);
   return [
     {
       path: '/',
@@ -30,7 +31,9 @@ function createRoutes () {
       },
       meta: {
         beforeEachHook: ({ data, router, to, next }) => {
-          if (!data || !conformsTo(data.session, { state: s => s === 'AUTHORIZED' })) {
+          if (!data || isStrict(data.session) && !conformsTo(data.session, {
+            state: value => value === 'AUTHORIZED',
+          })) {
             router.status = 403;
             next({
               name: 'login',
@@ -56,7 +59,9 @@ function createRoutes () {
       },
       meta: {
         beforeEachHook: ({ data, router, to, next }) => {
-          if (!data || !conformsTo(data.session, { state: s => s === 'AUTHORIZED' })) {
+          if (!data || isStrict(data.session) && !conformsTo(data.session, {
+            state: value => value === 'AUTHORIZED',
+          })) {
             router.status = 403;
             next({
               name: 'login',
