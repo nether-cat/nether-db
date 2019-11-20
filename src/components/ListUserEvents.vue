@@ -3,8 +3,8 @@
     <template slot="button-content">
       <FontAwesomeLayers fixed-width>
         <FontAwesomeIcon icon="bell" title="Notifications"/>
-        <FontAwesomeLayers v-if="data && data.unreadCount" class="fa-layers-counter">
-          {{ data.unreadCount }}
+        <FontAwesomeLayers v-if="listData && listData.unreadCount" class="fa-layers-counter">
+          {{ listData.unreadCount }}
         </FontAwesomeLayers>
       </FontAwesomeLayers>
     </template>
@@ -21,7 +21,7 @@
            class="dropdown-ledge"
       />
       <BDropdownForm
-        v-for="user in (data && data.items || [])"
+        v-for="user in (listData && listData.items || [])"
         :id="`notification-${user.uuid}`"
         :key="user.uuid"
         novalidate
@@ -98,7 +98,7 @@
               :variables="{ uuid: user.uuid, frozen: !user.frozen, userRole: user.userRole || 'NONE' }"
               :tag="undefined"
               @loading="(status) => $emit('update:activity', status)"
-              @done="() => listQuery.refetch({ offset: 0, first: data.currentLength })"
+              @done="() => listQuery.refetch({ offset: 0, first: listData.currentLength })"
             >
               <BButton
                 block
@@ -126,7 +126,7 @@
               :variables="{ uuid: user.uuid, userRole: 'USER' }"
               :tag="undefined"
               @loading="(status) => $emit('update:activity', status)"
-              @done="() => listQuery.refetch({ offset: 0, first: data.currentLength })"
+              @done="() => listQuery.refetch({ offset: 0, first: listData.currentLength })"
             >
               <BButton
                 block
@@ -176,7 +176,7 @@
           </BCol>
         </BFormRow>
       </BDropdownForm>
-      <BDropdownText v-if="!data || !data.currentLength" class="my-n2 px-5 py-4 bg-light text-center">
+      <BDropdownText v-if="!listData || !listData.currentLength" class="my-n2 px-5 py-4 bg-light text-center">
         <small class="font-weight-light text-secondary">No items to display</small>
       </BDropdownText>
       <BDropdownForm
@@ -184,8 +184,8 @@
         id="fetchMoreBtn"
         class="dropdown-item"
         @mousedown.prevent.stop
-        @mouseup.prevent.stop="fetchMore(listQuery, data.currentLength)"
-        @focus="fetchMore(listQuery, data.currentLength, true)"
+        @mouseup.prevent.stop="fetchMore(listQuery, listData.currentLength)"
+        @focus="fetchMore(listQuery, listData.currentLength, true)"
       >
         <BFormRow class="align-middle flex-nowrap text-nowrap text-muted">
           <BCol cols="5" style="flex-shrink: 1"><i class="long-dash w-100"/></BCol>
@@ -211,13 +211,17 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    listData: {
+      type: Object,
+      default: () => ({
+        items: [],
+        currentLength: 0,
+        unreadCount: 0,
+      }),
+    },
     pageSize: {
       type: Number,
       default: 5,
-    },
-    data: {
-      type: Object,
-      default: () => ({}),
     },
     activity: {
       type: Boolean,
@@ -238,7 +242,10 @@ export default {
     };
   },
   watch: {
-    data(newVal, oldVal) {
+    listData(newVal, oldVal) {
+      if (!newVal || !oldVal) {
+        return;
+      }
       let newFirst = newVal.items.length && newVal.items[0].uuid;
       let oldFirst = oldVal.items.length && oldVal.items[0].uuid;
       if (newFirst !== oldFirst) {
@@ -258,10 +265,10 @@ export default {
     },
   },
   created() {
-    if (!this.data || !this.data.items) {
+    if (!this.listData || !this.listData.items) {
       return;
     }
-    this.data.items.forEach(item => this.selected[item.uuid] = false);
+    this.listData.items.forEach(item => this.selected[item.uuid] = false);
   },
   methods: {
     fetchMore(query, offset, focus = false) {

@@ -44,7 +44,7 @@
         :update="parseEvents"
         :tag="undefined"
       >
-        <ListUserEvents :list-query="query" :page-size="pageSize" :data="data" :activity.sync="activity"/>
+        <ListUserEvents :list-query="query" :list-data="data" :page-size="pageSize" :activity.sync="activity"/>
       </ApolloQuery>
       <BNavItem v-if="session.state === 'AUTH_PENDING'" disabled>
         <FontAwesomeIcon icon="spinner" fixed-width spin/>
@@ -84,7 +84,14 @@ export default {
   data () {
     return {
       session: {
+        user: 'guest',
+        userRole: 'NONE',
+        fullName: '',
+        titlePrefix: '',
+        token: null,
+        expires: -1,
         state: 'UNAUTHORIZED',
+        strictEnv: undefined,
       },
       collapsed: true,
       activity: false,
@@ -118,6 +125,7 @@ export default {
       return result;
     },
     async doLogout () {
+      let strictEnv = this.session.strictEnv;
       this.$apollo.mutate({
         mutation: LOGOUT,
         optimisticResponse: {
@@ -127,9 +135,12 @@ export default {
             _id: 'SESSION_INFO',
             user: 'guest',
             userRole: 'NONE',
+            fullName: '',
+            titlePrefix: '',
             token: null,
             expires: -1,
             state: 'AUTH_PENDING',
+            strictEnv,
           },
         },
       }).then(() => {
