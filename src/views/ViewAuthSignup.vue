@@ -21,6 +21,7 @@
                               }"
                               label="Title"
                               label-for="titlePrefixInput"
+                              :label-class="loading ? ['disabled'] : []"
                   >
                     <BFormInput id="titlePrefixInput"
                                 ref="titlePrefix"
@@ -56,7 +57,7 @@
                               }"
                               label="Full name"
                               label-for="fullNameInput"
-                              label-class="required"
+                              :label-class="loading ? ['disabled', 'required'] : ['required']"
                   >
                     <BFormInput id="fullNameInput"
                                 ref="fullName"
@@ -98,7 +99,7 @@
                           }"
                           label="Email address"
                           label-for="emailInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
                 <BFormInput id="emailInput"
@@ -134,7 +135,7 @@
                           }"
                           label="Password"
                           label-for="passwordInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <BInputGroup>
                   <BFormInput id="passwordInput"

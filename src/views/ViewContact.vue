@@ -42,6 +42,7 @@
                                 }"
                                 label="Title"
                                 label-for="titlePrefixInput"
+                                :label-class="loading ? ['disabled'] : []"
                     >
                       <BFormInput id="titlePrefixInput"
                                   ref="titlePrefix"
@@ -77,7 +78,7 @@
                                 }"
                                 label="Full name"
                                 label-for="fullNameInput"
-                                label-class="required"
+                                :label-class="loading ? ['disabled', 'required'] : ['required']"
                     >
                       <BFormInput id="fullNameInput"
                                   ref="fullName"
@@ -117,7 +118,7 @@
                             }"
                             label="Email address"
                             label-for="emailInput"
-                            label-class="required"
+                            :label-class="loading ? ['disabled', 'required'] : ['required']"
                 >
                   <BFormInput id="emailInput"
                               ref="email"
@@ -149,7 +150,7 @@
                             }"
                             label="Your message"
                             label-for="messageInput"
-                            label-class="required"
+                            :label-class="loading ? ['disabled', 'required'] : ['required']"
                 >
                   <BFormTextarea id="messageInput"
                                  ref="message"
