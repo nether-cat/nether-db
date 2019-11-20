@@ -303,12 +303,13 @@ type Lake implements Entity {
 "The mutation root, from which multiple types of *mutations* can be performed."
 type Mutation {
   Confirm(token: String!): JSON!
+  ContactStaff(message: String!, sender: PersonDetails!): JSON!
   Forgot(email: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
   Revoke(token: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
-  Signup(probeOnly: Boolean, user: UserInput!): JSON!
+  Signup(probeOnly: Boolean, user: UserDetails!): JSON!
   UpdateLake(initZoom: Float, name: String, uuid: ID!): Lake!
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
@@ -368,10 +369,14 @@ type Session {
   _id: ID!
   "The expiration time after which the session token will not be accepted any longer."
   expires: Float!
+  "The user's complete name including possible middle names."
+  fullName: String
   "Indicates the current state of authorization."
   state: SessionState!
   "Indicates wether requests for fields marked `strict: false` must be authorized."
   strictEnv: Boolean!
+  "Optionally provides a user's title like `Prof.` or `Dr.`."
+  titlePrefix: String
   "Signed JSON Web Token (JWT) that contains basic session details."
   token: String
   "Contains the user's login name or `guest` if there is no valid authorization token."
@@ -511,20 +516,27 @@ enum _RelationDirections {
   OUT
 }
 
+"Provides password input from the client side."
 input Password {
   isHash: Boolean!
   value: String!
 }
 
-input UserInput {
+"Provides general details about some person."
+input PersonDetails {
   department: String
   email: String!
   fullName: String!
   institution: String
-  password: Password!
   role: String
   shortName: String
   titlePrefix: String
+}
+
+"Provides personal details with password input."
+input UserDetails {
+  password: Password!
+  person: PersonDetails!
 }
 
 input _EntityFilter {

@@ -8,6 +8,7 @@ if (!secret || typeof secret !== 'string' || secret.length < 32) {
   throw new Error('SHARED_TOKEN_SECRET must be set and have at least 32 chars');
 }
 
+const validator = require('validator');
 const uuidv4 = require('uuid/v4');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -38,6 +39,8 @@ const defaultSession = {
   _id: 'SESSION_INFO',
   user: 'guest',
   userRole: 'NONE',
+  fullName: '',
+  titlePrefix: '',
   token: null,
   expires: -1,
   state: 'UNAUTHORIZED',
@@ -123,6 +126,39 @@ function getSessionToken (ctx) {
     token = ws.headers.authorization.split(' ')[1];
   }
   return token;
+}
+
+function sendMessage (sender, message, transport) {
+  const sanitize = s => s.trim().replace(/\s+/g, ' ').trim();
+  sender.email = sanitize(sender.email);
+  if (!validator.isEmail(sender.email)) {
+    throw new Error('Invalid user input for parameter `email`');
+  }
+  sender.titlePrefix = sanitize(sender.titlePrefix || '');
+  sender.fullName = sanitize(sender.fullName || '');
+  if (!sender.fullName) {
+    throw new Error('Invalid user input for parameter `fullName`');
+  }
+  let email = sender.email;
+  sender = `${sender.titlePrefix} ${sender.fullName}`.trim();
+  let subject = `Message from ${sender}`;
+  let paragraphs = [
+    'Hello VARDA Team!\n',
+    'A website user sent a message using the contact form:',
+    '——————————————————————————————\n',
+    ...message.split('\n').filter(p => !!p.trim()).map(p => `${p.trim()}\n`),
+  ];
+  transport.sendMail({
+    to: transport.owner,
+    replyTo: `"${sender.replace(/(["])/g, '\\$1')}" <${email}>`,
+    text: paragraphs.join('\n'),
+    html: generateEmail({
+      subject,
+      paragraphs,
+      buttons: [],
+    }),
+    subject,
+  }).catch(console.error);
 }
 
 function sendRecovery (user, transport) {
@@ -286,6 +322,8 @@ module.exports = {
       _id: defaultSession._id,
       user: user.email,
       userRole: user.userRole,
+      fullName: user.fullName || '',
+      titlePrefix: user.titlePrefix || '',
       token,
       expires: exp * 1000,
       state: sessionStates.AUTHORIZED,
@@ -336,6 +374,8 @@ module.exports = {
           _id: defaultSession._id,
           user: user.email,
           userRole: user.userRole,
+          fullName: user.fullName || '',
+          titlePrefix: user.titlePrefix || '',
           token,
           expires: payload.exp * 1000,
           state: sessionStates.AUTHORIZED,
@@ -464,8 +504,9 @@ module.exports = {
       return { success: false, state: sessionStates.AUTH_ERROR };
     }
   },
-  async signup($0, { user, probeOnly }, ctx) {
-    if (!user || !user.email || !user.email.trim()) {
+  async signup($0, { user: { person, password }, probeOnly }, ctx) {
+    const user = { ...person, password };
+    if (!user.email || !user.email.trim()) {
       return { success: false };
     } else {
       user.email = user.email.trim().toLowerCase();
@@ -568,6 +609,7 @@ module.exports = {
   async revoke($0, params, ctx) {
     return { success: false };
   },
+  sendMessage,
   sendRecovery,
   sendVerification,
   sendNotification,

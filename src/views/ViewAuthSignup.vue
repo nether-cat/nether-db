@@ -37,7 +37,6 @@
                                 @blur="validate($v.form.titlePrefix, 0)"
                     />
                     <BFormInvalidFeedback v-if="!!form.titlePrefix && $v.form.titlePrefix.$error && $v.form.titlePrefix.$dirty">
-                      <!--Use only <kbd>A-z</kbd> <kbd>.</kbd> <kbd>&#9141;</kbd> <kbd>-</kbd>-->
                       Use only [A-z], [&nbsp;.&nbsp;], [&nbsp;-&nbsp;] or [&nbsp;&nbsp;&nbsp;]
                     </BFormInvalidFeedback>
                     <div class="full-feedback">
@@ -207,16 +206,17 @@ const emailTester = (vm) => (value) => (!value || !value.length || !email(value)
     mutation: require('@/graphql/mutations/Signup.graphql'),
     variables: {
       user: {
-        titlePrefix: '',
-        fullName: '',
-        email: value,
+        person: {
+          fullName: '',
+          email: value,
+        },
         password: { isHash: false, value: '' },
       },
       probeOnly: true,
     },
   }).then(({ data: { result } }) => result && result.success === true).catch(() => false);
-const titleCheck = helpers.regex('title', /^[A-Z]+[ .\-A-Za-z]*[.A-Za-z]$/);
-const nameCheck = helpers.regex('name', /^[^@$%<>#\\[\]{}]*$/);
+const titleCheck = helpers.regex('title', /^[A-Z][.\-A-Za-z]+ ?[.A-Za-z]+$/);
+const nameCheck = helpers.regex('name', /^[^@$%<>#"\\[\]{}]*$/);
 const passwordChecks = {
   digit: helpers.regex('lower', /[0-9]+/),
   lower: helpers.regex('lower', /[a-z]+/),
@@ -281,7 +281,12 @@ export default {
   },
   computed: {
     user () {
-      return { ...pickBy(this.form, f => !!f), password: { isHash: true, value: crypto
+      const person = {
+        ...pickBy(this.form, (v, k) => !!v && (
+          ['titlePrefix', 'fullName', 'email']
+        ).includes(k)),
+      };
+      return { person, password: { isHash: true, value: crypto
         .createHash('sha256')
         .update(this.form.password)
         .digest('hex') } };

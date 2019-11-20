@@ -91,6 +91,16 @@ module.exports = {
     },
   },
   Mutation: {
+    ContactStaff(obj, vars, ctx, info) {
+      const { sender, message } = vars;
+      try {
+        session.sendMessage(sender, message, ctx.transport);
+      } catch (err) {
+        console.error(err);
+        return { success: false };
+      }
+      return { success: true };
+    },
     Login(...args) {
       return session.login(...args);
     },

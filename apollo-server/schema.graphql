@@ -5,10 +5,10 @@ directive @auth(role: UserRole = USER, strict: Boolean = true) on OBJECT | FIELD
 
 "Possible access levels that permissions may entitle to."
 enum AccessLevel {
-  OWNER
-  EDITOR
-  VIEWER
   NONE
+  VIEWER
+  EDITOR
+  OWNER
 }
 
 "Possible states of authorization that a session can have."
@@ -26,19 +26,21 @@ enum SessionState {
 
 "Possible user roles for enabling system-wide privileges."
 enum UserRole {
-  ADMIN
-  MANAGER
-  REVIEWER
-  USER
   NONE
+  USER
+  REVIEWER
+  MANAGER
+  ADMIN
 }
 
+"Provides password input from the client side."
 input Password {
   isHash: Boolean!
   value: String!
 }
 
-input UserInput {
+"Provides general details about some person."
+input PersonDetails {
   titlePrefix: String
   fullName: String!
   shortName: String
@@ -46,6 +48,11 @@ input UserInput {
   department: String
   institution: String
   email: String!
+}
+
+"Provides personal details with password input."
+input UserDetails {
+  person: PersonDetails!
   password: Password!
 }
 
@@ -108,11 +115,12 @@ type Query {
 
 "The mutation root, from which multiple types of *mutations* can be performed."
 type Mutation {
+  ContactStaff(sender: PersonDetails!, message: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
   Forgot(email: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
-  Signup(user: UserInput!, probeOnly: Boolean): JSON!
+  Signup(user: UserDetails!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!
   UpdateLake(uuid: ID!, name: String, initZoom: Float): Lake! @auth(role: ADMIN)
@@ -446,6 +454,10 @@ type Session {
   user: String!
   "Administrative role that determines the user's system-wide privileges."
   userRole: UserRole!
+  "The user's complete name including possible middle names."
+  fullName: String
+  "Optionally provides a user's title like `Prof.` or `Dr.`."
+  titlePrefix: String
   "Signed JSON Web Token (JWT) that contains basic session details."
   token: String
   "The expiration time after which the session token will not be accepted any longer."

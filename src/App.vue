@@ -242,6 +242,11 @@ export default Vue.extend({
         .is-valid {
           padding-right: 2em;
         }
+        .is-invalid.no-icon,
+        .is-valid.no-icon {
+          padding-right: .75rem;
+          background-image: none;
+        }
         .is-invalid ~ .invalid-feedback ~ .full-feedback {
           display: none;
         }

@@ -1,0 +1,3 @@
+mutation contactStaff ($sender: PersonDetails!, $message: String!) {
+  result: ContactStaff(sender: $sender, message: $message)
+}
