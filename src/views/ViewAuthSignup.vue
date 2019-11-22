@@ -21,6 +21,7 @@
                               }"
                               label="Title"
                               label-for="titlePrefixInput"
+                              :label-class="loading ? ['disabled'] : []"
                   >
                     <BFormInput id="titlePrefixInput"
                                 ref="titlePrefix"
@@ -37,7 +38,6 @@
                                 @blur="validate($v.form.titlePrefix, 0)"
                     />
                     <BFormInvalidFeedback v-if="!!form.titlePrefix && $v.form.titlePrefix.$error && $v.form.titlePrefix.$dirty">
-                      <!--Use only <kbd>A-z</kbd> <kbd>.</kbd> <kbd>&#9141;</kbd> <kbd>-</kbd>-->
                       Use only [A-z], [&nbsp;.&nbsp;], [&nbsp;-&nbsp;] or [&nbsp;&nbsp;&nbsp;]
                     </BFormInvalidFeedback>
                     <div class="full-feedback">
@@ -57,7 +57,7 @@
                               }"
                               label="Full name"
                               label-for="fullNameInput"
-                              label-class="required"
+                              :label-class="loading ? ['disabled', 'required'] : ['required']"
                   >
                     <BFormInput id="fullNameInput"
                                 ref="fullName"
@@ -99,7 +99,7 @@
                           }"
                           label="Email address"
                           label-for="emailInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
                 <BFormInput id="emailInput"
@@ -135,7 +135,7 @@
                           }"
                           label="Password"
                           label-for="passwordInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <BInputGroup>
                   <BFormInput id="passwordInput"
@@ -207,16 +207,17 @@ const emailTester = (vm) => (value) => (!value || !value.length || !email(value)
     mutation: require('@/graphql/mutations/Signup.graphql'),
     variables: {
       user: {
-        titlePrefix: '',
-        fullName: '',
-        email: value,
+        person: {
+          fullName: '',
+          email: value,
+        },
         password: { isHash: false, value: '' },
       },
       probeOnly: true,
     },
   }).then(({ data: { result } }) => result && result.success === true).catch(() => false);
-const titleCheck = helpers.regex('title', /^[A-Z]+[ .\-A-Za-z]*[.A-Za-z]$/);
-const nameCheck = helpers.regex('name', /^[^@$%<>#\\[\]{}]*$/);
+const titleCheck = helpers.regex('title', /^[A-Z][.\-A-Za-z]+ ?[.A-Za-z]+$/);
+const nameCheck = helpers.regex('name', /^[^@$%<>#"\\[\]{}]*$/);
 const passwordChecks = {
   digit: helpers.regex('lower', /[0-9]+/),
   lower: helpers.regex('lower', /[a-z]+/),
@@ -281,7 +282,12 @@ export default {
   },
   computed: {
     user () {
-      return { ...pickBy(this.form, f => !!f), password: { isHash: true, value: crypto
+      const person = {
+        ...pickBy(this.form, (v, k) => !!v && (
+          ['titlePrefix', 'fullName', 'email']
+        ).includes(k)),
+      };
+      return { person, password: { isHash: true, value: crypto
         .createHash('sha256')
         .update(this.form.password)
         .digest('hex') } };

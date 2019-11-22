@@ -81,7 +81,7 @@
                           }"
                           label="Current password"
                           label-for="currentPasswordInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <BInputGroup>
                   <BFormInput id="currentPasswordInput"
@@ -131,7 +131,7 @@
                           }"
                           label="New password"
                           label-for="passwordInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <BInputGroup>
                   <BFormInput id="passwordInput"

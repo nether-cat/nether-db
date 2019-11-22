@@ -45,6 +45,7 @@ async function createTransport () {
         ? chalk.green('(Ethereal)')
         : chalk.red('(Live)'),
     );
+    wrapper.owner = transport._defaults.from;
     wrapper.sendMail = async (...args) => transport.sendMail(...args)
       .then(info => console.log('Message sent: %s', info.messageId) || info)
       .then(info => previews ? console.log(

@@ -2,7 +2,10 @@ fragment session on Session {
   _id
   user
   userRole
+  fullName
+  titlePrefix
   token
   expires
   state
+  strictEnv
 }

@@ -144,11 +144,14 @@ export default Vue.extend({
       .form-group {
         position: relative;
         margin-bottom: .2rem;
+        .disabled, [disabled] {
+          cursor: default;
+        }
         &.is-filled {
-          &.is-invalid label {
+          &.is-invalid label:not(.disabled) {
             color: $danger;
           }
-          &.is-valid label {
+          &.is-valid label:not(.disabled) {
             color: $success;
           }
         }
@@ -157,14 +160,17 @@ export default Vue.extend({
         &:focus-within:not(.focus-explicit) {
           label {
             transform: scale(0.75) translateY(-150%);
+            &.disabled {
+              background: linear-gradient(180deg, rgb(252, 252, 253) 0%, rgba(233,236,239,1) 75%);
+            }
             &.required::after {
-              color: rgba($input-placeholder-color, 0);
+              color: rgba($input-placeholder-color, 0) !important;
             }
           }
         }
         &.focus-explicit.focus-within,
         &:focus-within:not(.focus-explicit) {
-          label {
+          label:not(.disabled) {
             color: $theme-color;
           }
         }
@@ -177,7 +183,6 @@ export default Vue.extend({
           color: $success;
         }
         label {
-          cursor: text;
           pointer-events: none;
           position: absolute;
           z-index: 5;
@@ -195,7 +200,11 @@ export default Vue.extend({
           transform-origin: bottom left;
           transform: scale(1) translateY(0);
           transition: transform 100ms linear, color 100ms linear;
-          &.required::after {
+          &.disabled {
+            background: #e9ecef;
+            box-shadow: none;
+          }
+          &.required:not(.disabled)::after {
             content: '*';
             color: $danger;
             transition: color 100ms linear;
@@ -241,6 +250,11 @@ export default Vue.extend({
         .is-invalid,
         .is-valid {
           padding-right: 2em;
+        }
+        .is-invalid.no-icon,
+        .is-valid.no-icon {
+          padding-right: .75rem;
+          background-image: none;
         }
         .is-invalid ~ .invalid-feedback ~ .full-feedback {
           display: none;

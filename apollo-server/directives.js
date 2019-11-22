@@ -6,6 +6,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
   visitObject(type) {
     this.ensureFieldsWrapped(type);
     type['_requiredAuthRole'] = this.args.role;
+    type['_enforceAlways'] = this.args.strict !== false;
   }
 
   // Visitor methods for nested types like fields and arguments
@@ -14,6 +15,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field, details) {
     this.ensureFieldsWrapped(details.objectType);
     field['_requiredAuthRole'] = this.args.role;
+    field['_enforceAlways'] = this.args.strict !== false;
   }
 
   ensureFieldsWrapped(objectType) {
@@ -25,17 +27,20 @@ class AuthDirective extends SchemaDirectiveVisitor {
 
     Object.keys(fields).forEach(fieldName => {
       const field = fields[fieldName];
-      const { resolve = defaultFieldResolver || function () {} } = field;
+      const { resolve = defaultFieldResolver } = field;
 
       field.resolve = async function (...args) {
         // Get the required role from the field first, falling back
         // to the objectType if no role is required by the field:
         const needsRole = field._requiredAuthRole || objectType._requiredAuthRole;
+        const enforceAlways = field._enforceAlways || objectType._enforceAlways;
         if (!needsRole) return resolve.apply(this, args);
         // Get the user's role from the context session
         const [,, { session: s } = {}] = args;
         if (!s || session.roles[s.userRole] < session.roles[needsRole]) {
-          throw new Error(`Forbidden (${(Date.now() / 1000).toFixed(3)})`);
+          if (s.strictEnv !== false || enforceAlways) {
+            throw new Error(`Forbidden (${(Date.now() / 1000).toFixed(3)})`);
+          }
         }
         return resolve.apply(this, args);
       };

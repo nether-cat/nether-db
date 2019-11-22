@@ -1,11 +1,31 @@
 {
   "name": "nether-db",
-  "description": "A database application for paleolimnological research",
-  "repository": "https://github.com/nether-cat/nether-db",
+  "description": "Graph database application for high-resolution paleolimnology and paleoclimatology",
   "version": "1.0.0",
   "license": "MIT",
+  "keywords": [
+    "vue",
+    "vue-apollo",
+    "apollo",
+    "apollo-client",
+    "apollo-server",
+    "graph-database",
+    "research-project",
+    "research-data",
+    "climate-data",
+    "climate",
+    "paleoclimate",
+    "age-depth-model",
+    "varves"
+  ],
+  "homepage": "https://varve.gfz-potsdam.de",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nether-cat/nether-db.git"
+  },
   "author": {
-    "name": "Mario Dorn"
+    "name": "Mario Dorn",
+    "email": "mario.dorn@forgefire.net"
   },
   "contributors": [
     {
@@ -28,6 +48,7 @@
     "serve": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service serve",
     "inspect": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service inspect",
     "lint": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service lint --ext \"gql,graphql,js,jsx,ts,tsx,vue\"",
+    "release": "npx -n $NODE_DEBUG_OPTION -- standard-version --commit-all",
     "ssr:serve": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service ssr:serve",
     "ssr:build": "cross-env NODE_ENV=production vue-cli-service ssr:build --mode production",
     "ssr:start": "cross-env NODE_ENV=production vue-cli-service ssr:serve --mode production",
@@ -86,6 +107,7 @@
     "shortid": "^2.2.8",
     "unorm": "^1.5.0",
     "uuid": "^3.3.2",
+    "validator": "^12.0.0",
     "vue": "^2.6.10",
     "vue-apollo": "^3.0.0",
     "vue-cli-plugin-apollo": "^0.21.3",
@@ -123,9 +145,13 @@
     "eslint-plugin-vue": "^5.0.0-0",
     "graphql-markdown": "^5.1.0",
     "marky-markdown": "^12.0.0",
+    "standard-version": "^7.0.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.4.5",
     "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=8.16.0"
   },
   "vuePlugins": {
     "ui": [

@@ -6,202 +6,349 @@ schema {
   subscription: Subscription
 }
 
+"Object types implement this interface which defines generic properties."
 interface Entity {
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Using this interface allows for lists of permissions with different types."
 interface Permission {
+  "The dataset that the permission has been granted for."
   Dataset: Dataset!
+  "The level of access that the permission entitles to."
   level: AccessLevel!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Attributes define the various properties that the records in a dataset may have."
 type Attribute implements Entity {
+  "The categories that the attribute is being used for."
   categories(first: Int = 100, offset: Int = 0): [Category]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "An attribute's purpose or characteristics can be documented using the description."
   description: String
+  "This identifies the attribute and determines its default text representation."
   name: String!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Categories indicate the subject that related datasets and records provide data for."
 type Category implements Entity {
+  "The attributes that are being used for the category."
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The datasets that belong to the category."
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  "A category's purpose or meaning can be documented using the description."
   description: String
+  "This identifies the category and determines its default text representation."
   name: String!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Changesets have not been implemented yet and will be used to track property changes."
 type Changeset implements Entity {
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The payload contains an object with property changes to apply."
   payload: JSON!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Continents of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
 type Continent implements Entity {
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
+  "The countries that are located in the continent."
   countries(first: Int = 100, offset: Int = 0): [Country]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Cores represent physical sediment profiles and provide respective metadata."
 type Core implements Entity {
+  "The method that was used to generate an age-depth-model for the core."
   ageDepthMethod: String
+  "Comments can be added to provide special remarks about the core."
   comments: String
+  "Indicates wether the core represents a composite profile or separate sections."
   composite: Boolean
+  "The method that was used to retrieve the core from the site of interest."
   coringMethod: String
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The datasets that have been created/sampled from the core."
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  "Calender year (AD) when the core was retrieved from the site of interest."
   drillDate: Int
+  "Ideally a core is being labelled to identify a sediment profile."
   label: String
+  "The lake that the core has been retrieved from at the site of interest."
   lake(first: Int = 1, offset: Int = 0): [Lake]
+  "Geodetic latitude of the site of interest in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
   latitude: Float
+  "Geodetic longitude of the site of interest in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
   longitude: Float
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
+  "The water level (if applicable) at the site of interest."
   waterDepth: Float
 }
 
+"Countries of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
 type Country implements Entity {
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
+  "The continents that the country is located in."
   continents(first: Int = 100, offset: Int = 0): [Continent]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The lakes that are located in the country."
   lakes(first: Int = 100, offset: Int = 0): [Lake]
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Datasets comprise a greater amount of sampled records and provide respective metadata."
 type Dataset implements Entity {
+  "Indicates the currently authorized user's access level for the dataset."
   accessLevel: AccessLevel!
+  "Maximum sampled age in raw or calibrated years before present, 1950-based."
   ageMax: Float
+  "Minimum sampled age in raw or calibrated years before present, 1950-based."
   ageMin: Float
+  "This ratio is being determined by: `samples` / `ageSpan` * `1,000`."
   ageResolution: Float
+  "The covered time interval in respect of `minAge` and `maxAge`."
   ageSpan: Float
+  "The method that was used to generate the provided records in the dataset."
   analysisMethod: String
+  "The attributes that have been included in the dataset's records."
   attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  "The categories that the dataset belongs to."
   categories(first: Int = 100, offset: Int = 0): [Category]
+  "Comments can be added to provide special remarks about the dataset."
   comments: String
+  "The core that the dataset has been created/sampled from."
   core(first: Int = 1, offset: Int = 0): [Core]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "Maximum depth from ground level being covered in millimeters."
   depthMax: Float
+  "Minimum depth from ground level being covered in millimeters."
   depthMin: Float
-  depthResolution: Float
-  depthSpan: Float
+  "Name of the platform/database where an original source file was published."
   distributor: String
+  "The filename is being used for downloading the dataset and its records."
   file: String!
+  "This could be used to visually distinguish the dataset from similar counterparts."
   label: String
+  "The permissions that have been granted to users and/or groups."
   permissions: [Permission]
+  "Indicates wether the records can only be viewed by privileged users."
   protected: Boolean
+  "The publication that the dataset has been published/referenced in."
   publication(first: Int = 1, offset: Int = 0): [Publication]
+  "The sampled data points that are stored in the dataset."
   records(first: Int = 100, offset: Int = 0): [JSON]
+  "Total number of records included in the dataset."
   samples: Int
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "The URL can be provided to link an original source file for the dataset."
   url: String
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Events comprise of metadata and one or more identified [tephra layers](https://en.wikipedia.org/wiki/Tephrochronology)."
 type Event implements Entity {
+  "Maximum estimated age provided by correlating samples in raw or calibrated years before present, 1950-based."
   ageMax: Float
+  "Mean estimated age calculated from correlating samples in raw or calibrated years before present, 1950-based."
   ageMean: Float
+  "Minimum estimated age provided by correlating samples in raw or calibrated years before present, 1950-based."
   ageMin: Float
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The datasets that contain samples which correlate with the event."
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  "The lakes with respective tephra layers which correlate with the event."
   lakes(first: Int = 100, offset: Int = 0): [Lake]
+  "This identifies the event and determines its text representation."
   name: String!
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Groups are used to manage user permissions hierarchically and in batch."
 type Group implements Entity {
+  "Any other groups that inherit the group's permissions."
   children: [Group]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The users that are members of the group."
   members: [User]
+  "This identifies the user group and determines its text representation."
   name: String!
+  "Any other groups that the group inherits permissions from."
   parents: [Group]
+  "The permissions that have been granted to the group."
   permissions: [GroupPermission]
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Group permissions entitle authorized group members to access protected datasets."
 type GroupPermission implements Permission {
+  "The dataset that the permission has been granted for."
   Dataset: Dataset!
+  "The group that the permission has been granted to."
   Group: Group!
+  "The level of access that the permission entitles to."
   level: AccessLevel!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"Lakes are water bodies (current or past) with sediments and provide respective metadata."
 type Lake implements Entity {
+  "Area of the water body's catchment in square meters."
   catchmentArea: Float
+  "The cores that have been retrieved from the lake."
   cores(first: Int = 100, offset: Int = 0): [Core]
+  "The countries that the lake is located in."
   countries(first: Int = 100, offset: Int = 0): [Country]
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "Total number of datasets that are available for the lake."
   datasetsCount: Int
+  "Can be used to provide an initial zoom level for the map other than the global default."
   initZoom: Float
+  "Geodetic latitude of the lake in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
   latitude: Float!
+  "Geodetic longitude of the lake in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
   longitude: Float!
+  "Maximum depth of the water (if applicable)."
   maxDepth: Float
+  "This identifies the lake and determines its text representation."
   name: String!
+  "Area of the water body's surface in square meters."
   surfaceArea: Float
+  "Level of the water body's surface above sea level in meters."
   surfaceLevel: Float
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
+  "Volume of the lake's water body in cubic meters."
   waterBodyVolume: Float
 }
 
+"The mutation root, from which multiple types of *mutations* can be performed."
 type Mutation {
   Confirm(token: String!): JSON!
+  ContactStaff(message: String!, sender: PersonDetails!): JSON!
   Forgot(email: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
   Revoke(token: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
-  Signup(probeOnly: Boolean, user: UserInput!): JSON!
+  Signup(probeOnly: Boolean, user: UserDetails!): JSON!
   UpdateLake(initZoom: Float, name: String, uuid: ID!): Lake!
   UpdateUser(emailVerified: Boolean, frozen: Boolean, updated: _Neo4jDateTimeInput, userRole: UserRole, uuid: ID!): User!
 }
 
+"Publications comprise of a citation, URL or DOI to reference an original work."
 type Publication implements Entity {
+  "May contain the publication's abstract, e.g. if no DOI is available."
   abstract: String
+  "Comma-separated text that lists the publication's authors."
   authors: String
+  "Formatted text citation for the DOI using the CSL style `harvard3`."
   citation: String
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "The datasets that were provided/referenced in the publication."
   datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  "Contains the publication's raw document object identifier (DOI)."
   doi: String
+  "May contain a contact email address, e.g. if no DOI is available."
   email: String
+  "Date and time (UTC) when the DOI metadata have been resolved."
   resolved: _Neo4jDateTime
+  "May contain a name of the source, e.g. if no DOI is available."
   source: String
+  "Name of the publication without any other meta information."
   title: String
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "May contain a URL to the source, e.g. if no DOI is available."
   url: String
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
+  "Calender year (AD) when the publication was first released."
   year: Int
 }
 
+"The query root, from which multiple types of *queries* can be made."
 type Query {
   Confirmation(token: String!): JSON!
   CountNewUsers: Int
@@ -216,45 +363,84 @@ type Query {
   User(email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
 }
 
+"Sessions are currently stored in cache only and each is a singleton in the client."
 type Session {
+  "The session ID is currently set to always have a constant value of `SESSION_INFO`."
   _id: ID!
+  "The expiration time after which the session token will not be accepted any longer."
   expires: Float!
+  "The user's complete name including possible middle names."
+  fullName: String
+  "Indicates the current state of authorization."
   state: SessionState!
+  "Indicates wether requests for fields marked `strict: false` must be authorized."
+  strictEnv: Boolean!
+  "Optionally provides a user's title like `Prof.` or `Dr.`."
+  titlePrefix: String
+  "Signed JSON Web Token (JWT) that contains basic session details."
   token: String
+  "Contains the user's login name or `guest` if there is no valid authorization token."
   user: String!
+  "Administrative role that determines the user's system-wide privileges."
   userRole: UserRole!
 }
 
+"The subscription root, from which multiple types of *subscriptions* can be registered."
 type Subscription {
   EntityUpdated(types: [String]): Entity!
 }
 
+"Users comprise of personal information and technical properties for authentication."
 type User implements Entity {
+  "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
+  "Indicates wether the account has been disabled on request by the user."
   deactivated: Boolean!
+  "Optionally provides a user's department within their institution."
   department: String
+  "The email address is being used to identify and verify the user's account."
   email: String!
+  "Indicates wether the email address has been verified by the user."
   emailVerified: Boolean!
+  "Indicates wether the account has been frozen (disabled) by an administrator."
   frozen: Boolean!
+  "The user's complete name including possible middle names."
   fullName: String!
+  "The groups that the user is being a member of."
   groups: [Group]
+  "Optionally provides the institution's name that the user is affiliated with."
   institution: String
+  "Argon2 is being used generate and verify hashes of the user's password."
   password: String!
+  "The permissions that have been granted to the user."
   permissions: [UserPermission]
+  "Optionally provides remarks about the status of the user's account."
   reason: String
+  "Optionally provides a user's organizational role within their institution."
   role: String
+  "A user may provide a shorter version of their name to display in their profile."
   shortName: String
+  "Optionally provides a user's title like `Prof.` or `Dr.`."
   titlePrefix: String
+  "Lists all node labels (types) that the entity has."
   types: [String]
+  "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
+  "Administrative user role that determines their system-wide privileges."
   userRole: UserRole!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
+"User permissions entitle authorized users to access protected datasets."
 type UserPermission implements Permission {
+  "The dataset that the permission has been granted for."
   Dataset: Dataset!
+  "The user that the permission has been granted to."
   User: User!
+  "The level of access that the permission entitles to."
   level: AccessLevel!
+  "A random universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -290,6 +476,7 @@ type _Neo4jTime {
   timezone: String
 }
 
+"Possible access levels that permissions may entitle to."
 enum AccessLevel {
   EDITOR
   NONE
@@ -302,6 +489,7 @@ enum CacheControlScope {
   PUBLIC
 }
 
+"Possible states of authorization that a session can have."
 enum SessionState {
   AUTHORIZED
   AUTH_APPROVAL
@@ -314,6 +502,7 @@ enum SessionState {
   UNAUTHORIZED
 }
 
+"Possible user roles for enabling system-wide privileges."
 enum UserRole {
   ADMIN
   MANAGER
@@ -327,20 +516,27 @@ enum _RelationDirections {
   OUT
 }
 
+"Provides password input from the client side."
 input Password {
   isHash: Boolean!
   value: String!
 }
 
-input UserInput {
+"Provides general details about some person."
+input PersonDetails {
   department: String
   email: String!
   fullName: String!
   institution: String
-  password: Password!
   role: String
   shortName: String
   titlePrefix: String
+}
+
+"Provides personal details with password input."
+input UserDetails {
+  password: Password!
+  person: PersonDetails!
 }
 
 input _EntityFilter {
@@ -384,6 +580,7 @@ input _Neo4jTimeInput {
 }
 
 
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
 "The `Upload` scalar type represents a file upload."

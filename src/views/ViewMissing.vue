@@ -1,10 +1,14 @@
 <template>
   <BContainer fluid class="content">
-    <BRow>
-      <BCol cols="12">
-        <h1>Oops!</h1>
-        <h2>Requested page not found</h2>
-        <p>Looks like you've followed a broken link or entered a URL that doesn't exist on this site.</p>
+    <BRow align-h="center">
+      <BCol cols="12" xl="7">
+        <BCard class="h-100" title="Page not found">
+          <hr class="mt-1 mb-4">
+          <p>
+            Sorry! Looks like you've followed a broken link
+            or entered a URL that doesn't exist on this site.
+          </p>
+        </BCard>
       </BCol>
     </BRow>
   </BContainer>

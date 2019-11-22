@@ -1,14 +1,14 @@
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
-directive @auth(role: UserRole = USER) on OBJECT | FIELD_DEFINITION
+directive @auth(role: UserRole = USER, strict: Boolean = true) on OBJECT | FIELD_DEFINITION
 
 "Possible access levels that permissions may entitle to."
 enum AccessLevel {
-  OWNER
-  EDITOR
-  VIEWER
   NONE
+  VIEWER
+  EDITOR
+  OWNER
 }
 
 "Possible states of authorization that a session can have."
@@ -26,19 +26,21 @@ enum SessionState {
 
 "Possible user roles for enabling system-wide privileges."
 enum UserRole {
-  ADMIN
-  MANAGER
-  REVIEWER
-  USER
   NONE
+  USER
+  REVIEWER
+  MANAGER
+  ADMIN
 }
 
+"Provides password input from the client side."
 input Password {
   isHash: Boolean!
   value: String!
 }
 
-input UserInput {
+"Provides general details about some person."
+input PersonDetails {
   titlePrefix: String
   fullName: String!
   shortName: String
@@ -46,6 +48,11 @@ input UserInput {
   department: String
   institution: String
   email: String!
+}
+
+"Provides personal details with password input."
+input UserDetails {
+  person: PersonDetails!
   password: Password!
 }
 
@@ -77,15 +84,15 @@ schema {
   subscription: Subscription
 }
 
-"The query root, from which multiple types of *requests* can be made."
+"The query root, from which multiple types of *queries* can be made."
 type Query {
   Session: Session!
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
   Country(uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
-  Dataset(uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth
-  Event: [Event] @auth @cypher(statement: """
+  Dataset(uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth(strict: false)
+  Event: [Event] @auth(strict: false) @cypher(statement: """
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
       .*,
@@ -97,7 +104,7 @@ type Query {
     ORDER BY e.ageMean
   """)
   GetByUUID(filter: _EntityFilter): [Entity] @auth(role: ADMIN)
-  Lake(uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth
+  Lake(uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth(strict: false)
   User(uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
   CountNewUsers: Int @auth(role: ADMIN) @cypher(statement: """
     MATCH (n:User)
@@ -108,11 +115,12 @@ type Query {
 
 "The mutation root, from which multiple types of *mutations* can be performed."
 type Mutation {
+  ContactStaff(sender: PersonDetails!, message: String!): JSON!
   Login(email: String!, password: Password!): Session!
   Logout: Session!
   Forgot(email: String!): JSON!
   SetPassword(currentPassword: Password, password: Password!, token: String): JSON!
-  Signup(user: UserInput!, probeOnly: Boolean): JSON!
+  Signup(user: UserDetails!, probeOnly: Boolean): JSON!
   Confirm(token: String!): JSON!
   Revoke(token: String!): JSON!
   UpdateLake(uuid: ID!, name: String, initZoom: Float): Lake! @auth(role: ADMIN)
@@ -121,7 +129,7 @@ type Mutation {
 
 "The subscription root, from which multiple types of *subscriptions* can be registered."
 type Subscription {
-  EntityUpdated(types: [String]): Entity! @auth
+  EntityUpdated(types: [String]): Entity! @auth(strict: false)
 }
 
 "Attributes define the various properties that the records in a dataset may have."
@@ -446,12 +454,18 @@ type Session {
   user: String!
   "Administrative role that determines the user's system-wide privileges."
   userRole: UserRole!
+  "The user's complete name including possible middle names."
+  fullName: String
+  "Optionally provides a user's title like `Prof.` or `Dr.`."
+  titlePrefix: String
   "Signed JSON Web Token (JWT) that contains basic session details."
   token: String
   "The expiration time after which the session token will not be accepted any longer."
   expires: Float!
   "Indicates the current state of authorization."
   state: SessionState!
+  "Indicates wether requests for fields marked `strict: false` must be authorized."
+  strictEnv: Boolean!
 }
 
 "Users comprise of personal information and technical properties for authentication."

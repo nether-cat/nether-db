@@ -20,7 +20,7 @@
                           }"
                           label="Email address"
                           label-for="emailInput"
-                          label-class="required"
+                          :label-class="loading ? ['disabled', 'required'] : ['required']"
               >
                 <BFormInput id="emailInput"
                             ref="email"

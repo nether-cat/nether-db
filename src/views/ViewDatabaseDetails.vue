@@ -3,7 +3,7 @@
     class="container-fluid"
     :query="require('../graphql/queries/LookupLake.graphql')"
     :variables="{
-      uuid: lakeId
+      uuid: lakeId,
     }"
     :skip="!lakeId || isDeactivated"
     :notify-on-network-status-change="true"
