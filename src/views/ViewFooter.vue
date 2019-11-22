@@ -29,7 +29,11 @@ export default {
       <div class="footer container-fluid text-muted">
         <span class={this.classesDefaultBlock}>© Helmholtz-Zentrum Potsdam</span>
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
-        <a class="font-weight-bold text-muted" href="#">Deutsches GeoForschungsZentrum GFZ</a>
+        <a class="font-weight-bold text-muted"
+           href="https://www.gfz-potsdam.de/en/section/climate-dynamics-and-landscape-evolution/overview/"
+           rel="noopener noreferrer"
+           target="_blank"
+        >Deutsches GeoForschungsZentrum GFZ</a>
         <span class={this.classesDefaultNone}>&nbsp;&middot;&nbsp;</span>
         <span class={this.classesDefaultBlock}>Provided with {this.name} v{this.version} {this.icon}</span>
       </div>

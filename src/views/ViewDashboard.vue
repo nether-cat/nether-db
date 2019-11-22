@@ -25,13 +25,19 @@
           <h4>Latest Updates</h4><hr>
         </BContainer>
         <BCard title="Release v1.0.2" class="card-news">
-          Eget felis eget nunc lobortis mattis aliquam faucibus. Ut eu sem integer vitae justo eget. Turpis egestas maecenas pharetra convallis posuere morbi leo urna.
+          <span class="card-text">
+            Eget felis eget nunc lobortis mattis aliquam faucibus. Ut eu sem integer vitae justo eget. Turpis egestas maecenas pharetra convallis posuere morbi leo urna.
+          </span>
         </BCard>
         <BCard title="Release v1.0.1" class="card-news">
-          Lectus arcu bibendum at varius vel pharetra. Tempor nec feugiat nisl pretium fusce id velit ut. Duis at consectetur lorem donec.
+          <span class="card-text">
+            Lectus arcu bibendum at varius vel pharetra. Tempor nec feugiat nisl pretium fusce id velit ut. Duis at consectetur lorem donec.
+          </span>
         </BCard>
         <BCard title="Release v1.0.0" class="card-news">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <span class="card-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </span>
         </BCard>
       </BCol>
     </BRow>
@@ -74,5 +80,11 @@ export default {
   .card-feature:last-child,
   .card-news:last-child {
     margin-bottom: 0 !important;
+  }
+  .card-news {
+    color: var(--secondary);
+    .card-text {
+      text-decoration: line-through;
+    }
   }
 </style>

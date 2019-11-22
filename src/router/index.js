@@ -176,6 +176,14 @@ function createRoutes () {
       },
     },
     {
+      path: '/imprint',
+      name: 'imprint',
+      components: {
+        ...layout,
+        default: () => import('@/views/ViewImprint'),
+      },
+    },
+    {
       path: '*',
       name: 'missing',
       components: {

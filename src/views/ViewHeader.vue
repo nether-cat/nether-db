@@ -19,10 +19,13 @@ export default {
             <object class="app-logo" name="Logo" role="img" aria-label="Logo" data={require('@/assets/varda-logo.svg')}/>
           </BCol>
           <BCol cols="12" sm="6" class="px-0">
-            <BNav class="float-right px-3">
-              <BNavItem to="/contact" disabled>Contact</BNavItem>
-              <BNavItem to="/imprint" disabled>Imprint</BNavItem>
-              <BNavItem to="/privacy" disabled>Privacy</BNavItem>
+            <BNav class="text-secondary float-right px-3">
+              <BNavItem linkClasses="text-secondary" to="/contact">Contact</BNavItem>
+              <BNavItem linkClasses="text-secondary" to="/imprint">Imprint</BNavItem>
+              <BNavItem linkClasses="text-secondary"
+                        href="https://www.gfz-potsdam.de/en/data-protection/"
+                        rel="noopener noreferrer"
+                        target="_blank">Privacy</BNavItem>
             </BNav>
           </BCol>
         </BRow>
@@ -57,6 +60,9 @@ export default {
       .nav-link {
         display: inline-block;
         padding: 0.5rem 0.5rem;
+        &.active {
+          color: var(--dark) !important;
+        }
       }
     }
     > .btn.btn-link {
