@@ -16,10 +16,3 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **style:** Improve the display of labels for disabled form fields ([d394fb1](https://github.com/nether-cat/nether-db/commit/d394fb169bed6bde2c21ae466aec429343a255ac))
 * Handle an `undefined` component state before accessing its fields ([5e8c239](https://github.com/nether-cat/nether-db/commit/5e8c2391865fced1b36ef0c7c05d900eef8aef5c))
-
-## 1.0.0 (2019-11-17)
-
-
-### Features
-
-* **auth:** Enable unauthorized access to designated queries and routes ([a46f42a](https://github.com/nether-cat/nether-db/commit/a46f42a87895a2d3a5ae5193022a01677a2340a2)), closes [#21](https://gitlab.forgefire.net/gfz/nether-db/issues/21)
