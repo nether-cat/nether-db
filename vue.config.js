@@ -138,6 +138,8 @@ module.exports = {
           }),
         }]);
 
+    } else {
+      config.output.globalObject("(typeof self !== 'undefined' ? self : this)");
     }
 
     config.plugin('define')
@@ -186,6 +188,10 @@ module.exports = {
     config.module.rule('vue')
       .use('vue-loader')
       .tap(options => Object.assign({}, options, {
+        compilerOptions: {
+          ...options.compilerOptions,
+          'whitespace': 'preserve',
+        },
         transformAssetUrls: {
           ...options.transformAssetUrls,
           'object': 'data',

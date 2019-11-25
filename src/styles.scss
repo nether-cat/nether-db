@@ -19,7 +19,7 @@ html, body {
 .form-control {
   cursor: text;
   &:focus-within {
-    @extend .form-control:focus;
+    @extend .form-control, :focus;
     > input, textarea {
       outline: 0 !important;
     }

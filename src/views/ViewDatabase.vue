@@ -36,7 +36,7 @@ export default {
   }
 
   .container-fluid {
-    /deep/ .vl-map {
+    ::v-deep .vl-map {
       height: 485px !important;
       max-height: calc(100vh - 6rem) !important;
       @media (min-width: 992px) and (min-height: 576px)  {
@@ -44,10 +44,10 @@ export default {
         max-height: 100vh !important;
       }
     }
-    /deep/ .ol-viewport canvas {
+    ::v-deep .ol-viewport canvas {
       height: auto !important;
     }
-    /deep/ .ol-control button {
+    ::v-deep .ol-control button {
       &:focus {
         outline-width: 0;
         background-color: rgba(0, 60, 136, 0.7);
@@ -59,11 +59,11 @@ export default {
         background-color: rgba(0, 60, 136, 0.7);
       }
     }
-    /deep/ .ol-scale-line-inner {
+    ::v-deep .ol-scale-line-inner {
       border-top: 1px solid #eee;
       padding-top: 1px;
     }
-    /deep/ .b-table-sticky-header {
+    ::v-deep .b-table-sticky-header {
       &.table-main {
         max-height: calc(100vh - 10rem);
         @media (min-width: 768px) and (min-height: 900px) {
@@ -89,15 +89,15 @@ export default {
         }
       }
     }
-    /deep/ .table-header > * {
+    ::v-deep .table-header > * {
       display: inline-block;
       padding: 0 1rem .75rem 0;
       vertical-align: middle;
     }
-    /deep/ .table-actions {
+    ::v-deep .table-actions {
       float: right;
     }
-    /deep/ .table-hover {
+    ::v-deep .table-hover {
       tbody tr {
         &:hover {
           background-color: hsl(200, 60%, 95%);
@@ -108,12 +108,12 @@ export default {
         }
       }
     }
-    /deep/ :not(.table-toggle-details) > .table-hover {
+    ::v-deep :not(.table-toggle-details) > .table-hover {
       tbody tr:hover {
         cursor: pointer;
       }
     }
-    /deep/ .table-toggle-details.may-toggle > .table-hover {
+    ::v-deep .table-toggle-details.may-toggle > .table-hover {
       tbody tr:hover {
         cursor: zoom-in;
       }
@@ -121,7 +121,7 @@ export default {
         cursor: zoom-out;
       }
     }
-    /deep/ .table, /deep/ .table-hover {
+    ::v-deep .table, ::v-deep .table-hover {
       thead th {
         border-bottom-width: 1px !important;
         border-bottom-color: hsla(210, 14%, 78%, 1.0);
@@ -141,7 +141,7 @@ export default {
         }
       }
     }
-    /deep/ .table-responsive {
+    ::v-deep .table-responsive {
       margin-bottom: 0;
       .table.b-table > caption {
         padding-top: .75rem;
@@ -160,7 +160,7 @@ export default {
         }
       }
     }
-    /deep/ .is-loading .loading-bar {
+    ::v-deep .is-loading .loading-bar {
       display: inline;
       position: relative;
       color: transparent;
@@ -194,15 +194,15 @@ export default {
         }
       }
     }
-    /deep/ .loading-cover,
-    /deep/ .b-table-empty-row {
+    ::v-deep .loading-cover,
+    ::v-deep .b-table-empty-row {
       background-color: rgba(245, 245, 245, .7) !important;
       color: #6c757d !important;
       text-align: center !important;
       line-height: 4.5rem;
       font-size: 1.25rem;
     }
-    /deep/ .loading-cover {
+    ::v-deep .loading-cover {
       justify-content: center;
       align-items: center;
       display: flex;
@@ -215,17 +215,17 @@ export default {
         display: inline-block;
       }
     }
-    /deep/ .table pre,
-    /deep/ .grid-format-data pre {
+    ::v-deep .table pre,
+    ::v-deep .grid-format-data pre {
       color: inherit;
       display: inline;
       font-size: 1em;
       margin: 0 0;
     }
-    /deep/ .grid-format-data pre {
+    ::v-deep .grid-format-data pre {
       line-height: 2.0;
     }
-    /deep/ .grid-format-data .row {
+    ::v-deep .grid-format-data .row {
       > div:not(:nth-of-type(3)) {
         text-align: right !important;
       }
@@ -237,16 +237,16 @@ export default {
         padding-left: 0 !important;
       }
     }
-    /deep/ ::-webkit-scrollbar {
+    ::v-deep ::-webkit-scrollbar {
       -webkit-appearance: none;
     }
-    /deep/ ::-webkit-scrollbar:vertical {
+    ::v-deep ::-webkit-scrollbar:vertical {
       width: 16px;
     }
-    /deep/ ::-webkit-scrollbar:horizontal {
+    ::v-deep ::-webkit-scrollbar:horizontal {
       height: 16px;
     }
-    /deep/ ::-webkit-scrollbar-thumb {
+    ::v-deep ::-webkit-scrollbar-thumb {
       background-clip: content-box;
       background-color: rgba(0, 0, 0, 0.4);
       border: 3px solid transparent;
@@ -259,7 +259,7 @@ export default {
         border-left-width: 4px;
       }
     }
-    /deep/ ::-webkit-scrollbar-track {
+    ::v-deep ::-webkit-scrollbar-track {
       background-color: rgba(255, 255, 255, 1);
       border: inherit;
       border-radius: inherit;
@@ -277,16 +277,16 @@ export default {
         border-bottom-left-radius: 0;
       }
     }
-    /deep/ ::-webkit-scrollbar-track-piece {
+    ::v-deep ::-webkit-scrollbar-track-piece {
       /*margin: calc(1.25rem - 3px);*/
       &:vertical {
         /*margin-bottom: calc(1.25rem - 3px + .5rem);*/
       }
     }
-    /deep/ ::-webkit-scrollbar-track-piece:start {
+    ::v-deep ::-webkit-scrollbar-track-piece:start {
       border-right-width: 0;
     }
-    /deep/ ::-webkit-scrollbar-track-piece:end {
+    ::v-deep ::-webkit-scrollbar-track-piece:end {
       border-left-width: 0;
     }
   }
