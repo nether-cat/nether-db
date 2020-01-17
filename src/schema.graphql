@@ -14,7 +14,7 @@ interface Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -24,7 +24,7 @@ interface Permission {
   Dataset: Dataset!
   "The level of access that the permission entitles to."
   level: AccessLevel!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -42,7 +42,7 @@ type Attribute implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -62,7 +62,7 @@ type Category implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -76,7 +76,7 @@ type Changeset implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -94,7 +94,7 @@ type Continent implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -126,7 +126,7 @@ type Core implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "The water level (if applicable) at the site of interest."
   waterDepth: Float
@@ -148,7 +148,7 @@ type Country implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -202,7 +202,7 @@ type Dataset implements Entity {
   updated: _Neo4jDateTime!
   "The URL can be provided to link an original source file for the dataset."
   url: String
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -226,7 +226,7 @@ type Event implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -248,7 +248,7 @@ type Group implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -260,7 +260,7 @@ type GroupPermission implements Permission {
   Group: Group!
   "The level of access that the permission entitles to."
   level: AccessLevel!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -294,7 +294,7 @@ type Lake implements Entity {
   types: [String]
   "Date and time (UTC) when the entity has been updated."
   updated: _Neo4jDateTime!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Volume of the lake's water body in cubic meters."
   waterBodyVolume: Float
@@ -342,7 +342,7 @@ type Publication implements Entity {
   updated: _Neo4jDateTime!
   "May contain a URL to the source, e.g. if no DOI is available."
   url: String
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Calender year (AD) when the publication was first released."
   year: Int
@@ -428,7 +428,7 @@ type User implements Entity {
   updated: _Neo4jDateTime!
   "Administrative user role that determines their system-wide privileges."
   userRole: UserRole!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 
@@ -440,7 +440,7 @@ type UserPermission implements Permission {
   User: User!
   "The level of access that the permission entitles to."
   level: AccessLevel!
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
 }
 

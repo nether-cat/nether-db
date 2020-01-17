@@ -55,8 +55,8 @@ function printError (queryLabel, err) {
 function taskStatus () {
   return {
     _status: 0,
-    set (id) {
-      this._status = Math.floor(Number(id));
+    set (code) {
+      this._status = Math.floor(Number(code));
     },
     get () {
       return this._status;

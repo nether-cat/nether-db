@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const XLSX = require('xlsx');
+const JsonRefs = require('json-refs');
 const marky = require('marky-markdown');
 const graphqlMarkdown = require('graphql-markdown');
+const { upperCaseFirst } = require('change-case');
 const { default: chalk } = require('chalk');
 
 const { cql, getDbSession, exitHandler, printStats, printError, taskStatus } = require('./lib');
@@ -14,20 +17,23 @@ module.exports = async function taskDump ({ host, user, password }) {
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
   else throw new Error('No password has been provided');
 
-  let makeAnchor = (url, content) => `<a href="${url}" target="_blank">${content || url}</a>`;
-  let title = 'VARDA Files Collection';
-  let name = process.env.npm_package_name;
-  let version = process.env.npm_package_version;
-  let credits = `${name} v${version}`;
-  let prologue = [
+  const title = 'VARDA Files Collection',
+    name = process.env.npm_package_name,
+    version = process.env.npm_package_version,
+    credits = `${name} v${version}`;
+
+  const makeAnchor = (url, content) => `<a href="${url}" rel="nofollow" target="_blank">${content || url}</a>`;
+  const entry = '<li><a href="#resolve-and-integrate" rel="nofollow">Integration</a></li>';
+  const prologue = [
     `*Generated at: ${new Date().toLocaleString('en-ISO', { timeZoneName: 'short' })}*\n`,
     `This collection contains datasets from VARDA v${version} (Varved Sediments Database).`,
-    'Every bundled file/object utilizes (circular) JSON References to link related nodes.',
+    'All bundled JSON files utilize (circular) JSON References for links to related nodes.',
     'We included a code example for resolving all references at the [bottom of this page](#resolve-and-integrate).',
     `Visit ${makeAnchor('https://www.npmjs.com/package/json-refs')} for more information about usage.`,
+    `Furthermore you can copy the CSV files from ${makeAnchor('./csv/', 'this directory')} to access the datasets.`,
     `You may also explore VARDA with the web service at ${makeAnchor('https://varve.gfz-potsdam.de')}.`,
   ].join('  \n');
-  let epilogue = [
+  const epilogue = [
     '## Resolve and integrate',
     'The code example below demonstrates, how the bundled files can be fully resolved',
     `using \`json-refs\`. It is a package for ${makeAnchor('https://nodejs.org/en/about', 'Node.js')}`,
@@ -35,23 +41,23 @@ module.exports = async function taskDump ({ host, user, password }) {
     `and JSON References ${makeAnchor('https://www.npmjs.com/package/json-refs', 'here')}.`,
     '### Code example',
     '```js',
-    '  var JsonRefs = require("json-refs");',
+    '  const JsonRefs = require(\'json-refs\');',
     '  ',
-    '  JsonRefs.resolveRefsAt("./index.json", {',
+    '  JsonRefs.resolveRefsAt(\'./index.json\', {',
     '    resolveCirculars: true,',
-    '  }).then(function (res) {',
-    '    // Do something with the response',
+    '  }).then(function (data) {',
+    '    // Do something with the result',
     '    //',
-    '    // res.refs: JSON Reference locations and details',
-    '    // res.resolved: The document with the appropriate JSON References resolved',
-    '    // res.value: The actually retrieved document',
+    '    // data.refs: JSON Reference locations and details',
+    '    // data.resolved: The document with the appropriate JSON References resolved',
+    '    // data.value: The original retrieved document (index.json)',
     '  }).catch(function (err) {',
     '    console.log(err.stack);',
     '  });',
     '```',
   ].join('\n');
-  let template = fs.readFileSync(path.resolve('templates', 'index.schema.html'));
-  let regexMarkdown = /(<!-- START graphql-markdown -->)[.\s]*(<!-- END graphql-markdown -->)/;
+  const template = fs.readFileSync(path.resolve('templates', 'index.schema.html'));
+  const regexMarkdown = /(<!-- START graphql-markdown -->)[.\s]*(<!-- END graphql-markdown -->)/;
   let schema, documentHTML, documentMD = '', pathExport = createDir(createDir('./live') + '/export');
   schema = await graphqlMarkdown.loadSchemaJSON(path.resolve('apollo-server', 'schema.graphql'));
   let exportedQueryFields = [
@@ -62,7 +68,7 @@ module.exports = async function taskDump ({ host, user, password }) {
     { fieldName: 'lakes', actualType: 'Lake' },
     { fieldName: 'publications', actualType: 'Publication' },
   ];
-  let excludedObjectFields = [
+  const excludedObjectFields = [
     'accessLevel',
     'attributes',
     'continents',
@@ -76,12 +82,12 @@ module.exports = async function taskDump ({ host, user, password }) {
     'types',
     'uuid',
   ];
-  let exportedSchemaTypes = exportedQueryFields
+  const exportedSchemaTypes = exportedQueryFields
     .map(t => t.actualType).concat('Query', 'Entity');
-  let makeListField = ({ fieldName, actualType }) => {
+  const makeListField = ({ fieldName, actualType }) => {
     return {
       name: `${fieldName}`,
-      description: `List with the [${fieldName}](${fieldName}.json) included in this collection.`,
+      description: `List with the [${fieldName}](json/${fieldName}.json) included in this collection.`,
       args: [],
       type: {
         kind: 'LIST',
@@ -97,13 +103,13 @@ module.exports = async function taskDump ({ host, user, password }) {
     };
   };
   exportedQueryFields = exportedQueryFields.map(makeListField);
-  let schemaTypes = schema.__schema.types;
-  let filteredSchemaTypes = schemaTypes.filter(t => {
+  const schemaTypes = schema.__schema.types;
+  const filteredSchemaTypes = schemaTypes.filter(t => {
     return t.kind === 'SCALAR' || exportedSchemaTypes.includes(t.name) || t.name.startsWith('__');
   });
   schemaTypes.splice(0, MAX_INT, ...filteredSchemaTypes);
-  let queryType = schemaTypes.find(t => t.name === 'Query');
-  queryType.description = 'The collection\'s [root](index.json), from which multiple types of *objects* can be explored.';
+  const queryType = schemaTypes.find(t => t.name === 'Query');
+  queryType.description = 'The collection\'s [root](json/index.json), from which multiple types of *objects* can be explored.';
   queryType.fields.splice(0, MAX_INT, ...exportedQueryFields);
   schemaTypes.forEach(t => t.fields && t.fields.forEach(f => f.args && f.args.splice(0)));
   schemaTypes.forEach(t => t.kind === 'OBJECT' && t.fields && t.fields.splice(0, MAX_INT, ...t.fields.filter(
@@ -114,7 +120,7 @@ module.exports = async function taskDump ({ host, user, password }) {
     'numeric values between -(2<sup>31</sup>) and (2<sup>31</sup>-1).';
   schemaTypes.find(t => t.name === 'String').description =
     'The `String` scalar type represents textual data, represented as UTF-8 character sequences.';
-  let entityInterface = schemaTypes.find(t => t.name === 'Entity');
+  const entityInterface = schemaTypes.find(t => t.name === 'Entity');
   entityInterface.fields.splice(0, MAX_INT, ...entityInterface.fields.filter(f => f.name !== 'types'));
   entityInterface.fields.forEach(f => {
     let typeRef;
@@ -132,6 +138,7 @@ module.exports = async function taskDump ({ host, user, password }) {
   graphqlMarkdown.renderSchema(schema, { title, prologue, epilogue, printer: line => documentMD += `${line}\n` });
   documentHTML = marky(documentMD, { sanitize: false, prefixHeadingIds: false });
   documentHTML = documentHTML.replace(/Query/g, 'Index').replace(/query/g, 'index');
+  documentHTML = documentHTML.replace(/(<\/ul>\n<\/details>\n)/, `${entry}\n$1`);
   documentHTML = `${template}`.replace(regexMarkdown, `$1\n${documentHTML}\n$2`);
   documentHTML = documentHTML.replace(/<%= params.title %>/g, title);
   documentHTML = documentHTML.replace(/<%= params.credits %>/g, credits);
@@ -221,9 +228,21 @@ module.exports = async function taskDump ({ host, user, password }) {
         obj[linkedGroup] = obj[k];
         delete obj[k];
       });
-      let created = obj.created, updated = obj.updated;
-      delete obj.created; delete obj.updated;
-      Object.assign(obj, { created, updated });
+      const { created, updated, uuid } = obj;
+      const { fields } = schemaTypes.find(
+        ({ name }) => name === upperCaseFirst(singularize(group)),
+      ) || { fields: [] };
+      const props = Object.fromEntries(
+        Object.entries(obj)
+          .filter(([k]) => !excludedObjectFields.includes(k))
+          .sort(([k1], [k2]) => {
+            const a = fields.findIndex(({ name }) => name === k1);
+            const b = fields.findIndex(({ name }) => name === k2);
+            return (a < 0 ? fields.length : a) - (b < 0 ? fields.length : b);
+          }),
+      );
+      Object.keys(obj).forEach(k => delete obj[k]);
+      Object.assign(obj, props, { created, updated, uuid });
     });
   });
 
@@ -232,7 +251,7 @@ module.exports = async function taskDump ({ host, user, password }) {
   const datasetsTotal = Object.keys(root.datasets).length;
 
   for (let asyncFunc of Object.values(root.datasets).map(({ uuid }) => async () => {
-    let { records } = await readQuery({ db: getDbSession(), params: { uuid }, statement: cql`
+    let { data } = await readQuery({ db: getDbSession(), params: { uuid }, statement: cql`
       MATCH (l0:Lake)--()--(d0:Dataset)--(c0:Category)--(a0:Attribute)-[rel]-(d0)
         WHERE d0.uuid = $uuid
       WITH l0.name AS lake,
@@ -251,19 +270,15 @@ module.exports = async function taskDump ({ host, user, password }) {
       MATCH (d0)-[rel]-(r0:Record)
       WITH lake, dataset, d0.uuid AS uuid, category, key, rel, apoc.map.get(r0, '__' + column + '__', "%NULL%") AS value
         ORDER BY lake, dataset, rel.\`__rowNum__\`
-      WITH lake, dataset, uuid, category, rel, apoc.map.fromLists(collect(key), collect(value)) AS record
-      RETURN { uuid: uuid, data: collect(record) } AS records
+      WITH lake, dataset, uuid, category, rel, collect(key) as keys, collect(value) AS values
+      RETURN { uuid: uuid, records: collect({ keys: keys, values: values }) } AS data
     `, label: 'Read records from dataset ' + uuid });
 
-    await Promise.all(records.data.map(async obj => {
-      Object.entries(obj).forEach(([key, value]) => {
-        if (value === '%NULL%') {
-          delete obj[key];
-        }
-      });
+    await Promise.all(data.records.map(async ({ keys, values }, i) => {
+      data.records[i] = Object.fromEntries(keys.map((k, i) => [k, values[i]]).filter(([, v]) => v !== '%NULL%'));
     }));
 
-    root['records'][uuid] = records.data;
+    root['records'][data.uuid] = data.records;
   })) {
     await asyncFunc();
     console.log(`Datasets processed: ${Object.keys(root['records']).length} / ${datasetsTotal} (total)\n`);
@@ -276,19 +291,55 @@ module.exports = async function taskDump ({ host, user, password }) {
 
   console.log('================================================================\n');
 
-  function writeFileFunc (dir) {
-    return async ([key, values]) => {
-      let count = Object.keys(values).length, str = `${dir}/${key}.json`;
-      fs.writeFileSync(path.resolve(dir, key + '.json'), JSON.stringify(values));
-      console.log(`Dumped ${count} ${count !== 1 ? 'nodes' : 'node'} to file: ${chalk.yellowBright(str)}`);
+  const str = p => `./${path.relative(path.resolve('.'), p)}`;
+  const log = (p, n) => console.log(`Dumped ${n} ${n === 1 ? 'node' : 'nodes'} to: ${chalk.yellowBright(str(p))}`);
+  const write = (file, data, n) => {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(file, data, err => err ? reject(err) : log(file, n) || resolve(true));
+    });
+  };
+  const dump = (file, data, n = 'some') => createDir(path.dirname(file)) && write(file, data, n);
+  const to = {
+    csv: createDir(`${pathExport}/csv`),
+    json: createDir(`${pathExport}/json`),
+  };
+  const writeFilesTo = (dir) => {
+    return async ([k, v]) => {
+      let count = Object.keys(v).length,
+        targetJSON = path.resolve(to.json, dir, k + '.json'),
+        valuesJSON = JSON.stringify(v);
+      try {
+        await Promise.all([
+          dump(targetJSON, valuesJSON, count),
+        ]);
+      } catch (e) {
+        console.error(chalk.red(e.toString().trim()));
+      }
     };
-  }
-  let pathRecords = createDir(pathExport + '/records');
+  };
 
   await Promise.all([
-    ...Object.entries(root).filter(([k]) => k !== 'records').map(writeFileFunc(pathExport)),
-    ...Object.entries(root['records']).map(writeFileFunc(pathRecords)),
-  ]).then(() => console.log(''));
+    ...Object.entries(root).filter(([k]) => k !== 'records').map(writeFilesTo('.')),
+    ...Object.entries(root['records']).map(writeFilesTo('./records')),
+  ]).catch((e) => console.error(chalk.red(e.toString().trim())));
+
+  console.log('\n================================================================\n');
+
+  await JsonRefs.resolveRefsAt(path.resolve(to.json, 'index.json'), {
+    resolveCirculars: true,
+  }).then(({ resolved: { datasets } }) => {
+    const index = datasets.map(dataset => flatTree(['dataset', dataset], {})[1]);
+    return Promise.all([
+      dump(`${to.csv}/index.csv`, XLSX.utils.sheet_to_csv(
+        XLSX.utils.json_to_sheet(index),
+      ), index.length),
+      ...datasets.map(({ file, records }) => dump(`${to.csv}/records/${file}.csv`, XLSX.utils.sheet_to_csv(
+        XLSX.utils.json_to_sheet(records),
+      ), records.length)),
+    ]);
+  }).catch((e) => console.error(chalk.red(e.toString().trim())));
+
+  console.log('\n================================================================\n');
 
   if (status.hasError()) return onExitTask();
 
@@ -317,4 +368,29 @@ async function readQuery ({ label, db, params, statement }) {
   }
   await tx.commit();
   return results;
+}
+
+function flatTree ([path, obj], target, parent) {
+  const key = path;
+  if (!obj) {
+    return [key, obj];
+  } else if (path) {
+    path += '.';
+  }
+  Object.assign(
+    target,
+    Object.fromEntries(
+      Object.entries(obj)
+        .filter(([key, value]) => !['created', 'updated'].includes(key) && !Array.isArray(value))
+        .map(([key, value]) => [`${path}${key}`, value]),
+    ),
+  );
+  Object.entries(obj)
+    .filter(([key, arr]) => Array.isArray(arr) && !arr.includes(parent) && key !== 'records')
+    .forEach(([key, arr]) => flatTree([`${path}${singularize(key)}`, arr[0]], target, obj));
+  return [key, target];
+};
+
+function singularize (str) {
+  return str.replace(/ies$/, 'y').replace(/s$/, '');
 }

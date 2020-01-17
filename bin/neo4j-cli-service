@@ -2,20 +2,24 @@
 
 const path = require('path');
 const dotenv = require('dotenv');
+const uuidv4 = require('uuid/v4');
 const { default: chalk } = require('chalk');
 const seed = require('../apollo-server/utils/neo4j-cli-service/seed');
 const dump = require('../apollo-server/utils/neo4j-cli-service/dump');
 
-const stripSecrets = (key, value) => {
-  if (value && /key|password|secret|token/i.test(key)) {
-    return '*'.repeat(16);
+const secretsMarker = uuidv4();
+const secretsRegExp = new RegExp(`"${secretsMarker}"`, 'g');
+
+const stripSecrets = (k, v) => {
+  if (/key|password|secret|token/i.test(k) && v || /password/i.test(k)) {
+    return secretsMarker;
   }
-  return value;
+  return v;
 };
 
 const showEnv = env => {
   let stringified = JSON.stringify(env, stripSecrets, 2);
-  return chalk.gray(stringified.replace(/"\*{16}"/g, '-HIDDEN-'));
+  return chalk.gray(stringified.replace(secretsRegExp, '--HIDDEN--'));
 };
 
 const buffered = {
@@ -59,7 +63,6 @@ const load = path => {
 buffered.log('Loading additional environment variables...\n');
 envFiles.forEach(f => load(path.resolve(f)));
 
-let running = false;
 const builder = yargs => {
   yargs.env('NEO4J')
     .options({
@@ -90,15 +93,14 @@ const builder = yargs => {
 const handler = execute => {
   return async argv => {
     if (argv._.length > 1) {
-      parser.showHelp();
-      let invalid = argv._[1] === 'help' && argv._.length > 2 ? argv._[2] : argv._[1];
-      console.log(chalk.red('\nUnrecognized input: ' + invalid));
-      process.exit(1);
+      // let str = argv._.slice(1).filter(s => s !== 'help').join(' ');
+      // console.log(chalk.red(`2 The provided parameters are not valid: ${str}\n`));
+      // parser.showHelp();
+      return 1;
     }
-    running = true;
     console.log(buffered.content);
-    let result = await execute(argv);
-    process.exit(Number.isInteger(result) ? result : 1);
+    let code = await execute(argv);
+    process.exit(Number.isInteger(code) ? code : 1);
   };
 };
 const info = cmd => {
@@ -108,24 +110,44 @@ const info = cmd => {
   if (cmd === taskReset) return chalk.yellow('Removes everything from your database');
   return chalk.yellow('Shows usage details and options for ') + chalk.gray('<cmd>');
 };
+const names = {
+  migrate: 'migrate',
+  seed: 'seed',
+  dump: 'dump',
+  reset: 'reset',
+  help: 'help',
+};
 /** @var {object} */ const yargs = require('yargs');
 const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
 (() => {
   return parser
     .usage('Usage:\n  $0 ' + chalk.gray('<cmd> [opts]'))
     .command(chalk.gray('<cmd>') + ' --help', info())
-    .command('migrate', info(taskMigrate), builder, handler(taskMigrate))
-    .command('seed', info(taskSeed), builder, handler(taskSeed))
-    .command('dump', info(taskDump), builder, handler(taskDump))
-    .command('reset', info(taskReset), builder, handler(taskReset))
-    .help('help', info()).hide('version').argv;
+    .command(names.migrate, info(taskMigrate), builder, handler(taskMigrate))
+    .command(names.seed, info(taskSeed), builder, handler(taskSeed))
+    .command(names.dump, info(taskDump), builder, handler(taskDump))
+    .command(names.reset, info(taskReset), builder, handler(taskReset))
+    .demandCommand(1, chalk.red('You need to provide a command to run this tool.'))
+    .showHelpOnFail(false, 'Invoke with `--help` for usage details.\n')
+    .help(names.help, info()).hide('version')
+    .parse(process.argv.slice(2), (err, args, output) => {
+      void 0 && console.log(chalk.gray(
+        `Arguments: ${JSON.stringify(args, null, ' ')}`.replace(/\s+/g, ' '),
+      ));
+      if (args._.length > 1) {
+        let str = args._.slice(1).filter(s => s !== 'help').join(' ');
+        console.log(chalk.red(`The provided parameters are not valid: ${str}\n`));
+        if (!output) {
+          console.log('Invoke with `--help` for usage details.\n');
+        }
+      }
+      if (output) {
+        // remove type anootations (e.g. [string]) from the output
+        output = output.replace(/\[\w+]/g, '');
+        console.log(output);
+      }
+    });
 })();
-
-if (!running) {
-  parser.showHelp();
-  console.log(chalk.red('\nPlease specify a valid command to proceed.'));
-  process.exit(1);
-}
 
 function taskMigrate(argv) {
   return new Promise(resolve => setTimeout(() => {
