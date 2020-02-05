@@ -333,7 +333,7 @@ export default {
   .form-group {
     top: -.5rem;
   }
-  .form-group > /deep/ div {
+  .form-group > ::v-deep div {
     position: relative;
     .form-control {
       height: auto;

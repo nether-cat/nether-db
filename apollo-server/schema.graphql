@@ -58,7 +58,7 @@ input UserDetails {
 
 "Object types implement this interface which defines generic properties."
 interface Entity {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -70,7 +70,7 @@ interface Entity {
 
 "Using this interface allows for lists of permissions with different types."
 interface Permission @relation(name: "HAS_PERMISSION", from: "Entity", to: "Dataset") {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "The dataset that the permission has been granted for."
   Dataset: Dataset!
@@ -134,7 +134,7 @@ type Subscription {
 
 "Attributes define the various properties that the records in a dataset may have."
 type Attribute implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -152,7 +152,7 @@ type Attribute implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Categories indicate the subject that related datasets and records provide data for."
 type Category implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -172,7 +172,7 @@ type Category implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Changesets have not been implemented yet and will be used to track property changes."
 type Changeset implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -186,7 +186,7 @@ type Changeset implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Cores represent physical sediment profiles and provide respective metadata."
 type Core implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -220,7 +220,7 @@ type Core implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Continents of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
 type Continent implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -238,7 +238,7 @@ type Continent implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Countries of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
 type Country implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -258,7 +258,7 @@ type Country implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Datasets comprise a greater amount of sampled records and provide respective metadata."
 type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -320,7 +320,7 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Events comprise of metadata and one or more identified [tephra layers](https://en.wikipedia.org/wiki/Tephrochronology)."
 type Event implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -344,7 +344,7 @@ type Event implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Groups are used to manage user permissions hierarchically and in batch."
 type Group implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -366,7 +366,7 @@ type Group implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Group permissions entitle authorized group members to access protected datasets."
 type GroupPermission implements Permission @relation(name: "HAS_PERMISSION", from: "Group", to: "Dataset") {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "The group that the permission has been granted to."
   Group: Group!
@@ -378,7 +378,7 @@ type GroupPermission implements Permission @relation(name: "HAS_PERMISSION", fro
 
 "Lakes are water bodies (current or past) with sediments and provide respective metadata."
 type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -414,7 +414,7 @@ type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "Publications comprise of a citation, URL or DOI to reference an original work."
 type Publication implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -470,7 +470,7 @@ type Session {
 
 "Users comprise of personal information and technical properties for authentication."
 type User implements Entity @additionalLabels(labels: ["Entity"]) {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
@@ -512,7 +512,7 @@ type User implements Entity @additionalLabels(labels: ["Entity"]) {
 
 "User permissions entitle authorized users to access protected datasets."
 type UserPermission implements Permission @relation(name: "HAS_PERMISSION", from: "User", to: "Dataset") {
-  "A random universally unique identifier (UUIDv4) for the entity."
+  "The universally unique identifier (UUIDv4) for the entity."
   uuid: ID!
   "The user that the permission has been granted to."
   User: User!

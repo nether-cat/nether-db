@@ -169,11 +169,11 @@ export default {
       -webkit-box-pack: start;
       -ms-flex-pack: start;
       justify-content: flex-start;
-      /deep/ .nav-link {
+      ::v-deep .nav-link {
         padding-right: 0.5rem !important;
         padding-left: 0.5rem !important;
       }
-      /deep/ .dropdown-menu {
+      ::v-deep .dropdown-menu {
         position: absolute;
         top: calc(100% + .5rem - 2px * 1.5);
         box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .125);
@@ -231,7 +231,7 @@ export default {
         }
       }
     }
-    /deep/ .popover.fix {
+    ::v-deep .popover.fix {
       top: -.5rem;
       width: max-content;
       min-width: 100%;
@@ -253,7 +253,7 @@ export default {
         border: 1px solid rgba(0, 0, 255, 0.1);
       }
     }
-    /deep/ .fa-layers-counter {
+    ::v-deep .fa-layers-counter {
       font-weight: 500;
       font-size: 1.125em;
       transform: scale(0.6) translate(.75em, -1em);
