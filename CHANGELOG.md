@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/nether-cat/nether-db/compare/v1.0.0...v1.1.0) (2020-02-05)
+
+
+### Features
+
+* **export:** Sort properties and also generate CSV files ([b49ea7f](https://github.com/nether-cat/nether-db/commit/b49ea7f08e4eb2567665e9d75ede15c6ea09fb05))
+
+
+### Bug Fixes
+
+* **datasets:** Fix stored information on the original sources ([da3a466](https://github.com/nether-cat/nether-db/commit/da3a466fd09fd34c03dd45de23162aaa2da2efa8))
+
 ## 1.0.0 (2019-11-22)
 
 
