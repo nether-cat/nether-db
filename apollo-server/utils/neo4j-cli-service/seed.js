@@ -207,6 +207,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
         ON CREATE SET n0 += d0, n0.uuid = randomUUID(), n0.updated = datetime(), n0.created = n0.updated
         ON MATCH SET n0 += d0, n0.updated = datetime()
       WITH n0, d1, d2, d3, d4
+      OPTIONAL MATCH (n0)-[r0_:PUBLISHED_IN]-(:Publication)
+      DELETE r0_
+      WITH n0, d1, d2, d3, d4
       CALL apoc.cypher.run('
         WITH {d1} AS d1, {d2} AS d2
         MATCH (n2:Lake {name: d2.name})
