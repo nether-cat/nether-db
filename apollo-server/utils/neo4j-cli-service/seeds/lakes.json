@@ -278,6 +278,16 @@
     ]
   },
   {
+    "name": "Chatyr Kol",
+    "latitude": 40.60617,
+    "longitude": 75.23367,
+    "maxDepth": 20,
+    "surfaceLevel": 3530,
+    "@countries": [
+      "KG"
+    ]
+  },
+  {
     "name": "Cheakamus",
     "latitude": 50.0080306808999,
     "longitude": -122.917856396999,

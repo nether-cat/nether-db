@@ -63,7 +63,16 @@ const load = path => {
 buffered.log('Loading additional environment variables...\n');
 envFiles.forEach(f => load(path.resolve(f)));
 
-const builder = yargs => {
+const builder = cmd => yargs => {
+  if (cmd === taskSeed) {
+    yargs.option('filters', {
+      alias: ['use', 'f'],
+      type: 'array',
+      nargs: 1,
+      default: undefined,
+      describe: chalk.yellow('Filter files for operation by string token(s)'),
+    });
+  }
   yargs.env('NEO4J')
     .options({
       'host': {
@@ -90,12 +99,10 @@ const builder = yargs => {
     .default('password', process.env.NEO4J_PASSWORD || 'neo4j', process.env.NEO4J_PASSWORD ? '-HIDDEN-' : '"neo4j"')
     .strict(true).hide('help').version(false);
 };
+
 const handler = execute => {
   return async argv => {
     if (argv._.length > 1) {
-      // let str = argv._.slice(1).filter(s => s !== 'help').join(' ');
-      // console.log(chalk.red(`2 The provided parameters are not valid: ${str}\n`));
-      // parser.showHelp();
       return 1;
     }
     console.log(buffered.content);
@@ -103,6 +110,7 @@ const handler = execute => {
     process.exit(Number.isInteger(code) ? code : 1);
   };
 };
+
 const info = cmd => {
   if (cmd === taskMigrate) return chalk.yellow('Initializes and migrates your database');
   if (cmd === taskSeed) return chalk.yellow('Adds example datasets to your database');
@@ -110,6 +118,7 @@ const info = cmd => {
   if (cmd === taskReset) return chalk.yellow('Removes everything from your database');
   return chalk.yellow('Shows usage details and options for ') + chalk.gray('<cmd>');
 };
+
 const names = {
   migrate: 'migrate',
   seed: 'seed',
@@ -117,16 +126,17 @@ const names = {
   reset: 'reset',
   help: 'help',
 };
+
 /** @var {object} */ const yargs = require('yargs');
 const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
 (() => {
   return parser
     .usage('Usage:\n  $0 ' + chalk.gray('<cmd> [opts]'))
     .command(chalk.gray('<cmd>') + ' --help', info())
-    .command(names.migrate, info(taskMigrate), builder, handler(taskMigrate))
-    .command(names.seed, info(taskSeed), builder, handler(taskSeed))
-    .command(names.dump, info(taskDump), builder, handler(taskDump))
-    .command(names.reset, info(taskReset), builder, handler(taskReset))
+    .command(names.migrate, info(taskMigrate), builder(taskMigrate), handler(taskMigrate))
+    .command(names.seed, info(taskSeed), builder(taskSeed), handler(taskSeed))
+    .command(names.dump, info(taskDump), builder(taskDump), handler(taskDump))
+    .command(names.reset, info(taskReset), builder(taskReset), handler(taskReset))
     .demandCommand(1, chalk.red('You need to provide a command to run this tool.'))
     .showHelpOnFail(false, 'Invoke with `--help` for usage details.\n')
     .help(names.help, info()).hide('version')
@@ -142,7 +152,7 @@ const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
         }
       }
       if (output) {
-        // remove type anootations (e.g. [string]) from the output
+        // remove type annotations (e.g. [string]) from the output
         output = output.replace(/\[\w+]/g, '');
         console.log(output);
       }
