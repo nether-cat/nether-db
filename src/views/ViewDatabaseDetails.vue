@@ -301,7 +301,7 @@
                 <a v-if="doi"
                    v-b-tooltip.hover.bottom.viewport.html="{
                      customClass: 'tooltip-table-cell',
-                     title: citation.replace(
+                     title: (citation || '').replace(
                        /(Available at:?)?\s?https?:\/\/.*doi\.org\/(.*?)\.?\s?$/i,
                        '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$2</span>',
                      )

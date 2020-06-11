@@ -40,7 +40,7 @@ const filenameFixes = new Map(), filenameRefs = new Map();
 
 let storage = {};
 
-module.exports = async function taskSeed ({ host, user, password }) {
+module.exports = async function taskSeed ({ host, user, password, filters }) {
   const taskStartTime = Date.now();
 
   if (password) console.log(`Using host ${chalk.underline(host)} with user ${chalk.underline(user)}.\n`);
@@ -56,6 +56,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
     storage = require(storageFile);
   } else {
     storage = {};
+  }
+  if (filters && filters.length) {
+    console.log(`After indexing items will be filtered by: ${filters.map(f => chalk.underline(f)).join(', ')}.\n`);
   }
 
   /** @type Array */ let continents, countries;
@@ -86,9 +89,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
   let average = Object.values(lakeStats).reduce((sum, add) => sum + add, 0) / lakesWithData.length;
 
   console.log(`Indexed ${chalk.blueBright(String(lakes.length - lakesWithData.length))} lakes without datasets.\n`);
-  console.log(`Processed datasets covering ${chalk.blueBright(String(lakesWithData.length))} lakes.\n`);
+  console.log(`Indexed datasets covering ${chalk.blueBright(String(lakesWithData.length))} lakes.\n`);
   console.log(`The total number of datasets is ${chalk.blueBright(String(datasets.length))} now.\n`);
-  console.log(`That results in ${chalk.blueBright('~' + average.toFixed(2))} datasets per lake.\n`);
+  console.log(`There are about ${chalk.blueBright('~' + average.toFixed(2))} datasets per lake.\n`);
 
   const actualFile = path.resolve(__dirname, './seeds/datasets.json');
   const backupFile = path.resolve(__dirname, './seeds/datasets.bak.json');
@@ -112,6 +115,9 @@ module.exports = async function taskSeed ({ host, user, password }) {
   ).sort((a, b) => a['code'].localeCompare(b['code']));
 
   datasets = datasets.filter(d => d['_fileExists'] && d['_lakeExists']);
+  if (filters && filters.length) {
+    datasets = datasets.filter(d => filters.some(f => d['file'].toLowerCase().includes(f.toLowerCase())));
+  }
   datasets.forEach(dataset => {
     const structuredObj = Object.entries(dataset).reduce((obj, [key, value]) => {
       let [, ref, prop] = key.match(/^(@\w+)\.(\w+)$/) || [];
