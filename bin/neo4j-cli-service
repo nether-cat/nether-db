@@ -6,6 +6,7 @@ const uuidv4 = require('uuid/v4');
 const { default: chalk } = require('chalk');
 const seed = require('../apollo-server/utils/neo4j-cli-service/seed');
 const dump = require('../apollo-server/utils/neo4j-cli-service/dump');
+const inspect = require('../apollo-server/utils/neo4j-cli-service/inspect');
 
 const secretsMarker = uuidv4();
 const secretsRegExp = new RegExp(`"${secretsMarker}"`, 'g');
@@ -115,6 +116,7 @@ const info = cmd => {
   if (cmd === taskMigrate) return chalk.yellow('Initializes and migrates your database');
   if (cmd === taskSeed) return chalk.yellow('Adds example datasets to your database');
   if (cmd === taskDump) return chalk.yellow('Dumps all datasets from your database');
+  if (cmd === taskInspect) return chalk.yellow('Runs a loop for interactive inspection');
   if (cmd === taskReset) return chalk.yellow('Removes everything from your database');
   return chalk.yellow('Shows usage details and options for ') + chalk.gray('<cmd>');
 };
@@ -123,6 +125,7 @@ const names = {
   migrate: 'migrate',
   seed: 'seed',
   dump: 'dump',
+  inspect: 'inspect',
   reset: 'reset',
   help: 'help',
 };
@@ -136,6 +139,7 @@ const parser = yargs.wrap(Math.min(120, yargs.terminalWidth()));
     .command(names.migrate, info(taskMigrate), builder(taskMigrate), handler(taskMigrate))
     .command(names.seed, info(taskSeed), builder(taskSeed), handler(taskSeed))
     .command(names.dump, info(taskDump), builder(taskDump), handler(taskDump))
+    .command(names.inspect, info(taskInspect), builder(taskInspect), handler(taskInspect))
     .command(names.reset, info(taskReset), builder(taskReset), handler(taskReset))
     .demandCommand(1, chalk.red('You need to provide a command to run this tool.'))
     .showHelpOnFail(false, 'Invoke with `--help` for usage details.\n')
@@ -173,6 +177,11 @@ function taskSeed(argv) {
 function taskDump(argv) {
   console.log(`Dump data task for ${chalk.underline(argv.host)} has been started!\n`);
   return dump(argv);
+}
+
+function taskInspect(argv) {
+  console.log(`Inspection task for ${chalk.underline(argv.host)} has been started!\n`);
+  return inspect(argv);
 }
 
 function taskReset(argv) {

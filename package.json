@@ -58,6 +58,7 @@
     "neo4j:migrate": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service migrate",
     "neo4j:seed": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service seed",
     "neo4j:dump": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service dump",
+    "neo4j:inspect": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service inspect",
     "neo4j:reset": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service reset",
     "refs:compile": "node $NODE_DEBUG_OPTION -- bin/compile-refs",
     "test:e2e": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:e2e",
