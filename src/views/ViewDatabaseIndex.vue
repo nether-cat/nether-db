@@ -122,6 +122,7 @@ import {
   FFEventFilter,
   FFContinentFilter,
   FFCountryFilter,
+  FFLakeFilter,
 } from '@/components/FormFiltersLibrary';
 import FormFilters from '@/components/FormFilters';
 import GET_EVENTS from '@/graphql/queries/GetEvents.graphql';
@@ -179,6 +180,7 @@ export default {
         FFEventFilter.factory(this),
         FFContinentFilter.factory(this),
         FFCountryFilter.factory(this),
+        FFLakeFilter.factory(this),
       ],
       filteredLakes: [],
       chart: {

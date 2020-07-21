@@ -139,6 +139,7 @@ export default {
           icon: 'comment-slash',
           enter: () => this.focusElement('escapeHandler'),
           flipCaret: true,
+          escape: true,
         }),
       ],
     };
@@ -430,7 +431,7 @@ export default {
         font-size: .875rem;
         padding: .5rem .75rem;
         border: none;
-        *:not(:only-child) {
+        > *:not(:only-child):not(:last-child) {
           margin-right: .375rem;
         }
         svg[data-icon='caret-right'] {
@@ -440,6 +441,16 @@ export default {
           left: .6875rem;
           top: .6875rem;
         }
+        kbd {
+          background-color: #495057;
+          margin-left: .4rem;
+        }
+      }
+      .list-group-item-action:not(.escape) kbd[data-key='escape'] {
+        display: none;
+      }
+      .list-group-item-action:not(.selected) kbd[data-key='enter'] {
+        display: none;
       }
       .list-group-item-action:hover:not(.selected) {
         z-index: 0;

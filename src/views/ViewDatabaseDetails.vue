@@ -224,7 +224,7 @@
                   <div style="margin-left: .75rem; padding: .75rem 0; width: calc(100% - 1.5rem)">
                     <span class="d-inline-block pb-2 pr-3 text-nowrap"
                           :class="{ 'font-italic': !item.core.label }"
-                          title="Sediment profile"
+                          title="Sediment composite profile"
                     >
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
@@ -286,13 +286,13 @@
                 {{ value | upperCaseFirst }}
               </template>
               <template slot="HEAD[ageInterval]">
-                Ages&ensp;<span class="font-weight-lighter text-secondary">[yr BP] in [<em>min</em>, <em>max</em>]</span>
+                Ages&ensp;<span class="font-weight-lighter text-secondary">[a BP] in [<em>min</em>, <em>max</em>]</span>
               </template>
               <template slot="HEAD[samples]">
                 Samples&ensp;<span class="font-weight-lighter text-secondary">[<em>count</em>]</span>
               </template>
               <template slot="HEAD[ageResolution]">
-                Resolution&ensp;<span class="font-weight-lighter text-secondary">[samples / kyr]</span>
+                Resolution&ensp;<span class="font-weight-lighter text-secondary">[samples / ka]</span>
               </template>
               <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
@@ -512,7 +512,7 @@ export default {
       shouldScrollDown: false,
       datasetsListFields: [
         { key: 'categories', label: 'Subject', formatter: ([category]) => category && category.name || '—' },
-        { key: 'core.label', label: 'Sediment profile', formatter: (s) => s || '—' },
+        { key: 'core.label', label: 'Sediment composite profile', formatter: (s) => s || '—' },
         { key: 'ageInterval', formatter: ($0, $1, { ageMin: a, ageMax: b }) => (
           a === null || b === null ? '—' : `[${a}, ${b}]`
         ) },
@@ -589,7 +589,7 @@ export default {
               key: `__${column}__`,
               label: attribute.name,
             };
-          }),
+          }).filter(({ label }) => !['core', 'section', 'coreSection'].includes(label)),
         );
       } else {
         return [];
