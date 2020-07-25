@@ -258,6 +258,17 @@
                     >
                       <FontAwesomeIcon icon="microscope"/>&ensp;{{ item.analysisMethod }}
                     </span>
+                    <span v-if="item.errorMean || item.errorMin && item.errorMax"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
+                          title="Uncertainty"
+                    >
+                      <FontAwesomeIcon icon="bug"/>&nbsp;<span v-if="item.errorMean">
+                        &plusmn;&thinsp;{{ item.errorMean.toFixed(2) }}&thinsp;&percnt;
+                      </span><span v-else>
+                        &minus;&thinsp;{{ item.errorMin.toFixed(2) }}&thinsp;&percnt;&hairsp;&comma;
+                        &plus;&thinsp;{{ item.errorMax.toFixed(2) }}&thinsp;&percnt;
+                      </span>
+                    </span>
                     <span v-if="item.comments"
                           class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Comments"
@@ -279,6 +290,17 @@
                       </span>
                       <span class="col-5 col-lg-6"/>
                     </div>
+                    <span v-if="item.depthType === 'unknown' || [item.depthType, item.errorType].includes('auxiliary')"
+                          style="font-size: .875rem"
+                          class="d-block mt-1 pb-2 pr-3 text-nowrap"
+                    >
+                      <span title="Important note">
+                        <FontAwesomeIcon icon="bullhorn"/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
+                        {{ item.depthType === 'auxiliary' ? 'Auxiliary composite depth from cumulative varve thickness.' : '' }}
+                        {{ item.depthType === 'unknown' ? 'Composite depth could not be reconstructed.' : '' }}
+                        {{ item.errorType === 'auxiliary' ? 'Uncertainty recalculated from counting error.' : '' }}
+                      </span>
+                    </span>
                   </div>
                 </div>
               </template>
@@ -589,14 +611,30 @@ export default {
               key: `__${column}__`,
               label: attribute.name,
             };
-          }).filter(({ label }) => !['core', 'section', 'coreSection'].includes(label)),
+          }).filter(({ label }) => {
+            return !['core', 'section', 'coreSection', 'varveNumber'].includes(label);
+          }).filter(({ label }) => {
+            return ('sampleId' !== label) || ['14C', 'Tephra'].includes(dataset.categories[0].name);
+          }).sort((a, b) => {
+            const reverseOrder = [
+              'varveThicknessTotal',
+              'varveAge',
+              'ageMax',
+              'ageMin',
+              'age',
+              'depthBottom',
+              'depthTop',
+              'compositeDepth',
+            ];
+            return reverseOrder.findIndex(s => b.label === s) - reverseOrder.findIndex(s => a.label === s);
+          }),
         );
       } else {
         return [];
       }
     },
     isInvalidValue (value) {
-      return !value && typeof value !== 'number' && typeof value !== 'boolean';
+      return (!value || value === 'NaN') && typeof value !== 'number' && typeof value !== 'boolean';
     },
     loadDataset ({ target }) {
       this.shouldScrollDown = true;
