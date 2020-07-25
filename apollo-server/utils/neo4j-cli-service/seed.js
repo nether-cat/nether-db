@@ -50,12 +50,15 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
   const status = taskStatus();
   const onExitTask = exitHandler(db, status, taskStartTime);;
 
-  let storageFile = path.resolve(process.env.SHARED_SHEETS_PATH, 'records.json');
+  let storageFile = path.resolve(process.env.SHARED_SHEETS_PATH, '___records.json');
 
   if (fs.statSync(storageFile)) {
     storage = require(storageFile);
   } else {
     storage = {};
+  }
+  if (filters && filters.length) {
+    filters = filters.filter(f => !!f);
   }
   if (filters && filters.length) {
     console.log(`After indexing items will be filtered by: ${filters.map(f => chalk.underline(f)).join(', ')}.\n`);
@@ -406,7 +409,7 @@ function checkFileExists (dataset) {
     }
     if (!state.folder) {
       try {
-        state.folder= !!fs.statSync(path.resolve(process.env.SHARED_DRAFTS_PATH, filename)) && 2;
+        state.folder = !!fs.statSync(path.resolve(process.env.SHARED_DRAFTS_PATH, filename)) && 2;
       } catch (err) {
         state.folder = 0;
         state.needsFix = true;
@@ -421,11 +424,14 @@ function checkFileExists (dataset) {
     }
     return state.storage;
   });
-  testStorage() || checkWith(dataset.file + '.xlsx') || checkWith(unorm.nfc(dataset.file) + '.xlsx');
+  testStorage()
+  || checkWith(dataset.file + '.xlsx')
+  || checkWith(unorm.nfc(dataset.file) + '.xlsx')
+  || checkWith('__' + dataset.file + '.xlsx');
   console.log(`${ state.storage
     ? chalk.green('json')
     : state.folder === 1
-      ? chalk.green('okay')
+      ? chalk.green('disk')
       : state.folder === 2
         ? chalk.yellow('warn')
         : chalk.red('fail')
@@ -433,7 +439,7 @@ function checkFileExists (dataset) {
   Object.assign(dataset, {
     '_json': !!state.storage,
     '_fileExists': state.folder === 1 || state.storage,
-    '_fileWarn': state.folder === 1 && state.needsFix,
+    '_fileWarn': state.folder === 2,
   });
 }
 
@@ -502,12 +508,16 @@ function sortProperties (dataset) {
     'samples',
     'ageMin',
     'ageMax',
-    'depthMin',
-    'depthMax',
     'ageSpan',
     'ageResolution',
-    'depthSpan',
-    'depthResolution',
+    'depthMin',
+    'depthMax',
+    'depthOffset',
+    'depthType',
+    'errorMin',
+    'errorMax',
+    'errorMean',
+    'errorType',
     'analysisMethod',
     'comments',
     'url',
@@ -525,7 +535,6 @@ function sortProperties (dataset) {
     '@core.waterDepth',
     '@core.coringMethod',
     '@core.drillDate',
-    '@core.composite',
     '_json',
     '_file',
     '_fileWarn',
@@ -601,7 +610,9 @@ function readFromFile ({ file, sheetName, headerStart, valuesStart, endColumn, e
   const rowsWithRawValues = xlsx.utils.sheet_to_json(sheet, { header, range: valuesRange, raw: true });
   const rows = xlsx.utils.sheet_to_json(sheet, { header, range: valuesRange, raw: false });
   const values = rowsWithRawValues.map((row, index) => Object.fromEntries(
-    Object.entries(row).map(([k, v]) => [k, typeof v === 'number' ? Number.parseFloat(rows[index][k]) : v]),
+    Object.entries(row).map(([k, v]) => {
+      return [k, typeof v !== 'number' ? v : Number.parseFloat(String(rows[index][k]).replace(/,/g, ''))];
+    }),
   ));
   return { header, values };
 }

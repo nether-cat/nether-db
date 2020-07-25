@@ -7,7 +7,7 @@
           All proxy records offer full quantification of age-uncertainty from state of the art age-depth modeling routines.
           VARDA is a service provided by the Helmholtz Centre Potsdam German Research Centre for Geosciences <span class="text-secondary">(GFZ)</span> and is funded by the PalMod initiative.
         </BCard>
-        <BCard title="PalMod — Paleo Modeling" img-src="@/assets/front-palmod_1st_circular.png" img-left class="card-feature">
+        <BCard title="PalMod — Paleo Modeling" img-src="@/assets/palmod-logo.png" img-left class="card-feature card-palmod">
           PalMod is funded by the German Federal Ministry of Education and Science <span class="text-secondary">(BMBF)</span> to examine climate system dynamics and variability during the last glacial cycle.
           One key aspect is to identify and quantify the relative contributions of the fundamental processes that determined the Earth’s climate trajectory and variability during the last glacial cycle.
           Using comprehensive Earth System Models <span class="text-secondary">(ESM)</span> this consortium aims at simulating the climate from the peak of the last interglacial (the Eemian warm period)
@@ -75,6 +75,12 @@ export default {
         display: inherit;
         float: unset;
       }
+    }
+  }
+  .card-palmod {
+    align-items: center;
+    .card-img-left {
+      padding: .75rem;
     }
   }
   .card-feature:last-child,

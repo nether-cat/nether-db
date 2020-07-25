@@ -125,7 +125,7 @@ export default {
         },
         axis: {
           x: {
-            label: 'kyr BP',
+            label: 'ka BP',
             min: -0.075,
             max: 122.875,
             tick: {
@@ -159,8 +159,8 @@ export default {
             case dataLabels.data1:
               step = chronology[data.index * 4];
               ageString = step.age < 10
-                ? Math.round(step.age * 1000) + ' yr BP'
-                : Number.parseFloat(step.age).toFixed(2) + ' kyr BP';
+                ? Math.round(step.age * 1000) + ' a BP'
+                : Number.parseFloat(step.age).toFixed(2) + ' ka BP';
               content = `
                     <h6 class="card-title mb-3">NGRIP Data</h6>
                     <h6 class="card-subtitle text-muted mb-2">${step.d18o}&nbsp;𝛿<sup>18</sup>O</h6>
@@ -171,8 +171,8 @@ export default {
             case dataLabels.data2:
               event = this.events[data.index];
               ageString = event.ageMean < 10000
-                ? Math.round(event.ageMean) + ' yr BP'
-                : (event.ageMean / 1000).toFixed(2) + ' kyr BP';
+                ? Math.round(event.ageMean) + ' a BP'
+                : (event.ageMean / 1000).toFixed(2) + ' ka BP';
               content = `
                     <h6 class="card-title mb-3">Event Layer</h6>
                     <h6 class="card-subtitle text-muted mb-2">${event.name}</h6>

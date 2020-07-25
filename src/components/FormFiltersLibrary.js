@@ -36,6 +36,7 @@ export const FFListDivider = ({ data, slots }) => (
         ? <span domProps={{ innerHTML: data.attrs.opts.label() }}/>
         : <span><em class="text-danger">{'{Error: Missing Label}'}</em></span>}
     {slots().default}
+    <span style={{ float: 'right ' }}><kbd data-key="up">&#8593;</kbd><kbd data-key="down">&#8595;</kbd></span>
   </BListGroupItem>
 );
 
@@ -48,6 +49,7 @@ export const FFListItem = ({ data, slots }) => (
       class: {
         ...data.class,
         selected: data.attrs.selected,
+        escape: data.attrs.opts.params.escape,
       },
     },
   }} href="#" role="button" tabindex="-1">
@@ -71,6 +73,10 @@ export const FFListItem = ({ data, slots }) => (
         ? <span domProps={{ innerHTML: data.attrs.opts.label() }}/>
         : <span><em class="text-danger">{'{Error: Missing Label}'}</em></span>}
     {slots().default}
+    <span style={{ float: 'right' }}>
+      <kbd data-key="escape"><small>esc</small></kbd>
+      <kbd data-key="enter">&#8629;</kbd>
+    </span>
   </BListGroupItem>
 );
 
@@ -303,7 +309,7 @@ export class FFContinentFilter extends FFInteractiveFilter {
         .some(continent => !this.length || this.includes(continent));
     };
     this.ui.actions.push(
-      FFListItem.factory({ label: 'Browse continents...', icon: 'compass', enter: () => this.activate() }),
+      FFListItem.factory({ label: 'Search continents...', icon: 'compass', enter: () => this.activate() }),
     );
     this.suggestionsActive.push(
       FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
@@ -381,7 +387,7 @@ export class FFCountryFilter extends FFInteractiveFilter {
       return !lake.countries.some(country => !this.length || this.includes(country));
     };
     this.ui.actions.push(
-      FFListItem.factory({ label: 'Browse countries...', icon: 'map-marker-alt', enter: () => this.activate() }),
+      FFListItem.factory({ label: 'Search countries...', icon: 'map-marker-alt', enter: () => this.activate() }),
     );
     this.suggestionsActive.push(
       FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
@@ -419,6 +425,71 @@ export class FFCountryFilter extends FFInteractiveFilter {
         value: country,
         enter: () => {
           let thisTag = FFInputTag.factory({ label: country.name, icon: 'map-marker-alt', value: country });
+          thisTag.opts.remove = () => {
+            this.ui.tags.splice(this.ui.tags.findIndex(t => t === thisTag), 1);
+            this.refreshSuggestions();
+            this.refreshCache();
+          };
+          this.ui.tags.push(thisTag);
+          if (this.vm.state.textInput !== '') {
+            this.vm.state.textInput = '';
+          } else {
+            this.refreshSuggestions();
+          }
+          this.refreshCache();
+        },
+      }));
+    this.refreshSuggestions();
+    return this;
+  }
+}
+
+export class FFLakeFilter extends FFInteractiveFilter {
+  initialize (vm) {
+    super.initialize(vm);
+    this.name = 'lakes';
+    this.hiddenRule = function (lake) {
+      return this.length && !this.includes(lake);
+    };
+    this.ui.actions.push(
+      FFListItem.factory({ label: 'Search lakes...', icon: 'map-pin', enter: () => this.activate() }),
+    );
+    this.suggestionsActive.push(
+      FFListDivider.factory({ label: 'Available filters', icon: 'filter' }),
+      FFListItem.factory({
+        label: 'Go back...',
+        icon: 'directions',
+        enter: () => this.deactivate(),
+        flipCaret: true,
+        flipIcon: true,
+      }),
+    );
+    return this;
+  }
+  updateCache () {
+    if (this.vm.cache !== this.knownCache) {
+      let cacheDiff = { ...this.vm.cache };
+      Object.keys(this.localCache).forEach(uuid => --cacheDiff[uuid]);
+      this.suggestionValues = [...new Set([].concat(
+        ...this.vm.source.filter(lake => !cacheDiff[lake.uuid]),
+      ))];
+      this.ui.tags.forEach(t => (
+        t.opts.valid = this.suggestionValues.includes(t.opts.params.value)
+      ));
+      this.refreshSuggestions();
+    }
+    return this;
+  }
+  updateSource () {
+    this.suggestionValues = [...new Set([].concat(...this.vm.source))];
+    this.suggestions = this.suggestionValues
+      .sort(({ name: a }, { name: b }) => a.toLowerCase() < b.toLowerCase() ? -1 : 1)
+      .map(lake => FFListItem.factory({
+        label: `Add filter for <strong>${lake.name}</strong> (${lake.countries.map($ => $.code).join(', ')})`,
+        icon: 'map-pin',
+        value: lake,
+        enter: () => {
+          let thisTag = FFInputTag.factory({ label: lake.name, icon: 'map-pin', value: lake });
           thisTag.opts.remove = () => {
             this.ui.tags.splice(this.ui.tags.findIndex(t => t === thisTag), 1);
             this.refreshSuggestions();

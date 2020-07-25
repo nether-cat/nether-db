@@ -224,7 +224,7 @@
                   <div style="margin-left: .75rem; padding: .75rem 0; width: calc(100% - 1.5rem)">
                     <span class="d-inline-block pb-2 pr-3 text-nowrap"
                           :class="{ 'font-italic': !item.core.label }"
-                          title="Sediment profile"
+                          title="Sediment composite profile"
                     >
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
@@ -258,6 +258,17 @@
                     >
                       <FontAwesomeIcon icon="microscope"/>&ensp;{{ item.analysisMethod }}
                     </span>
+                    <span v-if="item.errorMean || item.errorMin && item.errorMax"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
+                          title="Uncertainty"
+                    >
+                      <FontAwesomeIcon icon="bug"/>&nbsp;<span v-if="item.errorMean">
+                        &plusmn;&thinsp;{{ item.errorMean.toFixed(2) }}&thinsp;&percnt;
+                      </span><span v-else>
+                        &minus;&thinsp;{{ item.errorMin.toFixed(2) }}&thinsp;&percnt;&hairsp;&comma;
+                        &plus;&thinsp;{{ item.errorMax.toFixed(2) }}&thinsp;&percnt;
+                      </span>
+                    </span>
                     <span v-if="item.comments"
                           class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Comments"
@@ -279,6 +290,17 @@
                       </span>
                       <span class="col-5 col-lg-6"/>
                     </div>
+                    <span v-if="item.depthType === 'unknown' || [item.depthType, item.errorType].includes('auxiliary')"
+                          style="font-size: .875rem"
+                          class="d-block mt-1 pb-2 pr-3 text-nowrap"
+                    >
+                      <span title="Important note">
+                        <FontAwesomeIcon icon="bullhorn"/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
+                        {{ item.depthType === 'auxiliary' ? 'Auxiliary composite depth from cumulative varve thickness.' : '' }}
+                        {{ item.depthType === 'unknown' ? 'Composite depth could not be reconstructed.' : '' }}
+                        {{ item.errorType === 'auxiliary' ? 'Uncertainty recalculated from counting error.' : '' }}
+                      </span>
+                    </span>
                   </div>
                 </div>
               </template>
@@ -286,13 +308,13 @@
                 {{ value | upperCaseFirst }}
               </template>
               <template slot="HEAD[ageInterval]">
-                Ages&ensp;<span class="font-weight-lighter text-secondary">[yr BP] in [<em>min</em>, <em>max</em>]</span>
+                Ages&ensp;<span class="font-weight-lighter text-secondary">[a BP] in [<em>min</em>, <em>max</em>]</span>
               </template>
               <template slot="HEAD[samples]">
                 Samples&ensp;<span class="font-weight-lighter text-secondary">[<em>count</em>]</span>
               </template>
               <template slot="HEAD[ageResolution]">
-                Resolution&ensp;<span class="font-weight-lighter text-secondary">[samples / kyr]</span>
+                Resolution&ensp;<span class="font-weight-lighter text-secondary">[samples / ka]</span>
               </template>
               <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
@@ -512,7 +534,7 @@ export default {
       shouldScrollDown: false,
       datasetsListFields: [
         { key: 'categories', label: 'Subject', formatter: ([category]) => category && category.name || '—' },
-        { key: 'core.label', label: 'Sediment profile', formatter: (s) => s || '—' },
+        { key: 'core.label', label: 'Sediment composite profile', formatter: (s) => s || '—' },
         { key: 'ageInterval', formatter: ($0, $1, { ageMin: a, ageMax: b }) => (
           a === null || b === null ? '—' : `[${a}, ${b}]`
         ) },
@@ -589,6 +611,22 @@ export default {
               key: `__${column}__`,
               label: attribute.name,
             };
+          }).filter(({ label }) => {
+            return !['core', 'section', 'coreSection', 'varveNumber'].includes(label);
+          }).filter(({ label }) => {
+            return ('sampleId' !== label) || ['14C', 'Tephra'].includes(dataset.categories[0].name);
+          }).sort((a, b) => {
+            const reverseOrder = [
+              'varveThicknessTotal',
+              'varveAge',
+              'ageMax',
+              'ageMin',
+              'age',
+              'depthBottom',
+              'depthTop',
+              'compositeDepth',
+            ];
+            return reverseOrder.findIndex(s => b.label === s) - reverseOrder.findIndex(s => a.label === s);
           }),
         );
       } else {
@@ -596,7 +634,7 @@ export default {
       }
     },
     isInvalidValue (value) {
-      return !value && typeof value !== 'number' && typeof value !== 'boolean';
+      return (!value || value === 'NaN') && typeof value !== 'number' && typeof value !== 'boolean';
     },
     loadDataset ({ target }) {
       this.shouldScrollDown = true;

@@ -96,9 +96,9 @@ type Query {
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
       .*,
+      ageMax: max(ref.age),
       ageMean: avg(ref.age),
-      ageMin: min(ref.age),
-      ageMax: max(ref.age)
+      ageMin: min(ref.age)
     }
     RETURN e
     ORDER BY e.ageMean
@@ -206,10 +206,6 @@ type Core implements Entity @additionalLabels(labels: ["Entity"]) {
   drillDate: Int
   "The water level (if applicable) at the site of interest."
   waterDepth: Float
-  "Indicates wether the core represents a composite profile or separate sections."
-  composite: Boolean
-  "The method that was used to generate an age-depth-model for the core."
-  ageDepthMethod: String
   "Comments can be added to provide special remarks about the core."
   comments: String
   "The datasets that have been created/sampled from the core."
@@ -272,18 +268,30 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
   label: String
   "Total number of records included in the dataset."
   samples: Int @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) RETURN count(m)")
-  "Minimum sampled age in raw or calibrated years before present, 1950-based."
-  ageMin: Float
   "Maximum sampled age in raw or calibrated years before present, 1950-based."
   ageMax: Float
-  "Minimum depth from ground level being covered in millimeters."
-  depthMin: Float
-  "Maximum depth from ground level being covered in millimeters."
-  depthMax: Float
+  "Minimum sampled age in raw or calibrated years before present, 1950-based."
+  ageMin: Float
   "The covered time interval in respect of `minAge` and `maxAge`."
   ageSpan: Float
   "This ratio is being determined by: `samples` / `ageSpan` * `1,000`."
   ageResolution: Float
+  "Maximum depth from ground level being covered in millimeters."
+  depthMax: Float
+  "Minimum depth from ground level being covered in millimeters."
+  depthMin: Float
+  "Offset in millimeters that the provided depth values are relative to."
+  depthOffset: Float
+  "Classification to indicate how depth values were provided/calculated."
+  depthType: String
+  "Maximum error margin for provided/calculated ages in percent."
+  errorMax: Float
+  "Minimum error margin for provided/calculated ages in percent."
+  errorMin: Float
+  "Mean error margin for provided/calculated ages in percent."
+  errorMean: Float
+  "Classification to indicate how error margins were provided/calculated."
+  errorType: String
   "The method that was used to generate the provided records in the dataset."
   analysisMethod: String
   "Comments can be added to provide special remarks about the dataset."

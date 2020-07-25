@@ -100,12 +100,8 @@ type Continent implements Entity {
 
 "Cores represent physical sediment profiles and provide respective metadata."
 type Core implements Entity {
-  "The method that was used to generate an age-depth-model for the core."
-  ageDepthMethod: String
   "Comments can be added to provide special remarks about the core."
   comments: String
-  "Indicates wether the core represents a composite profile or separate sections."
-  composite: Boolean
   "The method that was used to retrieve the core from the site of interest."
   coringMethod: String
   "Date and time (UTC) when the entity has been created."
@@ -180,8 +176,20 @@ type Dataset implements Entity {
   depthMax: Float
   "Minimum depth from ground level being covered in millimeters."
   depthMin: Float
+  "Offset in millimeters that the provided depth values are relative to."
+  depthOffset: Float
+  "Classification to indicate how depth values were provided/calculated."
+  depthType: String
   "Name of the platform/database where an original source file was published."
   distributor: String
+  "Maximum error margin for provided/calculated ages in percent."
+  errorMax: Float
+  "Mean error margin for provided/calculated ages in percent."
+  errorMean: Float
+  "Minimum error margin for provided/calculated ages in percent."
+  errorMin: Float
+  "Classification to indicate how error margins were provided/calculated."
+  errorType: String
   "The filename is being used for downloading the dataset and its records."
   file: String!
   "This could be used to visually distinguish the dataset from similar counterparts."
