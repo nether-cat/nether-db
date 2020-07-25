@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/nether-cat/nether-db/compare/v1.2.0...v1.3.0) (2020-07-25)
+
+
+### Features
+
+* **display:** Show information about auxiliary depths and error margins ([f2a7c60](https://github.com/nether-cat/nether-db/commit/f2a7c60820d2fc8e7d36d6c4a50b3b9ede23f268))
+
+
+### Bug Fixes
+
+* **datasets:** Resolve issues with metadata and missing datasets ([2d0402d](https://github.com/nether-cat/nether-db/commit/2d0402dad23eda9debf1f7cfaf193616c8dac3ef))
+* **frontend:** Provide multiple minor fixes and improvements ([3c5ea1f](https://github.com/nether-cat/nether-db/commit/3c5ea1f8372e18d93b67ef428707012f7b694f01)), closes [#24](https://gitlab.forgefire.net/gfz/nether-db/issues/24) [#25](https://gitlab.forgefire.net/gfz/nether-db/issues/25) [#26](https://gitlab.forgefire.net/gfz/nether-db/issues/26) [#27](https://gitlab.forgefire.net/gfz/nether-db/issues/27)
+
 ## [1.2.0](https://github.com/nether-cat/nether-db/compare/v1.1.0...v1.2.0) (2020-06-11)
 
 
