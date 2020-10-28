@@ -503,6 +503,9 @@
     "name": "Gosciaz",
     "latitude": 52.5829242160999,
     "longitude": 19.339757878,
+    "maxDepth": 22,
+    "surfaceLevel": 64.3,
+    "surfaceArea": 417000,
     "@countries": [
       "PL"
     ]

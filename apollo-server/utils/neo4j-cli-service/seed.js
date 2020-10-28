@@ -249,10 +249,10 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
       MERGE (n3:Category:Entity {name: d3.name})
         ON CREATE SET n3.uuid = randomUUID(), n3.updated = datetime(), n3.created = n3.updated
       MERGE (n0)-[:BELONGS_TO]->(n3)
-      FOREACH (d4_doi IN (CASE d4.doi WHEN null THEN [] ELSE [d4.doi] END) |
-        MERGE (n4_:Publication:Entity {doi: d4_doi})
-          ON CREATE SET n4_.uuid = randomUUID(), n4_.updated = datetime(), n4_.created = n4_.updated
-          ON MATCH SET n4_.updated = datetime()
+      FOREACH (d4_ IN (CASE d4.doi WHEN null THEN [] ELSE [d4] END) |
+        MERGE (n4_:Publication:Entity {doi: d4_.doi})
+          ON CREATE SET n4_ += d4_, n4_.uuid = randomUUID(), n4_.updated = datetime(), n4_.created = n4_.updated
+          ON MATCH SET n4_ += d4_, n4_.updated = datetime()
         MERGE (n0)-[:PUBLISHED_IN]->(n4_)
       )
       WITH n0, n1, n2, n3
@@ -519,11 +519,19 @@ function sortProperties (dataset) {
     'errorMean',
     'errorType',
     'analysisMethod',
+    'anchored',
+    'anchorpointType',
+    'anchorpointAge',
+    'interpolationMethod',
+    'calibrationCurve',
     'comments',
     'url',
     'distributor',
     '@category.name',
     '@publication.doi',
+    '@publication.authors',
+    '@publication.title',
+    '@publication.citation',
     '@lake.name',
     '@lake.latitude',
     '@lake.longitude',
