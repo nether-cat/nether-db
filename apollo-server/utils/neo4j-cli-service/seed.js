@@ -149,7 +149,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
     check: false,
     label: 'Add constraints for unique properties',
     statement: cql`
-      CREATE CONSTRAINT ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
+      CREATE CONSTRAINT IF NOT EXISTS ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
     `,
   });
 
@@ -220,7 +220,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
       DELETE r0_
       WITH n0, d1, d2, d3, d4
       CALL apoc.cypher.run('
-        WITH {d1} AS d1, {d2} AS d2
+        WITH $d1 AS d1, $d2 AS d2
         MATCH (n2:Lake {name: d2.name})
         WITH d1, d2, n2, CASE
           WHEN d1.latitude IS NOT NULL AND d1.longitude IS NOT NULL = true
