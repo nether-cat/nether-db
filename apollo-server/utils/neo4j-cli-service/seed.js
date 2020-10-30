@@ -327,6 +327,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
         WITH DISTINCT n0, n1, attributes
         OPTIONAL MATCH (_n0:Record)-[_r0:RECORDED_IN]->(n0)
         OPTIONAL MATCH (_n0)-[_r1:CORRELATES]->(_n1:Event)
+        // FIXME: Using 'DETACH' is probably too destructive here
         DETACH DELETE _n0, _r0, _n1, _r1
         WITH DISTINCT n0, n1, attributes, range(0, size($records) - 1) AS indices
         UNWIND indices AS row
