@@ -209,8 +209,8 @@
                     class="table-main"
                     :class="{ 'table-toggle-details': true, 'may-toggle': !datasetId }"
                     :items="!lake.cores ? [] : [].concat(...lake.cores.map(core => core.datasets.map(d => (
-                      { ...d, core, _showDetails: d.uuid === datasetId, _showMore: false }
-                    )))).filter(d => !datasetId || d.uuid === datasetId)"
+                      { file: '', ...d, core, _showDetails: d.uuid === datasetId, _showMore: false }
+                    )))).filter(d => !datasetId || d.uuid === datasetId).sort((a, b) => a.file.localeCompare(b.file))"
                     :fields="datasetsListFields"
                     @row-clicked="datasetsListClicked"
                     @mouseover.native="datasetsListFocus"
