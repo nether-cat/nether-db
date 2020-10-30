@@ -30,8 +30,7 @@
             <p>
               <a class="text-dark" target="_blank" href="https://www.gfz-potsdam.de/en/" rel="noopener noreferrer">
                 <span class="sr-only">— Website:</span>
-                <FontAwesomeIcon icon="link" fixed-width/>
-                <span class="pl-1">www.gfz-potsdam.de</span><br>
+                <FontAwesomeIcon icon="link" fixed-width/><span class="pl-1">www.gfz-potsdam.de</span><br>
               </a>
               <LinkPhone class="text-dark" number="+49 331 288-0"/>
             </p>
