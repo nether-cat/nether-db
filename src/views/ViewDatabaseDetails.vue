@@ -209,7 +209,7 @@
                     class="table-main"
                     :class="{ 'table-toggle-details': true, 'may-toggle': !datasetId }"
                     :items="!lake.cores ? [] : [].concat(...lake.cores.map(core => core.datasets.map(d => (
-                      { ...d, core, _showDetails: d.uuid === datasetId }
+                      { ...d, core, _showDetails: d.uuid === datasetId, _showMore: false }
                     )))).filter(d => !datasetId || d.uuid === datasetId)"
                     :fields="datasetsListFields"
                     @row-clicked="datasetsListClicked"
@@ -229,7 +229,7 @@
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
                     <span v-if="item.core.latitude && item.core.longitude"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Location"
                     >
                       <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
@@ -241,13 +241,13 @@
                       <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
                     </span>
                     <span v-if="item.core.drillDate"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Drill date"
                     >
                       <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
                     </span>
                     <span v-if="item.core.waterDepth"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Water depth"
                     >
                       <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
@@ -262,7 +262,7 @@
                           class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Uncertainty"
                     >
-                      <FontAwesomeIcon icon="bug"/>&nbsp;<span v-if="item.errorMean">
+                      <FontAwesomeIcon icon="arrows-alt-v"/>&ensp;<span v-if="item.errorMean">
                         &plusmn;&thinsp;{{ item.errorMean.toFixed(2) }}&thinsp;&percnt;
                       </span><span v-else>
                         &minus;&thinsp;{{ item.errorMin.toFixed(2) }}&thinsp;&percnt;&hairsp;&comma;
@@ -275,18 +275,39 @@
                     >
                       <FontAwesomeIcon icon="comment-dots"/>&ensp;{{ item.comments }}
                     </span>
+                    <span v-if="Object.values(item.extraProps || {}).some(v => ![null, undefined, 'auxiliary'].includes(v))"
+                          title="Additional details"
+                    >
+                      <BButton
+                        variant="link"
+                        class="border-0 pb-2 pl-0 pr-2 font-italic text-nowrap text-dark"
+                        @click.stop="datasetsListExtraClicked(item)"
+                      ><FontAwesomeIcon :icon="['far', item._showMore ? 'minus-square' : 'plus-square']"/><span
+                        class="pl-2"
+                      >{{ item._showMore ? 'Show less' : 'Show more' }}</span></BButton>
+                      <span v-if="item._showMore">
+                        <span v-for="[key, value] in Object.entries(item.extraProps)
+                                .filter(([, v]) => v !== null && v !== undefined)
+                                .sort(([a], [b]) => a.localeCompare(b))"
+                              :key="key"
+                              class="pb-2 pr-3 text-nowrap"
+                        ><span class="font-weight-light">{{ key | sentenceCase }}:</span>&nbsp;<span>{{ value }}</span></span>
+                      </span>
+                    </span>
                     <div v-if="item.publication && item.publication.length && item.publication[0].citation"
-                         class="row mx-0 flex-nowrap"
+                         class="row m-0 flex-nowrap"
                     >
                       <span style="flex-shrink: 1; font-size: .875em;"
                             class="col-12 mt-2 mb-1 pb-2 px-0"
                             title="Reference"
                       >
+                        <FontAwesomeIcon icon="quote-right" fixed-width/>
                         <!-- eslint-disable-next-line vue/no-v-html -->
-                        <FontAwesomeIcon icon="quote-right"/>&ensp;<span v-html="stripUrl(item.publication[0].citation)"/>
-                        <span v-if="item.publication[0].doi">
+                        <span class="mx-1" v-html="stripUrl(item.publication[0].citation)"/>
+                        <span v-if="item.publication[0].doi && !item.publication[0].doi.match(/unpublished/i)">
                           <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
                         </span>
+                        <span v-else class="text-nowrap text-secondary">[The respective DOI is not yet known]</span>
                       </span>
                       <span class="col-5 col-lg-6"/>
                     </div>
@@ -319,8 +340,25 @@
               <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
               </template>
-              <template slot="[publication]" slot-scope="{ value: { doi, citation } }">
-                <a v-if="doi"
+              <template slot="[publication]" slot-scope="{ item, value: { doi, citation } }">
+                <span v-if="doi && doi.match(/unpublished/i)"
+                      v-b-tooltip.hover.bottom.viewport.html="{
+                        customClass: 'tooltip-table-cell',
+                        title: (citation || '').replace(
+                          /(Available at:?)?\s?https?:\/\/.*doi\.org\/(.*?)\.?\s?$/i,
+                          '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$2</span>',
+                        )
+                      }"
+                      class="btn-link font-italic text-dark"
+                >
+                  <span>Not yet published</span><span
+                    class="text-decoration-none d-inline-block"
+                  >&nbsp;<FontAwesomeLayers class="ml-2">
+                    <FontAwesomeIcon :icon="['far', 'circle']" transform="grow-3 left-1"/>
+                    <FontAwesomeIcon icon="info" transform="shrink-5 left-1"/>
+                  </FontAwesomeLayers></span>
+                </span>
+                <a v-else-if="doi"
                    v-b-tooltip.hover.bottom.viewport.html="{
                      customClass: 'tooltip-table-cell',
                      title: (citation || '').replace(
@@ -602,6 +640,9 @@ export default {
       if (!this.datasetId) {
         item._showDetails = !item._showDetails;
       }
+    },
+    datasetsListExtraClicked (item) {
+      item._showMore = !item._showMore;
     },
     getFields (dataset) {
       if (dataset) {

@@ -300,6 +300,17 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
   url: String
   "Name of the platform/database where an original source file was published."
   distributor: String
+  "Additional properties that might not be defined in the schema at this time."
+  extraProps: JSON @cypher(statement: """
+    RETURN this {
+      .errorType,
+      .anchored,
+      .anchorpointType,
+      .anchorpointAge,
+      .interpolationMethod,
+      .calibrationCurve
+    }
+  """)
   "The attributes that have been included in the dataset's records."
   attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP $offset LIMIT $first")
   "The categories that the dataset belongs to."

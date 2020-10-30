@@ -190,6 +190,8 @@ type Dataset implements Entity {
   errorMin: Float
   "Classification to indicate how error margins were provided/calculated."
   errorType: String
+  "Additional properties that are not yet defined in the schema at this time."
+  extraProps: JSON
   "The filename is being used for downloading the dataset and its records."
   file: String!
   "This could be used to visually distinguish the dataset from similar counterparts."
