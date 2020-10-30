@@ -784,7 +784,10 @@ export default {
         first = false;
       }
       const { publication: [pub = {}] = [], core: [core = {}] = [] } = dataset;
-      const { lake: [lake = {}] = [] } = core, reference = pub.doi ? `https://dx.doi.org/${pub.doi}` : null;
+      const { lake: [lake = {}] = [] } = core;
+      const reference = !pub.doi ? null : (
+        pub.doi.match(/unpublished/i) ? pub.citation : `https://dx.doi.org/${pub.doi}`
+      );
       const meta = {
         info: '0',
         lakeName: lake.name || 'n/a',
@@ -797,15 +800,37 @@ export default {
         comments: dataset.comments || 'n/a',
         reference: reference || 'n/a',
       };
+      const keys = [
+        'depthType',
+        'errorType',
+        'errorMean',
+        'errorMin',
+        'errorMax',
+        'anchored',
+        'anchorpointType',
+        'anchorpointAge',
+        'interpolationMethod',
+        'calibrationCurve',
+      ];
+      const safeValue = val => 'string' === typeof val && (!isNaN(val) || val.includes(',')) ? `"${val}"` : val;
+      const props = Object.entries({ ...dataset, ...dataset.extraProps || {} })
+        .filter(([key, val]) => val !== null && keys.includes(key))
+        .sort((a, b) => {
+          let left = keys.findIndex(key => key === a[0]);
+          let right = keys.findIndex(key => key === b[0]);
+          return (left === -1 ? keys.length : left) - (right === -1 ? keys.length : right);
+        }).reduce((obj, [key, val]) => {
+          obj[key] = val;
+          return obj;
+        }, {});
+      const extra = !Object.keys(props).length ? [] : (
+        [[], ['extra', ...Object.keys(props)], ['0', ...Object.values(props).map(safeValue)]]
+      );
       const header = ['data', ...dataset.attributes.map(({ name }) => name)];
-      const rows = [[], Object.keys(meta), Object.values(meta), [], header, ...records.map(
-        (record, rowIndex) => [`${rowIndex + 1}`, ...header.slice(1).map(
-          (columnName, columnIndex) => {
-            const value = record[`__${columnIndex}__`];
-            const useQuotes = 'string' === typeof value && (!isNaN(value) || value.includes(','));
-            return (useQuotes ? `"${value}"` : value);
-          },
-        )],
+      const rows = [[], Object.keys(meta), Object.values(meta).map(safeValue), ...extra, [], header, ...records.map(
+        (record, rowIndex) => [`${rowIndex + 1}`, ...header.slice(1).map((
+          (columnName, columnIndex) => safeValue(record[`__${columnIndex}__`])
+        ))],
       )];
       this.download(rows.join('\n'), `${dataset.file || 'export'}.csv`, 'text/csv');
       this.exportStatus = this.codes.STATUS_DONE;
