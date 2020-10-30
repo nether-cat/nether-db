@@ -322,6 +322,9 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
         // TODO: We need more props on these edges, e.g. unit and method
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
+        OPTIONAL MATCH (n0)-[r0:INCLUDES]-(n2:Attribute) WHERE NOT n2 IN attributes
+        DELETE r0
+        WITH DISTINCT n0, n1, attributes
         OPTIONAL MATCH (_n0:Record)-[_r0:RECORDED_IN]->(n0)
         OPTIONAL MATCH (_n0)-[_r1:CORRELATES]->(_n1:Event)
         DETACH DELETE _n0, _r0, _n1, _r1
