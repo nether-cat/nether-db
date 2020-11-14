@@ -119,7 +119,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
 
   datasets = datasets.filter(d => d['_fileExists'] && d['_lakeExists']);
   if (filters && filters.length) {
-    datasets = datasets.filter(d => filters.some(f => d['file'].toLowerCase().includes(f.toLowerCase())));
+    datasets = datasets.filter(d => filters.every(f => d['file'].toLowerCase().includes(f.toLowerCase())));
   }
   datasets.forEach(dataset => {
     const structuredObj = Object.entries(dataset).reduce((obj, [key, value]) => {

@@ -666,6 +666,7 @@ export default {
               'depthBottom',
               'depthTop',
               'compositeDepth',
+              'profileSection',
             ];
             return reverseOrder.findIndex(s => b.label === s) - reverseOrder.findIndex(s => a.label === s);
           }),
