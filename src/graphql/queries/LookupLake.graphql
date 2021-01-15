@@ -39,6 +39,7 @@ query lookupLake($uuid: ID!) {
         errorType
         analysisMethod
         comments
+        url
         extraProps
         attributes {
           uuid

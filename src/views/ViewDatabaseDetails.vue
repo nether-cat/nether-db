@@ -311,12 +311,21 @@
                       </span>
                       <span class="col-5 col-lg-6"/>
                     </div>
+                    <span v-if="!!item.url"
+                          style="font-size: .875rem"
+                          class="d-block mt-1 pb-2 pr-3 text-nowrap"
+                    >
+                      <span title="Original data source">
+                        <FontAwesomeIcon icon="archive" fixed-width/>&ensp;<span style="font-weight: 500">Original data source:&thinsp;</span>
+                        <ExternalLink :href="item.url" @click.stop/>
+                      </span>
+                    </span>
                     <span v-if="item.depthType === 'unknown' || [item.depthType, item.errorType].includes('auxiliary')"
                           style="font-size: .875rem"
                           class="d-block mt-1 pb-2 pr-3 text-nowrap"
                     >
                       <span title="Important note">
-                        <FontAwesomeIcon icon="bullhorn"/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
+                        <FontAwesomeIcon icon="bullhorn" fixed-width/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
                         {{ item.depthType === 'auxiliary' ? 'Auxiliary composite depth from cumulative varve thickness.' : '' }}
                         {{ item.depthType === 'unknown' ? 'Composite depth could not be reconstructed.' : '' }}
                         {{ item.errorType === 'auxiliary' ? 'Uncertainty recalculated from counting error.' : '' }}
