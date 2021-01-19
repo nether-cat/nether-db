@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'ViewHeader',
+  title: 'VARDA - Varved Sediments Database',
   data() {
     return {
       isVisible: true,

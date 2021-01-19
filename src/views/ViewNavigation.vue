@@ -9,12 +9,12 @@
         <BNavItem to="/database">
           <FontAwesomeIcon icon="database" fixed-width/>&nbsp;<span class="text-uppercase">Database</span>
         </BNavItem>
-        <BNavItem disabled>
+        <BNavItem disabled hidden>
           <FontAwesomeIcon icon="question-circle" fixed-width/>&nbsp;<span class="text-uppercase">About</span>
         </BNavItem>
       </BNavbarNav>
       <!-- Right aligned nav items -->
-      <BNavbarNav class="ml-auto">
+      <BNavbarNav class="ml-auto" hidden>
         <BNavForm @submit.prevent="">
           <BInputGroup class="mr-md-2">
             <BFormInput size="sm" type="text" placeholder="Quick Search" disabled/>
