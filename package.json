@@ -62,7 +62,8 @@
     "neo4j:reset": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service reset",
     "refs:compile": "node $NODE_DEBUG_OPTION -- bin/compile-refs",
     "test:e2e": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:e2e",
-    "test:unit": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:unit"
+    "test:unit": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:unit",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@akryum/vue-cli-plugin-ssr": "^0.6.0",
@@ -150,6 +151,7 @@
     "eslint-plugin-vue": "^5.0.0-0",
     "fibers": "^4.0.2",
     "graphql-markdown": "^5.1.0",
+    "husky": "^5.0.9",
     "jest-resolve": "^24.9.0",
     "marky-markdown": "^12.0.0",
     "standard-version": "^7.0.0",
