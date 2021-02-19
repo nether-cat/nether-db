@@ -1,0 +1,13 @@
+diff --git a/apollo-server/utils/neo4j-cli-service/seed.js b/apollo-server/utils/neo4j-cli-service/seed.js
+index 124652e..01d2948 100644
+--- a/apollo-server/utils/neo4j-cli-service/seed.js
++++ b/apollo-server/utils/neo4j-cli-service/seed.js
+@@ -149,7 +149,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
+     check: false,
+     label: 'Add constraints for unique properties',
+     statement: cql`
+-      CREATE CONSTRAINT IF NOT EXISTS ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
++      CREATE CONSTRAINT ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
+     `,
+   });
+ 
