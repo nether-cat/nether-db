@@ -26,11 +26,12 @@
             <span>New datasets added</span><span class="float-right text-muted small">16 November 2020</span>
           </BCardTitle>
           <BCardText>
-            Through the efforts of Alicja
+            Thanks to the efforts of Alicja
             <a href="https://doi.org/10.1016/j.quascirev.2020.106715" target="_blank" rel="noopener">Bonk et al. 2020</a>
             and Daniela
             <a href="https://doi.org/10.1111/bor.12499" target="_blank" rel="noopener">Müller et al. 2020</a>,
-            varve chronologies, varve thickness and 14C datasets from lake Gosciaz in Poland are now available online.
+            varve chronologies, varve thickness and 14C datasets from lake
+            Gosciaz in Poland are now available on our platform.
           </BCardText>
         </BCard>
         <BCard class="card-news">
@@ -54,13 +55,13 @@
             <span>A detailed report on VARDA</span><span class="float-right text-muted small">25 September 2020</span>
           </BCardTitle>
           <BCardText>
-            We are pleased to announce the final release of
+            We’re pleased to announce the final release of
             <a href="https://doi.org/10.5194/essd-12-2311-2020" target="_blank" rel="noopener">our paper</a>
             in the data publishing journal
             <a href="https://www.earth-system-science-data.net/" target="_blank" rel="noopener">Earth System Science Data</a>
             <span class="text-secondary">(ESSD)</span>.
-            It's a detailed report on our data mining and compilation strategies,
-            the technical design and the included datasets as of 26 July 2020.
+            In this paper, we report in detail on our data mining and compilation strategies,
+            the software design and the provided datasets effective by 26 July 2020.
           </BCardText>
         </BCard>
         <BCard class="card-news">
@@ -68,12 +69,10 @@
             <span>New datasets added</span><span class="float-right text-muted small">11 June 2020</span>
           </BCardTitle>
           <BCardText>
-            Thanks to Julia <a
-              href="https://doi.org/10.5194/gchron-2019-18"
-              target="_blank"
-              rel="noopener"
-            >Kalanke et al. 2020</a>, varve chronologies, varve thickness
-            and 14C datasets from lake Chatyr Kol are now available online.
+            Thanks to the efforts of Julia
+            <a href="https://doi.org/10.5194/gchron-2019-18" target="_blank" rel="noopener">Kalanke et al. 2020</a>,
+            varve chronologies, varve thickness and 14C datasets from lake
+            Chatyr Kol in Kyrgyzstan are now available on our platform.
           </BCardText>
         </BCard>
         <BCard class="card-news">
@@ -95,13 +94,13 @@
           </BCardText>
           <BCardText>Compiled datasets included:</BCardText>
           <BCardText text-tag="ul">
-            <li>Radiocarbon dating: <b>118</b></li>
-            <li>Tephra layers: <b>30</b></li>
-            <li>Varve chronologies: <b>70</b></li>
-            <li>Varve thickness records: <b>55</b></li>
+            <li>Radiocarbon dating: <b>96</b></li>
+            <li>Tephra layers: <b>45</b></li>
+            <li>Varve chronologies: <b>64</b></li>
+            <li>Varve thickness records: <b>50</b></li>
             <li class="list-unstyled w-50 mx-0 my-2 border-bottom border-secondary"/>
-            <li class="list-unstyled text-muted">Total datasets: <b>261</b></li>
-            <li class="list-unstyled text-muted">Total lakes: <b>95</b></li>
+            <li class="list-unstyled text-muted">Total datasets: <b>255</b></li>
+            <li class="list-unstyled text-muted">Sampled lakes: <b>89</b></li>
           </BCardText>
         </BCard>
       </BCol>
