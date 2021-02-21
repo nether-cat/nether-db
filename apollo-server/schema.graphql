@@ -300,8 +300,19 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
   url: String
   "Name of the platform/database where an original source file was published."
   distributor: String
+  "Additional properties that might not be defined in the schema at this time."
+  extraProps: JSON @cypher(statement: """
+    RETURN this {
+      .errorType,
+      .anchored,
+      .anchorpointType,
+      .anchorpointAge,
+      .interpolationMethod,
+      .calibrationCurve
+    }
+  """)
   "The attributes that have been included in the dataset's records."
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP {offset} LIMIT {first}")
+  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP $offset LIMIT $first")
   "The categories that the dataset belongs to."
   categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
   "The core that the dataset has been created/sampled from."
@@ -309,7 +320,7 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
   "The publication that the dataset has been published/referenced in."
   publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
   "The sampled data points that are stored in the dataset."
-  records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP {offset} LIMIT {first} RETURN collect(m { .* })")
+  records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP $offset LIMIT $first RETURN collect(m { .* })")
   "Indicates the currently authorized user's access level for the dataset."
   accessLevel: AccessLevel! @cypher(statement: """
     OPTIONAL MATCH (u:User { email: $cypherParams.currentUser }),
@@ -345,9 +356,9 @@ type Event implements Entity @additionalLabels(labels: ["Entity"]) {
   "Minimum estimated age provided by correlating samples in raw or calibrated years before present, 1950-based."
   ageMin: Float
   "The datasets that contain samples which correlate with the event."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset) WITH DISTINCT d SKIP {offset} LIMIT {first} RETURN d")
+  datasets(first: Int = 100, offset: Int = 0): [Dataset] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset) WITH DISTINCT d SKIP $offset LIMIT $first RETURN d")
   "The lakes with respective tephra layers which correlate with the event."
-  lakes(first: Int = 100, offset: Int = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP {offset} LIMIT {first} RETURN l")
+  lakes(first: Int = 100, offset: Int = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP $offset LIMIT $first RETURN l")
 }
 
 "Groups are used to manage user permissions hierarchically and in batch."

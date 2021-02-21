@@ -6,6 +6,7 @@ query lookupDataset($uuid: ID!, $first: Int = 100, $offset: Int = 0) {
     samples
     analysisMethod
     comments
+    extraProps
     attributes {
       uuid
       name

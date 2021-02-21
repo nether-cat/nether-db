@@ -209,8 +209,8 @@
                     class="table-main"
                     :class="{ 'table-toggle-details': true, 'may-toggle': !datasetId }"
                     :items="!lake.cores ? [] : [].concat(...lake.cores.map(core => core.datasets.map(d => (
-                      { ...d, core, _showDetails: d.uuid === datasetId }
-                    )))).filter(d => !datasetId || d.uuid === datasetId)"
+                      { file: '', ...d, core, _showDetails: d.uuid === datasetId, _showMore: false }
+                    )))).filter(d => !datasetId || d.uuid === datasetId).sort((a, b) => a.file.localeCompare(b.file))"
                     :fields="datasetsListFields"
                     @row-clicked="datasetsListClicked"
                     @mouseover.native="datasetsListFocus"
@@ -229,7 +229,7 @@
                       <FontAwesomeIcon icon="link"/>&ensp;{{ item.core.label || 'unnamed' }}
                     </span>
                     <span v-if="item.core.latitude && item.core.longitude"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Location"
                     >
                       <FontAwesomeIcon icon="map-pin"/>&ensp;{{ item.core | coordinates }}
@@ -241,13 +241,13 @@
                       <FontAwesomeIcon icon="angle-double-up"/>&ensp;{{ item.core.coringMethod }}
                     </span>
                     <span v-if="item.core.drillDate"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Drill date"
                     >
                       <FontAwesomeIcon icon="clock"/>&ensp;{{ item.core.drillDate }} AD
                     </span>
                     <span v-if="item.core.waterDepth"
-                          class="d-inline-block pb-2 pr-3"
+                          class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Water depth"
                     >
                       <FontAwesomeIcon icon="level-down-alt"/>&ensp;{{ item.core.waterDepth }} m
@@ -262,7 +262,7 @@
                           class="d-inline-block pb-2 pr-3 text-nowrap"
                           title="Uncertainty"
                     >
-                      <FontAwesomeIcon icon="bug"/>&nbsp;<span v-if="item.errorMean">
+                      <FontAwesomeIcon icon="arrows-alt-v"/>&ensp;<span v-if="item.errorMean">
                         &plusmn;&thinsp;{{ item.errorMean.toFixed(2) }}&thinsp;&percnt;
                       </span><span v-else>
                         &minus;&thinsp;{{ item.errorMin.toFixed(2) }}&thinsp;&percnt;&hairsp;&comma;
@@ -275,27 +275,57 @@
                     >
                       <FontAwesomeIcon icon="comment-dots"/>&ensp;{{ item.comments }}
                     </span>
+                    <span v-if="Object.values(item.extraProps || {}).some(v => ![null, undefined, 'auxiliary'].includes(v))"
+                          title="Additional details"
+                    >
+                      <BButton
+                        variant="link"
+                        class="border-0 pb-2 pl-0 pr-2 font-italic text-nowrap text-dark"
+                        @click.stop="datasetsListExtraClicked(item)"
+                      ><FontAwesomeIcon :icon="['far', item._showMore ? 'minus-square' : 'plus-square']"/><span
+                        class="pl-2"
+                      >{{ item._showMore ? 'Show less' : 'Show more' }}</span></BButton>
+                      <span v-if="item._showMore">
+                        <span v-for="[key, value] in Object.entries(item.extraProps)
+                                .filter(([, v]) => v !== null && v !== undefined)
+                                .sort(([a], [b]) => a.localeCompare(b))"
+                              :key="key"
+                              class="pb-2 pr-3 text-nowrap"
+                        ><span class="font-weight-light">{{ key | sentenceCase }}:</span>&nbsp;<span>{{ value }}</span></span>
+                      </span>
+                    </span>
                     <div v-if="item.publication && item.publication.length && item.publication[0].citation"
-                         class="row mx-0 flex-nowrap"
+                         class="row m-0 flex-nowrap"
                     >
                       <span style="flex-shrink: 1; font-size: .875em;"
                             class="col-12 mt-2 mb-1 pb-2 px-0"
                             title="Reference"
                       >
+                        <FontAwesomeIcon icon="quote-right" fixed-width/>
                         <!-- eslint-disable-next-line vue/no-v-html -->
-                        <FontAwesomeIcon icon="quote-right"/>&ensp;<span v-html="stripUrl(item.publication[0].citation)"/>
-                        <span v-if="item.publication[0].doi">
+                        <span class="mx-1" v-html="stripUrl(item.publication[0].citation)"/>
+                        <span v-if="item.publication[0].doi && !item.publication[0].doi.match(/unpublished/i)">
                           <ExternalLink :href="`https://dx.doi.org/${item.publication[0].doi}`" @click.stop/>.
                         </span>
+                        <span v-else class="text-nowrap text-secondary">[The respective DOI is not yet known]</span>
                       </span>
                       <span class="col-5 col-lg-6"/>
                     </div>
+                    <span v-if="!!item.url"
+                          style="font-size: .875rem"
+                          class="d-block mt-1 pb-2 pr-3 text-nowrap"
+                    >
+                      <span title="Original data source">
+                        <FontAwesomeIcon icon="archive" fixed-width/>&ensp;<span style="font-weight: 500">Original data source:&thinsp;</span>
+                        <ExternalLink :href="item.url" @click.stop/>
+                      </span>
+                    </span>
                     <span v-if="item.depthType === 'unknown' || [item.depthType, item.errorType].includes('auxiliary')"
                           style="font-size: .875rem"
                           class="d-block mt-1 pb-2 pr-3 text-nowrap"
                     >
                       <span title="Important note">
-                        <FontAwesomeIcon icon="bullhorn"/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
+                        <FontAwesomeIcon icon="bullhorn" fixed-width/>&ensp;<span style="font-weight: 500">Important note:&thinsp;</span>
                         {{ item.depthType === 'auxiliary' ? 'Auxiliary composite depth from cumulative varve thickness.' : '' }}
                         {{ item.depthType === 'unknown' ? 'Composite depth could not be reconstructed.' : '' }}
                         {{ item.errorType === 'auxiliary' ? 'Uncertainty recalculated from counting error.' : '' }}
@@ -319,8 +349,25 @@
               <template slot="HEAD[publication]">
                 Reference&ensp;<span class="font-weight-lighter text-secondary">[DOI]</span>
               </template>
-              <template slot="[publication]" slot-scope="{ value: { doi, citation } }">
-                <a v-if="doi"
+              <template slot="[publication]" slot-scope="{ item, value: { doi, citation } }">
+                <span v-if="doi && doi.match(/unpublished/i)"
+                      v-b-tooltip.hover.bottom.viewport.html="{
+                        customClass: 'tooltip-table-cell',
+                        title: (citation || '').replace(
+                          /(Available at:?)?\s?https?:\/\/.*doi\.org\/(.*?)\.?\s?$/i,
+                          '<span class=\'d-inline-block mw-100 align-bottom text-truncate\'>doi:$2</span>',
+                        )
+                      }"
+                      class="btn-link font-italic text-dark"
+                >
+                  <span>Not yet published</span><span
+                    class="text-decoration-none d-inline-block"
+                  >&nbsp;<FontAwesomeLayers class="ml-2">
+                    <FontAwesomeIcon :icon="['far', 'circle']" transform="grow-3 left-1"/>
+                    <FontAwesomeIcon icon="info" transform="shrink-5 left-1"/>
+                  </FontAwesomeLayers></span>
+                </span>
+                <a v-else-if="doi"
                    v-b-tooltip.hover.bottom.viewport.html="{
                      customClass: 'tooltip-table-cell',
                      title: (citation || '').replace(
@@ -603,6 +650,9 @@ export default {
         item._showDetails = !item._showDetails;
       }
     },
+    datasetsListExtraClicked (item) {
+      item._showMore = !item._showMore;
+    },
     getFields (dataset) {
       if (dataset) {
         return [{ key: '__rowNum__', label: '#' }].concat(
@@ -625,6 +675,7 @@ export default {
               'depthBottom',
               'depthTop',
               'compositeDepth',
+              'profileSection',
             ];
             return reverseOrder.findIndex(s => b.label === s) - reverseOrder.findIndex(s => a.label === s);
           }),
@@ -743,7 +794,10 @@ export default {
         first = false;
       }
       const { publication: [pub = {}] = [], core: [core = {}] = [] } = dataset;
-      const { lake: [lake = {}] = [] } = core, reference = pub.doi ? `https://dx.doi.org/${pub.doi}` : null;
+      const { lake: [lake = {}] = [] } = core;
+      const reference = !pub.doi ? null : (
+        pub.doi.match(/unpublished/i) ? pub.citation : `https://dx.doi.org/${pub.doi}`
+      );
       const meta = {
         info: '0',
         lakeName: lake.name || 'n/a',
@@ -756,15 +810,37 @@ export default {
         comments: dataset.comments || 'n/a',
         reference: reference || 'n/a',
       };
+      const keys = [
+        'depthType',
+        'errorType',
+        'errorMean',
+        'errorMin',
+        'errorMax',
+        'anchored',
+        'anchorpointType',
+        'anchorpointAge',
+        'interpolationMethod',
+        'calibrationCurve',
+      ];
+      const safeValue = val => 'string' === typeof val && (!isNaN(val) || val.includes(',')) ? `"${val}"` : val;
+      const props = Object.entries({ ...dataset, ...dataset.extraProps || {} })
+        .filter(([key, val]) => val !== null && keys.includes(key))
+        .sort((a, b) => {
+          let left = keys.findIndex(key => key === a[0]);
+          let right = keys.findIndex(key => key === b[0]);
+          return (left === -1 ? keys.length : left) - (right === -1 ? keys.length : right);
+        }).reduce((obj, [key, val]) => {
+          obj[key] = val;
+          return obj;
+        }, {});
+      const extra = !Object.keys(props).length ? [] : (
+        [[], ['extra', ...Object.keys(props)], ['0', ...Object.values(props).map(safeValue)]]
+      );
       const header = ['data', ...dataset.attributes.map(({ name }) => name)];
-      const rows = [[], Object.keys(meta), Object.values(meta), [], header, ...records.map(
-        (record, rowIndex) => [`${rowIndex + 1}`, ...header.slice(1).map(
-          (columnName, columnIndex) => {
-            const value = record[`__${columnIndex}__`];
-            const useQuotes = 'string' === typeof value && (!isNaN(value) || value.includes(','));
-            return (useQuotes ? `"${value}"` : value);
-          },
-        )],
+      const rows = [[], Object.keys(meta), Object.values(meta).map(safeValue), ...extra, [], header, ...records.map(
+        (record, rowIndex) => [`${rowIndex + 1}`, ...header.slice(1).map((
+          (columnName, columnIndex) => safeValue(record[`__${columnIndex}__`])
+        ))],
       )];
       this.download(rows.join('\n'), `${dataset.file || 'export'}.csv`, 'text/csv');
       this.exportStatus = this.codes.STATUS_DONE;

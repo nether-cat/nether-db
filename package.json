@@ -62,7 +62,8 @@
     "neo4j:reset": "node $NODE_DEBUG_OPTION -- bin/neo4j-cli-service reset",
     "refs:compile": "node $NODE_DEBUG_OPTION -- bin/compile-refs",
     "test:e2e": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:e2e",
-    "test:unit": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:unit"
+    "test:unit": "npx -n $NODE_DEBUG_OPTION -- vue-cli-service test:unit",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@akryum/vue-cli-plugin-ssr": "^0.6.0",
@@ -97,7 +98,7 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "ms": "^2.1.1",
-    "neo4j-driver": "^1.7.3",
+    "neo4j-driver": "^4.1.2",
     "neo4j-graphql-js": "https://github.com/neo4j-graphql/neo4j-graphql-js/tarball/70e6966",
     "node-sass": "^4.12.0",
     "nodemailer": "^6.1.1",
@@ -150,14 +151,14 @@
     "eslint-plugin-vue": "^5.0.0-0",
     "fibers": "^4.0.2",
     "graphql-markdown": "^5.1.0",
+    "husky": "^5.0.9",
     "jest-resolve": "^24.9.0",
-    "marky-markdown": "^12.0.0",
     "standard-version": "^7.0.0",
     "typescript": "^3.4.5",
     "vue-template-compiler": "^2.6.10"
   },
   "engines": {
-    "node": ">=8.16.0"
+    "node": ">=12.20.0"
   },
   "vuePlugins": {
     "ui": [

@@ -21,23 +21,87 @@
         </BCard>
       </BCol>
       <BCol cols="12" xl="4">
-        <BContainer fluid class="pt-4 pt-sm-5 pt-xl-0">
-          <h4>Latest Updates</h4><hr>
-        </BContainer>
-        <BCard title="Release v1.0.2" class="card-news">
-          <span class="card-text">
-            Eget felis eget nunc lobortis mattis aliquam faucibus. Ut eu sem integer vitae justo eget. Turpis egestas maecenas pharetra convallis posuere morbi leo urna.
-          </span>
+        <BCard class="card-news">
+          <BCardTitle title-tag="h6">
+            <span>New datasets added</span><span class="float-right text-muted small">16 November 2020</span>
+          </BCardTitle>
+          <BCardText>
+            Thanks to the efforts of Alicja
+            <a href="https://doi.org/10.1016/j.quascirev.2020.106715" target="_blank" rel="noopener">Bonk et al. 2020</a>
+            and Daniela
+            <a href="https://doi.org/10.1111/bor.12499" target="_blank" rel="noopener">Müller et al. 2020</a>,
+            varve chronologies, varve thickness and 14C datasets from lake
+            Gosciaz in Poland are now available on our platform.
+          </BCardText>
         </BCard>
-        <BCard title="Release v1.0.1" class="card-news">
-          <span class="card-text">
-            Lectus arcu bibendum at varius vel pharetra. Tempor nec feugiat nisl pretium fusce id velit ut. Duis at consectetur lorem donec.
-          </span>
+        <BCard class="card-news">
+          <BCardTitle title-tag="h6">
+            <span>A swift introduction to VARDA</span><span class="float-right text-muted small">27 October 2020</span>
+          </BCardTitle>
+          <BCardText>
+            Cécile Blanchet has published an article on her <a
+              href="https://blanchetcecile.wordpress.com/"
+              target="_blank"
+              rel="noopener"
+            >personal website</a> that gives a <a
+              href="https://blanchetcecile.wordpress.com/2020/10/27/varda-looking-into-earths-past-climates-one-layer-at-the-time"
+              target="_blank"
+              rel="noopener"
+            >brief description</a> of our ongoing project.
+          </BCardText>
         </BCard>
-        <BCard title="Release v1.0.0" class="card-news">
-          <span class="card-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </span>
+        <BCard class="card-news">
+          <BCardTitle title-tag="h6">
+            <span>A detailed report on VARDA</span><span class="float-right text-muted small">25 September 2020</span>
+          </BCardTitle>
+          <BCardText>
+            We’re pleased to announce the final release of
+            <a href="https://doi.org/10.5194/essd-12-2311-2020" target="_blank" rel="noopener">our paper</a>
+            in the data publishing journal
+            <a href="https://www.earth-system-science-data.net/" target="_blank" rel="noopener">Earth System Science Data</a>
+            <span class="text-secondary">(ESSD)</span>.
+            In this paper, we report in detail on our data mining and compilation strategies,
+            the software design and the provided datasets effective by 26 July 2020.
+          </BCardText>
+        </BCard>
+        <BCard class="card-news">
+          <BCardTitle title-tag="h6">
+            <span>New datasets added</span><span class="float-right text-muted small">11 June 2020</span>
+          </BCardTitle>
+          <BCardText>
+            Thanks to the efforts of Julia
+            <a href="https://doi.org/10.5194/gchron-2019-18" target="_blank" rel="noopener">Kalanke et al. 2020</a>,
+            varve chronologies, varve thickness and 14C datasets from lake
+            Chatyr Kol in Kyrgyzstan are now available on our platform.
+          </BCardText>
+        </BCard>
+        <BCard class="card-news">
+          <BCardTitle title-tag="h6">
+            <span>Released version 1.0.0</span><span class="float-right text-muted small">22 November 2019</span>
+          </BCardTitle>
+          <BCardText>
+            This version enables open access to the compiled datasets, including varve chronologies,
+            varve thickness records, tephra layers and radiocarbon measurements. More paleoclimate
+            proxies will be integrated in future updates. We will keep you posted about further
+            additions and developments here, on this page.
+          </BCardText>
+          <BCardText>Application features provided:</BCardText>
+          <BCardText text-tag="ul">
+            <li>Index and map locations of varved lakes</li>
+            <li>Search filters: continent, country, lake, age, tephra</li>
+            <li>Detailed view of lakes and datasets</li>
+            <li>Simple form for contacting the team</li>
+          </BCardText>
+          <BCardText>Compiled datasets included:</BCardText>
+          <BCardText text-tag="ul">
+            <li>Radiocarbon dating: <b>96</b></li>
+            <li>Tephra layers: <b>45</b></li>
+            <li>Varve chronologies: <b>64</b></li>
+            <li>Varve thickness records: <b>50</b></li>
+            <li class="list-unstyled w-50 mx-0 my-2 border-bottom border-secondary"/>
+            <li class="list-unstyled text-muted">Total datasets: <b>255</b></li>
+            <li class="list-unstyled text-muted">Sampled lakes: <b>89</b></li>
+          </BCardText>
         </BCard>
       </BCol>
     </BRow>
@@ -54,7 +118,6 @@ export default {
   .card-feature,
   .card-news {
     margin-bottom: 1rem !important;
-    align-items: flex-start;
     display: block;
     hyphens: auto;
     .card-img-left {
@@ -86,11 +149,5 @@ export default {
   .card-feature:last-child,
   .card-news:last-child {
     margin-bottom: 0 !important;
-  }
-  .card-news {
-    color: var(--secondary);
-    .card-text {
-      text-decoration: line-through;
-    }
   }
 </style>

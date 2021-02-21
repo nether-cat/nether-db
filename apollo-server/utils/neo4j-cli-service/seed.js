@@ -119,7 +119,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
 
   datasets = datasets.filter(d => d['_fileExists'] && d['_lakeExists']);
   if (filters && filters.length) {
-    datasets = datasets.filter(d => filters.some(f => d['file'].toLowerCase().includes(f.toLowerCase())));
+    datasets = datasets.filter(d => filters.every(f => d['file'].toLowerCase().includes(f.toLowerCase())));
   }
   datasets.forEach(dataset => {
     const structuredObj = Object.entries(dataset).reduce((obj, [key, value]) => {
@@ -149,7 +149,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
     check: false,
     label: 'Add constraints for unique properties',
     statement: cql`
-      CREATE CONSTRAINT ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
+      CREATE CONSTRAINT IF NOT EXISTS ON ( entity:Entity ) ASSERT entity.uuid IS UNIQUE
     `,
   });
 
@@ -220,7 +220,7 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
       DELETE r0_
       WITH n0, d1, d2, d3, d4
       CALL apoc.cypher.run('
-        WITH {d1} AS d1, {d2} AS d2
+        WITH $d1 AS d1, $d2 AS d2
         MATCH (n2:Lake {name: d2.name})
         WITH d1, d2, n2, CASE
           WHEN d1.latitude IS NOT NULL AND d1.longitude IS NOT NULL = true
@@ -249,10 +249,10 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
       MERGE (n3:Category:Entity {name: d3.name})
         ON CREATE SET n3.uuid = randomUUID(), n3.updated = datetime(), n3.created = n3.updated
       MERGE (n0)-[:BELONGS_TO]->(n3)
-      FOREACH (d4_doi IN (CASE d4.doi WHEN null THEN [] ELSE [d4.doi] END) |
-        MERGE (n4_:Publication:Entity {doi: d4_doi})
-          ON CREATE SET n4_.uuid = randomUUID(), n4_.updated = datetime(), n4_.created = n4_.updated
-          ON MATCH SET n4_.updated = datetime()
+      FOREACH (d4_ IN (CASE d4.doi WHEN null THEN [] ELSE [d4] END) |
+        MERGE (n4_:Publication:Entity {doi: d4_.doi})
+          ON CREATE SET n4_ += d4_, n4_.uuid = randomUUID(), n4_.updated = datetime(), n4_.created = n4_.updated
+          ON MATCH SET n4_ += d4_, n4_.updated = datetime()
         MERGE (n0)-[:PUBLISHED_IN]->(n4_)
       )
       WITH n0, n1, n2, n3
@@ -322,8 +322,12 @@ module.exports = async function taskSeed ({ host, user, password, filters }) {
         // TODO: We need more props on these edges, e.g. unit and method
         MERGE (n2)-[:BELONGS_TO]->(n1)
         WITH n0, n1, collect(DISTINCT n2) AS attributes
+        OPTIONAL MATCH (n0)-[r0:INCLUDES]-(n2:Attribute) WHERE NOT n2 IN attributes
+        DELETE r0
+        WITH DISTINCT n0, n1, attributes
         OPTIONAL MATCH (_n0:Record)-[_r0:RECORDED_IN]->(n0)
         OPTIONAL MATCH (_n0)-[_r1:CORRELATES]->(_n1:Event)
+        // FIXME: Using 'DETACH' is probably too destructive here
         DETACH DELETE _n0, _r0, _n1, _r1
         WITH DISTINCT n0, n1, attributes, range(0, size($records) - 1) AS indices
         UNWIND indices AS row
@@ -519,11 +523,19 @@ function sortProperties (dataset) {
     'errorMean',
     'errorType',
     'analysisMethod',
+    'anchored',
+    'anchorpointType',
+    'anchorpointAge',
+    'interpolationMethod',
+    'calibrationCurve',
     'comments',
     'url',
     'distributor',
     '@category.name',
     '@publication.doi',
+    '@publication.authors',
+    '@publication.title',
+    '@publication.citation',
     '@lake.name',
     '@lake.latitude',
     '@lake.longitude',

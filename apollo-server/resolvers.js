@@ -75,6 +75,9 @@ module.exports = {
       return neo4jgraphql(...args);
     },
     Dataset(...args) {
+      const [,, { neo4j }, { variableValues }] = args;
+      variableValues.first = Number.isInteger(variableValues.first) ? neo4j.int(variableValues.first) : undefined;
+      variableValues.offset = Number.isInteger(variableValues.offset) ? neo4j.int(variableValues.offset) : undefined;
       return neo4jgraphql(...args);
     },
     Event(...args) {

@@ -3,7 +3,7 @@ const { default: chalk } = require('chalk');
 const changeCase = require('change-case');
 const latinize = require('latinize');
 
-const { v1: neo4j } = require('neo4j-driver');
+const neo4j = require('neo4j-driver');
 
 /** @return {Session} */
 function getDbSession () {

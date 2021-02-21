@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const JsonRefs = require('json-refs');
-const marky = require('marky-markdown');
+const marky = (s) => {
+  // FIXME: Replace module `marky-markdown` for Node v12 compatibility
+  const e = "A replacement for `marky-markdown` is required as it's not compatible with Node v12.";
+  return console.error(e) || s;
+};
 const graphqlMarkdown = require('graphql-markdown');
 const { upperCaseFirst } = require('change-case');
 const { default: chalk } = require('chalk');

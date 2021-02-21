@@ -1,4 +1,4 @@
-const { v1: neo4j } = require('neo4j-driver');
+const neo4j = require('neo4j-driver');
 
 module.exports = {
   driver: neo4j.driver(
