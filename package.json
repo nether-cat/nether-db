@@ -1,7 +1,7 @@
 {
   "name": "nether-db",
   "description": "Graph database application for high-resolution paleolimnology and paleoclimatology",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "license": "MIT",
   "keywords": [
     "vue",

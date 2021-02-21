@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/nether-cat/nether-db/compare/v1.3.0...v1.4.0) (2021-02-21)
+
+
+### Features
+
+* **datasets:** Add more datasets and fix metadata for lake "Gosciaz" ([4c0fa35](https://github.com/nether-cat/nether-db/commit/4c0fa35ee431352cc315955c8532b68583b2ca15))
+* **datasets:** Integrate datasets from lake "Gosciaz" ([3a18ab2](https://github.com/nether-cat/nether-db/commit/3a18ab276167d2c65a8657f44a61f75c4329c36c))
+* **frontend:** Integrate extra metadata into the API and the UI ([7ac6ce3](https://github.com/nether-cat/nether-db/commit/7ac6ce33842b672f282e82aeca5ce53ce43add64))
+* **frontend:** Show an anchor linked to the original data source ([a0f5884](https://github.com/nether-cat/nether-db/commit/a0f58845546197c6d632178e75df058122aa45aa))
+* **news:** Substitute actual news for the useless placeholders ([7a5594e](https://github.com/nether-cat/nether-db/commit/7a5594ea040fc5ae9908867c2717b626231f60ab))
+
+
+### Bug Fixes
+
+* **backend:** Conditionally convert query variables for `neo4j-driver` ([d51b425](https://github.com/nether-cat/nether-db/commit/d51b425719ab5ca83e74eeead4e9918cefafa149))
+* **datasets:** Add final DOIs to the datasets for lake "Gosciaz" ([3bafc54](https://github.com/nether-cat/nether-db/commit/3bafc5480c1c3c505d9c90f64b4ad50bd14d8fdd))
+* **datasets:** Add missing metadata for samples from lake "Gosciaz" ([28bcde5](https://github.com/nether-cat/nether-db/commit/28bcde51d8b9de7085f7186d6d6ba4440a4bc003))
+* **frontend:** Change window title and hide inactive nav items ([9f955aa](https://github.com/nether-cat/nether-db/commit/9f955aa0865448bb2b88654762f21563d6e3c325))
+* **frontend:** Include more metadata when generating CSV ([47ee219](https://github.com/nether-cat/nether-db/commit/47ee2195cf31db6c1147c15397b8a8a2b16dbf08))
+* **frontend:** Remove excess whitespace from an anchor element ([aef8395](https://github.com/nether-cat/nether-db/commit/aef8395e3a92f4d5f662b6957a39aeb957621bcd))
+* **frontend:** Sort datasets in the detail view by default ([186fa8a](https://github.com/nether-cat/nether-db/commit/186fa8af48eae49e06ff88d0fb639b0033f9ae56))
+* **import:** Add comment for a query that possibly is destructive ([2aa5700](https://github.com/nether-cat/nether-db/commit/2aa57006d5adaf1fd2b9c7ac04933ddb50884c9c))
+* **import:** Add patch to be applied if host still runs Neo4j v3.x ([021ae18](https://github.com/nether-cat/nether-db/commit/021ae1853e0a28059264dfa38666e1a8e00c2807))
+* **import:** Delete stale links between datasets and attributes ([02ad91a](https://github.com/nether-cat/nether-db/commit/02ad91ab29c885afa7740553363384f9857a3c08))
+
 ## [1.3.0](https://github.com/nether-cat/nether-db/compare/v1.2.0...v1.3.0) (2020-07-25)
 
 
