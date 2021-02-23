@@ -1,6 +1,6 @@
 #import "../fragments/UserFragment.graphql"
 
-query listUsers($first: Int = 5, $offset: Int = 0) {
+query listUsers($first: _Neo4jInt = 5, $offset: _Neo4jInt = 0) {
   users: User(first: $first, offset: $offset, orderBy: "created_desc") {
     ...user
   }

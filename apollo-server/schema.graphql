@@ -1,3 +1,6 @@
+"Scalar type for compatibility with Neo4j big integers."
+scalar _Neo4jInt
+
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
@@ -90,8 +93,8 @@ type Query {
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
   Confirmation(token: String!): JSON!
   Test(_id: ID!): [JSON] @auth
-  Country(uuid: ID, code: String, name: String, first: Int, offset: Int, orderBy: String): [Country] @auth
-  Dataset(uuid: ID, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Dataset] @auth(strict: false)
+  Country(uuid: ID, code: String, name: String, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String): [Country] @auth
+  Dataset(uuid: ID, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String, filter: _EntityFilter): [Dataset] @auth(strict: false)
   Event: [Event] @auth(strict: false) @cypher(statement: """
     MATCH (e:Event)-[ref]-(r:Record)
     WITH e {
@@ -104,8 +107,8 @@ type Query {
     ORDER BY e.ageMean
   """)
   GetByUUID(filter: _EntityFilter): [Entity] @auth(role: ADMIN)
-  Lake(uuid: ID, name: String, first: Int, offset: Int, orderBy: String, filter: _EntityFilter): [Lake] @auth(strict: false)
-  User(uuid: ID, email: String, first: Int, offset: Int, orderBy: String): [User] @auth(role: ADMIN)
+  Lake(uuid: ID, name: String, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String, filter: _EntityFilter): [Lake] @auth(strict: false)
+  User(uuid: ID, email: String, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String): [User] @auth(role: ADMIN)
   CountNewUsers: Int @auth(role: ADMIN) @cypher(statement: """
     MATCH (n:User)
     WHERE n.userRole = 'NONE' AND n.frozen <> true
@@ -147,7 +150,7 @@ type Attribute implements Entity @additionalLabels(labels: ["Entity"]) {
   "An attribute's purpose or characteristics can be documented using the description."
   description: String
   "The categories that the attribute is being used for."
-  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
+  categories(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
 }
 
 "Categories indicate the subject that related datasets and records provide data for."
@@ -165,9 +168,9 @@ type Category implements Entity @additionalLabels(labels: ["Entity"]) {
   "A category's purpose or meaning can be documented using the description."
   description: String
   "The attributes that are being used for the category."
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @relation(name: "BELONGS_TO", direction: IN)
+  attributes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Attribute] @relation(name: "BELONGS_TO", direction: IN)
   "The datasets that belong to the category."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "BELONGS_TO", direction: IN)
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset] @relation(name: "BELONGS_TO", direction: IN)
 }
 
 "Changesets have not been implemented yet and will be used to track property changes."
@@ -209,9 +212,9 @@ type Core implements Entity @additionalLabels(labels: ["Entity"]) {
   "Comments can be added to provide special remarks about the core."
   comments: String
   "The datasets that have been created/sampled from the core."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "SAMPLED_FROM", direction: IN)
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset] @relation(name: "SAMPLED_FROM", direction: IN)
   "The lake that the core has been retrieved from at the site of interest."
-  lake(first: Int = 1, offset: Int = 0): [Lake] @relation(name: "FROM_LAKE", direction: OUT)
+  lake(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Lake] @relation(name: "FROM_LAKE", direction: OUT)
 }
 
 "Continents of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
@@ -229,7 +232,7 @@ type Continent implements Entity @additionalLabels(labels: ["Entity"]) {
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
   "The countries that are located in the continent."
-  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: IN)
+  countries(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Country] @relation(name: "LOCATED_IN", direction: IN)
 }
 
 "Countries of the earth as provided by the package [countries-list](https://www.npmjs.com/package/countries-list)."
@@ -247,9 +250,9 @@ type Country implements Entity @additionalLabels(labels: ["Entity"]) {
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
   "The continents that the country is located in."
-  continents(first: Int = 100, offset: Int = 0): [Continent] @relation(name: "LOCATED_IN", direction: OUT)
+  continents(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Continent] @relation(name: "LOCATED_IN", direction: OUT)
   "The lakes that are located in the country."
-  lakes(first: Int = 100, offset: Int = 0): [Lake] @relation(name: "LOCATED_IN", direction: IN)
+  lakes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Lake] @relation(name: "LOCATED_IN", direction: IN)
 }
 
 "Datasets comprise a greater amount of sampled records and provide respective metadata."
@@ -312,15 +315,15 @@ type Dataset implements Entity @additionalLabels(labels: ["Entity"]) {
     }
   """)
   "The attributes that have been included in the dataset's records."
-  attributes(first: Int = 100, offset: Int = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP $offset LIMIT $first")
+  attributes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Attribute] @cypher(statement: "MATCH (this)-[r:INCLUDES]->(m:Attribute) RETURN m ORDER by r.__colNum__ SKIP $offset LIMIT $first")
   "The categories that the dataset belongs to."
-  categories(first: Int = 100, offset: Int = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
+  categories(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Category] @relation(name: "BELONGS_TO", direction: OUT)
   "The core that the dataset has been created/sampled from."
-  core(first: Int = 1, offset: Int = 0): [Core] @relation(name: "SAMPLED_FROM", direction: OUT)
+  core(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Core] @relation(name: "SAMPLED_FROM", direction: OUT)
   "The publication that the dataset has been published/referenced in."
-  publication(first: Int = 1, offset: Int = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
+  publication(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Publication] @relation(name: "PUBLISHED_IN", direction: OUT)
   "The sampled data points that are stored in the dataset."
-  records(first: Int = 100, offset: Int = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP $offset LIMIT $first RETURN collect(m { .* })")
+  records(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [JSON] @cypher(statement: "MATCH (m:Record)-[r:RECORDED_IN]->(this) WITH m ORDER BY r.__rowNum__ ASC SKIP $offset LIMIT $first RETURN collect(m { .* })")
   "Indicates the currently authorized user's access level for the dataset."
   accessLevel: AccessLevel! @cypher(statement: """
     OPTIONAL MATCH (u:User { email: $cypherParams.currentUser }),
@@ -356,9 +359,9 @@ type Event implements Entity @additionalLabels(labels: ["Entity"]) {
   "Minimum estimated age provided by correlating samples in raw or calibrated years before present, 1950-based."
   ageMin: Float
   "The datasets that contain samples which correlate with the event."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset) WITH DISTINCT d SKIP $offset LIMIT $first RETURN d")
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset) WITH DISTINCT d SKIP $offset LIMIT $first RETURN d")
   "The lakes with respective tephra layers which correlate with the event."
-  lakes(first: Int = 100, offset: Int = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP $offset LIMIT $first RETURN l")
+  lakes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Lake] @cypher(statement: "MATCH (e:Event { uuid: this.uuid })-[ref]-(r:Record)--(d:Dataset)--(:Core)--(l:Lake) WITH DISTINCT l SKIP $offset LIMIT $first RETURN l")
 }
 
 "Groups are used to manage user permissions hierarchically and in batch."
@@ -426,9 +429,9 @@ type Lake implements Entity @additionalLabels(labels: ["Entity"]) {
   "Total number of datasets that are available for the lake."
   datasetsCount: Int @cypher(statement: "MATCH (this)--(:Core)--(d:Dataset) RETURN count(DISTINCT d)")
   "The cores that have been retrieved from the lake."
-  cores(first: Int = 100, offset: Int = 0): [Core] @relation(name: "FROM_LAKE", direction: IN)
+  cores(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Core] @relation(name: "FROM_LAKE", direction: IN)
   "The countries that the lake is located in."
-  countries(first: Int = 100, offset: Int = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
+  countries(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Country] @relation(name: "LOCATED_IN", direction: OUT)
 }
 
 "Publications comprise of a citation, URL or DOI to reference an original work."
@@ -462,7 +465,7 @@ type Publication implements Entity @additionalLabels(labels: ["Entity"]) {
   "May contain the publication's abstract, e.g. if no DOI is available."
   abstract: String
   "The datasets that were provided/referenced in the publication."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: IN)
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset] @relation(name: "PUBLISHED_IN", direction: IN)
 }
 
 "Sessions are currently stored in cache only and each is a singleton in the client."

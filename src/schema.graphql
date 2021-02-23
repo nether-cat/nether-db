@@ -31,7 +31,7 @@ interface Permission {
 "Attributes define the various properties that the records in a dataset may have."
 type Attribute implements Entity {
   "The categories that the attribute is being used for."
-  categories(first: Int = 100, offset: Int = 0): [Category]
+  categories(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Category]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "An attribute's purpose or characteristics can be documented using the description."
@@ -49,11 +49,11 @@ type Attribute implements Entity {
 "Categories indicate the subject that related datasets and records provide data for."
 type Category implements Entity {
   "The attributes that are being used for the category."
-  attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  attributes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Attribute]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "The datasets that belong to the category."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset]
   "A category's purpose or meaning can be documented using the description."
   description: String
   "This identifies the category and determines its default text representation."
@@ -85,7 +85,7 @@ type Continent implements Entity {
   "Continent code as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   code: String!
   "The countries that are located in the continent."
-  countries(first: Int = 100, offset: Int = 0): [Country]
+  countries(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Country]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "English continent name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
@@ -107,13 +107,13 @@ type Core implements Entity {
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "The datasets that have been created/sampled from the core."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset]
   "Calender year (AD) when the core was retrieved from the site of interest."
   drillDate: Int
   "Ideally a core is being labelled to identify a sediment profile."
   label: String
   "The lake that the core has been retrieved from at the site of interest."
-  lake(first: Int = 1, offset: Int = 0): [Lake]
+  lake(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Lake]
   "Geodetic latitude of the site of interest in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
   latitude: Float
   "Geodetic longitude of the site of interest in degrees using [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System)."
@@ -133,11 +133,11 @@ type Country implements Entity {
   "Country code as specified by the standard [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
   code: String!
   "The continents that the country is located in."
-  continents(first: Int = 100, offset: Int = 0): [Continent]
+  continents(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Continent]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "The lakes that are located in the country."
-  lakes(first: Int = 100, offset: Int = 0): [Lake]
+  lakes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Lake]
   "English country name as defined in the package [countries-list](https://www.npmjs.com/package/countries-list)."
   name: String!
   "Lists all node labels (types) that the entity has."
@@ -163,13 +163,13 @@ type Dataset implements Entity {
   "The method that was used to generate the provided records in the dataset."
   analysisMethod: String
   "The attributes that have been included in the dataset's records."
-  attributes(first: Int = 100, offset: Int = 0): [Attribute]
+  attributes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Attribute]
   "The categories that the dataset belongs to."
-  categories(first: Int = 100, offset: Int = 0): [Category]
+  categories(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Category]
   "Comments can be added to provide special remarks about the dataset."
   comments: String
   "The core that the dataset has been created/sampled from."
-  core(first: Int = 1, offset: Int = 0): [Core]
+  core(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Core]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "Maximum depth from ground level being covered in millimeters."
@@ -190,7 +190,7 @@ type Dataset implements Entity {
   errorMin: Float
   "Classification to indicate how error margins were provided/calculated."
   errorType: String
-  "Additional properties that are not yet defined in the schema at this time."
+  "Additional properties that might not be defined in the schema at this time."
   extraProps: JSON
   "The filename is being used for downloading the dataset and its records."
   file: String!
@@ -201,9 +201,9 @@ type Dataset implements Entity {
   "Indicates wether the records can only be viewed by privileged users."
   protected: Boolean
   "The publication that the dataset has been published/referenced in."
-  publication(first: Int = 1, offset: Int = 0): [Publication]
+  publication(first: _Neo4jInt = 1, offset: _Neo4jInt = 0): [Publication]
   "The sampled data points that are stored in the dataset."
-  records(first: Int = 100, offset: Int = 0): [JSON]
+  records(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [JSON]
   "Total number of records included in the dataset."
   samples: Int
   "Lists all node labels (types) that the entity has."
@@ -227,9 +227,9 @@ type Event implements Entity {
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "The datasets that contain samples which correlate with the event."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset]
   "The lakes with respective tephra layers which correlate with the event."
-  lakes(first: Int = 100, offset: Int = 0): [Lake]
+  lakes(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Lake]
   "This identifies the event and determines its text representation."
   name: String!
   "Lists all node labels (types) that the entity has."
@@ -279,9 +279,9 @@ type Lake implements Entity {
   "Area of the water body's catchment in square meters."
   catchmentArea: Float
   "The cores that have been retrieved from the lake."
-  cores(first: Int = 100, offset: Int = 0): [Core]
+  cores(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Core]
   "The countries that the lake is located in."
-  countries(first: Int = 100, offset: Int = 0): [Country]
+  countries(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Country]
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "Total number of datasets that are available for the lake."
@@ -335,7 +335,7 @@ type Publication implements Entity {
   "Date and time (UTC) when the entity has been created."
   created: _Neo4jDateTime!
   "The datasets that were provided/referenced in the publication."
-  datasets(first: Int = 100, offset: Int = 0): [Dataset]
+  datasets(first: _Neo4jInt = 100, offset: _Neo4jInt = 0): [Dataset]
   "Contains the publication's raw document object identifier (DOI)."
   doi: String
   "May contain a contact email address, e.g. if no DOI is available."
@@ -362,15 +362,15 @@ type Publication implements Entity {
 type Query {
   Confirmation(token: String!): JSON!
   CountNewUsers: Int
-  Country(code: String, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Country]
+  Country(code: String, first: _Neo4jInt, name: String, offset: _Neo4jInt, orderBy: String, uuid: ID): [Country]
   Credentials(currentPassword: Password, password: Password, token: String): JSON!
-  Dataset(filter: _EntityFilter, first: Int, offset: Int, orderBy: String, uuid: ID): [Dataset]
+  Dataset(filter: _EntityFilter, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String, uuid: ID): [Dataset]
   Event: [Event]
   GetByUUID(filter: _EntityFilter): [Entity]
-  Lake(filter: _EntityFilter, first: Int, name: String, offset: Int, orderBy: String, uuid: ID): [Lake]
+  Lake(filter: _EntityFilter, first: _Neo4jInt, name: String, offset: _Neo4jInt, orderBy: String, uuid: ID): [Lake]
   Session: Session!
   Test(_id: ID!): [JSON]
-  User(email: String, first: Int, offset: Int, orderBy: String, uuid: ID): [User]
+  User(email: String, first: _Neo4jInt, offset: _Neo4jInt, orderBy: String, uuid: ID): [User]
 }
 
 "Sessions are currently stored in cache only and each is a singleton in the client."
@@ -592,6 +592,9 @@ input _Neo4jTimeInput {
 
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
+
+"Scalar type for compatibility with Neo4j big integers."
+scalar _Neo4jInt
 
 "The `Upload` scalar type represents a file upload."
 scalar Upload

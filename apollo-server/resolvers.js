@@ -1,5 +1,10 @@
+const neo4j = require('neo4j-driver');
 const { neo4jgraphql } = require('neo4j-graphql-js/src');
-const { getNamedType } = require('graphql');
+const {
+  getNamedType,
+  GraphQLScalarType,
+  Kind,
+} = require('graphql');
 const { withFilter } = require('graphql-subscriptions');
 const GraphQLJSON = require('graphql-type-json');
 const session = require('./utils/session');
@@ -7,11 +12,35 @@ const session = require('./utils/session');
 const ENTITY_UPDATED = 'EntityUpdated';
 const subscriptions = {
   ENTITY_UPDATED,
-}, $sub = subscriptions;
+}, $ = subscriptions;
+
+const _Neo4jInt = new GraphQLScalarType({
+  name: '_Neo4jInt',
+  description: 'Scalar type for compatibility with Neo4j big integers.',
+  serialize(value) {
+    if (neo4j.isInt(value)) {
+      return neo4j.integer.inSafeRange(value) ? value.toNumber() : value.toString(); // Convert outgoing Date to integer for JSON
+    } else if (typeof value === 'number') {
+      return value;
+    } else {
+      parseInt(value, 10);
+    }
+  },
+  parseValue(value) {
+    return neo4j.int(value); // Convert incoming integer to Date
+  },
+  parseLiteral(ast) {
+    if (ast.kind === Kind.INT) {
+      return neo4j.int(ast.value); // Convert hard-coded AST string to type expected by parseValue
+    }
+    return null; // Invalid hard-coded value (not an integer)
+  },
+});
 
 module.exports = {
   // Schema resolvers
   // https://www.apollographql.com/docs/graphql-tools/resolvers
+  _Neo4jInt: _Neo4jInt,
   JSON: GraphQLJSON,
   Entity: {
     __resolveType(obj, ctx, info) {
@@ -75,9 +104,6 @@ module.exports = {
       return neo4jgraphql(...args);
     },
     Dataset(...args) {
-      const [,, { neo4j }, { variableValues }] = args;
-      variableValues.first = Number.isInteger(variableValues.first) ? neo4j.int(variableValues.first) : undefined;
-      variableValues.offset = Number.isInteger(variableValues.offset) ? neo4j.int(variableValues.offset) : undefined;
       return neo4jgraphql(...args);
     },
     Event(...args) {

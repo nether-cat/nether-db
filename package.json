@@ -98,7 +98,7 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "ms": "^2.1.1",
-    "neo4j-driver": "^4.1.2",
+    "neo4j-driver": "^4.2.2",
     "neo4j-graphql-js": "https://github.com/neo4j-graphql/neo4j-graphql-js/tarball/70e6966",
     "node-sass": "^4.12.0",
     "nodemailer": "^6.1.1",

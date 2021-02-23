@@ -1,4 +1,4 @@
-query lookupDataset($uuid: ID!, $first: Int = 100, $offset: Int = 0) {
+query lookupDataset($uuid: ID!, $first: _Neo4jInt = 100, $offset: _Neo4jInt = 0) {
   datasets: Dataset(uuid: $uuid) {
     uuid
     file
