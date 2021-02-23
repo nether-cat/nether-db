@@ -72,8 +72,8 @@
                                 @blur="validate($v.form.fullName, 0)"
                     />
                     <div class="full-feedback">
-                      We ask users to sign up for individial accounts and
-                      not to share credentials.
+                      We ask users to sign up for a personal account and
+                      not to share their credentials.
                       <span v-if="!$v.form.fullName.$dirty || $v.form.fullName.required">
                         Please enter your name.
                       </span>

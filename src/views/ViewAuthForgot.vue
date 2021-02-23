@@ -43,7 +43,7 @@
                   </BFormInvalidFeedback>
                 </div>
               </BFormGroup>
-              <BButton :disabled="loading || timer" variant="primary" class="my-3 w-100" type="submit">
+              <BButton :disabled="!!(loading || timer)" variant="primary" class="my-3 w-100" type="submit">
                 <span>
                   Recover my account{{ timer ? ` (${timer})` : '' }}
                 </span><FontAwesomeIcon v-if="loading" icon="spinner" spin/>
