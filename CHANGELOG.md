@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/nether-cat/nether-db/compare/v1.4.0...v1.4.1) (2021-02-23)
+
+
+### Bug Fixes
+
+* **backend:** Work-around an API regression caused by `neo4j-driver` ([12a28d6](https://github.com/nether-cat/nether-db/commit/12a28d617c93008e5af71a89c7e6c51a5c5622b9))
+* **frontend:** Small improvements in display and style ([ba1adcd](https://github.com/nether-cat/nether-db/commit/ba1adcd47261e4d6453b54ebeb40f3862ca8383d))
+
 ## [1.4.0](https://github.com/nether-cat/nether-db/compare/v1.3.0...v1.4.0) (2021-02-21)
 
 
